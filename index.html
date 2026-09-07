@@ -2,6 +2,7 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Notatki z chińskiego</title>
 <style>
@@ -60,13 +61,13 @@
   <div class="controls">
     <label>Silnik:
       <select id="engine">
-        <option value="google">Google Translate (online)</option>
+        <option value="google">Nagrania Google (wbudowane)</option>
         <option value="system">Głos systemowy (offline)</option>
       </select>
     </label>
     <label><input type="checkbox" id="slow"> wolniej</label>
   </div>
-  <p class="hint">Sprawdzanie wymowy: przycisk 🎤 na karcie nagrywa Cię i rozpoznaje po chińsku (Google, darmowe, w Chrome/Edge). Zielone = rozpoznało dokładnie to, co miałeś powiedzieć.</p>
+  <p class="hint">Sprawdzanie wymowy: przycisk 🎤 na karcie nagrywa Cię i rozpoznaje po chińsku (Chrome, Edge lub Safari). Mów zaraz po naciśnięciu, nasłuch kończy się sam po chwili ciszy. Zielone = rozpoznało dokładnie to, co miałeś powiedzieć.</p>
   <p class="hint" id="status"></p>
 </header>
 
@@ -133,17 +134,21 @@ function speakSystem(text) {
   speechSynthesis.speak(u);
 }
 
+let audioIndex = 0;
+const AUDIO_ID = {};
 function speakGoogle(text, card) {
   if (audio) { audio.pause(); audio = null; }
-  const ttl = slowCb.checked ? "&ttsspeed=0.24" : "";
-  const url = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q=" + encodeURIComponent(text) + ttl;
+  const id = AUDIO_ID[text];
+  const url = id === undefined
+    ? "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q=" + encodeURIComponent(text) + (slowCb.checked ? "&ttsspeed=0.24" : "")
+    : "audio/" + id + (slowCb.checked ? "-slow" : "") + ".mp3";
   audio = new Audio(url);
   audio.onended = () => setPlaying(null);
   audio.onerror = () => {
-    status.textContent = "Google TTS niedostępne — używam głosu systemowego.";
+    status.textContent = "Nagranie niedostępne — używam głosu systemowego.";
     speakSystem(text);
   };
-  audio.play().catch(() => { status.textContent = "Google TTS niedostępne — używam głosu systemowego."; speakSystem(text); });
+  audio.play().catch(() => { status.textContent = "Nagranie niedostępne — używam głosu systemowego."; speakSystem(text); });
 }
 
 function play(text, card) {
@@ -155,6 +160,7 @@ function play(text, card) {
 function render(id, rows) {
   const el = document.getElementById(id);
   for (const [hanzi, pinyin, fon, mean, pl] of rows) {
+    AUDIO_ID[hanzi] = audioIndex++;
     const c = document.createElement("div");
     c.className = "card";
     c.innerHTML = `<span class="spk">🔊</span>
@@ -192,10 +198,10 @@ function similarity(a, b) {
 }
 
 let recActive = null;
+const IS_MOBILE = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 function check(target, card) {
   const btn = card.querySelector(".mic"), out = card.querySelector(".result");
-  if (!SR) { out.hidden = false; out.className = "result bad"; out.textContent = "Rozpoznawanie mowy działa tylko w Chrome lub Edge."; return; }
-  if (location.protocol === "file:" ) { /* Chrome zwykle pozwala, jeśli nie: uruchom przez serwer lokalny */ }
+  if (!SR) { out.hidden = false; out.className = "result bad"; out.textContent = "Rozpoznawanie mowy działa tylko w Chrome, Edge lub Safari."; return; }
   if (recActive) { recActive.abort(); recActive = null; }
   if (audio) audio.pause();
   const rec = new SR();
@@ -203,40 +209,68 @@ function check(target, card) {
   rec.lang = "zh-CN"; rec.interimResults = true; rec.maxAlternatives = 5; rec.continuous = false;
   btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
   out.hidden = true;
-  let gotFinal = false;
-  const watchdog = setTimeout(() => { if (recActive === rec) { rec.abort(); out.hidden = false; out.className = "result bad";
-    out.textContent = "Rozpoznawanie nie odpowiedziało w 12 s. Odśwież stronę (Cmd+R) i spróbuj ponownie."; } }, 12000);
-  const done = () => { clearTimeout(watchdog); btn.classList.remove("rec"); btn.textContent = "🎤 sprawdź wymowę"; if (recActive === rec) recActive = null;
-    if (!gotFinal && out.hidden) { out.hidden = false; out.className = "result bad"; out.textContent = "Nagranie się skończyło bez wyniku. Spróbuj jeszcze raz."; } };
-  rec.onstart = () => { btn.textContent = "🎙 mów teraz…"; };
-  rec.onspeechend = () => { btn.textContent = "⏳ przetwarzam…"; };
-  rec.onresult = (ev) => {
-    console.log("[wymowa] result", ev.resultIndex, ev.results.length, ev.results[ev.results.length-1].isFinal);
-    const last = ev.results[ev.results.length - 1];
-    if (!last.isFinal) { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + last[0].transcript; return; }
-    gotFinal = true;
-    const alts = Array.from(last).map(r => strip(r.transcript));
-    const t = strip(target);
+  let gotFinal = false, lastInterim = "", silenceTimer = null, stopped = false;
+  const t = strip(target);
+
+  const show = (alts, provisional) => {
     let best = alts[0], bestScore = -1;
     for (const a of alts) { const s = similarity(t, a); if (s > bestScore) { bestScore = s; best = a; } }
     const exact = alts.includes(t);
     const heardPy = toPinyin(best), targetPy = toPinyin(t);
+    const note = provisional ? " <i>(wynik wstępny)</i>" : "";
     out.hidden = false;
-    if (exact) { out.className = "result ok"; out.innerHTML = `✓ Idealnie. Usłyszałem: <b>${t}</b> (${targetPy})`; }
-    else if (bestScore >= 0.99) { out.className = "result ok"; out.innerHTML = `✓ Sylaby OK, sprawdź tony. Usłyszałem: <b>${best}</b> (${heardPy}), cel: ${targetPy}`; }
-    else if (bestScore >= 0.5) { out.className = "result mid"; out.innerHTML = `~ Blisko. Usłyszałem: <b>${best}</b> (${heardPy})<br>cel: ${t} (${targetPy})`; }
-    else { out.className = "result bad"; out.innerHTML = `✗ Usłyszałem: <b>${best || "nic"}</b> (${heardPy})<br>cel: ${t} (${targetPy})`; }
+    if (exact) { out.className = "result ok"; out.innerHTML = `✓ Idealnie. Usłyszałem: <b>${t}</b> (${targetPy})${note}`; }
+    else if (bestScore >= 0.99) { out.className = "result ok"; out.innerHTML = `✓ Sylaby OK, sprawdź tony. Usłyszałem: <b>${best}</b> (${heardPy}), cel: ${targetPy}${note}`; }
+    else if (bestScore >= 0.5) { out.className = "result mid"; out.innerHTML = `~ Blisko. Usłyszałem: <b>${best}</b> (${heardPy})<br>cel: ${t} (${targetPy})${note}`; }
+    else { out.className = "result bad"; out.innerHTML = `✗ Usłyszałem: <b>${best || "nic"}</b> (${heardPy})<br>cel: ${t} (${targetPy})${note}`; }
+  };
+
+  // Telefony (Android/iOS) często nie kończą nasłuchu same — wymuszamy stop() po chwili ciszy.
+  const stopSoon = (ms) => { clearTimeout(silenceTimer); silenceTimer = setTimeout(() => { if (recActive === rec && !stopped) { stopped = true; btn.textContent = "⏳ przetwarzam…"; try { rec.stop(); } catch (e) {} } }, ms); };
+
+  const watchdog = setTimeout(() => {
+    if (recActive !== rec) return;
+    if (!stopped) { stopped = true; try { rec.stop(); } catch (e) {} }
+    setTimeout(() => { if (recActive === rec) { try { rec.abort(); } catch (e) {} finish(); } }, 2500);
+  }, 12000);
+
+  const finish = () => {
+    clearTimeout(watchdog); clearTimeout(silenceTimer);
+    btn.classList.remove("rec"); btn.textContent = "🎤 sprawdź wymowę";
+    if (recActive === rec) recActive = null;
+    if (!gotFinal) {
+      if (lastInterim) { gotFinal = true; show([strip(lastInterim)], true); }
+      else if (out.hidden) { out.hidden = false; out.className = "result bad"; out.textContent = "Nic nie usłyszałem. Spróbuj jeszcze raz, mów zaraz po naciśnięciu."; }
+    }
+  };
+
+  rec.onstart = () => { btn.textContent = "🎙 mów teraz…"; stopSoon(6000); };
+  rec.onspeechstart = () => { stopSoon(4000); };
+  rec.onspeechend = () => { stopSoon(700); };
+  rec.onresult = (ev) => {
+    const last = ev.results[ev.results.length - 1];
+    console.log("[wymowa] result final=", last.isFinal, last[0].transcript);
+    if (!last.isFinal) {
+      lastInterim = last[0].transcript;
+      out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + lastInterim;
+      stopSoon(IS_MOBILE ? 1200 : 1800);
+      return;
+    }
+    gotFinal = true;
+    show(Array.from(last).map(r => strip(r.transcript)), false);
   };
   rec.onerror = (ev) => {
     console.warn("[wymowa] error", ev.error, ev.message);
+    if (ev.error === "aborted") return;
+    if (ev.error === "no-speech" && lastInterim) return;
     gotFinal = true;
     out.hidden = false; out.className = "result bad";
-    out.textContent = ev.error === "not-allowed" ? "Brak zgody na mikrofon. Zezwól w pasku adresu (albo uruchom przez ./serwuj.sh)."
-      : ev.error === "no-speech" ? "Nic nie usłyszałem, spróbuj jeszcze raz." : "Błąd rozpoznawania: " + ev.error;
-    done();
+    out.textContent = ev.error === "not-allowed" || ev.error === "service-not-allowed" ? "Brak zgody na mikrofon. Zezwól w ustawieniach strony / przeglądarki."
+      : ev.error === "no-speech" ? "Nic nie usłyszałem, spróbuj jeszcze raz."
+      : ev.error === "network" ? "Błąd sieci przy rozpoznawaniu (sprawdź internet)." : "Błąd rozpoznawania: " + ev.error;
   };
-  rec.onend = () => { console.log("[wymowa] end"); done(); };
-  try { rec.start(); } catch (e) { out.hidden = false; out.className = "result bad"; out.textContent = "Nie mogę uruchomić: " + e.message; done(); }
+  rec.onend = () => { console.log("[wymowa] end"); finish(); };
+  try { rec.start(); } catch (e) { out.hidden = false; out.className = "result bad"; out.textContent = "Nie mogę uruchomić: " + e.message; finish(); }
 }
 </script>
 </body>
