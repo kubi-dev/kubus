@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notatki z chińskiego</title>
+<style>
+  :root {
+    --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62;
+    --accent: #b8362d; --accent-soft: #f3d9d5; --line: #e6dccd;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #171412; --card: #221e1a; --ink: #f1e9dd; --muted: #a2968a;
+            --accent: #e0574c; --accent-soft: #3a2320; --line: #332c26; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  header { padding: 32px 20px 12px; max-width: 900px; margin: 0 auto; }
+  h1 { margin: 0 0 6px; font-size: 28px; }
+  .sub { color: var(--muted); font-size: 14px; margin: 0; }
+  .controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 14px; font-size: 14px; }
+  .controls label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+  .controls select { font: inherit; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
+  main { max-width: 900px; margin: 0 auto; padding: 8px 20px 60px; }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 28px 0 12px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px;
+          cursor: pointer; transition: transform .08s, border-color .15s, box-shadow .15s; user-select: none; position: relative; }
+  .card:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+  .card:active { transform: scale(.98); }
+  .card.playing { border-color: var(--accent); background: var(--accent-soft); }
+  .hanzi { font-size: 34px; line-height: 1.2; font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+  .pinyin { font-size: 17px; color: var(--accent); margin-top: 4px; }
+  .pl { font-size: 15px; margin-top: 4px; }
+  .pl::before { content: "po polsku: "; color: var(--muted); font-size: 13px; }
+  .fon { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .fon::before { content: "moje: "; }
+  .mean { font-size: 15px; margin-top: 8px; }
+  .spk { position: absolute; top: 14px; right: 14px; font-size: 18px; opacity: .5; }
+  .card:hover .spk { opacity: 1; }
+  .mic { margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 13px;
+         padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
+  .mic:hover { border-color: var(--accent); }
+  .mic.rec { background: var(--accent); color: #fff; border-color: var(--accent); animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { opacity: .6; } }
+  .result { font-size: 13px; margin-top: 8px; padding: 8px 10px; border-radius: 8px; background: var(--bg); line-height: 1.4; }
+  .result.ok { background: #dff3e3; color: #14532d; }
+  .result.mid { background: #fdf0d5; color: #7c4a03; }
+  .result.bad { background: var(--accent-soft); color: var(--accent); }
+  @media (prefers-color-scheme: dark) { .result.ok { background: #14351f; color: #9be2b0; } .result.mid { background: #3a2c10; color: #f0c674; } }
+  .hint { color: var(--muted); font-size: 13px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Notatki z chińskiego</h1>
+  <p class="sub">Kliknij kartę, żeby usłyszeć wymowę.</p>
+  <p class="hint">Zapis polski: <b>ch</b> = polskie ch · <b>y</b> = polskie y · <b>ł</b> = polskie ł · <b>ü</b> = „i” z ustami ułożonymi do „u” · <b>kh, ph</b> = z przydechem (mocny wydech) · <b>dz, p</b> = bez przydechu (chińskie z, b) · <b>czh</b> = cz z przydechem (chińskie ch)</p>
+  <div class="controls">
+    <label>Silnik:
+      <select id="engine">
+        <option value="google">Google Translate (online)</option>
+        <option value="system">Głos systemowy (offline)</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="slow"> wolniej</label>
+  </div>
+  <p class="hint">Sprawdzanie wymowy: przycisk 🎤 na karcie nagrywa Cię i rozpoznaje po chińsku (Google, darmowe, w Chrome/Edge). Zielone = rozpoznało dokładnie to, co miałeś powiedzieć.</p>
+  <p class="hint" id="status"></p>
+</header>
+
+<main>
+  <h2>Słówka</h2>
+  <div class="grid" id="words"></div>
+
+  <h2>Zdania</h2>
+  <div class="grid" id="sentences"></div>
+
+  <h2>Tak / nie</h2>
+  <div class="grid" id="yesno"></div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
+<script>
+const DATA = {
+  words: [
+    ["朋友", "péngyou", "PAN-JO", "friend · przyjaciel", "pyng-joł"],
+    ["好朋友", "hǎo péngyou", "HAŁ PAN JO", "close friend · bliski przyjaciel", "chał pyng-joł"],
+    ["女朋友", "nǚ péngyou", "NIU PAN JO", "girlfriend · dziewczyna", "nü pyng-joł"],
+    ["可爱", "kě'ài", "KY AJ", "cute · słodki", "khy-aj"],
+    ["美丽", "měilì", "MAILI", "piękna", "mej-li"],
+    ["聪明", "cōngming", "TONGMING", "clever · mądry", "cung-ming"],
+    ["和", "hé", "HYA", "and · i", "chy"],
+    ["好吃", "hǎochī", "HAŁ SZY", "tasty · smaczne", "chał czhy"],
+    ["难吃", "nánchī", "NAN SZY", "not tasty · niedobre (jedzenie)", "nan czhy"],
+  ],
+  sentences: [
+    ["你好吗？", "Nǐ hǎo ma?", "NI HO MA", "How are you? · Jak się masz?", "ni chał ma"],
+    ["很好。", "Hěn hǎo.", "HYN HA", "I'm good. · Dobrze.", "chyn chał"],
+    ["你来自哪里？", "Nǐ láizì nǎlǐ?", "NI LAJ CY NA LI", "Where are you from? · Skąd jesteś?", "ni laj-dzy na-li"],
+    ["我来自波兰。", "Wǒ láizì Bōlán.", "ŁO LAJ CY POLAN", "I'm from Poland. · Jestem z Polski.", "ło laj-dzy po-lan"],
+    ["你很可爱。", "Nǐ hěn kě'ài.", "NI HAN KY AJ", "You are cute. · Jesteś słodki/a.", "ni chyn khy-aj"],
+  ],
+  yesno: [
+    ["是", "shì", "SZY", "yes · tak", "szy"],
+    ["不是", "bú shì", "BU-SZY", "no · nie", "pu szy"],
+  ],
+};
+
+const status = document.getElementById("status");
+const engineSel = document.getElementById("engine");
+const slowCb = document.getElementById("slow");
+let audio = null;
+let current = null;
+
+function setPlaying(card) {
+  if (current) current.classList.remove("playing");
+  current = card;
+  if (card) card.classList.add("playing");
+}
+
+function speakSystem(text) {
+  if (!("speechSynthesis" in window)) { status.textContent = "Brak syntezy mowy w tej przeglądarce."; return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "zh-CN";
+  u.rate = slowCb.checked ? 0.6 : 0.9;
+  const voices = speechSynthesis.getVoices();
+  const zh = voices.find(v => /^zh[-_]CN/i.test(v.lang)) || voices.find(v => /^zh/i.test(v.lang));
+  if (zh) u.voice = zh; else status.textContent = "Brak chińskiego głosu w systemie (macOS: Ustawienia → Dostępność → Zawartość mówiona → dodaj chiński).";
+  u.onend = () => setPlaying(null);
+  speechSynthesis.speak(u);
+}
+
+function speakGoogle(text, card) {
+  if (audio) { audio.pause(); audio = null; }
+  const ttl = slowCb.checked ? "&ttsspeed=0.24" : "";
+  const url = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q=" + encodeURIComponent(text) + ttl;
+  audio = new Audio(url);
+  audio.onended = () => setPlaying(null);
+  audio.onerror = () => {
+    status.textContent = "Google TTS niedostępne — używam głosu systemowego.";
+    speakSystem(text);
+  };
+  audio.play().catch(() => { status.textContent = "Google TTS niedostępne — używam głosu systemowego."; speakSystem(text); });
+}
+
+function play(text, card) {
+  status.textContent = "";
+  setPlaying(card);
+  if (engineSel.value === "google") speakGoogle(text, card); else speakSystem(text);
+}
+
+function render(id, rows) {
+  const el = document.getElementById(id);
+  for (const [hanzi, pinyin, fon, mean, pl] of rows) {
+    const c = document.createElement("div");
+    c.className = "card";
+    c.innerHTML = `<span class="spk">🔊</span>
+      <div class="hanzi">${hanzi}</div>
+      <div class="pinyin">${pinyin}</div>
+      <div class="pl">${pl}</div>
+      <div class="fon">${fon}</div>
+      <div class="mean">${mean}</div>
+      <button class="mic" type="button">🎤 sprawdź wymowę</button>
+      <div class="result" hidden></div>`;
+    c.addEventListener("click", (e) => { if (e.target.closest(".mic, .result")) return; play(hanzi, c); });
+    c.querySelector(".mic").addEventListener("click", (e) => { e.stopPropagation(); check(hanzi, c); });
+    el.appendChild(c);
+  }
+}
+render("words", DATA.words);
+render("sentences", DATA.sentences);
+render("yesno", DATA.yesno);
+
+if ("speechSynthesis" in window) speechSynthesis.getVoices();
+
+// ---- sprawdzanie wymowy (Web Speech API, silnik Google w Chrome/Edge) ----
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const strip = s => s.replace(/[。？?！!，,、.\s]/g, "");
+const toPinyin = s => (window.pinyinPro ? pinyinPro.pinyin(s) : "");
+const toPinyinNoTone = s => (window.pinyinPro ? pinyinPro.pinyin(s, { toneType: "none" }) : s);
+
+function similarity(a, b) {
+  // LCS na sylabach pinyin bez tonów (odporne na homofony), fallback na znaki
+  const A = toPinyinNoTone(a).split(" "), B = toPinyinNoTone(b).split(" ");
+  const dp = Array.from({ length: A.length + 1 }, () => Array(B.length + 1).fill(0));
+  for (let i = 1; i <= A.length; i++) for (let j = 1; j <= B.length; j++)
+    dp[i][j] = A[i-1] === B[j-1] ? dp[i-1][j-1] + 1 : Math.max(dp[i-1][j], dp[i][j-1]);
+  return dp[A.length][B.length] / Math.max(A.length, B.length);
+}
+
+let recActive = null;
+function check(target, card) {
+  const btn = card.querySelector(".mic"), out = card.querySelector(".result");
+  if (!SR) { out.hidden = false; out.className = "result bad"; out.textContent = "Rozpoznawanie mowy działa tylko w Chrome lub Edge."; return; }
+  if (location.protocol === "file:" ) { /* Chrome zwykle pozwala, jeśli nie: uruchom przez serwer lokalny */ }
+  if (recActive) { recActive.abort(); recActive = null; }
+  if (audio) audio.pause();
+  const rec = new SR();
+  recActive = rec;
+  rec.lang = "zh-CN"; rec.interimResults = true; rec.maxAlternatives = 5; rec.continuous = false;
+  btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
+  out.hidden = true;
+  let gotFinal = false;
+  const watchdog = setTimeout(() => { if (recActive === rec) { rec.abort(); out.hidden = false; out.className = "result bad";
+    out.textContent = "Rozpoznawanie nie odpowiedziało w 12 s. Odśwież stronę (Cmd+R) i spróbuj ponownie."; } }, 12000);
+  const done = () => { clearTimeout(watchdog); btn.classList.remove("rec"); btn.textContent = "🎤 sprawdź wymowę"; if (recActive === rec) recActive = null;
+    if (!gotFinal && out.hidden) { out.hidden = false; out.className = "result bad"; out.textContent = "Nagranie się skończyło bez wyniku. Spróbuj jeszcze raz."; } };
+  rec.onstart = () => { btn.textContent = "🎙 mów teraz…"; };
+  rec.onspeechend = () => { btn.textContent = "⏳ przetwarzam…"; };
+  rec.onresult = (ev) => {
+    console.log("[wymowa] result", ev.resultIndex, ev.results.length, ev.results[ev.results.length-1].isFinal);
+    const last = ev.results[ev.results.length - 1];
+    if (!last.isFinal) { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + last[0].transcript; return; }
+    gotFinal = true;
+    const alts = Array.from(last).map(r => strip(r.transcript));
+    const t = strip(target);
+    let best = alts[0], bestScore = -1;
+    for (const a of alts) { const s = similarity(t, a); if (s > bestScore) { bestScore = s; best = a; } }
+    const exact = alts.includes(t);
+    const heardPy = toPinyin(best), targetPy = toPinyin(t);
+    out.hidden = false;
+    if (exact) { out.className = "result ok"; out.innerHTML = `✓ Idealnie. Usłyszałem: <b>${t}</b> (${targetPy})`; }
+    else if (bestScore >= 0.99) { out.className = "result ok"; out.innerHTML = `✓ Sylaby OK, sprawdź tony. Usłyszałem: <b>${best}</b> (${heardPy}), cel: ${targetPy}`; }
+    else if (bestScore >= 0.5) { out.className = "result mid"; out.innerHTML = `~ Blisko. Usłyszałem: <b>${best}</b> (${heardPy})<br>cel: ${t} (${targetPy})`; }
+    else { out.className = "result bad"; out.innerHTML = `✗ Usłyszałem: <b>${best || "nic"}</b> (${heardPy})<br>cel: ${t} (${targetPy})`; }
+  };
+  rec.onerror = (ev) => {
+    console.warn("[wymowa] error", ev.error, ev.message);
+    gotFinal = true;
+    out.hidden = false; out.className = "result bad";
+    out.textContent = ev.error === "not-allowed" ? "Brak zgody na mikrofon. Zezwól w pasku adresu (albo uruchom przez ./serwuj.sh)."
+      : ev.error === "no-speech" ? "Nic nie usłyszałem, spróbuj jeszcze raz." : "Błąd rozpoznawania: " + ev.error;
+    done();
+  };
+  rec.onend = () => { console.log("[wymowa] end"); done(); };
+  try { rec.start(); } catch (e) { out.hidden = false; out.className = "result bad"; out.textContent = "Nie mogę uruchomić: " + e.message; done(); }
+}
+</script>
+</body>
+</html>
