@@ -1,0 +1,38 @@
+{
+  "numer": 1,
+  "tytul": "Lekcja 1 · Przyjaciele",
+  "data": "2026-09-06",
+  "sekcje": [
+    {
+      "nazwa": "Słówka",
+      "pozycje": [
+        {"znaki": "朋友", "pinyin": "péngyou", "polski": "pyng-joł", "notatki": "PAN-JO", "znaczenie": "friend · przyjaciel"},
+        {"znaki": "好朋友", "pinyin": "hǎo péngyou", "polski": "chał pyng-joł", "notatki": "HAŁ PAN JO", "znaczenie": "close friend · bliski przyjaciel"},
+        {"znaki": "女朋友", "pinyin": "nǚ péngyou", "polski": "nü pyng-joł", "notatki": "NIU PAN JO", "znaczenie": "girlfriend · dziewczyna"},
+        {"znaki": "可爱", "pinyin": "kě'ài", "polski": "khy-aj", "notatki": "KY AJ", "znaczenie": "cute · słodki"},
+        {"znaki": "美丽", "pinyin": "měilì", "polski": "mej-li", "notatki": "MAILI", "znaczenie": "piękna"},
+        {"znaki": "聪明", "pinyin": "cōngming", "polski": "cung-ming", "notatki": "TONGMING", "znaczenie": "clever · mądry"},
+        {"znaki": "和", "pinyin": "hé", "polski": "chy", "notatki": "HYA", "znaczenie": "and · i"},
+        {"znaki": "好吃", "pinyin": "hǎochī", "polski": "chał czhy", "notatki": "HAŁ SZY", "znaczenie": "tasty · smaczne"},
+        {"znaki": "难吃", "pinyin": "nánchī", "polski": "nan czhy", "notatki": "NAN SZY", "znaczenie": "not tasty · niedobre (jedzenie)"}
+      ]
+    },
+    {
+      "nazwa": "Zdania",
+      "pozycje": [
+        {"znaki": "你好吗？", "pinyin": "Nǐ hǎo ma?", "polski": "ni chał ma", "notatki": "NI HO MA", "znaczenie": "How are you? · Jak się masz?"},
+        {"znaki": "很好。", "pinyin": "Hěn hǎo.", "polski": "chyn chał", "notatki": "HYN HA", "znaczenie": "I'm good. · Dobrze."},
+        {"znaki": "你来自哪里？", "pinyin": "Nǐ láizì nǎlǐ?", "polski": "ni laj-dzy na-li", "notatki": "NI LAJ CY NA LI", "znaczenie": "Where are you from? · Skąd jesteś?"},
+        {"znaki": "我来自波兰。", "pinyin": "Wǒ láizì Bōlán.", "polski": "ło laj-dzy po-lan", "notatki": "ŁO LAJ CY POLAN", "znaczenie": "I'm from Poland. · Jestem z Polski."},
+        {"znaki": "你很可爱。", "pinyin": "Nǐ hěn kě'ài.", "polski": "ni chyn khy-aj", "notatki": "NI HAN KY AJ", "znaczenie": "You are cute. · Jesteś słodki/a."}
+      ]
+    },
+    {
+      "nazwa": "Tak / nie",
+      "pozycje": [
+        {"znaki": "是", "pinyin": "shì", "polski": "szy", "notatki": "SZY", "znaczenie": "yes · tak"},
+        {"znaki": "不是", "pinyin": "bú shì", "polski": "pu szy", "notatki": "BU-SZY", "znaczenie": "no · nie"}
+      ]
+    }
+  ]
+}
