@@ -167,19 +167,23 @@ function similarity(a, b) {
   return dp[A.length][B.length] / Math.max(A.length, B.length);
 }
 
-let recActive = null;
+let recActive = null, lastRecEnd = 0;
 const IS_MOBILE = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-function check(target, card) {
+function check(target, card, attempt = 0) {
   const btn = card.querySelector(".mic"), out = card.querySelector(".result");
   if (!SR) { out.hidden = false; out.className = "result bad"; out.textContent = "Rozpoznawanie mowy działa tylko w Chrome, Edge lub Safari."; return; }
-  if (recActive) { recActive.abort(); recActive = null; }
+  // Android Chrome: start() zaraz po poprzednim nasłuchu (abort/stop) daje natychmiastowe "no-speech".
+  // Dlatego: przerwij stary, odczekaj chwilę, dopiero wtedy uruchom nowy.
+  let delay = 0;
+  if (recActive) { const old = recActive; recActive = null; try { old.abort(); } catch (e) {} lastRecEnd = Date.now(); delay = 600; }
+  else { delay = Math.max(0, 600 - (Date.now() - lastRecEnd)); }
   if (audio) audio.pause();
   const rec = new SR();
   recActive = rec;
   rec.lang = "zh-CN"; rec.interimResults = true; rec.maxAlternatives = 5; rec.continuous = false;
   btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
   out.hidden = true;
-  let gotFinal = false, lastInterim = "", silenceTimer = null, stopped = false;
+  let gotFinal = false, lastInterim = "", silenceTimer = null, stopped = false, startedAt = 0, retry = false;
   const t = strip(target);
 
   const show = (alts, provisional) => {
@@ -202,19 +206,24 @@ function check(target, card) {
     if (recActive !== rec) return;
     if (!stopped) { stopped = true; try { rec.stop(); } catch (e) {} }
     setTimeout(() => { if (recActive === rec) { try { rec.abort(); } catch (e) {} finish(); } }, 2500);
-  }, 12000);
+  }, 12000 + delay);
+
+  // Nasłuch padł zaraz po starcie bez żadnego dźwięku (typowe na Androidzie przy drugim użyciu) -> jedna cicha ponowna próba.
+  const diedEarly = () => !gotFinal && !lastInterim && startedAt && Date.now() - startedAt < 2500 && attempt < 1;
 
   const finish = () => {
     clearTimeout(watchdog); clearTimeout(silenceTimer);
-    btn.classList.remove("rec"); btn.textContent = "🎤 sprawdź wymowę";
     if (recActive === rec) recActive = null;
+    lastRecEnd = Date.now();
+    if (retry || diedEarly()) { console.log("[wymowa] ponowna próba"); check(target, card, attempt + 1); return; }
+    btn.classList.remove("rec"); btn.textContent = "🎤 sprawdź wymowę";
     if (!gotFinal) {
       if (lastInterim) { gotFinal = true; show([strip(lastInterim)], true); }
       else if (out.hidden) { out.hidden = false; out.className = "result bad"; out.textContent = "Nic nie usłyszałem. Spróbuj jeszcze raz, mów zaraz po naciśnięciu."; }
     }
   };
 
-  rec.onstart = () => { btn.textContent = "🎙 mów teraz…"; stopSoon(6000); };
+  rec.onstart = () => { startedAt = Date.now(); btn.textContent = "🎙 mów teraz…"; stopSoon(6000); };
   rec.onspeechstart = () => { stopSoon(4000); };
   rec.onspeechend = () => { stopSoon(700); };
   rec.onresult = (ev) => {
@@ -233,6 +242,7 @@ function check(target, card) {
     console.warn("[wymowa] error", ev.error, ev.message);
     if (ev.error === "aborted") return;
     if (ev.error === "no-speech" && lastInterim) return;
+    if ((ev.error === "no-speech" || ev.error === "audio-capture") && diedEarly()) { retry = true; return; }
     gotFinal = true;
     out.hidden = false; out.className = "result bad";
     out.textContent = ev.error === "not-allowed" || ev.error === "service-not-allowed" ? "Brak zgody na mikrofon. Zezwól w ustawieniach strony / przeglądarki."
@@ -240,7 +250,11 @@ function check(target, card) {
       : ev.error === "network" ? "Błąd sieci przy rozpoznawaniu (sprawdź internet)." : "Błąd rozpoznawania: " + ev.error;
   };
   rec.onend = () => { console.log("[wymowa] end"); finish(); };
-  try { rec.start(); } catch (e) { out.hidden = false; out.className = "result bad"; out.textContent = "Nie mogę uruchomić: " + e.message; finish(); }
+  const go = () => {
+    if (recActive !== rec) return;
+    try { rec.start(); } catch (e) { out.hidden = false; out.className = "result bad"; out.textContent = "Nie mogę uruchomić: " + e.message; recActive = null; finish(); }
+  };
+  if (delay) setTimeout(go, delay); else go();
 }
 </script>
 </body>
