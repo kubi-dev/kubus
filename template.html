@@ -186,6 +186,17 @@ function diag(msg) {
   if (diagEl) { diagEl.textContent += line + "\n"; diagEl.scrollTop = diagEl.scrollHeight; }
 }
 diag("UA: " + navigator.userAgent);
+const IOS_VER = (navigator.userAgent.match(/OS (\d+)_(\d+)/) || [])[1];
+diag("iOS: " + (IOS_VER || "nie") + ", audioSession API: " + ("audioSession" in navigator ? "jest (" + navigator.audioSession.type + ")" : "brak"));
+// iOS 17+: bez tego WebKit zgaduje kategorię sesji audio z użytych API. Po odtworzeniu <audio> zostaje w "playback"
+// i kolejny SpeechRecognition dostaje ciszę. Ustawiamy raz, przy pierwszym użyciu mikrofonu, i już nie zmieniamy.
+let audioSessionSet = false;
+function ensureAudioSession() {
+  if (audioSessionSet || !("audioSession" in navigator)) return;
+  audioSessionSet = true;
+  try { navigator.audioSession.type = "play-and-record"; diag("audioSession.type = " + navigator.audioSession.type); }
+  catch (e) { diag("audioSession błąd: " + e.message); }
+}
 diag("SpeechRecognition: " + (SR ? "jest" : "BRAK"));
 const IS_MOBILE = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 function check(target, card, attempt = 0) {
@@ -198,6 +209,7 @@ function check(target, card, attempt = 0) {
   else { delay = Math.max(0, 600 - (Date.now() - lastRecEnd)); }
   releaseAudio();
   if ("speechSynthesis" in window) speechSynthesis.cancel();
+  ensureAudioSession();
   const rec = new SR();
   recActive = rec;
   rec.lang = "zh-CN"; rec.interimResults = true; rec.maxAlternatives = 5; rec.continuous = false;
