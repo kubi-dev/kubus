@@ -45,6 +45,8 @@
   .mic:hover { border-color: var(--accent); }
   .mic.rec { background: var(--accent); color: #fff; border-color: var(--accent); animation: pulse 1s infinite; }
   @keyframes pulse { 50% { opacity: .6; } }
+  .diag { font-size: 12px; color: var(--muted, #888); margin: 4px 0 10px; }
+  .diag pre { max-height: 220px; overflow: auto; font-size: 11px; white-space: pre-wrap; word-break: break-all; background: var(--bg); padding: 8px; border-radius: 8px; }
   .result { font-size: 13px; margin-top: 8px; padding: 8px 10px; border-radius: 8px; background: var(--bg); line-height: 1.4; }
   .result.ok { background: #dff3e3; color: #14532d; }
   .result.mid { background: #fdf0d5; color: #7c4a03; }
@@ -70,6 +72,7 @@
   </div>
   <p class="hint">Sprawdzanie wymowy: przycisk 🎤 na karcie nagrywa Cię i rozpoznaje po chińsku (Chrome, Edge lub Safari). Mów zaraz po naciśnięciu, nasłuch kończy się sam po chwili ciszy. Zielone = rozpoznało dokładnie to, co miałeś powiedzieć.</p>
   <p class="hint" id="status"></p>
+  <details class="diag"><summary>diagnostyka mikrofonu</summary><pre id="diag-log"></pre></details>
 </header>
 
 <main id="main"></main>
@@ -168,6 +171,15 @@ function similarity(a, b) {
 }
 
 let recActive = null, lastRecEnd = 0;
+// Dziennik zdarzeń mikrofonu widoczny na stronie (na telefonie nie ma konsoli).
+const diagEl = document.getElementById("diag-log");
+function diag(msg) {
+  const line = new Date().toISOString().slice(11, 23) + " " + msg;
+  console.log("[wymowa] " + msg);
+  if (diagEl) { diagEl.textContent += line + "\n"; diagEl.scrollTop = diagEl.scrollHeight; }
+}
+diag("UA: " + navigator.userAgent);
+diag("SpeechRecognition: " + (SR ? "jest" : "BRAK"));
 const IS_MOBILE = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 function check(target, card, attempt = 0) {
   const btn = card.querySelector(".mic"), out = card.querySelector(".result");
@@ -175,12 +187,14 @@ function check(target, card, attempt = 0) {
   // Android Chrome: start() zaraz po poprzednim nasłuchu (abort/stop) daje natychmiastowe "no-speech".
   // Dlatego: przerwij stary, odczekaj chwilę, dopiero wtedy uruchom nowy.
   let delay = 0;
-  if (recActive) { const old = recActive; recActive = null; try { old.abort(); } catch (e) {} lastRecEnd = Date.now(); delay = 600; }
+  if (recActive) { const old = recActive; recActive = null; old.superseded = true; if (old.reset) old.reset(); try { old.abort(); } catch (e) {} lastRecEnd = Date.now(); delay = 600; }
   else { delay = Math.max(0, 600 - (Date.now() - lastRecEnd)); }
   if (audio) audio.pause();
   const rec = new SR();
   recActive = rec;
   rec.lang = "zh-CN"; rec.interimResults = true; rec.maxAlternatives = 5; rec.continuous = false;
+  rec.reset = () => { btn.classList.remove("rec"); btn.textContent = "🎤 sprawdź wymowę"; };
+  diag("start #" + attempt + " delay=" + delay + " cel=" + target);
   btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
   out.hidden = true;
   let gotFinal = false, lastInterim = "", silenceTimer = null, stopped = false, startedAt = 0, retry = false;
@@ -211,11 +225,16 @@ function check(target, card, attempt = 0) {
   // Nasłuch padł zaraz po starcie bez żadnego dźwięku (typowe na Androidzie przy drugim użyciu) -> jedna cicha ponowna próba.
   const diedEarly = () => !gotFinal && !lastInterim && startedAt && Date.now() - startedAt < 2500 && attempt < 1;
 
+  let finished = false;
   const finish = () => {
+    if (finished) return; finished = true;
     clearTimeout(watchdog); clearTimeout(silenceTimer);
+    // Przerwany przez nowe naciśnięcie mikrofonu (inna karta): nie ruszaj UI, nie ponawiaj.
+    if (rec.superseded) { diag("przerwany przez nowy nasłuch"); return; }
     if (recActive === rec) recActive = null;
     lastRecEnd = Date.now();
-    if (retry || diedEarly()) { console.log("[wymowa] ponowna próba"); check(target, card, attempt + 1); return; }
+    if (retry || diedEarly()) { diag("ponowna próba (final=" + gotFinal + " interim=" + !!lastInterim + " po " + (Date.now() - startedAt) + "ms)"); check(target, card, attempt + 1); return; }
+    diag("koniec: final=" + gotFinal + " interim=" + JSON.stringify(lastInterim));
     btn.classList.remove("rec"); btn.textContent = "🎤 sprawdź wymowę";
     if (!gotFinal) {
       if (lastInterim) { gotFinal = true; show([strip(lastInterim)], true); }
@@ -223,12 +242,14 @@ function check(target, card, attempt = 0) {
     }
   };
 
-  rec.onstart = () => { startedAt = Date.now(); btn.textContent = "🎙 mów teraz…"; stopSoon(6000); };
+  rec.onstart = () => { startedAt = Date.now(); diag("onstart"); btn.textContent = "🎙 mów teraz…"; stopSoon(6000); };
+  rec.onaudiostart = () => diag("onaudiostart");
+  rec.onsoundstart = () => diag("onsoundstart");
   rec.onspeechstart = () => { stopSoon(4000); };
   rec.onspeechend = () => { stopSoon(700); };
   rec.onresult = (ev) => {
     const last = ev.results[ev.results.length - 1];
-    console.log("[wymowa] result final=", last.isFinal, last[0].transcript);
+    diag("result final=" + last.isFinal + " " + last[0].transcript);
     if (!last.isFinal) {
       lastInterim = last[0].transcript;
       out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + lastInterim;
@@ -239,7 +260,7 @@ function check(target, card, attempt = 0) {
     show(Array.from(last).map(r => strip(r.transcript)), false);
   };
   rec.onerror = (ev) => {
-    console.warn("[wymowa] error", ev.error, ev.message);
+    diag("error " + ev.error + (ev.message ? " " + ev.message : "") + (startedAt ? " po " + (Date.now() - startedAt) + "ms" : " przed onstart"));
     if (ev.error === "aborted") return;
     if (ev.error === "no-speech" && lastInterim) return;
     if ((ev.error === "no-speech" || ev.error === "audio-capture") && diedEarly()) { retry = true; return; }
@@ -249,10 +270,10 @@ function check(target, card, attempt = 0) {
       : ev.error === "no-speech" ? "Nic nie usłyszałem, spróbuj jeszcze raz."
       : ev.error === "network" ? "Błąd sieci przy rozpoznawaniu (sprawdź internet)." : "Błąd rozpoznawania: " + ev.error;
   };
-  rec.onend = () => { console.log("[wymowa] end"); finish(); };
+  rec.onend = () => { diag("onend"); finish(); };
   const go = () => {
     if (recActive !== rec) return;
-    try { rec.start(); } catch (e) { out.hidden = false; out.className = "result bad"; out.textContent = "Nie mogę uruchomić: " + e.message; recActive = null; finish(); }
+    try { rec.start(); } catch (e) { diag("start() wyjątek: " + e.message); out.hidden = false; out.className = "result bad"; out.textContent = "Nie mogę uruchomić: " + e.message; recActive = null; finish(); }
   };
   if (delay) setTimeout(go, delay); else go();
 }
