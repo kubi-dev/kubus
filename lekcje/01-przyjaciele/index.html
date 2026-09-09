@@ -84,8 +84,14 @@ const DATA = {"numer": 1, "tytul": "Lekcja 1 · Przyjaciele", "data": "2026-09-0
 const status = document.getElementById("status");
 const engineSel = document.getElementById("engine");
 const slowCb = document.getElementById("slow");
-let audio = null;
+let audio = null, lastAudioPlay = 0;
 let current = null;
+// iOS Safari: element <audio> trzymający sesję audio potrafi wyciszyć mikrofon w SpeechRecognition. Zwalniamy go całkiem.
+function releaseAudio() {
+  if (!audio) return;
+  try { audio.pause(); audio.removeAttribute("src"); audio.load(); } catch (e) {}
+  audio = null;
+}
 
 function setPlaying(card) {
   if (current) current.classList.remove("playing");
@@ -114,6 +120,7 @@ function speakGoogle(text, card) {
     ? "audio/" + f + (slowCb.checked ? "-slow" : "") + ".mp3"
     : "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q=" + encodeURIComponent(text) + (slowCb.checked ? "&ttsspeed=0.24" : "");
   audio = new Audio(url);
+  lastAudioPlay = Date.now();
   audio.onended = () => setPlaying(null);
   audio.onerror = () => {
     status.textContent = "Nagranie niedostępne — używam głosu systemowego.";
@@ -189,12 +196,13 @@ function check(target, card, attempt = 0) {
   let delay = 0;
   if (recActive) { const old = recActive; recActive = null; old.superseded = true; if (old.reset) old.reset(); try { old.abort(); } catch (e) {} lastRecEnd = Date.now(); delay = 600; }
   else { delay = Math.max(0, 600 - (Date.now() - lastRecEnd)); }
-  if (audio) audio.pause();
+  releaseAudio();
+  if ("speechSynthesis" in window) speechSynthesis.cancel();
   const rec = new SR();
   recActive = rec;
   rec.lang = "zh-CN"; rec.interimResults = true; rec.maxAlternatives = 5; rec.continuous = false;
   rec.reset = () => { btn.classList.remove("rec"); btn.textContent = "🎤 sprawdź wymowę"; };
-  diag("start #" + attempt + " delay=" + delay + " cel=" + target);
+  diag("start #" + attempt + " delay=" + delay + " cel=" + target + (lastAudioPlay ? " audio grało " + Math.round((Date.now() - lastAudioPlay) / 1000) + "s temu" : " audio nie grało"));
   btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
   out.hidden = true;
   let gotFinal = false, lastInterim = "", silenceTimer = null, stopped = false, startedAt = 0, retry = false;
@@ -245,8 +253,9 @@ function check(target, card, attempt = 0) {
   rec.onstart = () => { startedAt = Date.now(); diag("onstart"); btn.textContent = "🎙 mów teraz…"; stopSoon(6000); };
   rec.onaudiostart = () => diag("onaudiostart");
   rec.onsoundstart = () => diag("onsoundstart");
-  rec.onspeechstart = () => { stopSoon(4000); };
-  rec.onspeechend = () => { stopSoon(700); };
+  rec.onspeechstart = () => { diag("onspeechstart"); stopSoon(4000); };
+  rec.onspeechend = () => { diag("onspeechend"); stopSoon(700); };
+  rec.onnomatch = () => diag("onnomatch");
   rec.onresult = (ev) => {
     const last = ev.results[ev.results.length - 1];
     diag("result final=" + last.isFinal + " " + last[0].transcript);
