@@ -1,0 +1,52 @@
+{
+  "numer": 2,
+  "tytul": "Lekcja 2 · Jedzenie i napoje",
+  "data": "2026-09-09",
+  "sekcje": [
+    {
+      "nazwa": "Jedzenie",
+      "pozycje": [
+        {"znaki": "面条", "pinyin": "miàntiáo", "polski": "mien-thiał", "notatki": "MIEN-TIAŁ", "znaczenie": "noodles · makaron"},
+        {"znaki": "米饭", "pinyin": "mǐfàn", "polski": "mi-fan", "notatki": "MI-FA", "znaczenie": "rice · ryż"},
+        {"znaki": "鸡肉", "pinyin": "jīròu", "polski": "dzi-żoł", "notatki": "DZI-RO", "znaczenie": "chicken · kurczak"},
+        {"znaki": "鱼肉", "pinyin": "yúròu", "polski": "ü-żoł", "notatki": "YURO", "znaczenie": "fish · ryba"},
+        {"znaki": "牛肉", "pinyin": "niúròu", "polski": "nioł-żoł", "notatki": "NIURO", "znaczenie": "beef · wołowina"},
+        {"znaki": "面包", "pinyin": "miànbāo", "polski": "mien-pał", "notatki": "MIEN-PO", "znaczenie": "bread · chleb"},
+        {"znaki": "披萨", "pinyin": "pīsà", "polski": "phi-sa", "notatki": "PIZZA", "znaczenie": "pizza · pizza"},
+        {"znaki": "汉堡", "pinyin": "hànbǎo", "polski": "chan-pał", "notatki": "HAN-BO", "znaczenie": "hamburger · hamburger"},
+        {"znaki": "米线", "pinyin": "mǐxiàn", "polski": "mi-sien", "notatki": "MI-SIE", "znaczenie": "rice noodles · makaron ryżowy"},
+        {"znaki": "冰淇淋", "pinyin": "bīngqílín", "polski": "ping-ćhi-lin", "notatki": "PING-QI-LING", "znaczenie": "ice cream · lody"},
+        {"znaki": "蛋糕", "pinyin": "dàngāo", "polski": "tan-kał", "notatki": "DAN-GO", "znaczenie": "cake · ciasto"},
+        {"znaki": "饺子", "pinyin": "jiǎozi", "polski": "dział-dzy", "notatki": "DZIAŁ-ZY", "znaczenie": "dumplings · pierogi"},
+        {"znaki": "炒饭", "pinyin": "chǎofàn", "polski": "czhał-fan", "notatki": "CZOP-FA", "znaczenie": "fried rice · smażony ryż"},
+        {"znaki": "粥", "pinyin": "zhōu", "polski": "czoł", "notatki": "DZOŁ", "znaczenie": "congee · kleik ryżowy"},
+        {"znaki": "我喜欢……", "pinyin": "Wǒ xǐhuan…", "polski": "ło si-chłan", "notatki": "ŁO SI HŁAN", "znaczenie": "I like… · Lubię…"}
+      ]
+    },
+    {
+      "nazwa": "Napoje",
+      "pozycje": [
+        {"znaki": "我想喝……", "pinyin": "Wǒ xiǎng hē…", "polski": "ło siang chy", "notatki": "ŁO-SIA-HYA", "znaczenie": "I want to drink… · Chcę się napić…"},
+        {"znaki": "水", "pinyin": "shuǐ", "polski": "szłej", "notatki": "SŁEJ", "znaczenie": "water · woda"},
+        {"znaki": "咖啡", "pinyin": "kāfēi", "polski": "kha-fej", "notatki": "CAFE", "znaczenie": "coffee · kawa"},
+        {"znaki": "茶", "pinyin": "chá", "polski": "czha", "notatki": "CZA", "znaczenie": "tea · herbata"},
+        {"znaki": "果汁", "pinyin": "guǒzhī", "polski": "kło-czy", "notatki": "GŁO-DZY", "znaczenie": "juice · sok"},
+        {"znaki": "啤酒", "pinyin": "píjiǔ", "polski": "phi-dzioł", "notatki": "PI-DZIO", "znaczenie": "beer · piwo"},
+        {"znaki": "葡萄酒", "pinyin": "pútáojiǔ", "polski": "phu-thał-dzioł", "notatki": "PU-TU-DZIO", "znaczenie": "wine · wino"},
+        {"znaki": "威士忌", "pinyin": "wēishìjì", "polski": "łej-szy-dzi", "notatki": "ŁYS-DZI", "znaczenie": "whiskey · whisky"},
+        {"znaki": "牛奶", "pinyin": "niúnǎi", "polski": "nioł-naj", "notatki": "NIU NA", "znaczenie": "milk · mleko"},
+        {"znaki": "抹茶", "pinyin": "mǒchá", "polski": "mo-czha", "notatki": "MU-CZA", "znaczenie": "matcha · matcha"}
+      ]
+    },
+    {
+      "nazwa": "Zdania",
+      "pozycje": [
+        {"znaki": "我不明白。", "pinyin": "Wǒ bù míngbai.", "polski": "ło pu ming-paj", "notatki": "ŁO PU MING PAJ", "znaczenie": "I don't understand. · Nie rozumiem."},
+        {"znaki": "我不知道。", "pinyin": "Wǒ bù zhīdào.", "polski": "ło pu czy-tał", "notatki": "ŁO PU CZY TO", "znaczenie": "I don't know. · Nie wiem."},
+        {"znaki": "你会说英语吗？", "pinyin": "Nǐ huì shuō Yīngyǔ ma?", "polski": "ni chłej szło ing-ü ma", "notatki": "NI-HŁEJ-SŁO-ING-JU-MA", "znaczenie": "Do you speak English? · Czy mówisz po angielsku?"},
+        {"znaki": "你想喝什么？", "pinyin": "Nǐ xiǎng hē shénme?", "polski": "ni siang chy szyn-my", "notatki": "NI-SIA-HYA-SZA-MA", "znaczenie": "What do you want to drink? · Czego się napijesz?"},
+        {"znaki": "你想吃什么？", "pinyin": "Nǐ xiǎng chī shénme?", "polski": "ni siang czhy szyn-my", "notatki": "NI-SIA-CZY-SZA-MA", "znaczenie": "What do you want to eat? · Co chcesz zjeść?"}
+      ]
+    }
+  ]
+}
