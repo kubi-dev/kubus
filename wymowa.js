@@ -5,6 +5,13 @@
 // na czas nasłuchu (wymusza kategorię sesji audio play-and-record, po zwolnieniu wraca playback
 // dla mp3), 3. użytkownik sam kończy nasłuch puszczając przycisk.
 //
+// Dwa silniki rozpoznawania:
+//   "chmura": własne nagranie (getUserMedia + WAV 16 kHz) wysyłane do workera (Whisper, Workers AI).
+//             Niezależne od bugów WebKit, działa za każdym razem, wynik po puszczeniu przycisku (1-4 s).
+//   "system": Web Speech API (Google w Chrome, Apple w Safari/iOS). Wyniki na żywo, ale na iOS zawodne.
+// Wybór: localStorage "kubus.wymowa.silnik" = auto | chmura | system. Auto = chmura, gdy jest adres i klucz.
+// Adres workera: window.SYNC_URL (wstawia build.py); klucz: localStorage "kubus.powtorka.sync" (jak sync powtórek).
+//
 // Użycie:
 //   Wymowa.beforeStart = () => { /* zatrzymaj odtwarzanie */ };
 //   Wymowa.bind(btn, { target: () => "朋友", onInterim(text), onDone(result) });
@@ -25,8 +32,20 @@
     if (diagEl) { diagEl.textContent += line + "\n"; diagEl.scrollTop = diagEl.scrollHeight; }
   }
   const IOS_VER = (navigator.userAgent.match(/OS (\d+)_(\d+)/) || [])[1];
+  const GUM = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+  const AC = window.AudioContext || window.webkitAudioContext;
+
+  function cfg() {
+    let sync = {}; try { sync = JSON.parse(localStorage.getItem("kubus.powtorka.sync") || "{}"); } catch (e) {}
+    let silnik = "auto"; try { silnik = localStorage.getItem("kubus.wymowa.silnik") || "auto"; } catch (e) {}
+    const url = (sync.url || window.SYNC_URL || "").replace(/\/$/, ""), klucz = sync.klucz || "";
+    const chmuraOk = !!(url && klucz && GUM && AC);
+    const uzyj = silnik === "system" ? "system" : silnik === "chmura" ? (chmuraOk ? "chmura" : "system") : (chmuraOk ? "chmura" : "system");
+    return { url, klucz, silnik, uzyj, chmuraOk };
+  }
   diag("UA: " + navigator.userAgent);
-  diag("iOS: " + (IOS_VER || "nie") + ", SpeechRecognition: " + (SR ? "jest" : "BRAK") + ", getUserMedia: " + (navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? "jest" : "BRAK"));
+  diag("iOS: " + (IOS_VER || "nie") + ", SpeechRecognition: " + (SR ? "jest" : "BRAK") + ", getUserMedia: " + (GUM ? "jest" : "BRAK") + ", AudioContext: " + (AC ? "jest" : "BRAK"));
+  diag("silnik: " + cfg().uzyj + " (ustawienie " + cfg().silnik + ", chmura " + (cfg().chmuraOk ? "dostępna" : "niedostępna: brak adresu/klucza") + ")");
 
   function similarity(a, b) {
     // LCS na sylabach pinyin bez tonów (odporne na homofony), fallback na znaki
@@ -183,10 +202,120 @@
     s.endGuard = setTimeout(() => { if (session === s) { diag("brak onend po stop(), abort()"); try { getRec().abort(); } catch (e) {} } }, 3000);
   }
 
+  // ---- silnik "chmura": nagranie WAV -> worker /wymowa (Whisper) ----
+  let nagranie = null; // { btn, opts, ctx, stream, proc, chunks, rate, startedAt, released, done }
+
+  function wav16k(chunks, rate) {
+    let n = 0; for (const c of chunks) n += c.length;
+    const all = new Float32Array(n); let o = 0; for (const c of chunks) { all.set(c, o); o += c.length; }
+    const ratio = rate / 16000, outLen = Math.floor(all.length / ratio);
+    const pcm = new Int16Array(outLen);
+    for (let i = 0; i < outLen; i++) {
+      // średnia z okna (proste filtrowanie przy decymacji)
+      const a = Math.floor(i * ratio), b = Math.min(all.length, Math.floor((i + 1) * ratio)); let sum = 0;
+      for (let j = a; j < b; j++) sum += all[j];
+      const v = Math.max(-1, Math.min(1, sum / Math.max(1, b - a)));
+      pcm[i] = v < 0 ? v * 0x8000 : v * 0x7FFF;
+    }
+    const buf = new ArrayBuffer(44 + pcm.length * 2), dv = new DataView(buf);
+    const str = (p, s) => { for (let i = 0; i < s.length; i++) dv.setUint8(p + i, s.charCodeAt(i)); };
+    str(0, "RIFF"); dv.setUint32(4, 36 + pcm.length * 2, true); str(8, "WAVE"); str(12, "fmt ");
+    dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, 1, true); dv.setUint32(24, 16000, true);
+    dv.setUint32(28, 32000, true); dv.setUint16(32, 2, true); dv.setUint16(34, 16, true); str(36, "data"); dv.setUint32(40, pcm.length * 2, true);
+    new Int16Array(buf, 44).set(pcm);
+    return buf;
+  }
+
+  async function chmuraStart(btn, opts) {
+    if (nagranie) { diag("chmura: poprzednie nagranie trwa, przerywam"); chmuraStop(nagranie, true); }
+    if (W.beforeStart) { try { W.beforeStart(); } catch (e) {} }
+    if ("speechSynthesis" in window) speechSynthesis.cancel();
+    const target = typeof opts.target === "function" ? opts.target() : opts.target;
+    const n = { btn, opts, ctx: null, stream: null, proc: null, chunks: [], rate: 0, startedAt: 0, released: false, done: false };
+    nagranie = n;
+    btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
+    if (opts.onStart) opts.onStart();
+    diag("chmura start cel=" + target);
+    try {
+      // AudioContext tworzymy synchronicznie w geście użytkownika (iOS tego wymaga)
+      n.ctx = new AC(); if (n.ctx.state === "suspended") n.ctx.resume().catch(() => {});
+      const t0 = Date.now();
+      n.stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+      diag("getUserMedia OK po " + (Date.now() - t0) + "ms, sampleRate=" + n.ctx.sampleRate);
+      if (nagranie !== n) { n.stream.getTracks().forEach(t => t.stop()); n.ctx.close().catch(() => {}); return; }
+      n.rate = n.ctx.sampleRate;
+      const src = n.ctx.createMediaStreamSource(n.stream);
+      n.proc = n.ctx.createScriptProcessor(4096, 1, 1);
+      n.proc.onaudioprocess = (e) => { if (!n.released) n.chunks.push(new Float32Array(e.inputBuffer.getChannelData(0))); };
+      const cisza = n.ctx.createGain(); cisza.gain.value = 0; // ScriptProcessor musi być podpięty do wyjścia, ale nic nie gramy
+      src.connect(n.proc); n.proc.connect(cisza); cisza.connect(n.ctx.destination);
+      n.startedAt = Date.now();
+      btn.textContent = "🎙 mów teraz…";
+      n.watchdog = setTimeout(() => { if (nagranie === n && !n.released) { diag("chmura watchdog 15s"); chmuraStop(n); } }, 15000);
+      if (n.released) chmuraStop(n);
+    } catch (e) {
+      diag("chmura start błąd: " + e.name + " " + e.message);
+      chmuraSprzataj(n);
+      if (nagranie === n) nagranie = null;
+      btn.classList.remove("rec"); btn.textContent = LABEL_IDLE;
+      const msg = e.name === "NotAllowedError" ? "Brak zgody na mikrofon. Zezwól w ustawieniach strony / przeglądarki." : "Nie mogę uruchomić mikrofonu: " + e.message;
+      if (opts.onDone) opts.onDone({ alts: [], gotFinal: false, error: msg, heldMs: 0 });
+    }
+  }
+
+  function chmuraSprzataj(n) {
+    clearTimeout(n.watchdog);
+    try { if (n.proc) { n.proc.disconnect(); n.proc.onaudioprocess = null; } } catch (e) {}
+    try { if (n.stream) n.stream.getTracks().forEach(t => t.stop()); } catch (e) {}
+    try { if (n.ctx) n.ctx.close(); } catch (e) {}
+    diag("mikrofon zwolniony");
+  }
+
+  async function chmuraStop(n, porzuc) {
+    if (n.done) return;
+    n.released = true;
+    if (!n.startedAt && !porzuc) { diag("chmura: puszczony przed startem"); return; } // dokończy chmuraStart
+    n.done = true;
+    const heldMs = n.startedAt ? Date.now() - n.startedAt : 0;
+    chmuraSprzataj(n);
+    if (nagranie === n) nagranie = null;
+    const fin = (res) => { n.btn.classList.remove("rec"); n.btn.textContent = LABEL_IDLE; if (!porzuc && n.opts.onDone) n.opts.onDone(res); };
+    if (porzuc) { fin(null); return; }
+    let probek = 0, szczyt = 0, suma = 0;
+    for (const c of n.chunks) { probek += c.length; for (let i = 0; i < c.length; i++) { const v = Math.abs(c[i]); if (v > szczyt) szczyt = v; suma += v * v; } }
+    const rms = probek ? Math.sqrt(suma / probek) : 0;
+    diag("chmura stop: " + heldMs + "ms, " + probek + " próbek, szczyt=" + szczyt.toFixed(3) + " rms=" + rms.toFixed(4));
+    if (heldMs < 400 || probek < n.rate * 0.3) { fin({ alts: [], gotFinal: false, error: null, heldMs }); return; }
+    // cisza: nie wysyłamy (Whisper na ciszy zmyśla), traktujemy jak "nic nie usłyszałem"
+    // szum tła w cichym pokoju: szczyt ~0.05, rms ~0.007; mowa z AGC: szczyt > 0.2, rms > 0.02
+    if (szczyt < 0.08 || rms < 0.01) { diag("chmura: za cicho, nie wysyłam"); fin({ alts: [], gotFinal: false, error: null, heldMs }); return; }
+    n.btn.textContent = "⏳ rozpoznaję…";
+    const c = cfg();
+    try {
+      const wav = wav16k(n.chunks, n.rate);
+      const t0 = Date.now();
+      const r = await fetch(c.url + "/wymowa", { method: "POST", headers: { "Authorization": "Bearer " + c.klucz, "Content-Type": "audio/wav" }, body: wav });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || ("HTTP " + r.status));
+      diag("whisper: " + JSON.stringify(j.text) + " po " + (Date.now() - t0) + "ms");
+      fin({ alts: j.text ? [j.text] : [], gotFinal: true, error: null, heldMs });
+    } catch (e) {
+      diag("chmura błąd: " + e.message);
+      fin({ alts: [], gotFinal: false, error: "Rozpoznawanie w chmurze nie działa: " + e.message, heldMs });
+    }
+  }
+
   function bind(btn, opts) {
     btn.textContent = LABEL_IDLE;
-    const down = (e) => { e.preventDefault(); e.stopPropagation(); try { btn.setPointerCapture(e.pointerId); } catch (err) {} startListening(btn, opts); };
-    const up = (e) => { e.preventDefault(); e.stopPropagation(); if (session && session.btn === btn) stopListening(); };
+    const down = (e) => {
+      e.preventDefault(); e.stopPropagation(); try { btn.setPointerCapture(e.pointerId); } catch (err) {}
+      if (cfg().uzyj === "chmura") chmuraStart(btn, opts); else startListening(btn, opts);
+    };
+    const up = (e) => {
+      e.preventDefault(); e.stopPropagation();
+      if (nagranie && nagranie.btn === btn) { chmuraStop(nagranie); return; }
+      if (session && session.btn === btn) stopListening();
+    };
     btn.addEventListener("pointerdown", down);
     btn.addEventListener("pointerup", up);
     btn.addEventListener("pointercancel", up);
@@ -194,6 +323,6 @@
     btn.addEventListener("contextmenu", (e) => e.preventDefault());
   }
 
-  const W = { diag, supported: !!SR, beforeStart: null, bind, grade, render, strip, toPinyin, LABEL_IDLE };
+  const W = { diag, supported: !!SR || GUM, beforeStart: null, bind, grade, render, strip, toPinyin, cfg, LABEL_IDLE };
   window.Wymowa = W;
 })();

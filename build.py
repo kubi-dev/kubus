@@ -41,7 +41,7 @@ def build_lesson(lesson_dir):
         for p in sek["pozycje"]:
             try: p["audio"] = ensure_audio(lesson_dir, p["znaki"])
             except Exception as e: print(f"  ! {e}", file=sys.stderr); p.pop("audio", None)
-    html = TEMPLATE.replace("{{TYTUL}}", data["tytul"]).replace("{{DATA_JSON}}", json.dumps(data, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA)
+    html = TEMPLATE.replace("{{TYTUL}}", data["tytul"]).replace("{{DATA_JSON}}", json.dumps(data, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
     (lesson_dir / "index.html").write_text(html, encoding="utf-8")
     md = [f"# {data['tytul']}", "", f"Data: {data.get('data','')}", ""]
     for sek in data["sekcje"]:

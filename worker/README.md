@@ -1,6 +1,10 @@
 # kubus-sync
 
-Cloudflare Worker + KV do synchronizacji postępu powtórek między urządzeniami.
+Cloudflare Worker: synchronizacja postępu powtórek (KV) + rozpoznawanie mowy (Whisper, Workers AI).
+
+- `GET/PUT /stan` — stan powtórek (jeden blob JSON, scalanie per karta po czasie zmiany).
+- `POST /wymowa` — body: plik WAV (16 kHz mono) → `{"text": "..."}`. Model `@cf/openai/whisper-large-v3-turbo`, język zh.
+  Strony wysyłają tu własne nagranie z mikrofonu, bo Web Speech API na iOS zawodzi.
 
 ## Pierwsze wdrożenie
 ```sh

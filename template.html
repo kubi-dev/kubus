@@ -71,7 +71,7 @@
     </label>
     <label><input type="checkbox" id="slow"> wolniej</label>
   </div>
-  <p class="hint">Sprawdzanie wymowy: <b>przytrzymaj</b> przycisk 🎤 na karcie, poczekaj na „mów teraz”, powiedz słowo, puść. Zielone = rozpoznało dokładnie to, co miałeś powiedzieć.</p>
+  <p class="hint">Sprawdzanie wymowy: <b>przytrzymaj</b> przycisk 🎤 na karcie, poczekaj na „mów teraz”, powiedz słowo, puść. Zielone = rozpoznało dokładnie to, co miałeś powiedzieć. Silnik rozpoznawania ustawisz w <a href="../../powtorka/" style="color:var(--accent)">powtórce</a> (⚙).</p>
   <p class="hint" id="status"></p>
   <details class="diag"><summary>diagnostyka mikrofonu</summary><pre id="diag-log"></pre></details>
 </header>
@@ -79,6 +79,7 @@
 <main id="main"></main>
 
 <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
+<script>window.SYNC_URL = "{{SYNC_URL}}";</script>
 <script src="../../wymowa.js?v={{WERSJA}}"></script>
 <script>
 const DATA = {{DATA_JSON}};

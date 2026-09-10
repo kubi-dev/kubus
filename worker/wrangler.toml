@@ -5,3 +5,6 @@ compatibility_date = "2026-09-01"
 [[kv_namespaces]]
 binding = "STAN"
 id = "7448e16e7ce244db8bb779f8cdc58a08"
+
+[ai]
+binding = "AI"

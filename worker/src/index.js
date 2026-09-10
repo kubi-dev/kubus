@@ -1,11 +1,12 @@
 // Synchronizacja postępu powtórek: jeden blob JSON w Workers KV.
 // GET /stan  -> aktualny stan
 // PUT /stan  -> scalenie przysłanego stanu z zapisanym (nowsza wersja karty wygrywa), zapis, zwrot scalonego
+// POST /wymowa -> rozpoznanie mowy (Whisper, Workers AI); body = plik audio (WAV), odpowiedź {text}
 // Autoryzacja: nagłówek "Authorization: Bearer <TOKEN>" (sekret workera).
 
 const CORS = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, PUT, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, PUT, POST, OPTIONS",
   "Access-Control-Allow-Headers": "Authorization, Content-Type",
   "Access-Control-Max-Age": "86400",
 };
@@ -30,10 +31,27 @@ export default {
   async fetch(req, env) {
     if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
     const url = new URL(req.url);
-    if (url.pathname !== "/stan") return json({ error: "not found" }, 404);
+    if (url.pathname !== "/stan" && url.pathname !== "/wymowa") return json({ error: "not found" }, 404);
     const auth = req.headers.get("Authorization") || "";
     const token = auth.startsWith("Bearer ") ? auth.slice(7) : url.searchParams.get("k");
     if (!env.TOKEN || token !== env.TOKEN) return json({ error: "unauthorized" }, 401);
+
+    if (url.pathname === "/wymowa") {
+      if (req.method !== "POST") return json({ error: "method" }, 405);
+      const buf = await req.arrayBuffer();
+      if (buf.byteLength < 1000) return json({ error: "za krótkie nagranie" }, 400);
+      if (buf.byteLength > 4 * 1024 * 1024) return json({ error: "za duże nagranie" }, 413);
+      const bytes = new Uint8Array(buf);
+      let bin = ""; for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+      const t0 = Date.now();
+      try {
+        const out = await env.AI.run("@cf/openai/whisper-large-v3-turbo", {
+          audio: btoa(bin), task: "transcribe", language: "zh",
+          initial_prompt: "以下是普通话的句子。", // podpowiedź: uproszczone znaki
+        });
+        return json({ text: (out && out.text || "").trim(), ms: Date.now() - t0 });
+      } catch (e) { return json({ error: "whisper: " + (e.message || e) }, 502); }
+    }
 
     const zapisany = JSON.parse((await env.STAN.get("stan")) || "null") || PUSTY;
     if (req.method === "GET") return json(zapisany);
