@@ -79,6 +79,7 @@
 <main id="main"></main>
 
 <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
+<script src="../../wymowa.js?v={{WERSJA}}"></script>
 <script>
 const DATA = {{DATA_JSON}};
 
@@ -163,180 +164,16 @@ render(DATA.sekcje);
 
 if ("speechSynthesis" in window) speechSynthesis.getVoices();
 
-// ---- sprawdzanie wymowy (Web Speech API, silnik Google w Chrome/Edge) ----
-const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-const strip = s => s.replace(/[。？?！!，,、.\s]/g, "");
-const toPinyin = s => (window.pinyinPro ? pinyinPro.pinyin(s) : "");
-const toPinyinNoTone = s => (window.pinyinPro ? pinyinPro.pinyin(s, { toneType: "none" }) : s);
-
-function similarity(a, b) {
-  // LCS na sylabach pinyin bez tonów (odporne na homofony), fallback na znaki
-  const A = toPinyinNoTone(a).split(" "), B = toPinyinNoTone(b).split(" ");
-  const dp = Array.from({ length: A.length + 1 }, () => Array(B.length + 1).fill(0));
-  for (let i = 1; i <= A.length; i++) for (let j = 1; j <= B.length; j++)
-    dp[i][j] = A[i-1] === B[j-1] ? dp[i-1][j-1] + 1 : Math.max(dp[i-1][j], dp[i][j-1]);
-  return dp[A.length][B.length] / Math.max(A.length, B.length);
-}
-
-// Dziennik zdarzeń mikrofonu widoczny na stronie (na telefonie nie ma konsoli).
-const diagEl = document.getElementById("diag-log");
-function diag(msg) {
-  const line = new Date().toISOString().slice(11, 23) + " " + msg;
-  console.log("[wymowa] " + msg);
-  if (diagEl) { diagEl.textContent += line + "\n"; diagEl.scrollTop = diagEl.scrollHeight; }
-}
-diag("UA: " + navigator.userAgent);
-const IOS_VER = (navigator.userAgent.match(/OS (\d+)_(\d+)/) || [])[1];
-diag("iOS: " + (IOS_VER || "nie") + ", SpeechRecognition: " + (SR ? "jest" : "BRAK") + ", getUserMedia: " + (navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? "jest" : "BRAK"));
-
-// ---- Rozpoznawanie: jedna instancja na całą stronę, przytrzymaj-i-mów ----
-// iOS WebKit: nowa instancja przy każdym użyciu i automatyczne kończenie po ciszy są zawodne
-// (druga sesja dostaje ciszę, stop() nie daje wyniku "final"). Wzorzec, który działa:
-// 1. jedna instancja SpeechRecognition, 2. otwarty strumień getUserMedia na czas nasłuchu
-// (wymusza kategorię sesji audio play-and-record, po zwolnieniu wraca playback dla mp3),
-// 3. użytkownik sam kończy nasłuch puszczając przycisk.
-const IS_MOBILE = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-let rec = null;           // singleton
-let state = "idle";       // idle | starting | listening | stopping
-let session = null;       // aktywna karta
-let pending = null;       // start czekający na koniec poprzedniej sesji
-let micStream = null;
-
-function releaseMic() {
-  if (micStream) { try { micStream.getTracks().forEach(t => t.stop()); } catch (e) {} micStream = null; diag("mikrofon zwolniony"); }
-}
-
-function getRec() {
-  if (rec) return rec;
-  rec = new SR();
-  rec.lang = "zh-CN"; rec.interimResults = true; rec.maxAlternatives = 5; rec.continuous = true;
-  rec.onstart = () => {
-    state = "listening"; diag("onstart");
-    if (!session) return;
-    session.startedAt = Date.now();
-    session.btn.textContent = "🎙 mów teraz…";
-    if (session.released) { diag("puszczony przed onstart, przerywam"); state = "stopping"; try { rec.abort(); } catch (e) {} }
-  };
-  rec.onaudiostart = () => diag("onaudiostart");
-  rec.onsoundstart = () => diag("onsoundstart");
-  rec.onspeechstart = () => diag("onspeechstart");
-  rec.onspeechend = () => diag("onspeechend");
-  rec.onnomatch = () => diag("onnomatch");
-  rec.onresult = (ev) => {
-    if (!session) return;
-    const last = ev.results[ev.results.length - 1];
-    let prefix = "";
-    for (let i = 0; i < ev.results.length - 1; i++) prefix += ev.results[i][0].transcript;
-    const alts = Array.from(last).map(r => strip(prefix + r.transcript));
-    diag("result final=" + last.isFinal + " " + alts[0]);
-    if (last.isFinal) { session.finalAlts = alts; session.gotFinal = true; }
-    else { session.interim = alts[0]; }
-    const out = session.out;
-    out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + alts[0];
-  };
-  rec.onerror = (ev) => {
-    diag("error " + ev.error + (ev.message ? " " + ev.message : "") + (session && session.startedAt ? " po " + (Date.now() - session.startedAt) + "ms" : " przed onstart"));
-    if (!session || ev.error === "aborted") return;
-    if (ev.error === "no-speech") return; // wynik z interim albo "nic nie usłyszałem" w finish
-    session.error = ev.error === "not-allowed" || ev.error === "service-not-allowed" ? "Brak zgody na mikrofon. Zezwól w ustawieniach strony / przeglądarki."
-      : ev.error === "network" ? "Błąd sieci przy rozpoznawaniu (sprawdź internet)."
-      : ev.error === "audio-capture" ? "Mikrofon nie nagrywa (inna aplikacja go używa?)."
-      : "Błąd rozpoznawania: " + ev.error;
-  };
-  rec.onend = () => {
-    diag("onend");
-    state = "idle";
-    releaseMic();
-    const s = session; session = null;
-    if (s) finish(s);
-    if (pending) { const p = pending; pending = null; setTimeout(() => startListening(p.target, p.card, p.btn), 300); }
-  };
-  return rec;
-}
-
-function finish(s) {
-  clearTimeout(s.watchdog); clearTimeout(s.endGuard);
-  s.btn.classList.remove("rec"); s.btn.textContent = "🎤 przytrzymaj i mów";
-  const t = strip(s.target), out = s.out;
-  if (s.error) { out.hidden = false; out.className = "result bad"; out.textContent = s.error; return; }
-  const alts = (s.gotFinal ? s.finalAlts : (s.interim ? [s.interim] : [])).filter(a => a);
-  diag("koniec: final=" + s.gotFinal + " interim=" + JSON.stringify(s.interim || ""));
-  if (!alts.length) {
-    out.hidden = false; out.className = "result bad";
-    const held = s.startedAt ? Date.now() - s.startedAt : 0;
-    out.textContent = held < 400 ? "Za krótko. Przytrzymaj przycisk, poczekaj na „mów teraz”, powiedz słowo, dopiero wtedy puść."
-      : "Nic nie usłyszałem. Przytrzymaj, poczekaj na „mów teraz”, powiedz i puść.";
-    return;
-  }
-  let best = alts[0], bestScore = -1;
-  for (const a of alts) { const sc = similarity(t, a); if (sc > bestScore) { bestScore = sc; best = a; } }
-  const exact = alts.includes(t);
-  const heardPy = toPinyin(best), targetPy = toPinyin(t);
-  const note = s.gotFinal ? "" : " <i>(wynik wstępny)</i>";
-  out.hidden = false;
-  if (exact) { out.className = "result ok"; out.innerHTML = `✓ Idealnie. Usłyszałem: <b>${t}</b> (${targetPy})${note}`; }
-  else if (bestScore >= 0.99) { out.className = "result ok"; out.innerHTML = `✓ Sylaby OK, sprawdź tony. Usłyszałem: <b>${best}</b> (${heardPy}), cel: ${targetPy}${note}`; }
-  else if (bestScore >= 0.5) { out.className = "result mid"; out.innerHTML = `~ Blisko. Usłyszałem: <b>${best}</b> (${heardPy})<br>cel: ${t} (${targetPy})${note}`; }
-  else { out.className = "result bad"; out.innerHTML = `✗ Usłyszałem: <b>${best || "nic"}</b> (${heardPy})<br>cel: ${t} (${targetPy})${note}`; }
-}
-
-async function startListening(target, card, btn) {
-  const out = card.querySelector(".result");
-  if (!SR) { out.hidden = false; out.className = "result bad"; out.textContent = "Rozpoznawanie mowy działa tylko w Chrome, Edge lub Safari."; return; }
-  if (state !== "idle") {
-    // Poprzednia sesja jeszcze trwa albo się kończy: zapamiętaj, uruchom po onend.
-    diag("stan " + state + ", kolejkuję start");
-    pending = { target, card, btn };
-    if (state === "listening") stopListening();
-    else if (state === "starting" && session) session.released = true;
-    return;
-  }
-  state = "starting";
-  releaseAudio();
-  if ("speechSynthesis" in window) speechSynthesis.cancel();
-  session = { target, card, btn, out, startedAt: 0, interim: "", finalAlts: null, gotFinal: false, error: null, released: false };
-  btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
-  out.hidden = true;
-  diag("start cel=" + target);
-  // Otwieramy mikrofon przez getUserMedia na czas nasłuchu (patrz komentarz wyżej).
-  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    try { const t0 = Date.now(); micStream = await navigator.mediaDevices.getUserMedia({ audio: true }); diag("getUserMedia OK po " + (Date.now() - t0) + "ms"); }
-    catch (e) { diag("getUserMedia błąd: " + e.name + " " + e.message); }
-  }
-  if (session === null || session.btn !== btn) { releaseMic(); return; } // przerwane w międzyczasie
-  const r = getRec();
-  try { r.start(); }
-  catch (e) {
-    diag("start() wyjątek: " + e.name + " " + e.message);
-    state = "idle"; releaseMic();
-    const s = session; session = null; s.error = "Nie mogę uruchomić: " + e.message; finish(s);
-    return;
-  }
-  // Bezpieczniki: max 15 s nasłuchu; po stop() bez onend w 3 s -> abort.
-  session.watchdog = setTimeout(() => { if (session && session.btn === btn) { diag("watchdog 15s"); stopListening(); } }, 15000);
-}
-
-function stopListening() {
-  if (!session) return;
-  session.released = true;
-  if (state === "starting") { diag("puszczony w trakcie startu, czekam na onstart"); return; }
-  if (state !== "listening") return;
-  state = "stopping";
-  session.btn.textContent = "⏳ przetwarzam…";
-  diag("stop() po " + (session.startedAt ? Date.now() - session.startedAt : 0) + "ms nasłuchu");
-  try { getRec().stop(); } catch (e) { diag("stop() wyjątek: " + e.message); }
-  const s = session;
-  s.endGuard = setTimeout(() => { if (session === s) { diag("brak onend po stop(), abort()"); try { getRec().abort(); } catch (e) {} } }, 3000);
-}
-
+// ---- sprawdzanie wymowy: wspólny moduł wymowa.js ----
+Wymowa.beforeStart = releaseAudio;
 function bindMic(btn, target, card) {
-  const down = (e) => { e.preventDefault(); e.stopPropagation(); try { btn.setPointerCapture(e.pointerId); } catch (err) {} startListening(target, card, btn); };
-  const up = (e) => { e.preventDefault(); e.stopPropagation(); if (session && session.btn === btn) stopListening(); };
-  btn.addEventListener("pointerdown", down);
-  btn.addEventListener("pointerup", up);
-  btn.addEventListener("pointercancel", up);
-  btn.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); });
-  btn.addEventListener("contextmenu", (e) => e.preventDefault());
+  const out = card.querySelector(".result");
+  Wymowa.bind(btn, {
+    target,
+    onStart: () => { out.hidden = true; },
+    onInterim: (text) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + text; },
+    onDone: (res) => { const r = Wymowa.render(res, target); out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html; }
+  });
 }
 </script>
 </body>

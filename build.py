@@ -8,6 +8,11 @@ import hashlib, json, pathlib, subprocess, sys, time, urllib.parse
 
 ROOT = pathlib.Path(__file__).resolve().parent
 TEMPLATE = (ROOT / "template.html").read_text(encoding="utf-8")
+POWTORKA = (ROOT / "powtorka.html").read_text(encoding="utf-8")
+# Wersja do cache-bustingu wymowa.js (hash pliku)
+WERSJA = hashlib.md5((ROOT / "wymowa.js").read_bytes()).hexdigest()[:8]
+# Adres workera synchronizacji (plik sync.url, jedna linia); pusty = tylko localStorage
+SYNC_URL = (ROOT / "sync.url").read_text().strip() if (ROOT / "sync.url").exists() else ""
 TTS = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q={q}{slow}"
 NO_AUDIO = "--no-audio" in sys.argv
 
@@ -36,7 +41,7 @@ def build_lesson(lesson_dir):
         for p in sek["pozycje"]:
             try: p["audio"] = ensure_audio(lesson_dir, p["znaki"])
             except Exception as e: print(f"  ! {e}", file=sys.stderr); p.pop("audio", None)
-    html = TEMPLATE.replace("{{TYTUL}}", data["tytul"]).replace("{{DATA_JSON}}", json.dumps(data, ensure_ascii=False))
+    html = TEMPLATE.replace("{{TYTUL}}", data["tytul"]).replace("{{DATA_JSON}}", json.dumps(data, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA)
     (lesson_dir / "index.html").write_text(html, encoding="utf-8")
     md = [f"# {data['tytul']}", "", f"Data: {data.get('data','')}", ""]
     for sek in data["sekcje"]:
@@ -46,7 +51,24 @@ def build_lesson(lesson_dir):
     (lesson_dir / "notatki.md").write_text("\n".join(md), encoding="utf-8")
     n = sum(len(s["pozycje"]) for s in data["sekcje"])
     print(f"{lesson_dir.name}: {n} pozycji")
-    return {"dir": lesson_dir.name, "tytul": data["tytul"], "data": data.get("data", ""), "n": n, "numer": data.get("numer", 0)}
+    karty = [{"id": p["znaki"], "znaki": p["znaki"], "pinyin": p["pinyin"], "polski": p.get("polski", ""), "znaczenie": p["znaczenie"],
+              "lekcja": data.get("numer", 0), "lekcjaTytul": data["tytul"],
+              "audio": f"lekcje/{lesson_dir.name}/audio/{p['audio']}" if p.get("audio") else ""}
+             for sek in data["sekcje"] for p in sek["pozycje"]]
+    return {"dir": lesson_dir.name, "tytul": data["tytul"], "data": data.get("data", ""), "n": n, "numer": data.get("numer", 0), "karty": karty}
+
+def build_powtorka(lessons):
+    """Talia do powtórek ze wszystkich lekcji (pierwsze wystąpienie znaków wygrywa) + strona powtorka/index.html."""
+    seen, karty = set(), []
+    for l in sorted(lessons, key=lambda l: l["numer"]):
+        for k in l["karty"]:
+            if k["id"] in seen: continue
+            seen.add(k["id"]); karty.append(k)
+    out = ROOT / "powtorka"; out.mkdir(exist_ok=True)
+    (out / "karty.json").write_text(json.dumps(karty, ensure_ascii=False, indent=1), encoding="utf-8")
+    html = POWTORKA.replace("{{KARTY_JSON}}", json.dumps(karty, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
+    (out / "index.html").write_text(html, encoding="utf-8")
+    print(f"powtorka: {len(karty)} kart")
 
 def build_index(lessons):
     items = "\n".join(
@@ -75,6 +97,7 @@ INDEX = """<!DOCTYPE html>
 <body>
 <main>
   <h1>Notatki z chińskiego</h1>
+    <a class="card" href="powtorka/"><div class="t">🔁 Powtórka</div><div class="m">codzienne powtórki: wymowa i rozumienie ze słuchu</div></a>
 {{LEKCJE}}
 </main>
 </body>
@@ -83,5 +106,7 @@ INDEX = """<!DOCTYPE html>
 
 if __name__ == "__main__":
     dirs = sorted(p for p in (ROOT / "lekcje").iterdir() if (p / "lekcja.json").exists())
-    build_index([build_lesson(d) for d in dirs])
+    lessons = [build_lesson(d) for d in dirs]
+    build_index(lessons)
+    build_powtorka(lessons)
     print("index.html OK")
