@@ -26,6 +26,7 @@ Data: 2026-09-06
 | 我来自波兰。 | Wǒ láizì Bōlán. | ło laj-dzy po-lan | ŁO LAJ CY POLAN | I'm from Poland. · Jestem z Polski. |
 | 你很可爱。 | Nǐ hěn kě'ài. | ni chyn khy-aj | NI HAN KY AJ | You are cute. · Jesteś słodki/a. |
 | 我们明天见。 | Wǒmen míngtiān jiàn. | ło-myn ming-thien dzien |  | See you tomorrow. · Spotkajmy się jutro. |
+| 我喜欢你。 | Wǒ xǐhuan nǐ. | ło si-chłan ni |  | I like you. · Lubię Cię. |
 
 ## Tak / nie
 
