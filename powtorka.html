@@ -258,7 +258,7 @@ function nastepna() {
 
 function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 
-function odslon(k, kontener) {
+function odslon(k, kontener, zMikrofonem) {
   const r = el("div", "reveal");
   r.appendChild(el("div", "hanzi", k.znaki));
   r.appendChild(el("div", "pinyin", k.pinyin));
@@ -266,6 +266,18 @@ function odslon(k, kontener) {
   r.appendChild(el("div", "", polskie(k) + (angielskie(k) ? ` <span class="pl">· ${angielskie(k)}</span>` : "")));
   const b = el("button", "link", "🔊 posłuchaj"); b.type = "button"; b.addEventListener("click", () => graj(k)); r.appendChild(b);
   const bw = el("button", "link", "🐢 wolniej"); bw.type = "button"; bw.addEventListener("click", () => graj(k, true)); r.appendChild(bw);
+  if (zMikrofonem) {
+    // ćwiczenie wymowy po odsłonięciu (nie wpływa na ocenę karty)
+    const mic = el("button", "mic"); mic.type = "button";
+    const out = el("div", "result"); out.hidden = true;
+    Wymowa.bind(mic, {
+      target: k.znaki,
+      onStart: () => { out.hidden = true; },
+      onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
+      onDone: (res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; }
+    });
+    r.appendChild(mic); r.appendChild(out);
+  }
   kontener.appendChild(r);
 }
 
@@ -342,7 +354,7 @@ function kartaB(c) {
       b.addEventListener("click", () => {
         if (odpowiedziano) return;
         for (const bb of box.querySelectorAll("button")) { bb.disabled = true; if (bb === b && o.id !== k.id) bb.classList.add("bad"); if (bb.textContent === polskie(k)) bb.classList.add("ok"); }
-        odslon(k, rev); pokazOcene(o.id === k.id ? 2 : 0);
+        odslon(k, rev, true); pokazOcene(o.id === k.id ? 2 : 0);
       });
       box.appendChild(b);
     }
@@ -357,7 +369,7 @@ function kartaB(c) {
       inp.disabled = true; ok.disabled = true;
       const out = el("div", "result " + (trafione ? "ok" : "bad"), trafione ? "✓ Tak." : "✗ Nie. Prawidłowo: <b>" + polskie(k) + "</b>");
       card.appendChild(out);
-      odslon(k, rev); pokazOcene(trafione ? 2 : 0);
+      odslon(k, rev, true); pokazOcene(trafione ? 2 : 0);
     };
     ok.addEventListener("click", sprawdz); inp.addEventListener("keydown", e => { if (e.key === "Enter") sprawdz(); });
     box.appendChild(inp); box.appendChild(ok); card.appendChild(box);
