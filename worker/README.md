@@ -4,7 +4,8 @@ Cloudflare Worker: synchronizacja postępu powtórek (KV) + rozpoznawanie mowy (
 
 - `GET/PUT /stan` — stan powtórek (jeden blob JSON, scalanie per karta po czasie zmiany).
 - `POST /wymowa` — body: plik WAV (16 kHz mono) → `{"text": "..."}`. Model `@cf/openai/whisper-large-v3-turbo`, język zh.
-  Strony wysyłają tu własne nagranie z mikrofonu, bo Web Speech API na iOS zawodzi.
+  Silnik "chmura": strony nagrywają mikrofon przez getUserMedia na wspólnym AudioContext strony (tym samym,
+  który gra mp3 — nigdy nie zamykanym) i wysyłają WAV tutaj. Zapasowy wobec silnika "system" (Web Speech), który na iOS zawodzi.
 
 ## Pierwsze wdrożenie
 ```sh

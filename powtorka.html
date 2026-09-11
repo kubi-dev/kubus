@@ -110,7 +110,7 @@
   <label>Klucz synchronizacji <input type="text" id="s-klucz" autocomplete="off"></label>
   <label>Rozpoznawanie mowy
     <select id="s-silnik">
-      <option value="auto">automatycznie (chmura, gdy jest klucz)</option>
+      <option value="auto">automatycznie (system)</option>
       <option value="chmura">chmura (Whisper przez worker)</option>
       <option value="system">system (Web Speech: Google / Apple)</option>
       <option value="system-reload">system + przeładowanie strony po każdym użyciu (iOS)</option>
@@ -242,17 +242,10 @@ function pokazPostep() {
   $("bar").style.width = razem ? (100 * zrobione / razem) + "%" : "0";
 }
 
-// ---------- audio ----------
-let audio = null;
-function releaseAudio() { if (!audio) return; try { if (!audio.paused && !audio.ended) Wymowa.audioAktywne(); audio.pause(); audio.removeAttribute("src"); audio.load(); } catch (e) {} audio = null; }
-Wymowa.beforeStart = releaseAudio;
+// ---------- audio (Web Audio przez wymowa.js; bez elementu <audio>, patrz komentarz w wymowa.js) ----------
 function graj(k, wolno) {
-  releaseAudio();
   if (!k.audio) return;
-  audio = new Audio("../" + k.audio + (wolno ? "-slow" : "") + ".mp3");
-  Wymowa.audioAktywne();
-  audio.onended = () => { Wymowa.audioAktywne(); releaseAudio(); }; // zwolnij od razu po końcu
-  audio.play().catch(e => Wymowa.diag("audio.play błąd: " + e.message));
+  Wymowa.graj("../" + k.audio + (wolno ? "-slow" : "") + ".mp3").catch(e => Wymowa.diag("mp3 błąd: " + e.message));
 }
 
 // ---------- karty ----------
@@ -260,12 +253,14 @@ const card = $("card"), rate = $("rate");
 let sugestia = 2, odpowiedziano = false;
 
 function nastepna(w) {
-  rate.hidden = true; odpowiedziano = false; releaseAudio(); widok = null; aktualna = null;
+  rate.hidden = true; odpowiedziano = false; Wymowa.stopAudio(); widok = null; aktualna = null;
   if (!w) biezaca = kolejka.shift() || null;
   pokazPostep();
   if (!biezaca) { koniec(); return; }
   card.innerHTML = "";
   if (biezaca.typ === "A") kartaA(biezaca, w); else kartaB(biezaca, w);
+  // nagranie następnej karty do bufora, żeby kolejne odtworzenie było natychmiastowe
+  if (kolejka[0] && kolejka[0].k.audio) Wymowa.preload("../" + kolejka[0].k.audio + ".mp3").catch(() => {});
 }
 
 // ---- tryb "system-reload": zapis i odtworzenie sesji wokół przeładowania strony ----
@@ -278,8 +273,9 @@ function odtworzPoPrzeladowaniu() {
   const st = w.strona;
   const zId = id => { const [znaki, typ] = id.split("|"); const k = KARTY_MAP[znaki]; return k ? { id, k, typ } : null; };
   $("filtr").value = st.filtr || "";
+  const b = zId(st.biezaca); if (!b) return false;
   kolejka = st.kolejka.map(zId).filter(x => x); zrobione = st.zrobione; razem = st.razem; wSesji = true;
-  biezaca = zId(st.biezaca); if (!biezaca) return false;
+  biezaca = b;
   nastepna(st.widok);
   if (aktualna && w.res) aktualna.zastosujWynik(w.res);
   requestAnimationFrame(() => window.scrollTo(0, w.scrollY || 0));

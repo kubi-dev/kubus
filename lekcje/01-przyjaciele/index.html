@@ -80,21 +80,16 @@
 
 <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
 <script>window.SYNC_URL = "https://kubus-sync.dark-mud-b74c.workers.dev";</script>
-<script src="../../wymowa.js?v=b2672653"></script>
+<script src="../../wymowa.js?v=fd687f0f"></script>
 <script>
 const DATA = {"numer": 1, "tytul": "Lekcja 1 · Przyjaciele", "data": "2026-09-06", "sekcje": [{"nazwa": "Słówka", "pozycje": [{"znaki": "朋友", "pinyin": "péngyou", "polski": "pyng-joł", "notatki": "PAN-JO", "znaczenie": "friend · przyjaciel", "audio": "9d53230a95"}, {"znaki": "好朋友", "pinyin": "hǎo péngyou", "polski": "chał pyng-joł", "notatki": "HAŁ PAN JO", "znaczenie": "close friend · bliski przyjaciel", "audio": "4c0229fa34"}, {"znaki": "女朋友", "pinyin": "nǚ péngyou", "polski": "nü pyng-joł", "notatki": "NIU PAN JO", "znaczenie": "girlfriend · dziewczyna", "audio": "1247e9a7ba"}, {"znaki": "可爱", "pinyin": "kě'ài", "polski": "khy-aj", "notatki": "KY AJ", "znaczenie": "cute · słodki", "audio": "c8ea8eb5d7"}, {"znaki": "美丽", "pinyin": "měilì", "polski": "mej-li", "notatki": "MAILI", "znaczenie": "piękna", "audio": "a84ce0c385"}, {"znaki": "聪明", "pinyin": "cōngming", "polski": "cung-ming", "notatki": "TONGMING", "znaczenie": "clever · mądry", "audio": "dbf3687538"}, {"znaki": "和", "pinyin": "hé", "polski": "chy", "notatki": "HYA", "znaczenie": "and · i", "audio": "ab20cc42f3"}, {"znaki": "好吃", "pinyin": "hǎochī", "polski": "chał czhy", "notatki": "HAŁ SZY", "znaczenie": "tasty · smaczne", "audio": "a78e4f228b"}, {"znaki": "难吃", "pinyin": "nánchī", "polski": "nan czhy", "notatki": "NAN SZY", "znaczenie": "not tasty · niedobre (jedzenie)", "audio": "55a4a87609"}]}, {"nazwa": "Zdania", "pozycje": [{"znaki": "你好吗？", "pinyin": "Nǐ hǎo ma?", "polski": "ni chał ma", "notatki": "NI HO MA", "znaczenie": "How are you? · Jak się masz?", "audio": "bb0b6bc453"}, {"znaki": "很好。", "pinyin": "Hěn hǎo.", "polski": "chyn chał", "notatki": "HYN HA", "znaczenie": "I'm good. · Dobrze.", "audio": "a694aab4bd"}, {"znaki": "你来自哪里？", "pinyin": "Nǐ láizì nǎlǐ?", "polski": "ni laj-dzy na-li", "notatki": "NI LAJ CY NA LI", "znaczenie": "Where are you from? · Skąd jesteś?", "audio": "9116fb5c8c"}, {"znaki": "我来自波兰。", "pinyin": "Wǒ láizì Bōlán.", "polski": "ło laj-dzy po-lan", "notatki": "ŁO LAJ CY POLAN", "znaczenie": "I'm from Poland. · Jestem z Polski.", "audio": "6f0e946909"}, {"znaki": "你很可爱。", "pinyin": "Nǐ hěn kě'ài.", "polski": "ni chyn khy-aj", "notatki": "NI HAN KY AJ", "znaczenie": "You are cute. · Jesteś słodki/a.", "audio": "524bbeedfb"}, {"znaki": "我们明天见。", "pinyin": "Wǒmen míngtiān jiàn.", "polski": "ło-myn ming-thien dzien", "notatki": "", "znaczenie": "See you tomorrow. · Spotkajmy się jutro.", "audio": "e286e6e79f"}, {"znaki": "你叫什么名字？", "pinyin": "Nǐ jiào shénme míngzi?", "polski": "ni dziao szyn-my ming-dzy", "notatki": "", "znaczenie": "What's your name? · Jak masz na imię?", "audio": "dcdedf4368"}, {"znaki": "我叫Kubi。", "pinyin": "Wǒ jiào Kubi.", "polski": "ło dziao Kubi", "notatki": "", "znaczenie": "My name is Kubi. · Jestem / nazywam się Kubi.", "audio": "9699b18e9c"}, {"znaki": "我喜欢你。", "pinyin": "Wǒ xǐhuan nǐ.", "polski": "ło si-chłan ni", "notatki": "", "znaczenie": "I like you. · Lubię Cię.", "audio": "3e79be0507"}]}, {"nazwa": "Tak / nie", "pozycje": [{"znaki": "是", "pinyin": "shì", "polski": "szy", "notatki": "SZY", "znaczenie": "yes · tak", "audio": "0a60ac8f02"}, {"znaki": "不是", "pinyin": "bú shì", "polski": "pu szy", "notatki": "BU-SZY", "znaczenie": "no · nie", "audio": "046f5a050a"}]}]};
 
 const status = document.getElementById("status");
 const engineSel = document.getElementById("engine");
 const slowCb = document.getElementById("slow");
-let audio = null, lastAudioPlay = 0;
+// mp3 gra wymowa.js przez Web Audio (jeden AudioContext na stronę) — bez elementu <audio>, który na iOS
+// zapisuje do sesji audio i zabija mikrofon. Tu zostaje tylko podświetlanie karty.
 let current = null;
-// iOS Safari: element <audio> trzymający sesję audio potrafi wyciszyć mikrofon w SpeechRecognition. Zwalniamy go całkiem.
-function releaseAudio() {
-  if (!audio) return;
-  try { if (!audio.paused && !audio.ended) Wymowa.audioAktywne(); audio.pause(); audio.removeAttribute("src"); audio.load(); } catch (e) {}
-  audio = null;
-}
 
 function setPlaying(card) {
   if (current) current.classList.remove("playing");
@@ -117,21 +112,20 @@ function speakSystem(text) {
 }
 
 const AUDIO = {};
+let nrOdtworzenia = 0;
 function speakGoogle(text, card) {
-  if (audio) { audio.pause(); audio = null; }
   const f = AUDIO[text];
-  const url = f
-    ? "audio/" + f + (slowCb.checked ? "-slow" : "") + ".mp3"
-    : "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q=" + encodeURIComponent(text) + (slowCb.checked ? "&ttsspeed=0.24" : "");
-  audio = new Audio(url);
-  lastAudioPlay = Date.now();
-  Wymowa.audioAktywne();
-  audio.onended = () => { setPlaying(null); Wymowa.audioAktywne(); releaseAudio(); };
-  audio.onerror = () => {
-    status.textContent = "Nagranie niedostępne — używam głosu systemowego.";
-    speakSystem(text);
-  };
-  audio.play().catch(() => { status.textContent = "Nagranie niedostępne — używam głosu systemowego."; speakSystem(text); });
+  // adres translate_tts jest cross-origin: fetch/Web Audio go nie przeczyta, więc od razu głos systemowy
+  if (!f) { status.textContent = "Brak nagrania dla tej pozycji — głos systemowy."; speakSystem(text); return; }
+  const moje = ++nrOdtworzenia;
+  Wymowa.graj("audio/" + f + (slowCb.checked ? "-slow" : "") + ".mp3", { onEnd: () => { if (moje === nrOdtworzenia) setPlaying(null); } })
+    .then(ok => { if (!ok && moje === nrOdtworzenia) setPlaying(null); })
+    .catch(e => {
+      if (moje !== nrOdtworzenia) return;
+      Wymowa.diag("mp3 błąd: " + e.message);
+      status.textContent = "Nagranie niedostępne — używam głosu systemowego.";
+      speakSystem(text);
+    });
 }
 
 function play(text, card) {
@@ -168,7 +162,7 @@ render(DATA.sekcje);
 if ("speechSynthesis" in window) speechSynthesis.getVoices();
 
 // ---- sprawdzanie wymowy: wspólny moduł wymowa.js ----
-Wymowa.beforeStart = releaseAudio;
+Wymowa.beforeStart = () => setPlaying(null);   // audio zatrzymuje sam moduł (stopAudio) przed start()
 // tryb "system-reload": po przeładowaniu pokaż wynik na właściwej karcie i wróć do miejsca na stronie
 (function () {
   const w = Wymowa.odbierzWynik();

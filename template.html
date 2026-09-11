@@ -87,14 +87,9 @@ const DATA = {{DATA_JSON}};
 const status = document.getElementById("status");
 const engineSel = document.getElementById("engine");
 const slowCb = document.getElementById("slow");
-let audio = null, lastAudioPlay = 0;
+// mp3 gra wymowa.js przez Web Audio (jeden AudioContext na stronę) — bez elementu <audio>, który na iOS
+// zapisuje do sesji audio i zabija mikrofon. Tu zostaje tylko podświetlanie karty.
 let current = null;
-// iOS Safari: element <audio> trzymający sesję audio potrafi wyciszyć mikrofon w SpeechRecognition. Zwalniamy go całkiem.
-function releaseAudio() {
-  if (!audio) return;
-  try { if (!audio.paused && !audio.ended) Wymowa.audioAktywne(); audio.pause(); audio.removeAttribute("src"); audio.load(); } catch (e) {}
-  audio = null;
-}
 
 function setPlaying(card) {
   if (current) current.classList.remove("playing");
@@ -117,21 +112,20 @@ function speakSystem(text) {
 }
 
 const AUDIO = {};
+let nrOdtworzenia = 0;
 function speakGoogle(text, card) {
-  if (audio) { audio.pause(); audio = null; }
   const f = AUDIO[text];
-  const url = f
-    ? "audio/" + f + (slowCb.checked ? "-slow" : "") + ".mp3"
-    : "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q=" + encodeURIComponent(text) + (slowCb.checked ? "&ttsspeed=0.24" : "");
-  audio = new Audio(url);
-  lastAudioPlay = Date.now();
-  Wymowa.audioAktywne();
-  audio.onended = () => { setPlaying(null); Wymowa.audioAktywne(); releaseAudio(); };
-  audio.onerror = () => {
-    status.textContent = "Nagranie niedostępne — używam głosu systemowego.";
-    speakSystem(text);
-  };
-  audio.play().catch(() => { status.textContent = "Nagranie niedostępne — używam głosu systemowego."; speakSystem(text); });
+  // adres translate_tts jest cross-origin: fetch/Web Audio go nie przeczyta, więc od razu głos systemowy
+  if (!f) { status.textContent = "Brak nagrania dla tej pozycji — głos systemowy."; speakSystem(text); return; }
+  const moje = ++nrOdtworzenia;
+  Wymowa.graj("audio/" + f + (slowCb.checked ? "-slow" : "") + ".mp3", { onEnd: () => { if (moje === nrOdtworzenia) setPlaying(null); } })
+    .then(ok => { if (!ok && moje === nrOdtworzenia) setPlaying(null); })
+    .catch(e => {
+      if (moje !== nrOdtworzenia) return;
+      Wymowa.diag("mp3 błąd: " + e.message);
+      status.textContent = "Nagranie niedostępne — używam głosu systemowego.";
+      speakSystem(text);
+    });
 }
 
 function play(text, card) {
@@ -168,7 +162,7 @@ render(DATA.sekcje);
 if ("speechSynthesis" in window) speechSynthesis.getVoices();
 
 // ---- sprawdzanie wymowy: wspólny moduł wymowa.js ----
-Wymowa.beforeStart = releaseAudio;
+Wymowa.beforeStart = () => setPlaying(null);   // audio zatrzymuje sam moduł (stopAudio) przed start()
 // tryb "system-reload": po przeładowaniu pokaż wynik na właściwej karcie i wróć do miejsca na stronie
 (function () {
   const w = Wymowa.odbierzWynik();
