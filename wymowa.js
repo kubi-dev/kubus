@@ -25,8 +25,13 @@
 
   // Dziennik zdarzeń mikrofonu widoczny na stronie (na telefonie nie ma konsoli).
   let diagEl = null;
+  const KLUCZ_DIAG = "kubus.wymowa.diag";
   function diag(msg) {
-    if (!diagEl) diagEl = document.getElementById("diag-log");
+    if (!diagEl) {
+      diagEl = document.getElementById("diag-log");
+      // dziennik sprzed przeładowania (tryb system-reload)
+      if (diagEl) { try { const stary = sessionStorage.getItem(KLUCZ_DIAG); if (stary) { diagEl.textContent = stary + "---------- przeładowanie strony ----------\n"; sessionStorage.removeItem(KLUCZ_DIAG); } } catch (e) {} }
+    }
     const line = new Date().toISOString().slice(11, 23) + " " + msg;
     console.log("[wymowa] " + msg);
     if (diagEl) { diagEl.textContent += line + "\n"; diagEl.scrollTop = diagEl.scrollHeight; }
@@ -164,6 +169,7 @@
     if (W.zapiszStan) { try { stanStrony = W.zapiszStan(); } catch (e) { diag("zapiszStan błąd: " + e.message); } }
     try { sessionStorage.setItem(KLUCZ_WYNIK, JSON.stringify({ href: location.href, ts: Date.now(), target, res, scrollY: window.scrollY, strona: stanStrony })); } catch (e) {}
     diag("przeładowanie strony (tryb system-reload)");
+    try { if (diagEl) sessionStorage.setItem(KLUCZ_DIAG, diagEl.textContent.split("\n").slice(-40).join("\n") + "\n"); } catch (e) {}
     setTimeout(() => location.reload(), 150);
   }
   // Zwraca zapisany wynik z poprzedniego załadowania (albo null) i kasuje go.
