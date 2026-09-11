@@ -113,6 +113,7 @@
       <option value="auto">automatycznie (chmura, gdy jest klucz)</option>
       <option value="chmura">chmura (Whisper przez worker)</option>
       <option value="system">system (Web Speech: Google / Apple)</option>
+      <option value="system-reload">system + przeładowanie strony po każdym użyciu (iOS)</option>
     </select>
   </label>
   <p class="hint">Postęp zapisuje się w tej przeglądarce i, jeśli podasz adres i klucz, w chmurze (wspólny dla wszystkich urządzeń).</p>
@@ -121,7 +122,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
 <script>window.SYNC_URL = "https://kubus-sync.dark-mud-b74c.workers.dev";</script>
-<script src="../wymowa.js?v=e6c31ffc"></script>
+<script src="../wymowa.js?v=792fa5da"></script>
 <script>
 const KARTY = [{"id": "朋友", "znaki": "朋友", "pinyin": "péngyou", "polski": "pyng-joł", "znaczenie": "friend · przyjaciel", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/9d53230a95"}, {"id": "好朋友", "znaki": "好朋友", "pinyin": "hǎo péngyou", "polski": "chał pyng-joł", "znaczenie": "close friend · bliski przyjaciel", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/4c0229fa34"}, {"id": "女朋友", "znaki": "女朋友", "pinyin": "nǚ péngyou", "polski": "nü pyng-joł", "znaczenie": "girlfriend · dziewczyna", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/1247e9a7ba"}, {"id": "可爱", "znaki": "可爱", "pinyin": "kě'ài", "polski": "khy-aj", "znaczenie": "cute · słodki", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/c8ea8eb5d7"}, {"id": "美丽", "znaki": "美丽", "pinyin": "měilì", "polski": "mej-li", "znaczenie": "piękna", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/a84ce0c385"}, {"id": "聪明", "znaki": "聪明", "pinyin": "cōngming", "polski": "cung-ming", "znaczenie": "clever · mądry", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/dbf3687538"}, {"id": "和", "znaki": "和", "pinyin": "hé", "polski": "chy", "znaczenie": "and · i", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/ab20cc42f3"}, {"id": "好吃", "znaki": "好吃", "pinyin": "hǎochī", "polski": "chał czhy", "znaczenie": "tasty · smaczne", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/a78e4f228b"}, {"id": "难吃", "znaki": "难吃", "pinyin": "nánchī", "polski": "nan czhy", "znaczenie": "not tasty · niedobre (jedzenie)", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/55a4a87609"}, {"id": "你好吗？", "znaki": "你好吗？", "pinyin": "Nǐ hǎo ma?", "polski": "ni chał ma", "znaczenie": "How are you? · Jak się masz?", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/bb0b6bc453"}, {"id": "很好。", "znaki": "很好。", "pinyin": "Hěn hǎo.", "polski": "chyn chał", "znaczenie": "I'm good. · Dobrze.", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/a694aab4bd"}, {"id": "你来自哪里？", "znaki": "你来自哪里？", "pinyin": "Nǐ láizì nǎlǐ?", "polski": "ni laj-dzy na-li", "znaczenie": "Where are you from? · Skąd jesteś?", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/9116fb5c8c"}, {"id": "我来自波兰。", "znaki": "我来自波兰。", "pinyin": "Wǒ láizì Bōlán.", "polski": "ło laj-dzy po-lan", "znaczenie": "I'm from Poland. · Jestem z Polski.", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/6f0e946909"}, {"id": "你很可爱。", "znaki": "你很可爱。", "pinyin": "Nǐ hěn kě'ài.", "polski": "ni chyn khy-aj", "znaczenie": "You are cute. · Jesteś słodki/a.", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/524bbeedfb"}, {"id": "我们明天见。", "znaki": "我们明天见。", "pinyin": "Wǒmen míngtiān jiàn.", "polski": "ło-myn ming-thien dzien", "znaczenie": "See you tomorrow. · Spotkajmy się jutro.", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/e286e6e79f"}, {"id": "你叫什么名字？", "znaki": "你叫什么名字？", "pinyin": "Nǐ jiào shénme míngzi?", "polski": "ni dziao szyn-my ming-dzy", "znaczenie": "What's your name? · Jak masz na imię?", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/dcdedf4368"}, {"id": "我叫Kubi。", "znaki": "我叫Kubi。", "pinyin": "Wǒ jiào Kubi.", "polski": "ło dziao Kubi", "znaczenie": "My name is Kubi. · Jestem / nazywam się Kubi.", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/9699b18e9c"}, {"id": "我喜欢你。", "znaki": "我喜欢你。", "pinyin": "Wǒ xǐhuan nǐ.", "polski": "ło si-chłan ni", "znaczenie": "I like you. · Lubię Cię.", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/3e79be0507"}, {"id": "是", "znaki": "是", "pinyin": "shì", "polski": "szy", "znaczenie": "yes · tak", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/0a60ac8f02"}, {"id": "不是", "znaki": "不是", "pinyin": "bú shì", "polski": "pu szy", "znaczenie": "no · nie", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/046f5a050a"}, {"id": "面条", "znaki": "面条", "pinyin": "miàntiáo", "polski": "mien-thiał", "znaczenie": "noodles · makaron", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/814b1c8d80"}, {"id": "米饭", "znaki": "米饭", "pinyin": "mǐfàn", "polski": "mi-fan", "znaczenie": "rice · ryż", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/edfec00f07"}, {"id": "鸡肉", "znaki": "鸡肉", "pinyin": "jīròu", "polski": "dzi-żoł", "znaczenie": "chicken · kurczak", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/e2c2a0e778"}, {"id": "鱼肉", "znaki": "鱼肉", "pinyin": "yúròu", "polski": "ü-żoł", "znaczenie": "fish · ryba", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/b551203f86"}, {"id": "牛肉", "znaki": "牛肉", "pinyin": "niúròu", "polski": "nioł-żoł", "znaczenie": "beef · wołowina", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/282ddc8786"}, {"id": "面包", "znaki": "面包", "pinyin": "miànbāo", "polski": "mien-pał", "znaczenie": "bread · chleb", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/e51a450767"}, {"id": "披萨", "znaki": "披萨", "pinyin": "pīsà", "polski": "phi-sa", "znaczenie": "pizza · pizza", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/6455a082e0"}, {"id": "汉堡", "znaki": "汉堡", "pinyin": "hànbǎo", "polski": "chan-pał", "znaczenie": "hamburger · hamburger", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/e70c386d70"}, {"id": "米线", "znaki": "米线", "pinyin": "mǐxiàn", "polski": "mi-sien", "znaczenie": "rice noodles · makaron ryżowy", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/8bb5f481e3"}, {"id": "冰淇淋", "znaki": "冰淇淋", "pinyin": "bīngqílín", "polski": "ping-ćhi-lin", "znaczenie": "ice cream · lody", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/4a042b57ee"}, {"id": "蛋糕", "znaki": "蛋糕", "pinyin": "dàngāo", "polski": "tan-kał", "znaczenie": "cake · ciasto", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/daa6cfa7e2"}, {"id": "饺子", "znaki": "饺子", "pinyin": "jiǎozi", "polski": "dział-dzy", "znaczenie": "dumplings · pierogi", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/dc02d72e23"}, {"id": "炒饭", "znaki": "炒饭", "pinyin": "chǎofàn", "polski": "czhał-fan", "znaczenie": "fried rice · smażony ryż", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/2eed77ca43"}, {"id": "粥", "znaki": "粥", "pinyin": "zhōu", "polski": "czoł", "znaczenie": "congee · kleik ryżowy", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/575b7a4dca"}, {"id": "我喜欢……", "znaki": "我喜欢……", "pinyin": "Wǒ xǐhuan…", "polski": "ło si-chłan", "znaczenie": "I like… · Lubię…", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/01f49854c3"}, {"id": "我想喝……", "znaki": "我想喝……", "pinyin": "Wǒ xiǎng hē…", "polski": "ło siang chy", "znaczenie": "I want to drink… · Chcę się napić…", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/0be4d1dd4d"}, {"id": "水", "znaki": "水", "pinyin": "shuǐ", "polski": "szłej", "znaczenie": "water · woda", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/eab619fba2"}, {"id": "咖啡", "znaki": "咖啡", "pinyin": "kāfēi", "polski": "kha-fej", "znaczenie": "coffee · kawa", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/a761914f97"}, {"id": "茶", "znaki": "茶", "pinyin": "chá", "polski": "czha", "znaczenie": "tea · herbata", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/a001ed1cf1"}, {"id": "果汁", "znaki": "果汁", "pinyin": "guǒzhī", "polski": "kło-czy", "znaczenie": "juice · sok", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/94a755afe7"}, {"id": "啤酒", "znaki": "啤酒", "pinyin": "píjiǔ", "polski": "phi-dzioł", "znaczenie": "beer · piwo", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/5fbf343679"}, {"id": "葡萄酒", "znaki": "葡萄酒", "pinyin": "pútáojiǔ", "polski": "phu-thał-dzioł", "znaczenie": "wine · wino", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/45aecb4935"}, {"id": "威士忌", "znaki": "威士忌", "pinyin": "wēishìjì", "polski": "łej-szy-dzi", "znaczenie": "whiskey · whisky", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/08c9e6fb3b"}, {"id": "牛奶", "znaki": "牛奶", "pinyin": "niúnǎi", "polski": "nioł-naj", "znaczenie": "milk · mleko", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/7a5794ace9"}, {"id": "抹茶", "znaki": "抹茶", "pinyin": "mǒchá", "polski": "mo-czha", "znaczenie": "matcha · matcha", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/531263490d"}, {"id": "我不明白。", "znaki": "我不明白。", "pinyin": "Wǒ bù míngbai.", "polski": "ło pu ming-paj", "znaczenie": "I don't understand. · Nie rozumiem.", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/1556085fce"}, {"id": "我不知道。", "znaki": "我不知道。", "pinyin": "Wǒ bù zhīdào.", "polski": "ło pu czy-tał", "znaczenie": "I don't know. · Nie wiem.", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/c5c38478cd"}, {"id": "你会说英语吗？", "znaki": "你会说英语吗？", "pinyin": "Nǐ huì shuō Yīngyǔ ma?", "polski": "ni chłej szło ing-ü ma", "znaczenie": "Do you speak English? · Czy mówisz po angielsku?", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/45197d2f7e"}, {"id": "你想喝什么？", "znaki": "你想喝什么？", "pinyin": "Nǐ xiǎng hē shénme?", "polski": "ni siang chy szyn-my", "znaczenie": "What do you want to drink? · Czego się napijesz?", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/7b27b514a2"}, {"id": "你想吃什么？", "znaki": "你想吃什么？", "pinyin": "Nǐ xiǎng chī shénme?", "polski": "ni siang czhy szyn-my", "znaczenie": "What do you want to eat? · Co chcesz zjeść?", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/3a30b55fcc"}];
 const SYNC_URL_DOMYSLNY = "https://kubus-sync.dark-mud-b74c.workers.dev";
@@ -256,18 +257,36 @@ function graj(k, wolno) {
 const card = $("card"), rate = $("rate");
 let sugestia = 2, odpowiedziano = false;
 
-function nastepna() {
-  rate.hidden = true; odpowiedziano = false; releaseAudio();
-  biezaca = kolejka.shift() || null;
+function nastepna(w) {
+  rate.hidden = true; odpowiedziano = false; releaseAudio(); widok = null; aktualna = null;
+  if (!w) biezaca = kolejka.shift() || null;
   pokazPostep();
   if (!biezaca) { koniec(); return; }
   card.innerHTML = "";
-  if (biezaca.typ === "A") kartaA(biezaca); else kartaB(biezaca);
+  if (biezaca.typ === "A") kartaA(biezaca, w); else kartaB(biezaca, w);
+}
+
+// ---- tryb "system-reload": zapis i odtworzenie sesji wokół przeładowania strony ----
+Wymowa.zapiszStan = () => ({
+  kolejka: kolejka.map(c => c.id), zrobione, razem, biezaca: biezaca ? biezaca.id : null, wSesji, filtr: $("filtr").value, widok
+});
+function odtworzPoPrzeladowaniu() {
+  const w = Wymowa.odbierzWynik();
+  if (!w || !w.strona || !w.strona.wSesji || !w.strona.biezaca) return false;
+  const st = w.strona;
+  const zId = id => { const [znaki, typ] = id.split("|"); const k = KARTY_MAP[znaki]; return k ? { id, k, typ } : null; };
+  $("filtr").value = st.filtr || "";
+  kolejka = st.kolejka.map(zId).filter(x => x); zrobione = st.zrobione; razem = st.razem; wSesji = true;
+  biezaca = zId(st.biezaca); if (!biezaca) return false;
+  nastepna(st.widok);
+  if (aktualna && w.res) aktualna.zastosujWynik(w.res);
+  requestAnimationFrame(() => window.scrollTo(0, w.scrollY || 0));
+  return true;
 }
 
 function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 
-function odslon(k, kontener, zMikrofonem) {
+function odslon(k, kontener, zMikrofonem, onWynik) {
   const r = el("div", "reveal");
   r.appendChild(el("div", "hanzi", k.znaki));
   r.appendChild(el("div", "pinyin", k.pinyin));
@@ -283,11 +302,14 @@ function odslon(k, kontener, zMikrofonem) {
       target: k.znaki,
       onStart: () => { out.hidden = true; },
       onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
-      onDone: (res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; }
+      onDone: onWynik || ((res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; })
     });
     r.appendChild(mic); r.appendChild(out);
+    kontener.appendChild(r);
+    return out;
   }
   kontener.appendChild(r);
+  return null;
 }
 
 function pokazOcene(sug) {
@@ -298,94 +320,130 @@ function pokazOcene(sug) {
   rate.hidden = false;
 }
 
+// Stan widoku bieżącej karty (do odtworzenia po przeładowaniu w trybie "system-reload")
+let widok = null, aktualna = null;
+
 // Karta A: polskie znaczenie -> powiedz po chińsku (mikrofon)
-function kartaA(c) {
+function kartaA(c, w) {
   const k = c.k;
+  widok = w || { typ: "A", podpowiedzi: 0, skip: false, wynik: null };
   card.appendChild(el("div", "tag", "powiedz po chińsku"));
   card.appendChild(el("div", "q", polskie(k) + (angielskie(k) ? `<small>${angielskie(k)}</small>` : "")));
   const out = el("div", "result"); out.hidden = true;
   const mic = el("button", "mic"); mic.type = "button";
   const hint = el("button", "link", "podpowiedź"); hint.type = "button";
   const hintBox = el("div", "pl"); hintBox.hidden = true;
-  let podpowiedzi = 0;
-  hint.addEventListener("click", () => {
-    podpowiedzi++;
+  const pokazPodpowiedz = (n, zDzwiekiem) => {
     hintBox.hidden = false;
-    if (podpowiedzi === 1) { hintBox.textContent = k.pinyin; hint.textContent = "posłuchaj"; }
-    else { hintBox.textContent = k.pinyin + (k.polski ? " · " + k.polski : ""); graj(k); }
-  });
+    if (n === 1) { hintBox.textContent = k.pinyin; hint.textContent = "posłuchaj"; }
+    else { hintBox.textContent = k.pinyin + (k.polski ? " · " + k.polski : ""); if (zDzwiekiem) graj(k); }
+  };
+  hint.addEventListener("click", () => { widok.podpowiedzi++; pokazPodpowiedz(widok.podpowiedzi, true); });
   card.appendChild(mic); card.appendChild(out); card.appendChild(hintBox); card.appendChild(hint);
   const rev = el("div"); card.appendChild(rev);
   let odslonieto = false;
+  const pokazWynik = (r, sug) => {
+    out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
+    if (sug === null) return;
+    if (!odslonieto) { odslonieto = true; odslon(k, rev); }
+    pokazOcene(sug);
+  };
+  const zastosujWynik = (res) => {
+    const r = Wymowa.render(res, k.znaki);
+    const lvl = r.grade ? r.grade.level : "none";
+    let sug = null;
+    if (lvl !== "none" || res.error) { sug = lvl === "exact" ? 2 : lvl === "tones" ? 1 : 0; if (widok.podpowiedzi && sug > 1) sug = 1; }
+    widok.wynik = { cls: r.cls, html: r.html, sug };
+    pokazWynik(r, sug);
+  };
   Wymowa.bind(mic, {
     target: k.znaki,
     onStart: () => { out.hidden = true; },
     onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
-    onDone: (res) => {
-      const r = Wymowa.render(res, k.znaki);
-      out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
-      const lvl = r.grade ? r.grade.level : "none";
-      if (lvl === "none" && !res.error) return; // nic nie usłyszał: próbuj dalej, bez oceny
-      if (!odslonieto) { odslonieto = true; odslon(k, rev); }
-      let sug = lvl === "exact" ? 2 : lvl === "tones" ? 1 : 0;
-      if (podpowiedzi && sug > 1) sug = 1;
-      pokazOcene(sug);
-    }
+    onDone: zastosujWynik
   });
   const skip = el("button", "link", "nie pamiętam, pokaż"); skip.type = "button";
-  skip.addEventListener("click", () => { skip.hidden = true; if (!odslonieto) { odslonieto = true; odslon(k, rev); } graj(k); pokazOcene(0); });
+  const pokaz = (zDzwiekiem) => { skip.hidden = true; if (!odslonieto) { odslonieto = true; odslon(k, rev); } if (zDzwiekiem) graj(k); pokazOcene(0); };
+  skip.addEventListener("click", () => { widok.skip = true; pokaz(true); });
   card.appendChild(skip);
+  aktualna = { zastosujWynik };
+  // odtworzenie po przeładowaniu
+  if (w) {
+    if (w.podpowiedzi) pokazPodpowiedz(w.podpowiedzi, false);
+    if (w.skip) pokaz(false);
+    if (w.wynik) pokazWynik(w.wynik, w.wynik.sug);
+  }
 }
 
 // Karta B: audio po chińsku -> co to znaczy (wybór, później wpis)
-function kartaB(c) {
+function kartaB(c, w) {
   const k = c.k, s = stanKarty(c.id);
   const etap2 = s && s.seria >= 3 && s.iv >= 7;
+  widok = w || { typ: "B", opcje: null, wybor: null, wpis: null, wynikMic: null };
   card.appendChild(el("div", "tag", "co to znaczy?"));
   const big = el("button", "big", "🔊"); big.type = "button"; big.title = "posłuchaj jeszcze raz";
   big.addEventListener("click", () => graj(k));
   card.appendChild(big);
   card.appendChild(el("div", "hint", "posłuchaj i " + (etap2 ? "napisz po polsku" : "wybierz znaczenie")));
   const rev = el("div");
+  let revealOut = null;
+  const zastosujWynik = (res) => {
+    if (!revealOut) return;
+    const r = Wymowa.render(res, k.znaki);
+    widok.wynikMic = { cls: r.cls, html: r.html };
+    revealOut.hidden = false; revealOut.className = "result " + r.cls; revealOut.innerHTML = r.html;
+  };
+  const odslonB = () => { revealOut = odslon(k, rev, true, zastosujWynik); };
   if (!etap2) {
-    // dystraktory: ten sam rodzaj (zdanie / słowo), najlepiej z tej samej lekcji
-    const zdanie = x => /[。？！?!]/.test(x.znaki);
-    const inne = KARTY.filter(x => x.id !== k.id && polskie(x) !== polskie(k));
-    const tenRodzaj = inne.filter(x => zdanie(x) === zdanie(k));
-    const teSame = tenRodzaj.filter(x => x.lekcja === k.lekcja);
-    const pula = teSame.length >= 3 ? teSame : tenRodzaj.length >= 3 ? tenRodzaj : inne;
-    const dystr = []; const uzyte = new Set([polskie(k)]);
-    while (dystr.length < 3 && pula.length) { const x = pula[Math.floor(Math.random() * pula.length)]; if (!uzyte.has(polskie(x))) { uzyte.add(polskie(x)); dystr.push(x); } if (uzyte.size > pula.length) break; }
-    const opcje = [k, ...dystr].sort(() => Math.random() - 0.5);
+    let opcje;
+    if (w && w.opcje) opcje = w.opcje.map(id => KARTY_MAP[id]).filter(x => x);
+    else {
+      // dystraktory: ten sam rodzaj (zdanie / słowo), najlepiej z tej samej lekcji
+      const zdanie = x => /[。？！?!]/.test(x.znaki);
+      const inne = KARTY.filter(x => x.id !== k.id && polskie(x) !== polskie(k));
+      const tenRodzaj = inne.filter(x => zdanie(x) === zdanie(k));
+      const teSame = tenRodzaj.filter(x => x.lekcja === k.lekcja);
+      const pula = teSame.length >= 3 ? teSame : tenRodzaj.length >= 3 ? tenRodzaj : inne;
+      const dystr = []; const uzyte = new Set([polskie(k)]);
+      while (dystr.length < 3 && pula.length) { const x = pula[Math.floor(Math.random() * pula.length)]; if (!uzyte.has(polskie(x))) { uzyte.add(polskie(x)); dystr.push(x); } if (uzyte.size > pula.length) break; }
+      opcje = [k, ...dystr].sort(() => Math.random() - 0.5);
+      widok.opcje = opcje.map(x => x.id);
+    }
     const box = el("div", "opts");
+    const wybierz = (o, b) => {
+      if (odpowiedziano) return;
+      widok.wybor = o.id;
+      for (const bb of box.querySelectorAll("button")) { bb.disabled = true; if (bb === b && o.id !== k.id) bb.classList.add("bad"); if (bb.textContent === polskie(k)) bb.classList.add("ok"); }
+      odslonB(); pokazOcene(o.id === k.id ? 2 : 0);
+    };
     for (const o of opcje) {
       const b = el("button", "opt", polskie(o)); b.type = "button";
-      b.addEventListener("click", () => {
-        if (odpowiedziano) return;
-        for (const bb of box.querySelectorAll("button")) { bb.disabled = true; if (bb === b && o.id !== k.id) bb.classList.add("bad"); if (bb.textContent === polskie(k)) bb.classList.add("ok"); }
-        odslon(k, rev, true); pokazOcene(o.id === k.id ? 2 : 0);
-      });
+      b.addEventListener("click", () => wybierz(o, b));
       box.appendChild(b);
     }
     card.appendChild(box);
+    if (w && w.wybor) { const idx = opcje.findIndex(o => o.id === w.wybor); if (idx >= 0) wybierz(opcje[idx], box.querySelectorAll("button")[idx]); }
   } else {
     const box = el("div", "typed");
     const inp = el("input"); inp.type = "text"; inp.placeholder = "po polsku…"; inp.autocomplete = "off"; inp.autocapitalize = "off";
     const ok = el("button", "", "sprawdź"); ok.type = "button";
     const sprawdz = () => {
       if (odpowiedziano) return;
+      widok.wpis = inp.value;
       const trafione = pasujePolskie(k, inp.value);
       inp.disabled = true; ok.disabled = true;
       const out = el("div", "result " + (trafione ? "ok" : "bad"), trafione ? "✓ Tak." : "✗ Nie. Prawidłowo: <b>" + polskie(k) + "</b>");
       card.appendChild(out);
-      odslon(k, rev, true); pokazOcene(trafione ? 2 : 0);
+      odslonB(); pokazOcene(trafione ? 2 : 0);
     };
     ok.addEventListener("click", sprawdz); inp.addEventListener("keydown", e => { if (e.key === "Enter") sprawdz(); });
     box.appendChild(inp); box.appendChild(ok); card.appendChild(box);
-    setTimeout(() => inp.focus(), 50);
+    if (w && w.wpis !== null) { inp.value = w.wpis; sprawdz(); } else setTimeout(() => inp.focus(), 50);
   }
   card.appendChild(rev);
-  graj(k);
+  aktualna = { zastosujWynik };
+  if (w) { if (w.wynikMic && revealOut) { revealOut.hidden = false; revealOut.className = "result " + w.wynikMic.cls; revealOut.innerHTML = w.wynikMic.html; } }
+  else graj(k);
 }
 
 rate.addEventListener("click", (e) => {
@@ -442,7 +500,7 @@ $("s-ok").addEventListener("click", () => {
   zapiszLokalnie(); $("dlg").close(); syncTeraz(false).then(() => { if (!wSesji) ekranStartowy(); });
 });
 
-ekranStartowy();
+if (!odtworzPoPrzeladowaniu()) ekranStartowy();
 syncTeraz(true).then(() => { if (!wSesji) ekranStartowy(); });
 </script>
 </body>

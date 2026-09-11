@@ -167,6 +167,18 @@ if ("speechSynthesis" in window) speechSynthesis.getVoices();
 
 // ---- sprawdzanie wymowy: wspólny moduł wymowa.js ----
 Wymowa.beforeStart = releaseAudio;
+// tryb "system-reload": po przeładowaniu pokaż wynik na właściwej karcie i wróć do miejsca na stronie
+(function () {
+  const w = Wymowa.odbierzWynik();
+  if (!w) return;
+  for (const c of document.querySelectorAll(".card")) {
+    if (c.querySelector(".hanzi") && c.querySelector(".hanzi").textContent === w.target) {
+      const out = c.querySelector(".result"), r = Wymowa.render(w.res, w.target);
+      out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
+    }
+  }
+  requestAnimationFrame(() => window.scrollTo(0, w.scrollY || 0));
+})();
 function bindMic(btn, target, card) {
   const out = card.querySelector(".result");
   Wymowa.bind(btn, {

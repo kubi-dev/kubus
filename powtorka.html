@@ -113,6 +113,7 @@
       <option value="auto">automatycznie (chmura, gdy jest klucz)</option>
       <option value="chmura">chmura (Whisper przez worker)</option>
       <option value="system">system (Web Speech: Google / Apple)</option>
+      <option value="system-reload">system + przeładowanie strony po każdym użyciu (iOS)</option>
     </select>
   </label>
   <p class="hint">Postęp zapisuje się w tej przeglądarce i, jeśli podasz adres i klucz, w chmurze (wspólny dla wszystkich urządzeń).</p>
@@ -256,18 +257,36 @@ function graj(k, wolno) {
 const card = $("card"), rate = $("rate");
 let sugestia = 2, odpowiedziano = false;
 
-function nastepna() {
-  rate.hidden = true; odpowiedziano = false; releaseAudio();
-  biezaca = kolejka.shift() || null;
+function nastepna(w) {
+  rate.hidden = true; odpowiedziano = false; releaseAudio(); widok = null; aktualna = null;
+  if (!w) biezaca = kolejka.shift() || null;
   pokazPostep();
   if (!biezaca) { koniec(); return; }
   card.innerHTML = "";
-  if (biezaca.typ === "A") kartaA(biezaca); else kartaB(biezaca);
+  if (biezaca.typ === "A") kartaA(biezaca, w); else kartaB(biezaca, w);
+}
+
+// ---- tryb "system-reload": zapis i odtworzenie sesji wokół przeładowania strony ----
+Wymowa.zapiszStan = () => ({
+  kolejka: kolejka.map(c => c.id), zrobione, razem, biezaca: biezaca ? biezaca.id : null, wSesji, filtr: $("filtr").value, widok
+});
+function odtworzPoPrzeladowaniu() {
+  const w = Wymowa.odbierzWynik();
+  if (!w || !w.strona || !w.strona.wSesji || !w.strona.biezaca) return false;
+  const st = w.strona;
+  const zId = id => { const [znaki, typ] = id.split("|"); const k = KARTY_MAP[znaki]; return k ? { id, k, typ } : null; };
+  $("filtr").value = st.filtr || "";
+  kolejka = st.kolejka.map(zId).filter(x => x); zrobione = st.zrobione; razem = st.razem; wSesji = true;
+  biezaca = zId(st.biezaca); if (!biezaca) return false;
+  nastepna(st.widok);
+  if (aktualna && w.res) aktualna.zastosujWynik(w.res);
+  requestAnimationFrame(() => window.scrollTo(0, w.scrollY || 0));
+  return true;
 }
 
 function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 
-function odslon(k, kontener, zMikrofonem) {
+function odslon(k, kontener, zMikrofonem, onWynik) {
   const r = el("div", "reveal");
   r.appendChild(el("div", "hanzi", k.znaki));
   r.appendChild(el("div", "pinyin", k.pinyin));
@@ -283,11 +302,14 @@ function odslon(k, kontener, zMikrofonem) {
       target: k.znaki,
       onStart: () => { out.hidden = true; },
       onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
-      onDone: (res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; }
+      onDone: onWynik || ((res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; })
     });
     r.appendChild(mic); r.appendChild(out);
+    kontener.appendChild(r);
+    return out;
   }
   kontener.appendChild(r);
+  return null;
 }
 
 function pokazOcene(sug) {
@@ -298,94 +320,130 @@ function pokazOcene(sug) {
   rate.hidden = false;
 }
 
+// Stan widoku bieżącej karty (do odtworzenia po przeładowaniu w trybie "system-reload")
+let widok = null, aktualna = null;
+
 // Karta A: polskie znaczenie -> powiedz po chińsku (mikrofon)
-function kartaA(c) {
+function kartaA(c, w) {
   const k = c.k;
+  widok = w || { typ: "A", podpowiedzi: 0, skip: false, wynik: null };
   card.appendChild(el("div", "tag", "powiedz po chińsku"));
   card.appendChild(el("div", "q", polskie(k) + (angielskie(k) ? `<small>${angielskie(k)}</small>` : "")));
   const out = el("div", "result"); out.hidden = true;
   const mic = el("button", "mic"); mic.type = "button";
   const hint = el("button", "link", "podpowiedź"); hint.type = "button";
   const hintBox = el("div", "pl"); hintBox.hidden = true;
-  let podpowiedzi = 0;
-  hint.addEventListener("click", () => {
-    podpowiedzi++;
+  const pokazPodpowiedz = (n, zDzwiekiem) => {
     hintBox.hidden = false;
-    if (podpowiedzi === 1) { hintBox.textContent = k.pinyin; hint.textContent = "posłuchaj"; }
-    else { hintBox.textContent = k.pinyin + (k.polski ? " · " + k.polski : ""); graj(k); }
-  });
+    if (n === 1) { hintBox.textContent = k.pinyin; hint.textContent = "posłuchaj"; }
+    else { hintBox.textContent = k.pinyin + (k.polski ? " · " + k.polski : ""); if (zDzwiekiem) graj(k); }
+  };
+  hint.addEventListener("click", () => { widok.podpowiedzi++; pokazPodpowiedz(widok.podpowiedzi, true); });
   card.appendChild(mic); card.appendChild(out); card.appendChild(hintBox); card.appendChild(hint);
   const rev = el("div"); card.appendChild(rev);
   let odslonieto = false;
+  const pokazWynik = (r, sug) => {
+    out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
+    if (sug === null) return;
+    if (!odslonieto) { odslonieto = true; odslon(k, rev); }
+    pokazOcene(sug);
+  };
+  const zastosujWynik = (res) => {
+    const r = Wymowa.render(res, k.znaki);
+    const lvl = r.grade ? r.grade.level : "none";
+    let sug = null;
+    if (lvl !== "none" || res.error) { sug = lvl === "exact" ? 2 : lvl === "tones" ? 1 : 0; if (widok.podpowiedzi && sug > 1) sug = 1; }
+    widok.wynik = { cls: r.cls, html: r.html, sug };
+    pokazWynik(r, sug);
+  };
   Wymowa.bind(mic, {
     target: k.znaki,
     onStart: () => { out.hidden = true; },
     onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
-    onDone: (res) => {
-      const r = Wymowa.render(res, k.znaki);
-      out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
-      const lvl = r.grade ? r.grade.level : "none";
-      if (lvl === "none" && !res.error) return; // nic nie usłyszał: próbuj dalej, bez oceny
-      if (!odslonieto) { odslonieto = true; odslon(k, rev); }
-      let sug = lvl === "exact" ? 2 : lvl === "tones" ? 1 : 0;
-      if (podpowiedzi && sug > 1) sug = 1;
-      pokazOcene(sug);
-    }
+    onDone: zastosujWynik
   });
   const skip = el("button", "link", "nie pamiętam, pokaż"); skip.type = "button";
-  skip.addEventListener("click", () => { skip.hidden = true; if (!odslonieto) { odslonieto = true; odslon(k, rev); } graj(k); pokazOcene(0); });
+  const pokaz = (zDzwiekiem) => { skip.hidden = true; if (!odslonieto) { odslonieto = true; odslon(k, rev); } if (zDzwiekiem) graj(k); pokazOcene(0); };
+  skip.addEventListener("click", () => { widok.skip = true; pokaz(true); });
   card.appendChild(skip);
+  aktualna = { zastosujWynik };
+  // odtworzenie po przeładowaniu
+  if (w) {
+    if (w.podpowiedzi) pokazPodpowiedz(w.podpowiedzi, false);
+    if (w.skip) pokaz(false);
+    if (w.wynik) pokazWynik(w.wynik, w.wynik.sug);
+  }
 }
 
 // Karta B: audio po chińsku -> co to znaczy (wybór, później wpis)
-function kartaB(c) {
+function kartaB(c, w) {
   const k = c.k, s = stanKarty(c.id);
   const etap2 = s && s.seria >= 3 && s.iv >= 7;
+  widok = w || { typ: "B", opcje: null, wybor: null, wpis: null, wynikMic: null };
   card.appendChild(el("div", "tag", "co to znaczy?"));
   const big = el("button", "big", "🔊"); big.type = "button"; big.title = "posłuchaj jeszcze raz";
   big.addEventListener("click", () => graj(k));
   card.appendChild(big);
   card.appendChild(el("div", "hint", "posłuchaj i " + (etap2 ? "napisz po polsku" : "wybierz znaczenie")));
   const rev = el("div");
+  let revealOut = null;
+  const zastosujWynik = (res) => {
+    if (!revealOut) return;
+    const r = Wymowa.render(res, k.znaki);
+    widok.wynikMic = { cls: r.cls, html: r.html };
+    revealOut.hidden = false; revealOut.className = "result " + r.cls; revealOut.innerHTML = r.html;
+  };
+  const odslonB = () => { revealOut = odslon(k, rev, true, zastosujWynik); };
   if (!etap2) {
-    // dystraktory: ten sam rodzaj (zdanie / słowo), najlepiej z tej samej lekcji
-    const zdanie = x => /[。？！?!]/.test(x.znaki);
-    const inne = KARTY.filter(x => x.id !== k.id && polskie(x) !== polskie(k));
-    const tenRodzaj = inne.filter(x => zdanie(x) === zdanie(k));
-    const teSame = tenRodzaj.filter(x => x.lekcja === k.lekcja);
-    const pula = teSame.length >= 3 ? teSame : tenRodzaj.length >= 3 ? tenRodzaj : inne;
-    const dystr = []; const uzyte = new Set([polskie(k)]);
-    while (dystr.length < 3 && pula.length) { const x = pula[Math.floor(Math.random() * pula.length)]; if (!uzyte.has(polskie(x))) { uzyte.add(polskie(x)); dystr.push(x); } if (uzyte.size > pula.length) break; }
-    const opcje = [k, ...dystr].sort(() => Math.random() - 0.5);
+    let opcje;
+    if (w && w.opcje) opcje = w.opcje.map(id => KARTY_MAP[id]).filter(x => x);
+    else {
+      // dystraktory: ten sam rodzaj (zdanie / słowo), najlepiej z tej samej lekcji
+      const zdanie = x => /[。？！?!]/.test(x.znaki);
+      const inne = KARTY.filter(x => x.id !== k.id && polskie(x) !== polskie(k));
+      const tenRodzaj = inne.filter(x => zdanie(x) === zdanie(k));
+      const teSame = tenRodzaj.filter(x => x.lekcja === k.lekcja);
+      const pula = teSame.length >= 3 ? teSame : tenRodzaj.length >= 3 ? tenRodzaj : inne;
+      const dystr = []; const uzyte = new Set([polskie(k)]);
+      while (dystr.length < 3 && pula.length) { const x = pula[Math.floor(Math.random() * pula.length)]; if (!uzyte.has(polskie(x))) { uzyte.add(polskie(x)); dystr.push(x); } if (uzyte.size > pula.length) break; }
+      opcje = [k, ...dystr].sort(() => Math.random() - 0.5);
+      widok.opcje = opcje.map(x => x.id);
+    }
     const box = el("div", "opts");
+    const wybierz = (o, b) => {
+      if (odpowiedziano) return;
+      widok.wybor = o.id;
+      for (const bb of box.querySelectorAll("button")) { bb.disabled = true; if (bb === b && o.id !== k.id) bb.classList.add("bad"); if (bb.textContent === polskie(k)) bb.classList.add("ok"); }
+      odslonB(); pokazOcene(o.id === k.id ? 2 : 0);
+    };
     for (const o of opcje) {
       const b = el("button", "opt", polskie(o)); b.type = "button";
-      b.addEventListener("click", () => {
-        if (odpowiedziano) return;
-        for (const bb of box.querySelectorAll("button")) { bb.disabled = true; if (bb === b && o.id !== k.id) bb.classList.add("bad"); if (bb.textContent === polskie(k)) bb.classList.add("ok"); }
-        odslon(k, rev, true); pokazOcene(o.id === k.id ? 2 : 0);
-      });
+      b.addEventListener("click", () => wybierz(o, b));
       box.appendChild(b);
     }
     card.appendChild(box);
+    if (w && w.wybor) { const idx = opcje.findIndex(o => o.id === w.wybor); if (idx >= 0) wybierz(opcje[idx], box.querySelectorAll("button")[idx]); }
   } else {
     const box = el("div", "typed");
     const inp = el("input"); inp.type = "text"; inp.placeholder = "po polsku…"; inp.autocomplete = "off"; inp.autocapitalize = "off";
     const ok = el("button", "", "sprawdź"); ok.type = "button";
     const sprawdz = () => {
       if (odpowiedziano) return;
+      widok.wpis = inp.value;
       const trafione = pasujePolskie(k, inp.value);
       inp.disabled = true; ok.disabled = true;
       const out = el("div", "result " + (trafione ? "ok" : "bad"), trafione ? "✓ Tak." : "✗ Nie. Prawidłowo: <b>" + polskie(k) + "</b>");
       card.appendChild(out);
-      odslon(k, rev, true); pokazOcene(trafione ? 2 : 0);
+      odslonB(); pokazOcene(trafione ? 2 : 0);
     };
     ok.addEventListener("click", sprawdz); inp.addEventListener("keydown", e => { if (e.key === "Enter") sprawdz(); });
     box.appendChild(inp); box.appendChild(ok); card.appendChild(box);
-    setTimeout(() => inp.focus(), 50);
+    if (w && w.wpis !== null) { inp.value = w.wpis; sprawdz(); } else setTimeout(() => inp.focus(), 50);
   }
   card.appendChild(rev);
-  graj(k);
+  aktualna = { zastosujWynik };
+  if (w) { if (w.wynikMic && revealOut) { revealOut.hidden = false; revealOut.className = "result " + w.wynikMic.cls; revealOut.innerHTML = w.wynikMic.html; } }
+  else graj(k);
 }
 
 rate.addEventListener("click", (e) => {
@@ -442,7 +500,7 @@ $("s-ok").addEventListener("click", () => {
   zapiszLokalnie(); $("dlg").close(); syncTeraz(false).then(() => { if (!wSesji) ekranStartowy(); });
 });
 
-ekranStartowy();
+if (!odtworzPoPrzeladowaniu()) ekranStartowy();
 syncTeraz(true).then(() => { if (!wSesji) ekranStartowy(); });
 </script>
 </body>

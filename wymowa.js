@@ -40,8 +40,9 @@
     let silnik = "auto"; try { silnik = localStorage.getItem("kubus.wymowa.silnik") || "auto"; } catch (e) {}
     const url = (sync.url || window.SYNC_URL || "").replace(/\/$/, ""), klucz = sync.klucz || "";
     const chmuraOk = !!(url && klucz && GUM && AC);
-    const uzyj = silnik === "system" ? "system" : silnik === "chmura" ? (chmuraOk ? "chmura" : "system") : (chmuraOk ? "chmura" : "system");
-    return { url, klucz, silnik, uzyj, chmuraOk };
+    // system-reload: silnik systemowy + przeładowanie strony po każdym użyciu (iOS: działa tylko pierwsza sesja po załadowaniu)
+    const uzyj = silnik === "system" ? "system" : silnik === "system-reload" ? "system-reload" : silnik === "chmura" ? (chmuraOk ? "chmura" : "system") : (chmuraOk ? "chmura" : "system");
+    return { url, klucz, silnik, uzyj, chmuraOk, reload: uzyj === "system-reload" };
   }
   diag("UA: " + navigator.userAgent);
   diag("iOS: " + (IOS_VER || "nie") + ", SpeechRecognition: " + (SR ? "jest" : "BRAK") + ", getUserMedia: " + (GUM ? "jest" : "BRAK") + ", AudioContext: " + (AC ? "jest" : "BRAK"));
@@ -150,7 +151,28 @@
     const alts = (s.gotFinal ? s.finalAlts : (s.interim ? [s.interim] : [])).filter(a => a);
     const heldMs = s.startedAt ? Date.now() - s.startedAt : 0;
     diag("koniec: final=" + s.gotFinal + " interim=" + JSON.stringify(s.interim || "") + " trzymane " + heldMs + "ms");
-    if (s.opts.onDone) s.opts.onDone({ alts, gotFinal: s.gotFinal, error: s.error, heldMs });
+    const res = { alts, gotFinal: s.gotFinal, error: s.error, heldMs };
+    if (s.opts.onDone) s.opts.onDone(res);
+    if (cfg().reload) przeladuj(s.opts, res);
+  }
+
+  // ---- tryb "system-reload": po użyciu mikrofonu strona ładuje się od nowa, wynik i pozycję odtwarzamy po starcie ----
+  const KLUCZ_WYNIK = "kubus.wymowa.wynik";
+  function przeladuj(opts, res) {
+    const target = typeof opts.target === "function" ? opts.target() : opts.target;
+    let stanStrony = null;
+    if (W.zapiszStan) { try { stanStrony = W.zapiszStan(); } catch (e) { diag("zapiszStan błąd: " + e.message); } }
+    try { sessionStorage.setItem(KLUCZ_WYNIK, JSON.stringify({ href: location.href, ts: Date.now(), target, res, scrollY: window.scrollY, strona: stanStrony })); } catch (e) {}
+    diag("przeładowanie strony (tryb system-reload)");
+    setTimeout(() => location.reload(), 150);
+  }
+  // Zwraca zapisany wynik z poprzedniego załadowania (albo null) i kasuje go.
+  function odbierzWynik() {
+    let w = null;
+    try { w = JSON.parse(sessionStorage.getItem(KLUCZ_WYNIK) || "null"); sessionStorage.removeItem(KLUCZ_WYNIK); } catch (e) {}
+    if (!w || w.href !== location.href || Date.now() - w.ts > 15000) return null;
+    diag("wynik odtworzony po przeładowaniu: " + JSON.stringify(w.res.alts));
+    return w;
   }
 
   async function startListening(btn, opts) {
@@ -323,6 +345,6 @@
     btn.addEventListener("contextmenu", (e) => e.preventDefault());
   }
 
-  const W = { diag, supported: !!SR || GUM, beforeStart: null, bind, grade, render, strip, toPinyin, cfg, LABEL_IDLE };
+  const W = { diag, supported: !!SR || GUM, beforeStart: null, zapiszStan: null, bind, grade, render, strip, toPinyin, cfg, odbierzWynik, LABEL_IDLE };
   window.Wymowa = W;
 })();
