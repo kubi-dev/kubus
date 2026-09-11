@@ -47,7 +47,7 @@
     const chmuraOk = !!(url && klucz && GUM && AC);
     // system-reload: silnik systemowy + przeładowanie strony po każdym użyciu (iOS: działa tylko pierwsza sesja po załadowaniu)
     // auto: iOS -> system + przeładowanie (jedyny tryb systemowy, który tam działa za każdym razem), inne -> system
-    const uzyj = silnik === "system" ? "system" : silnik === "system-reload" ? "system-reload" : silnik === "chmura" ? (chmuraOk ? "chmura" : "system") : (IOS_VER ? "system-reload" : "system");
+    const uzyj = silnik === "system" ? "system" : silnik === "system-reload" ? "system-reload" : silnik === "chmura" ? (chmuraOk ? "chmura" : "system") : (chmuraOk ? "chmura" : "system");
     return { url, klucz, silnik, uzyj, chmuraOk, reload: uzyj === "system-reload" };
   }
   diag("UA: " + navigator.userAgent);
