@@ -43,7 +43,7 @@
   const GUM = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
   const AC = window.AudioContext || window.webkitAudioContext;
   const AS = ("audioSession" in navigator) ? navigator.audioSession : null;
-  const ODSTEP_PO_SR = 4500;     // domyślny odstęp po końcu nasłuchu (stara jednostka mikrofonu w procesie GPU)
+  const ODSTEP_PO_SR = 0;      // odstęp po końcu nasłuchu; 0 potwierdzone na iPhonie (iOS 26, Chrome), ?odstep=N nadpisuje
   const ODSTEP_PO_TTS = 3500;    // tylko po speechSynthesis (głos systemowy)
   const sleep = ms => new Promise(r => setTimeout(r, ms));
 
