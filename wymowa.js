@@ -151,9 +151,16 @@
     return rec;
   }
 
+  function sesjaAudio(typ) {
+    if (!("audioSession" in navigator)) return;
+    try { navigator.audioSession.type = typ; diag("audioSession.type = " + navigator.audioSession.type); }
+    catch (e) { diag("audioSession błąd: " + e.message); }
+  }
+
   function finish(s) {
     clearTimeout(s.watchdog); clearTimeout(s.endGuard);
     s.btn.classList.remove("rec"); s.btn.textContent = LABEL_IDLE;
+    if (!cfg().reload) sesjaAudio("auto"); // po przeładowaniu i tak wraca na auto
     const alts = (s.gotFinal ? s.finalAlts : (s.interim ? [s.interim] : [])).filter(a => a);
     const heldMs = s.startedAt ? Date.now() - s.startedAt : 0;
     diag("koniec: final=" + s.gotFinal + " interim=" + JSON.stringify(s.interim || "") + " trzymane " + heldMs + "ms");
@@ -195,6 +202,9 @@
     state = "starting";
     if (W.beforeStart) { try { W.beforeStart(); } catch (e) {} }
     if ("speechSynthesis" in window) speechSynthesis.cancel();
+    // iOS: po odtworzeniu <audio> sesja audio zostaje w trybie "playback" i WebKit nie przełącza jej z powrotem
+    // przy starcie rozpoznawania (mikrofon wyciszony). Wymuszamy tryb nagrywania na czas nasłuchu, potem wracamy na auto.
+    sesjaAudio("play-and-record");
     const target = typeof opts.target === "function" ? opts.target() : opts.target;
     session = { btn, opts, startedAt: 0, interim: "", finalAlts: null, gotFinal: false, error: null, released: false };
     btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
