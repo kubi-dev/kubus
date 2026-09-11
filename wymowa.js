@@ -52,8 +52,7 @@
   }
   diag("UA: " + navigator.userAgent);
   diag("iOS: " + (IOS_VER || "nie") + ", SpeechRecognition: " + (SR ? "jest" : "BRAK") + ", getUserMedia: " + (GUM ? "jest" : "BRAK") + ", AudioContext: " + (AC ? "jest" : "BRAK"));
-  // przy starcie strony sesja audio na "auto" (gdyby poprzednia strona zostawiła "play-and-record")
-  if ("audioSession" in navigator) { try { if (navigator.audioSession.type !== "auto") { navigator.audioSession.type = "auto"; } diag("audioSession przy starcie: " + navigator.audioSession.type); } catch (e) {} }
+  if ("audioSession" in navigator) { try { diag("audioSession przy starcie: " + navigator.audioSession.type); } catch (e) {} }
   diag("silnik: " + cfg().uzyj + " (ustawienie " + cfg().silnik + ", chmura " + (cfg().chmuraOk ? "dostępna" : "niedostępna: brak adresu/klucza") + ")");
 
   function similarity(a, b) {
@@ -153,16 +152,9 @@
     return rec;
   }
 
-  function sesjaAudio(typ) {
-    if (!("audioSession" in navigator)) return;
-    try { navigator.audioSession.type = typ; diag("audioSession.type = " + navigator.audioSession.type); }
-    catch (e) { diag("audioSession błąd: " + e.message); }
-  }
-
   function finish(s) {
     clearTimeout(s.watchdog); clearTimeout(s.endGuard);
     s.btn.classList.remove("rec"); s.btn.textContent = LABEL_IDLE;
-    sesjaAudio("auto"); // zawsze: tryb "play-and-record" przeżywa przeładowanie strony i wycisza mp3
     const alts = (s.gotFinal ? s.finalAlts : (s.interim ? [s.interim] : [])).filter(a => a);
     const heldMs = s.startedAt ? Date.now() - s.startedAt : 0;
     diag("koniec: final=" + s.gotFinal + " interim=" + JSON.stringify(s.interim || "") + " trzymane " + heldMs + "ms");
@@ -225,9 +217,6 @@
       if (s.released) { diag("puszczony w trakcie odliczania"); state = "idle"; session = null; finish(s); return; }
       btn.textContent = "⏳ uruchamiam…";
     }
-    // iOS: po odtworzeniu <audio> sesja audio zostaje w trybie "playback" i WebKit nie przełącza jej z powrotem
-    // przy starcie rozpoznawania (mikrofon wyciszony). Wymuszamy tryb nagrywania na czas nasłuchu, potem wracamy na auto.
-    sesjaAudio("play-and-record");
     if (opts.onStart) opts.onStart();
     diag("start cel=" + target);
     // Otwieramy mikrofon przez getUserMedia na czas nasłuchu (patrz komentarz na górze pliku).
