@@ -150,6 +150,26 @@
   "audio": "lekcje/01-przyjaciele/audio/e286e6e79f"
  },
  {
+  "id": "你叫什么名字？",
+  "znaki": "你叫什么名字？",
+  "pinyin": "Nǐ jiào shénme míngzi?",
+  "polski": "ni dziao szyn-my ming-dzy",
+  "znaczenie": "What's your name? · Jak masz na imię?",
+  "lekcja": 1,
+  "lekcjaTytul": "Lekcja 1 · Przyjaciele",
+  "audio": "lekcje/01-przyjaciele/audio/dcdedf4368"
+ },
+ {
+  "id": "我叫Kubi。",
+  "znaki": "我叫Kubi。",
+  "pinyin": "Wǒ jiào Kubi.",
+  "polski": "ło dziao Kubi",
+  "znaczenie": "My name is Kubi. · Jestem / nazywam się Kubi.",
+  "lekcja": 1,
+  "lekcjaTytul": "Lekcja 1 · Przyjaciele",
+  "audio": "lekcje/01-przyjaciele/audio/9699b18e9c"
+ },
+ {
   "id": "我喜欢你。",
   "znaki": "我喜欢你。",
   "pinyin": "Wǒ xǐhuan nǐ.",

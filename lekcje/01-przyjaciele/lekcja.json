@@ -26,6 +26,8 @@
         {"znaki": "我来自波兰。", "pinyin": "Wǒ láizì Bōlán.", "polski": "ło laj-dzy po-lan", "notatki": "ŁO LAJ CY POLAN", "znaczenie": "I'm from Poland. · Jestem z Polski."},
         {"znaki": "你很可爱。", "pinyin": "Nǐ hěn kě'ài.", "polski": "ni chyn khy-aj", "notatki": "NI HAN KY AJ", "znaczenie": "You are cute. · Jesteś słodki/a."},
         {"znaki": "我们明天见。", "pinyin": "Wǒmen míngtiān jiàn.", "polski": "ło-myn ming-thien dzien", "notatki": "", "znaczenie": "See you tomorrow. · Spotkajmy się jutro."},
+        {"znaki": "你叫什么名字？", "pinyin": "Nǐ jiào shénme míngzi?", "polski": "ni dziao szyn-my ming-dzy", "notatki": "", "znaczenie": "What's your name? · Jak masz na imię?"},
+        {"znaki": "我叫Kubi。", "pinyin": "Wǒ jiào Kubi.", "polski": "ło dziao Kubi", "notatki": "", "znaczenie": "My name is Kubi. · Jestem / nazywam się Kubi."},
         {"znaki": "我喜欢你。", "pinyin": "Wǒ xǐhuan nǐ.", "polski": "ło si-chłan ni", "notatki": "", "znaczenie": "I like you. · Lubię Cię."}
       ]
     },
