@@ -201,7 +201,8 @@
     if (opts.onStart) opts.onStart();
     diag("start cel=" + target);
     // Otwieramy mikrofon przez getUserMedia na czas nasłuchu (patrz komentarz na górze pliku).
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // W trybie system-reload nie: każda sesja jest "pierwszą po załadowaniu", a dodatkowy strumień może przeszkadzać.
+    if (!cfg().reload && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       try { const t0 = Date.now(); micStream = await navigator.mediaDevices.getUserMedia({ audio: true }); diag("getUserMedia OK po " + (Date.now() - t0) + "ms"); }
       catch (e) { diag("getUserMedia błąd: " + e.name + " " + e.message); }
     }
@@ -228,7 +229,17 @@
     diag("stop() po " + (session.startedAt ? Date.now() - session.startedAt : 0) + "ms nasłuchu");
     try { getRec().stop(); } catch (e) { diag("stop() wyjątek: " + e.message); }
     const s = session;
-    s.endGuard = setTimeout(() => { if (session === s) { diag("brak onend po stop(), abort()"); try { getRec().abort(); } catch (e) {} } }, 3000);
+    s.endGuard = setTimeout(() => {
+      if (session !== s) return;
+      diag("brak onend po stop(), abort()");
+      try { getRec().abort(); } catch (e) {}
+      setTimeout(() => {
+        if (session !== s) return;
+        diag("brak onend po abort(), kończę na siłę");
+        state = "idle"; releaseMic(); session = null; rec = null; // stara instancja do kosza
+        finish(s);
+      }, 3000);
+    }, 3000);
   }
 
   // ---- silnik "chmura": nagranie WAV -> worker /wymowa (Whisper) ----
