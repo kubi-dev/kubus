@@ -166,7 +166,7 @@
     diag("koniec: final=" + s.gotFinal + " interim=" + JSON.stringify(s.interim || "") + " trzymane " + heldMs + "ms");
     const res = { alts, gotFinal: s.gotFinal, error: s.error, heldMs };
     if (s.opts.onDone) s.opts.onDone(res);
-    if (cfg().reload) przeladuj(s.opts, res);
+    if (cfg().reload && s.startedAt) przeladuj(s.opts, res); // przeładowanie tylko po realnej sesji nasłuchu
   }
 
   // ---- tryb "system-reload": po użyciu mikrofonu strona ładuje się od nowa, wynik i pozycję odtwarzamy po starcie ----
@@ -189,6 +189,12 @@
     return w;
   }
 
+  // Strony zgłaszają tu każde odtworzenie / zatrzymanie audio. iOS WebKit: play/pause <audio> tuż przed
+  // rozpoznawaniem systemowym zabija je bez błędu; potrzebny odstęp 3,5 s (WICG speech-api #96).
+  let ostatnieAudio = 0;
+  const ODSTEP_PO_AUDIO = 3500;
+  function audioAktywne() { ostatnieAudio = Date.now(); }
+
   async function startListening(btn, opts) {
     if (!SR) { if (opts.onDone) opts.onDone({ alts: [], gotFinal: false, error: "Rozpoznawanie mowy działa tylko w Chrome, Edge lub Safari.", heldMs: 0 }); return; }
     if (state !== "idle") {
@@ -202,12 +208,24 @@
     state = "starting";
     if (W.beforeStart) { try { W.beforeStart(); } catch (e) {} }
     if ("speechSynthesis" in window) speechSynthesis.cancel();
+    const target = typeof opts.target === "function" ? opts.target() : opts.target;
+    session = { btn, opts, startedAt: 0, interim: "", finalAlts: null, gotFinal: false, error: null, released: false };
+    const s = session;
+    btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
+    const czekaj = Math.max(0, ODSTEP_PO_AUDIO - (Date.now() - ostatnieAudio));
+    if (czekaj > 0) {
+      diag("audio grało " + (Date.now() - ostatnieAudio) + "ms temu, czekam " + czekaj + "ms");
+      const tik = setInterval(() => { btn.textContent = "⏳ po odsłuchu… " + Math.ceil((ODSTEP_PO_AUDIO - (Date.now() - ostatnieAudio)) / 1000); }, 200);
+      btn.textContent = "⏳ po odsłuchu… " + Math.ceil(czekaj / 1000);
+      await new Promise(r => setTimeout(r, czekaj));
+      clearInterval(tik);
+      if (session !== s) return;
+      if (s.released) { diag("puszczony w trakcie odliczania"); state = "idle"; session = null; finish(s); return; }
+      btn.textContent = "⏳ uruchamiam…";
+    }
     // iOS: po odtworzeniu <audio> sesja audio zostaje w trybie "playback" i WebKit nie przełącza jej z powrotem
     // przy starcie rozpoznawania (mikrofon wyciszony). Wymuszamy tryb nagrywania na czas nasłuchu, potem wracamy na auto.
     sesjaAudio("play-and-record");
-    const target = typeof opts.target === "function" ? opts.target() : opts.target;
-    session = { btn, opts, startedAt: 0, interim: "", finalAlts: null, gotFinal: false, error: null, released: false };
-    btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
     if (opts.onStart) opts.onStart();
     diag("start cel=" + target);
     // Otwieramy mikrofon przez getUserMedia na czas nasłuchu (patrz komentarz na górze pliku).
@@ -373,6 +391,6 @@
     btn.addEventListener("contextmenu", (e) => e.preventDefault());
   }
 
-  const W = { diag, supported: !!SR || GUM, beforeStart: null, zapiszStan: null, bind, grade, render, strip, toPinyin, cfg, odbierzWynik, LABEL_IDLE };
+  const W = { diag, supported: !!SR || GUM, beforeStart: null, zapiszStan: null, bind, grade, render, strip, toPinyin, cfg, odbierzWynik, audioAktywne, LABEL_IDLE };
   window.Wymowa = W;
 })();

@@ -244,12 +244,14 @@ function pokazPostep() {
 
 // ---------- audio ----------
 let audio = null;
-function releaseAudio() { if (!audio) return; try { audio.pause(); audio.removeAttribute("src"); audio.load(); } catch (e) {} audio = null; }
+function releaseAudio() { if (!audio) return; try { if (!audio.paused && !audio.ended) Wymowa.audioAktywne(); audio.pause(); audio.removeAttribute("src"); audio.load(); } catch (e) {} audio = null; }
 Wymowa.beforeStart = releaseAudio;
 function graj(k, wolno) {
   releaseAudio();
   if (!k.audio) return;
   audio = new Audio("../" + k.audio + (wolno ? "-slow" : "") + ".mp3");
+  Wymowa.audioAktywne();
+  audio.onended = () => { Wymowa.audioAktywne(); releaseAudio(); }; // zwolnij od razu po końcu
   audio.play().catch(e => Wymowa.diag("audio.play błąd: " + e.message));
 }
 

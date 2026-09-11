@@ -92,7 +92,7 @@ let current = null;
 // iOS Safari: element <audio> trzymający sesję audio potrafi wyciszyć mikrofon w SpeechRecognition. Zwalniamy go całkiem.
 function releaseAudio() {
   if (!audio) return;
-  try { audio.pause(); audio.removeAttribute("src"); audio.load(); } catch (e) {}
+  try { if (!audio.paused && !audio.ended) Wymowa.audioAktywne(); audio.pause(); audio.removeAttribute("src"); audio.load(); } catch (e) {}
   audio = null;
 }
 
@@ -105,13 +105,14 @@ function setPlaying(card) {
 function speakSystem(text) {
   if (!("speechSynthesis" in window)) { status.textContent = "Brak syntezy mowy w tej przeglądarce."; return; }
   speechSynthesis.cancel();
+  Wymowa.audioAktywne();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = "zh-CN";
   u.rate = slowCb.checked ? 0.6 : 0.9;
   const voices = speechSynthesis.getVoices();
   const zh = voices.find(v => /^zh[-_]CN/i.test(v.lang)) || voices.find(v => /^zh/i.test(v.lang));
   if (zh) u.voice = zh; else status.textContent = "Brak chińskiego głosu w systemie (macOS: Ustawienia → Dostępność → Zawartość mówiona → dodaj chiński).";
-  u.onend = () => setPlaying(null);
+  u.onend = () => { setPlaying(null); Wymowa.audioAktywne(); };
   speechSynthesis.speak(u);
 }
 
@@ -124,7 +125,8 @@ function speakGoogle(text, card) {
     : "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q=" + encodeURIComponent(text) + (slowCb.checked ? "&ttsspeed=0.24" : "");
   audio = new Audio(url);
   lastAudioPlay = Date.now();
-  audio.onended = () => setPlaying(null);
+  Wymowa.audioAktywne();
+  audio.onended = () => { setPlaying(null); Wymowa.audioAktywne(); releaseAudio(); };
   audio.onerror = () => {
     status.textContent = "Nagranie niedostępne — używam głosu systemowego.";
     speakSystem(text);
