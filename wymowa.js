@@ -52,6 +52,8 @@
   }
   diag("UA: " + navigator.userAgent);
   diag("iOS: " + (IOS_VER || "nie") + ", SpeechRecognition: " + (SR ? "jest" : "BRAK") + ", getUserMedia: " + (GUM ? "jest" : "BRAK") + ", AudioContext: " + (AC ? "jest" : "BRAK"));
+  // przy starcie strony sesja audio na "auto" (gdyby poprzednia strona zostawiła "play-and-record")
+  if ("audioSession" in navigator) { try { if (navigator.audioSession.type !== "auto") { navigator.audioSession.type = "auto"; } diag("audioSession przy starcie: " + navigator.audioSession.type); } catch (e) {} }
   diag("silnik: " + cfg().uzyj + " (ustawienie " + cfg().silnik + ", chmura " + (cfg().chmuraOk ? "dostępna" : "niedostępna: brak adresu/klucza") + ")");
 
   function similarity(a, b) {
@@ -160,7 +162,7 @@
   function finish(s) {
     clearTimeout(s.watchdog); clearTimeout(s.endGuard);
     s.btn.classList.remove("rec"); s.btn.textContent = LABEL_IDLE;
-    if (!cfg().reload) sesjaAudio("auto"); // po przeładowaniu i tak wraca na auto
+    sesjaAudio("auto"); // zawsze: tryb "play-and-record" przeżywa przeładowanie strony i wycisza mp3
     const alts = (s.gotFinal ? s.finalAlts : (s.interim ? [s.interim] : [])).filter(a => a);
     const heldMs = s.startedAt ? Date.now() - s.startedAt : 0;
     diag("koniec: final=" + s.gotFinal + " interim=" + JSON.stringify(s.interim || "") + " trzymane " + heldMs + "ms");
