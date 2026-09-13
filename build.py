@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Buduje strony lekcji z lekcje/*/lekcja.json + wspólny index.html.
-Generuje brakujące nagrania mp3 (Google TTS) do lekcje/<lekcja>/audio/.
-Użycie: python3 build.py            # wszystkie lekcje
-        python3 build.py --no-audio # bez pobierania audio
+Generuje brakujące nagrania mp3 (Google TTS) do lekcje/<lekcja>/audio/
+i brakujące obrazki (pole "obrazek" w lekcja.json, patrz obrazki.py) do lekcje/<lekcja>/obrazki/.
+Użycie: python3 build.py              # wszystkie lekcje
+        python3 build.py --no-audio   # bez pobierania audio
+        python3 build.py --no-obrazki # bez pobierania obrazków
 """
 import hashlib, json, pathlib, subprocess, sys, time, urllib.parse
 
@@ -15,6 +17,9 @@ WERSJA = hashlib.md5((ROOT / "wymowa.js").read_bytes()).hexdigest()[:8]
 SYNC_URL = (ROOT / "sync.url").read_text().strip() if (ROOT / "sync.url").exists() else ""
 TTS = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q={q}{slow}"
 NO_AUDIO = "--no-audio" in sys.argv
+NO_OBRAZKI = "--no-obrazki" in sys.argv
+OBRAZEK_SZER = 640  # px; karta pokazuje max ~320 px, 2x na retinie
+UA = "kubus-lekcje/1.0 (https://github.com/kubi-dev/kubus)"
 
 def audio_key(text):
     return hashlib.md5(text.encode("utf-8")).hexdigest()[:10]
@@ -35,12 +40,44 @@ def ensure_audio(lesson_dir, text):
         print(f"  audio: {text} -> {dest.name}")
     return key
 
+def ensure_image(lesson_dir, p):
+    """Pobiera obrazek z pola "obrazek" ({id: openverse, url: oryginał, autor, licencja, zrodlo}) i zmniejsza do JPEG.
+    Zwraca ścieżkę względną w katalogu lekcji albo None."""
+    o = p.get("obrazek")
+    if not o or not (o.get("id") or o.get("url")): return None
+    key = audio_key(p["znaki"])
+    odir = lesson_dir / "obrazki"; odir.mkdir(exist_ok=True)
+    dest = odir / f"{key}.jpg"
+    if dest.exists(): return f"obrazki/{dest.name}"
+    if NO_OBRAZKI: return None
+    zrodla = ([f"https://api.openverse.org/v1/images/{o['id']}/thumb/"] if o.get("id") else []) + ([o["url"]] if o.get("url") else [])
+    tmp = odir / f"{key}.tmp"
+    for url in zrodla:
+        try:
+            subprocess.run(["curl", "-sfL", "-A", UA, "-o", str(tmp), url], check=True, timeout=60)
+            from PIL import Image
+            im = Image.open(tmp); im.load()
+            if im.mode != "RGB": im = im.convert("RGB")
+            if im.width > OBRAZEK_SZER: im = im.resize((OBRAZEK_SZER, round(im.height * OBRAZEK_SZER / im.width)))
+            im.save(dest, "JPEG", quality=82, optimize=True)
+            tmp.unlink(missing_ok=True)
+            print(f"  obrazek: {p['znaki']} -> {dest.name} ({dest.stat().st_size // 1024} KB)")
+            time.sleep(0.3)
+            return f"obrazki/{dest.name}"
+        except Exception as e:
+            tmp.unlink(missing_ok=True)
+            print(f"  ! obrazek {p['znaki']} z {url}: {e}", file=sys.stderr)
+    return None
+
 def build_lesson(lesson_dir):
     data = json.loads((lesson_dir / "lekcja.json").read_text(encoding="utf-8"))
     for sek in data["sekcje"]:
         for p in sek["pozycje"]:
             try: p["audio"] = ensure_audio(lesson_dir, p["znaki"])
             except Exception as e: print(f"  ! {e}", file=sys.stderr); p.pop("audio", None)
+            img = ensure_image(lesson_dir, p)
+            if img: p["img"] = img
+            else: p.pop("img", None)
     html = TEMPLATE.replace("{{TYTUL}}", data["tytul"]).replace("{{DATA_JSON}}", json.dumps(data, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
     (lesson_dir / "index.html").write_text(html, encoding="utf-8")
     md = [f"# {data['tytul']}", "", f"Data: {data.get('data','')}", ""]
@@ -53,7 +90,9 @@ def build_lesson(lesson_dir):
     print(f"{lesson_dir.name}: {n} pozycji")
     karty = [{"id": p["znaki"], "znaki": p["znaki"], "pinyin": p["pinyin"], "polski": p.get("polski", ""), "znaczenie": p["znaczenie"],
               "lekcja": data.get("numer", 0), "lekcjaTytul": data["tytul"],
-              "audio": f"lekcje/{lesson_dir.name}/audio/{p['audio']}" if p.get("audio") else ""}
+              "audio": f"lekcje/{lesson_dir.name}/audio/{p['audio']}" if p.get("audio") else "",
+              "img": f"lekcje/{lesson_dir.name}/{p['img']}" if p.get("img") else "",
+              "obrazek": {k: p["obrazek"].get(k, "") for k in ("autor", "licencja", "zrodlo")} if p.get("img") else None}
              for sek in data["sekcje"] for p in sek["pozycje"]]
     return {"dir": lesson_dir.name, "tytul": data["tytul"], "data": data.get("data", ""), "n": n, "numer": data.get("numer", 0), "karty": karty}
 

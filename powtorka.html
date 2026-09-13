@@ -37,6 +37,9 @@
   .hanzi { font-size: 40px; line-height: 1.2; font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
   .pinyin { font-size: 19px; color: var(--accent); }
   .pl { font-size: 14px; color: var(--muted); }
+  .obr { display: block; width: 100%; max-width: 300px; height: 170px; object-fit: cover; border-radius: 12px; background: var(--line); }
+  .kred { font-size: 11px; color: var(--muted); }
+  .kred a { color: inherit; }
   .big { font-size: 64px; background: none; border: none; cursor: pointer; line-height: 1; }
   .big:active { transform: scale(.94); }
   .mic { display: inline-flex; align-items: center; gap: 8px; font-size: 17px; padding: 14px 22px; border-radius: 999px;
@@ -261,6 +264,15 @@ function nastepna(w) {
   if (biezaca.typ === "A") kartaA(biezaca, w); else kartaB(biezaca, w);
   // nagranie następnej karty do bufora, żeby kolejne odtworzenie było natychmiastowe
   if (kolejka[0] && kolejka[0].k.audio) Wymowa.preload("../" + kolejka[0].k.audio + ".mp3").catch(() => {});
+  if (kolejka[0] && kolejka[0].k.img) { const i = new Image(); i.src = "../" + kolejka[0].k.img; }
+}
+
+function obrazek(k) { const i = el("img", "obr"); i.src = "../" + k.img; i.alt = ""; return i; }
+// podpis zdjęcia: wymagany tylko przy CC BY (StockSnap/Rawpixel są CC0)
+function kredyt(k) {
+  const o = k.obrazek; if (!o || o.licencja !== "by") return null;
+  const a = o.autor || "autor nieznany";
+  return el("div", "kred", "fot. " + (o.zrodlo ? `<a href="${o.zrodlo}" target="_blank" rel="noopener">${a}</a>` : a) + " · CC BY");
 }
 
 // ---- tryb "system-reload": zapis i odtworzenie sesji wokół przeładowania strony ----
@@ -286,10 +298,12 @@ function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.
 
 function odslon(k, kontener, zMikrofonem, onWynik) {
   const r = el("div", "reveal");
+  if (k.img && !card.querySelector(".obr")) r.appendChild(obrazek(k));
   r.appendChild(el("div", "hanzi", k.znaki));
   r.appendChild(el("div", "pinyin", k.pinyin));
   if (k.polski) r.appendChild(el("div", "pl", "po polsku: " + k.polski));
   r.appendChild(el("div", "", polskie(k) + (angielskie(k) ? ` <span class="pl">· ${angielskie(k)}</span>` : "")));
+  const kr = kredyt(k); if (kr) r.appendChild(kr);
   const b = el("button", "link", "🔊 posłuchaj"); b.type = "button"; b.addEventListener("click", () => graj(k)); r.appendChild(b);
   const bw = el("button", "link", "🐢 wolniej"); bw.type = "button"; bw.addEventListener("click", () => graj(k, true)); r.appendChild(bw);
   if (zMikrofonem) {
@@ -326,6 +340,7 @@ function kartaA(c, w) {
   const k = c.k;
   widok = w || { typ: "A", podpowiedzi: 0, skip: false, wynik: null };
   card.appendChild(el("div", "tag", "powiedz po chińsku"));
+  if (k.img) card.appendChild(obrazek(k));
   card.appendChild(el("div", "q", polskie(k) + (angielskie(k) ? `<small>${angielskie(k)}</small>` : "")));
   const out = el("div", "result"); out.hidden = true;
   const mic = el("button", "mic"); mic.type = "button";

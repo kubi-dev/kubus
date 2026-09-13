@@ -1,3 +1,5 @@
 worker/node_modules/
 worker/.wrangler/
 .wrangler/
+
+.cache/

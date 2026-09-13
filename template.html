@@ -38,7 +38,10 @@
   .fon { font-size: 13px; color: var(--muted); margin-top: 2px; }
   .fon::before { content: "moje: "; }
   .mean { font-size: 15px; margin-top: 8px; }
-  .spk { position: absolute; top: 14px; right: 14px; font-size: 18px; opacity: .5; }
+  .obr { display: block; width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; background: var(--line); }
+  .kred { font-size: 11px; color: var(--muted); margin-top: 6px; }
+  .kred a { color: inherit; }
+  .spk { position: absolute; top: 14px; right: 14px; font-size: 18px; opacity: .5; background: var(--card); border-radius: 999px; padding: 1px 6px; }
   .card:hover .spk { opacity: 1; }
   .mic { margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 13px;
          padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer;
@@ -134,6 +137,13 @@ function play(text, card) {
   if (engineSel.value === "google") speakGoogle(text, card); else speakSystem(text);
 }
 
+// podpis zdjęcia: wymagany tylko przy CC BY (StockSnap/Rawpixel są CC0)
+function kredyt(o) {
+  if (!o || o.licencja !== "by") return "";
+  const a = o.autor || "autor nieznany";
+  return `<div class="kred">fot. ${o.zrodlo ? `<a href="${o.zrodlo}" target="_blank" rel="noopener">${a}</a>` : a} · CC BY</div>`;
+}
+
 function render(sekcje) {
   const main = document.getElementById("main");
   for (const sek of sekcje) {
@@ -144,14 +154,16 @@ function render(sekcje) {
       const c = document.createElement("div");
       c.className = "card";
       c.innerHTML = `<span class="spk">🔊</span>
+        ${p.img ? `<img class="obr" src="${p.img}" alt="" loading="lazy">` : ""}
         <div class="hanzi">${p.znaki}</div>
         <div class="pinyin">${p.pinyin}</div>
         ${p.polski ? `<div class="pl">${p.polski}</div>` : ""}
         ${p.notatki ? `<div class="fon">${p.notatki}</div>` : ""}
         <div class="mean">${p.znaczenie}</div>
+        ${kredyt(p.img ? p.obrazek : null)}
         <button class="mic" type="button">🎤 przytrzymaj i mów</button>
         <div class="result" hidden></div>`;
-      c.addEventListener("click", (e) => { if (e.target.closest(".mic, .result")) return; play(p.znaki, c); });
+      c.addEventListener("click", (e) => { if (e.target.closest(".mic, .result, .kred a")) return; play(p.znaki, c); });
       bindMic(c.querySelector(".mic"), p.znaki, c);
       el.appendChild(c);
     }

@@ -8,7 +8,8 @@ Strona: https://kubi-dev.github.io/kubus/
 3. Potwierdź tabelę, Claude robi build i deploy.
 
 ## Ręcznie
-- `python3 build.py` — buduje wszystkie strony + nagrania mp3 (tylko brakujące).
+- `python3 build.py` — buduje wszystkie strony + nagrania mp3 + obrazki (tylko brakujące).
+- `python3 obrazki.py szukaj "bowl of rice" ...` — kolaż kandydatów z Openverse (CC0 / CC BY) do `.cache/obrazki/`; `python3 obrazki.py wpisz lekcje/NN/lekcja.json "米饭=bowl-of-rice:3"` wpisuje wybór do pola `obrazek`. Build pobiera i zmniejsza obrazek do `obrazki/`. Robi to skill `/nowa-lekcja`.
 - `./serwuj.sh` — podgląd lokalny na http://localhost:8765/
 - `./deploy.sh "opis"` — commit + push, GitHub Pages odświeża w ~1 min.
 
@@ -22,12 +23,13 @@ Parametry testowe w URL: `?odstep=0`, `?sesja=0`, `?silnik=system|chmura|system-
 Szczegóły i plan testu na telefonie: `docs/plan-mikrofon-ios-spec.md`.
 
 ## Powtórki
-- Strona `powtorka/` (SM-2 jak w Anki). Karta A: polskie znaczenie, mówisz po chińsku (mikrofon). Karta B: audio po chińsku, wybierasz znaczenie, po dojrzeniu karty wpisujesz.
+- Strona `powtorka/` (SM-2 jak w Anki). Karta A: obrazek + polskie znaczenie, mówisz po chińsku (mikrofon). Karta B: audio po chińsku, wybierasz znaczenie, po dojrzeniu karty wpisujesz; obrazek pokazuje się po odsłonięciu.
 - Postęp w `localStorage` + synchronizacja przez Cloudflare Worker (`worker/`, opis w `worker/README.md`). Adres workera w pliku `sync.url`, klucz podajesz stronie linkiem `powtorka/?k=<klucz>`.
 
 ## Struktura
 ```
 template.html            szablon strony lekcji
+obrazki.py               szukanie obrazków do kart (Openverse)
 powtorka.html            szablon strony powtórek
 wymowa.js                wspólny moduł: odtwarzanie mp3 (Web Audio) + sprawdzanie wymowy (mikrofon)
 worker/                  Cloudflare Worker synchronizacji postępu
@@ -36,6 +38,7 @@ lekcje/NN-slug/
   lekcja.json            dane (źródło prawdy, edytuj tu)
   zdjecia/               zdjęcia notatek
   audio/                 mp3 generowane z Google TTS
+  obrazki/               obrazki kart (pobrane wg pola "obrazek" w lekcja.json, zmniejszone do 640 px)
   index.html, notatki.md wygenerowane
 powtorka/                wygenerowana strona powtórek + karty.json
 index.html               wygenerowany indeks lekcji

@@ -5,7 +5,7 @@ description: Tworzy stronę nowej lekcji chińskiego ze zdjęć notatek wrzucony
 
 # Nowa lekcja ze zdjęć
 
-Repo: strony lekcji chińskiego. Każda lekcja = katalog `lekcje/NN-slug/` z `lekcja.json`, ze zdjęć generowany jest `index.html`, `notatki.md` i nagrania `audio/`. Wspólny indeks w `index.html` w katalogu głównym. Wszystko buduje `python3 build.py`.
+Repo: strony lekcji chińskiego. Każda lekcja = katalog `lekcje/NN-slug/` z `lekcja.json`, ze zdjęć generowany jest `index.html`, `notatki.md`, nagrania `audio/` i obrazki `obrazki/`. Wspólny indeks w `index.html` w katalogu głównym. Wszystko buduje `python3 build.py`.
 
 ## Kroki
 
@@ -19,12 +19,16 @@ Repo: strony lekcji chińskiego. Każda lekcja = katalog `lekcje/NN-slug/` z `le
    - `notatki` — jak user zapisał (puste, jeśli nie zapisał)
    - `znaczenie` — format `english · polski`
 5. **Sekcje.** Grupuj wg tego, co jest w notatkach (Słówka, Zdania, Gramatyka, Liczby…). Zachowaj kolejność ze zdjęć.
-6. **Zapis.** Utwórz `lekcje/NN-slug/lekcja.json` w formacie jak `lekcje/01-przyjaciele/lekcja.json` (`numer`, `tytul` = "Lekcja N · Temat", `data` = data lekcji jeśli na zdjęciu, inaczej dzisiejsza, `sekcje`). Przenieś zdjęcia z `inbox/` do `lekcje/NN-slug/zdjecia/`.
-7. **Build.** `python3 build.py`. Sprawdź, że nie ma linii z `!` (błąd audio). Jeśli są, uruchom ponownie (Google czasem odrzuca request).
-8. **Weryfikacja.** Pokaż userowi tabelę pozycji (znaki, pinyin, notatki, znaczenie) i poproś o potwierdzenie lub poprawki. Poprawki nanieś w `lekcja.json` i przebuduj.
-9. **Deploy.** Po potwierdzeniu: `./deploy.sh "Lekcja N: temat"`. Podaj link: `https://kubi-dev.github.io/kubus/lekcje/NN-slug/` oraz indeks `https://kubi-dev.github.io/kubus/`. Strona pojawia się po ok. 1 min.
+6. **Obrazki.** Do każdej pozycji, którą da się jednoznacznie pokazać na zdjęciu (rzeczowniki, jedzenie, przedmioty, zwierzęta, wyraziste emocje, flagi, gesty jak „kciuk w górę”), dobierz obrazek. Pomiń partykuły, spójniki, gramatykę, abstrakcje i zdania, dla których obraz byłby naciągany — brak obrazka jest lepszy niż mylący.
+   - Zapytania po angielsku, konkretne (`"bowl of rice"`, nie `"rice"`; `"glass of water"`, nie `"water"`). Uruchom hurtowo: `python3 obrazki.py szukaj "q1" "q2" ...` (max ok. 15 zapytań na minutę — limit Openverse 20/min, 200/dzień). Dla każdego zapytania powstaje kolaż `.cache/obrazki/<slug>.png` z ponumerowanymi kandydatami.
+   - Obejrzyj każdy kolaż narzędziem Read i wybierz numer: zdjęcie ma pokazywać znaczenie od razu, bez tekstu na obrazku, bez wieloznaczności. Jeśli nic nie pasuje, spróbuj innego zapytania lub `--wszystkie` (Flickr/Wikimedia, licencja CC BY z podpisem), a jak dalej nic — pomiń.
+   - Wpisz wybory: `python3 obrazki.py wpisz lekcje/NN-slug/lekcja.json "znaki=slug:N" ...` (slug = nazwa pliku kolażu bez rozszerzenia). Ręcznie można też ustawić pole `obrazek` z własnym `url` (dozwolone licencje: CC0, domena publiczna, CC BY; przy CC BY wypełnij `autor` i `zrodlo`, strona pokaże podpis).
+7. **Zapis.** Utwórz `lekcje/NN-slug/lekcja.json` w formacie jak `lekcje/01-przyjaciele/lekcja.json` (`numer`, `tytul` = "Lekcja N · Temat", `data` = data lekcji jeśli na zdjęciu, inaczej dzisiejsza, `sekcje`). Przenieś zdjęcia z `inbox/` do `lekcje/NN-slug/zdjecia/`.
+8. **Build.** `python3 build.py`. Sprawdź, że nie ma linii z `!` (błąd audio lub obrazka). Jeśli są, uruchom ponownie (Google czasem odrzuca request); przy obrazku, który dalej nie schodzi, wybierz innego kandydata.
+9. **Weryfikacja.** Pokaż userowi tabelę pozycji (znaki, pinyin, notatki, znaczenie, czy jest obrazek) i poproś o potwierdzenie lub poprawki. Poprawki nanieś w `lekcja.json` i przebuduj.
+10. **Deploy.** Po potwierdzeniu: `./deploy.sh "Lekcja N: temat"`. Podaj link: `https://kubi-dev.github.io/kubus/lekcje/NN-slug/` oraz indeks `https://kubi-dev.github.io/kubus/`. Strona pojawia się po ok. 1 min.
 
 ## Zasady
-- Nie zmieniaj `template.html` ani `build.py` w ramach tego skilla. Jeśli notatki wymagają nowego typu treści, powiedz userowi.
+- Nie zmieniaj `template.html`, `build.py` ani `obrazki.py` w ramach tego skilla. Jeśli notatki wymagają nowego typu treści, powiedz userowi.
 - Nie deployuj przed potwierdzeniem usera (krok 8), chyba że user wprost każe "od razu wrzuć".
 - Pisz JSON z `ensure_ascii` wyłączonym (znaki chińskie dosłownie), 2 spacje wcięcia.
