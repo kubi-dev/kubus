@@ -11,6 +11,7 @@ import hashlib, json, pathlib, subprocess, sys, time, urllib.parse
 ROOT = pathlib.Path(__file__).resolve().parent
 TEMPLATE = (ROOT / "template.html").read_text(encoding="utf-8")
 POWTORKA = (ROOT / "powtorka.html").read_text(encoding="utf-8")
+ULUBIONE = (ROOT / "ulubione.html").read_text(encoding="utf-8")
 # Wersja do cache-bustingu wymowa.js (hash pliku)
 WERSJA = hashlib.md5((ROOT / "wymowa.js").read_bytes()).hexdigest()[:8]
 # Adres workera synchronizacji (plik sync.url, jedna linia); pusty = tylko localStorage
@@ -108,6 +109,10 @@ def build_powtorka(lessons):
     html = POWTORKA.replace("{{KARTY_JSON}}", json.dumps(karty, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
     (out / "index.html").write_text(html, encoding="utf-8")
     print(f"powtorka: {len(karty)} kart")
+    # strona ulubionych: lista zwrotów oznaczonych gwiazdką w powtórce (ta sama talia, ten sam stan)
+    out = ROOT / "ulubione"; out.mkdir(exist_ok=True)
+    html = ULUBIONE.replace("{{KARTY_JSON}}", json.dumps(karty, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
+    (out / "index.html").write_text(html, encoding="utf-8")
 
 def build_index(lessons):
     items = "\n".join(
@@ -137,6 +142,7 @@ INDEX = """<!DOCTYPE html>
 <main>
   <h1>Notatki z chińskiego</h1>
     <a class="card" href="powtorka/"><div class="t">🔁 Powtórka</div><div class="m">codzienne powtórki: wymowa i rozumienie ze słuchu</div></a>
+    <a class="card" href="ulubione/"><div class="t">★ Ulubione</div><div class="m">zwroty oznaczone gwiazdką w powtórce · ściąga na rozmowę</div></a>
 {{LEKCJE}}
 </main>
 </body>

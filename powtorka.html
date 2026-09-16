@@ -8,12 +8,12 @@
 <style>
   :root {
     --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62;
-    --accent: #b8362d; --accent-soft: #f3d9d5; --line: #e6dccd;
+    --accent: #b8362d; --accent-soft: #f3d9d5; --line: #e6dccd; --star: #d99a1c;
     --ok-bg: #dff3e3; --ok-ink: #14532d; --mid-bg: #fdf0d5; --mid-ink: #7c4a03;
   }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #171412; --card: #221e1a; --ink: #f1e9dd; --muted: #a2968a;
-            --accent: #e0574c; --accent-soft: #3a2320; --line: #332c26;
+            --accent: #e0574c; --accent-soft: #3a2320; --line: #332c26; --star: #f0c04a;
             --ok-bg: #14351f; --ok-ink: #9be2b0; --mid-bg: #3a2c10; --mid-ink: #f0c674; }
   }
   * { box-sizing: border-box; }
@@ -29,8 +29,10 @@
   select { padding: 4px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
   .gear { background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px 4px; }
   main { flex: 1; max-width: 620px; width: 100%; margin: 0 auto; padding: 10px 18px 24px; display: flex; flex-direction: column; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px 20px; flex: 1;
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px 20px; flex: 1; position: relative;
           display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; min-height: 340px; }
+  .star { position: absolute; top: 10px; right: 12px; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--muted); padding: 4px 6px; line-height: 1; }
+  .star.on { color: var(--star); }
   .tag { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
   .q { font-size: 30px; font-weight: 600; line-height: 1.25; }
   .q small { display: block; font-size: 15px; font-weight: 400; color: var(--muted); margin-top: 6px; }
@@ -89,6 +91,7 @@
 <header>
   <a href="../">← lekcje</a>
   <span class="prog" id="prog">Powtórka</span>
+  <a href="../ulubione/" title="Ulubione zwroty">★</a>
   <select id="filtr"><option value="">wszystkie lekcje</option></select>
   <button class="gear" id="gear" type="button" title="Ustawienia">⚙</button>
   <div class="bar"><i id="bar"></i></div>
@@ -134,7 +137,7 @@ const $ = id => document.getElementById(id);
 
 // ---------- stan (localStorage + chmura) ----------
 const KLUCZ_LS = "kubus.powtorka";
-let stan = { karty: {}, ustawienia: { nowe: 10, z: 0 }, dzien: { data: "", nowe: 0 } };
+let stan = { karty: {}, ustawienia: { nowe: 10, z: 0 }, dzien: { data: "", nowe: 0 }, ulubione: {} };
 try { const s = JSON.parse(localStorage.getItem(KLUCZ_LS) || "null"); if (s && s.karty) stan = scal(stan, s); } catch (e) {}
 const cfg = { url: "", klucz: "" };
 try { Object.assign(cfg, JSON.parse(localStorage.getItem(KLUCZ_LS + ".sync") || "{}")); } catch (e) {}
@@ -145,8 +148,9 @@ function zapiszCfg() { try { localStorage.setItem(KLUCZ_LS + ".sync", JSON.strin
 
 function scal(a, b) {
   // nowsza wersja karty wygrywa (pole z = czas zmiany); to samo w workerze
-  const out = { karty: Object.assign({}, a.karty), ustawienia: a.ustawienia, dzien: a.dzien };
+  const out = { karty: Object.assign({}, a.karty), ustawienia: a.ustawienia, dzien: a.dzien, ulubione: Object.assign({}, a.ulubione || {}) };
   for (const k in (b.karty || {})) { const x = out.karty[k], y = b.karty[k]; if (!x || (y.z || 0) > (x.z || 0)) out.karty[k] = y; }
+  for (const k in (b.ulubione || {})) { const x = out.ulubione[k], y = b.ulubione[k]; if (!x || (y.z || 0) > (x.z || 0)) out.ulubione[k] = y; }
   if (b.ustawienia && (b.ustawienia.z || 0) > (a.ustawienia.z || 0)) out.ustawienia = b.ustawienia;
   if (b.dzien && (b.dzien.data > (a.dzien.data || "") || (b.dzien.data === a.dzien.data && (b.dzien.nowe || 0) > (a.dzien.nowe || 0)))) out.dzien = b.dzien;
   return out;
@@ -251,6 +255,16 @@ function graj(k, wolno) {
   Wymowa.graj("../" + k.audio + (wolno ? "-slow" : "") + ".mp3").catch(e => Wymowa.diag("mp3 błąd: " + e.message));
 }
 
+// ---------- ulubione (gwiazdka na karcie; lista na stronie ../ulubione/) ----------
+function ulubiona(znaki) { const u = stan.ulubione[znaki]; return !!(u && u.on); }
+function przelaczUlubiona(znaki) { stan.ulubione[znaki] = { on: !ulubiona(znaki), z: Date.now() }; zapiszLokalnie(); zaplanujSync(); }
+function gwiazdka(k) {
+  const b = el("button", "star"); b.type = "button";
+  const odswiez = () => { const on = ulubiona(k.id); b.textContent = on ? "★" : "☆"; b.classList.toggle("on", on); b.title = on ? "usuń z ulubionych" : "dodaj do ulubionych"; };
+  odswiez(); b.addEventListener("click", () => { przelaczUlubiona(k.id); odswiez(); });
+  return b;
+}
+
 // ---------- karty ----------
 const card = $("card"), rate = $("rate");
 let sugestia = 2, odpowiedziano = false;
@@ -261,6 +275,7 @@ function nastepna(w) {
   pokazPostep();
   if (!biezaca) { koniec(); return; }
   card.innerHTML = "";
+  card.appendChild(gwiazdka(biezaca.k));
   if (biezaca.typ === "A") kartaA(biezaca, w); else kartaB(biezaca, w);
   // nagranie następnej karty do bufora, żeby kolejne odtworzenie było natychmiastowe
   if (kolejka[0] && kolejka[0].k.audio) Wymowa.preload("../" + kolejka[0].k.audio + ".mp3").catch(() => {});

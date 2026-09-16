@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Powtórka · Notatki z chińskiego</title>
+<title>Ulubione · Notatki z chińskiego</title>
 <style>
   :root {
     --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62;
@@ -20,68 +20,52 @@
   html, body { height: 100%; }
   body { margin: 0; background: var(--bg); color: var(--ink);
          font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; display: flex; flex-direction: column; }
-  header { padding: 14px 18px 8px; max-width: 620px; width: 100%; margin: 0 auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  header { padding: 14px 18px 8px; max-width: 620px; width: 100%; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
   header a { color: var(--accent); text-decoration: none; font-size: 14px; }
-  .prog { flex: 1; text-align: center; font-size: 14px; color: var(--muted); }
-  .bar { height: 4px; background: var(--line); border-radius: 2px; width: 100%; overflow: hidden; }
-  .bar i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .2s; }
-  select, button, input { font: inherit; }
-  select { padding: 4px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
-  .gear { background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px 4px; }
-  main { flex: 1; max-width: 620px; width: 100%; margin: 0 auto; padding: 10px 18px 24px; display: flex; flex-direction: column; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px 20px; flex: 1; position: relative;
-          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; min-height: 340px; }
-  .star { position: absolute; top: 10px; right: 12px; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--muted); padding: 4px 6px; line-height: 1; }
-  .star.on { color: var(--star); }
-  .tag { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
-  .q { font-size: 30px; font-weight: 600; line-height: 1.25; }
-  .q small { display: block; font-size: 15px; font-weight: 400; color: var(--muted); margin-top: 6px; }
-  .hanzi { font-size: 40px; line-height: 1.2; font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-  .pinyin { font-size: 19px; color: var(--accent); }
-  .pl { font-size: 14px; color: var(--muted); }
+  .ttl { flex: 1; text-align: center; font-size: 16px; font-weight: 600; }
+  main { flex: 1; max-width: 620px; width: 100%; margin: 0 auto; padding: 6px 18px 24px; display: flex; flex-direction: column; gap: 10px; }
+  input, button { font: inherit; }
+  .szukaj { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 16px; }
+  .lista { display: flex; flex-direction: column; gap: 8px; }
+  .item { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px;
+          border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+  .item:active { transform: scale(.985); }
+  .item .txt { flex: 1; min-width: 0; }
+  .item b { display: block; font-size: 19px; font-weight: 600; line-height: 1.25; }
+  .item small { display: block; color: var(--muted); font-size: 13px; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .item .hz { font-size: 22px; color: var(--muted); font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+  .pusto { text-align: center; color: var(--muted); font-size: 15px; line-height: 1.6; padding: 40px 10px; }
+  .sync { font-size: 12px; color: var(--muted); text-align: center; padding: 6px 0 0; }
+  .sync.err { color: var(--accent); }
+  /* karta na cały ekran */
+  .overlay { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; z-index: 10; overflow: auto; }
+  .overlay header { flex: none; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px 20px; margin: 6px 18px 24px; flex: 1;
+          max-width: 584px; width: calc(100% - 36px); align-self: center;
+          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; position: relative; }
+  .hanzi { font-size: 52px; line-height: 1.2; font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+  .pinyin { font-size: 24px; color: var(--accent); }
+  .pl { font-size: 15px; color: var(--muted); }
+  .znacz { font-size: 20px; font-weight: 600; }
+  .znacz small { display: block; font-size: 14px; font-weight: 400; color: var(--muted); margin-top: 4px; }
   .obr { display: block; width: 100%; max-width: 300px; height: 170px; object-fit: cover; border-radius: 12px; background: var(--line); }
   .kred { font-size: 11px; color: var(--muted); }
   .kred a { color: inherit; }
-  .big { font-size: 64px; background: none; border: none; cursor: pointer; line-height: 1; }
-  .big:active { transform: scale(.94); }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .big { font-size: 18px; padding: 12px 20px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+  .big:active { transform: scale(.96); }
   .mic { display: inline-flex; align-items: center; gap: 8px; font-size: 17px; padding: 14px 22px; border-radius: 999px;
          border: 2px solid var(--accent); background: transparent; color: var(--ink); cursor: pointer;
          touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
   .mic.rec { background: var(--accent); color: #fff; animation: pulse 1s infinite; }
   @keyframes pulse { 50% { opacity: .6; } }
-  .link { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 14px; padding: 6px; }
   .result { font-size: 14px; padding: 10px 12px; border-radius: 10px; background: var(--bg); line-height: 1.4; width: 100%; }
   .result.ok { background: var(--ok-bg); color: var(--ok-ink); }
   .result.mid { background: var(--mid-bg); color: var(--mid-ink); }
   .result.bad { background: var(--accent-soft); color: var(--accent); }
-  .opts { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-  .opt { padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; text-align: left; font-size: 16px; }
-  .opt:active { transform: scale(.98); }
-  .opt.ok { background: var(--ok-bg); color: var(--ok-ink); border-color: transparent; }
-  .opt.bad { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
-  .opt:disabled { cursor: default; }
-  .typed { display: flex; gap: 8px; width: 100%; }
-  .typed input { flex: 1; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font-size: 16px; }
-  .typed button { padding: 12px 16px; border-radius: 12px; border: none; background: var(--accent); color: #fff; cursor: pointer; }
-  .reveal { display: flex; flex-direction: column; align-items: center; gap: 4px; padding-top: 6px; border-top: 1px dashed var(--line); width: 100%; }
-  .rate { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
-  .rate button { padding: 12px 4px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; font-size: 14px; line-height: 1.2; }
-  .rate button small { display: block; color: var(--muted); font-size: 11px; margin-top: 3px; }
-  .rate button.sug { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
-  .rate button:active { transform: scale(.96); }
-  .start { padding: 16px 28px; border-radius: 999px; border: none; background: var(--accent); color: #fff; font-size: 18px; cursor: pointer; }
-  .sum { font-size: 15px; color: var(--muted); line-height: 1.6; }
+  .star { position: absolute; top: 10px; right: 12px; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--muted); padding: 4px 6px; line-height: 1; }
+  .star.on { color: var(--star); }
   .hint { color: var(--muted); font-size: 13px; }
-  .sync { font-size: 12px; color: var(--muted); text-align: center; padding: 6px 0 0; }
-  .sync.err { color: var(--accent); }
-  dialog { border: 1px solid var(--line); border-radius: 14px; background: var(--card); color: var(--ink); padding: 18px; max-width: 360px; width: calc(100% - 32px); }
-  dialog::backdrop { background: rgba(0,0,0,.4); }
-  dialog label { display: block; margin: 10px 0 4px; font-size: 14px; }
-  dialog select { width: 100%; }
-  dialog input { width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
-  dialog .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
-  dialog button { padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
-  dialog button.p { background: var(--accent); color: #fff; border-color: var(--accent); }
   .diag { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
   .diag pre { max-height: 200px; overflow: auto; font-size: 11px; white-space: pre-wrap; word-break: break-all; background: var(--card); padding: 8px; border-radius: 8px; }
   [hidden] { display: none !important; }
@@ -90,41 +74,25 @@
 <body>
 <header>
   <a href="../">← lekcje</a>
-  <span class="prog" id="prog">Powtórka</span>
-  <a href="../ulubione/" title="Ulubione zwroty">★</a>
-  <select id="filtr"><option value="">wszystkie lekcje</option></select>
-  <button class="gear" id="gear" type="button" title="Ustawienia">⚙</button>
-  <div class="bar"><i id="bar"></i></div>
+  <span class="ttl">★ Ulubione</span>
+  <a href="../powtorka/">powtórka</a>
 </header>
 
 <main>
-  <div class="card" id="card"></div>
-  <div class="rate" id="rate" hidden>
-    <button type="button" data-q="0">nie wiem<small>dziś jeszcze raz</small></button>
-    <button type="button" data-q="1">trudno<small id="d1"></small></button>
-    <button type="button" data-q="2">dobrze<small id="d2"></small></button>
-    <button type="button" data-q="3">łatwo<small id="d3"></small></button>
-  </div>
+  <input class="szukaj" id="szukaj" type="search" placeholder="szukaj po polsku…" autocomplete="off" autocapitalize="off">
+  <div class="lista" id="lista"></div>
   <div class="sync" id="sync"></div>
   <details class="diag"><summary>diagnostyka mikrofonu</summary><pre id="diag-log"></pre></details>
 </main>
 
-<dialog id="dlg">
-  <b>Ustawienia</b>
-  <label>Nowych kart dziennie <input type="number" id="s-nowe" min="0" max="100"></label>
-  <label>Adres synchronizacji <input type="url" id="s-url" placeholder="https://….workers.dev"></label>
-  <label>Klucz synchronizacji <input type="text" id="s-klucz" autocomplete="off"></label>
-  <label>Rozpoznawanie mowy
-    <select id="s-silnik">
-      <option value="auto">automatycznie (system)</option>
-      <option value="chmura">chmura (Whisper przez worker)</option>
-      <option value="system">system (Web Speech: Google / Apple)</option>
-      <option value="system-reload">system + przeładowanie strony po każdym użyciu (iOS)</option>
-    </select>
-  </label>
-  <p class="hint">Postęp zapisuje się w tej przeglądarce i, jeśli podasz adres i klucz, w chmurze (wspólny dla wszystkich urządzeń).</p>
-  <div class="row"><button type="button" id="s-anuluj">Anuluj</button><button type="button" class="p" id="s-ok">Zapisz</button></div>
-</dialog>
+<div class="overlay" id="overlay" hidden>
+  <header>
+    <a href="#" id="wroc">← lista</a>
+    <span class="ttl" id="o-ttl"></span>
+    <span style="width:60px"></span>
+  </header>
+  <div class="card" id="card"></div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
 <script>window.SYNC_URL = "https://kubus-sync.dark-mud-b74c.workers.dev";</script>
@@ -132,22 +100,19 @@
 <script>
 const KARTY = [{"id": "朋友", "znaki": "朋友", "pinyin": "péngyou", "polski": "pyng-joł", "znaczenie": "friend · przyjaciel", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/9d53230a95", "img": "lekcje/01-przyjaciele/obrazki/9d53230a95.jpg", "obrazek": {"autor": "Helena Lopes", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/friends-hugging-6ZYX4YY4IR"}}, {"id": "好朋友", "znaki": "好朋友", "pinyin": "hǎo péngyou", "polski": "chał pyng-joł", "znaczenie": "close friend · bliski przyjaciel", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/4c0229fa34", "img": "lekcje/01-przyjaciele/obrazki/4c0229fa34.jpg", "obrazek": {"autor": "Helena Lopes", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/group-friends-M16QHPDGYJ"}}, {"id": "女朋友", "znaki": "女朋友", "pinyin": "nǚ péngyou", "polski": "nü pyng-joł", "znaczenie": "girlfriend · dziewczyna", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/1247e9a7ba", "img": "lekcje/01-przyjaciele/obrazki/1247e9a7ba.jpg", "obrazek": {"autor": "Living Together", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/young-couple-3IOFSSN53B"}}, {"id": "可爱", "znaki": "可爱", "pinyin": "kě'ài", "polski": "khy-aj", "znaczenie": "cute · słodki", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/c8ea8eb5d7", "img": "lekcje/01-przyjaciele/obrazki/c8ea8eb5d7.jpg", "obrazek": {"autor": "Jens Mahnke", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/cute-french-UNPEU2WDLC"}}, {"id": "美丽", "znaki": "美丽", "pinyin": "měilì", "polski": "mej-li", "znaczenie": "piękna", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/a84ce0c385", "img": "lekcje/01-przyjaciele/obrazki/a84ce0c385.jpg", "obrazek": {"autor": "Anggoro Sakti", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/beautiful-woman-L6YVQ85CKY"}}, {"id": "聪明", "znaki": "聪明", "pinyin": "cōngming", "polski": "cung-ming", "znaczenie": "clever · mądry", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/dbf3687538", "img": "", "obrazek": null}, {"id": "和", "znaki": "和", "pinyin": "hé", "polski": "chy", "znaczenie": "and · i", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/ab20cc42f3", "img": "", "obrazek": null}, {"id": "好吃", "znaki": "好吃", "pinyin": "hǎochī", "polski": "chał czhy", "znaczenie": "tasty · smaczne", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/a78e4f228b", "img": "lekcje/01-przyjaciele/obrazki/a78e4f228b.jpg", "obrazek": {"autor": "Snapwire", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/steak-asparagus-JMJZKYXUWD"}}, {"id": "难吃", "znaki": "难吃", "pinyin": "nánchī", "polski": "nan czhy", "znaczenie": "not tasty · niedobre (jedzenie)", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/55a4a87609", "img": "", "obrazek": null}, {"id": "你好吗？", "znaki": "你好吗？", "pinyin": "Nǐ hǎo ma?", "polski": "ni chał ma", "znaczenie": "How are you? · Jak się masz?", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/bb0b6bc453", "img": "", "obrazek": null}, {"id": "很好。", "znaki": "很好。", "pinyin": "Hěn hǎo.", "polski": "chyn chał", "znaczenie": "I'm good. · Dobrze.", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/a694aab4bd", "img": "lekcje/01-przyjaciele/obrazki/a694aab4bd.jpg", "obrazek": {"autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5914523/image-background-public-domain-hand"}}, {"id": "你来自哪里？", "znaki": "你来自哪里？", "pinyin": "Nǐ láizì nǎlǐ?", "polski": "ni laj-dzy na-li", "znaczenie": "Where are you from? · Skąd jesteś?", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/9116fb5c8c", "img": "", "obrazek": null}, {"id": "我来自波兰。", "znaki": "我来自波兰。", "pinyin": "Wǒ láizì Bōlán.", "polski": "ło laj-dzy po-lan", "znaczenie": "I'm from Poland. · Jestem z Polski.", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/6f0e946909", "img": "lekcje/01-przyjaciele/obrazki/6f0e946909.jpg", "obrazek": {"autor": "andjohmoe", "licencja": "pdm", "zrodlo": "https://www.flickr.com/photos/63962238@N08/36948107704"}}, {"id": "你很可爱。", "znaki": "你很可爱。", "pinyin": "Nǐ hěn kě'ài.", "polski": "ni chyn khy-aj", "znaczenie": "You are cute. · Jesteś słodki/a.", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/524bbeedfb", "img": "", "obrazek": null}, {"id": "我们明天见。", "znaki": "我们明天见。", "pinyin": "Wǒmen míngtiān jiàn.", "polski": "ło-myn ming-thien dzien", "znaczenie": "See you tomorrow. · Spotkajmy się jutro.", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/e286e6e79f", "img": "", "obrazek": null}, {"id": "你叫什么名字？", "znaki": "你叫什么名字？", "pinyin": "Nǐ jiào shénme míngzi?", "polski": "ni dziao szyn-my ming-dzy", "znaczenie": "What's your name? · Jak masz na imię?", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/dcdedf4368", "img": "lekcje/01-przyjaciele/obrazki/dcdedf4368.jpg", "obrazek": {"autor": "Nilo Velez", "licencja": "cc0", "zrodlo": "https://wordpress.org/photos/photo/507677c564/"}}, {"id": "我叫Kubi。", "znaki": "我叫Kubi。", "pinyin": "Wǒ jiào Kubi.", "polski": "ło dziao Kubi", "znaczenie": "My name is Kubi. · Jestem / nazywam się Kubi.", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/9699b18e9c", "img": "", "obrazek": null}, {"id": "我喜欢你。", "znaki": "我喜欢你。", "pinyin": "Wǒ xǐhuan nǐ.", "polski": "ło si-chłan ni", "znaczenie": "I like you. · Lubię Cię.", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/3e79be0507", "img": "lekcje/01-przyjaciele/obrazki/3e79be0507.jpg", "obrazek": {"autor": "Element5 Digital", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/love-valentine'sday-U7HD0CO2AS"}}, {"id": "是", "znaki": "是", "pinyin": "shì", "polski": "szy", "znaczenie": "yes · tak", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/0a60ac8f02", "img": "lekcje/01-przyjaciele/obrazki/0a60ac8f02.jpg", "obrazek": {"autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/10104157/image-people-logo-illustrations"}}, {"id": "不是", "znaki": "不是", "pinyin": "bú shì", "polski": "pu szy", "znaczenie": "no · nie", "lekcja": 1, "lekcjaTytul": "Lekcja 1 · Przyjaciele", "audio": "lekcje/01-przyjaciele/audio/046f5a050a", "img": "lekcje/01-przyjaciele/obrazki/046f5a050a.jpg", "obrazek": {"autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/10104298/vector-heart-people-logo"}}, {"id": "面条", "znaki": "面条", "pinyin": "miàntiáo", "polski": "mien-thiał", "znaczenie": "noodles · makaron", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/814b1c8d80", "img": "lekcje/02-jedzenie-i-napoje/obrazki/814b1c8d80.jpg", "obrazek": {"autor": "Krzysztof Puszczyński", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/noodles-soup-MOCF3JR8J4"}}, {"id": "米饭", "znaki": "米饭", "pinyin": "mǐfàn", "polski": "mi-fan", "znaczenie": "rice · ryż", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/edfec00f07", "img": "lekcje/02-jedzenie-i-napoje/obrazki/edfec00f07.jpg", "obrazek": {"autor": "Miiruuku", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/10791841/png-moon-cartoon"}}, {"id": "鸡肉", "znaki": "鸡肉", "pinyin": "jīròu", "polski": "dzi-żoł", "znaczenie": "chicken · kurczak", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/e2c2a0e778", "img": "lekcje/02-jedzenie-i-napoje/obrazki/e2c2a0e778.jpg", "obrazek": {"autor": "Krzysztof Puszczyński", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/grilled-chicken-34LMASJHCT"}}, {"id": "鱼肉", "znaki": "鱼肉", "pinyin": "yúròu", "polski": "ü-żoł", "znaczenie": "fish · ryba", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/b551203f86", "img": "lekcje/02-jedzenie-i-napoje/obrazki/b551203f86.jpg", "obrazek": {"autor": "Dana Tentis", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/food-recipe-G8QICMKLUV"}}, {"id": "牛肉", "znaki": "牛肉", "pinyin": "niúròu", "polski": "nioł-żoł", "znaczenie": "beef · wołowina", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/282ddc8786", "img": "lekcje/02-jedzenie-i-napoje/obrazki/282ddc8786.jpg", "obrazek": {"autor": "Jakub Kapusnak", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/447741/free-photo-image-meat-steak-beef"}}, {"id": "面包", "znaki": "面包", "pinyin": "miànbāo", "polski": "mien-pał", "znaczenie": "bread · chleb", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/e51a450767", "img": "lekcje/02-jedzenie-i-napoje/obrazki/e51a450767.jpg", "obrazek": {"autor": "Krzysztof Puszczyński", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/bread-baguette-9J9OUZYDZ3"}}, {"id": "披萨", "znaki": "披萨", "pinyin": "pīsà", "polski": "phi-sa", "znaczenie": "pizza · pizza", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/6455a082e0", "img": "lekcje/02-jedzenie-i-napoje/obrazki/6455a082e0.jpg", "obrazek": {"autor": "Krzysztof Puszczyński", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/pizza-food-R0YJRQ45E0"}}, {"id": "汉堡", "znaki": "汉堡", "pinyin": "hànbǎo", "polski": "chan-pał", "znaczenie": "hamburger · hamburger", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/e70c386d70", "img": "lekcje/02-jedzenie-i-napoje/obrazki/e70c386d70.jpg", "obrazek": {"autor": "Dana Tentis", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/hamburger-dinner-7QH4K6AESO"}}, {"id": "米线", "znaki": "米线", "pinyin": "mǐxiàn", "polski": "mi-sien", "znaczenie": "rice noodles · makaron ryżowy", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/8bb5f481e3", "img": "lekcje/02-jedzenie-i-napoje/obrazki/8bb5f481e3.jpg", "obrazek": {"autor": "Jakub Kapusnak", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/447646/free-photo-image-noodles-asian-food-pho-soup"}}, {"id": "冰淇淋", "znaki": "冰淇淋", "pinyin": "bīngqílín", "polski": "ping-ćhi-lin", "znaczenie": "ice cream · lody", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/4a042b57ee", "img": "lekcje/02-jedzenie-i-napoje/obrazki/4a042b57ee.jpg", "obrazek": {"autor": "Matt Moloney", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/ice-cream-C3JEG6CBJV"}}, {"id": "蛋糕", "znaki": "蛋糕", "pinyin": "dàngāo", "polski": "tan-kał", "znaczenie": "cake · ciasto", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/daa6cfa7e2", "img": "lekcje/02-jedzenie-i-napoje/obrazki/daa6cfa7e2.jpg", "obrazek": {"autor": "Robin C Samuel", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/cakes-cake-R9EK2G0ADL"}}, {"id": "饺子", "znaki": "饺子", "pinyin": "jiǎozi", "polski": "dział-dzy", "znaczenie": "dumplings · pierogi", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/dc02d72e23", "img": "lekcje/02-jedzenie-i-napoje/obrazki/dc02d72e23.jpg", "obrazek": {"autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/3303453/free-photo-image-bread-cc0-cracker"}}, {"id": "炒饭", "znaki": "炒饭", "pinyin": "chǎofàn", "polski": "czhał-fan", "znaczenie": "fried rice · smażony ryż", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/2eed77ca43", "img": "lekcje/02-jedzenie-i-napoje/obrazki/2eed77ca43.jpg", "obrazek": {"autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5908820/image-public-domain-leaf-red"}}, {"id": "粥", "znaki": "粥", "pinyin": "zhōu", "polski": "czoł", "znaczenie": "congee · kleik ryżowy", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/575b7a4dca", "img": "lekcje/02-jedzenie-i-napoje/obrazki/575b7a4dca.jpg", "obrazek": {"autor": "roland", "licencja": "by", "zrodlo": "https://www.flickr.com/photos/35034347371@N01/319209550"}}, {"id": "我喜欢……", "znaki": "我喜欢……", "pinyin": "Wǒ xǐhuan…", "polski": "ło si-chłan", "znaczenie": "I like… · Lubię…", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/01f49854c3", "img": "", "obrazek": null}, {"id": "我想喝……", "znaki": "我想喝……", "pinyin": "Wǒ xiǎng hē…", "polski": "ło siang chy", "znaczenie": "I want to drink… · Chcę się napić…", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/0be4d1dd4d", "img": "", "obrazek": null}, {"id": "水", "znaki": "水", "pinyin": "shuǐ", "polski": "szłej", "znaczenie": "water · woda", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/eab619fba2", "img": "lekcje/02-jedzenie-i-napoje/obrazki/eab619fba2.jpg", "obrazek": {"autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5968966/glass-water"}}, {"id": "咖啡", "znaki": "咖啡", "pinyin": "kāfēi", "polski": "kha-fej", "znaczenie": "coffee · kawa", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/a761914f97", "img": "lekcje/02-jedzenie-i-napoje/obrazki/a761914f97.jpg", "obrazek": {"autor": "Negative Space", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/coffee-cup-WZKGHBRQIB"}}, {"id": "茶", "znaki": "茶", "pinyin": "chá", "polski": "czha", "znaczenie": "tea · herbata", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/a001ed1cf1", "img": "lekcje/02-jedzenie-i-napoje/obrazki/a001ed1cf1.jpg", "obrazek": {"autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/6031450/photo-image-public-domain-floral-bubbles"}}, {"id": "果汁", "znaki": "果汁", "pinyin": "guǒzhī", "polski": "kło-czy", "znaczenie": "juice · sok", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/94a755afe7", "img": "lekcje/02-jedzenie-i-napoje/obrazki/94a755afe7.jpg", "obrazek": {"autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5913187/image-background-public-domain-fruit"}}, {"id": "啤酒", "znaki": "啤酒", "pinyin": "píjiǔ", "polski": "phi-dzioł", "znaczenie": "beer · piwo", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/5fbf343679", "img": "lekcje/02-jedzenie-i-napoje/obrazki/5fbf343679.jpg", "obrazek": {"autor": "Little Visuals", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/beer-brew-F15A241D0A"}}, {"id": "葡萄酒", "znaki": "葡萄酒", "pinyin": "pútáojiǔ", "polski": "phu-thał-dzioł", "znaczenie": "wine · wino", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/45aecb4935", "img": "lekcje/02-jedzenie-i-napoje/obrazki/45aecb4935.jpg", "obrazek": {"autor": "Torsten Dettlaff", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/wine-glass-QIZWBURQ54"}}, {"id": "威士忌", "znaki": "威士忌", "pinyin": "wēishìjì", "polski": "łej-szy-dzi", "znaczenie": "whiskey · whisky", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/08c9e6fb3b", "img": "lekcje/02-jedzenie-i-napoje/obrazki/08c9e6fb3b.jpg", "obrazek": {"autor": "Altered Reality", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/whiskey-glass-NBCKWLMBGX"}}, {"id": "牛奶", "znaki": "牛奶", "pinyin": "niúnǎi", "polski": "nioł-naj", "znaczenie": "milk · mleko", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/7a5794ace9", "img": "lekcje/02-jedzenie-i-napoje/obrazki/7a5794ace9.jpg", "obrazek": {"autor": "Krzysztof Puszczyński", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/glass-milk-P2QSUXKCN5"}}, {"id": "抹茶", "znaki": "抹茶", "pinyin": "mǒchá", "polski": "mo-czha", "znaczenie": "matcha · matcha", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/531263490d", "img": "lekcje/02-jedzenie-i-napoje/obrazki/531263490d.jpg", "obrazek": {"autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5927810/photo-image-public-domain-chocolate-free"}}, {"id": "我不明白。", "znaki": "我不明白。", "pinyin": "Wǒ bù míngbai.", "polski": "ło pu ming-paj", "znaczenie": "I don't understand. · Nie rozumiem.", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/1556085fce", "img": "", "obrazek": null}, {"id": "我不知道。", "znaki": "我不知道。", "pinyin": "Wǒ bù zhīdào.", "polski": "ło pu czy-tał", "znaczenie": "I don't know. · Nie wiem.", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/c5c38478cd", "img": "", "obrazek": null}, {"id": "你会说英语吗？", "znaki": "你会说英语吗？", "pinyin": "Nǐ huì shuō Yīngyǔ ma?", "polski": "ni chłej szło ing-ü ma", "znaczenie": "Do you speak English? · Czy mówisz po angielsku?", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/45197d2f7e", "img": "", "obrazek": null}, {"id": "你想喝什么？", "znaki": "你想喝什么？", "pinyin": "Nǐ xiǎng hē shénme?", "polski": "ni siang chy szyn-my", "znaczenie": "What do you want to drink? · Czego się napijesz?", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/7b27b514a2", "img": "", "obrazek": null}, {"id": "你想吃什么？", "znaki": "你想吃什么？", "pinyin": "Nǐ xiǎng chī shénme?", "polski": "ni siang czhy szyn-my", "znaczenie": "What do you want to eat? · Co chcesz zjeść?", "lekcja": 2, "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje", "audio": "lekcje/02-jedzenie-i-napoje/audio/3a30b55fcc", "img": "", "obrazek": null}];
 const SYNC_URL_DOMYSLNY = "https://kubus-sync.dark-mud-b74c.workers.dev";
-const DZIEN = 24 * 3600 * 1000;
 const $ = id => document.getElementById(id);
+const KARTY_MAP = {}; for (const k of KARTY) KARTY_MAP[k.id] = k;
 
-// ---------- stan (localStorage + chmura) ----------
+// ---------- stan: ten sam blob co powtórka (localStorage "kubus.powtorka" + worker), tu używamy tylko pola "ulubione" ----------
 const KLUCZ_LS = "kubus.powtorka";
 let stan = { karty: {}, ustawienia: { nowe: 10, z: 0 }, dzien: { data: "", nowe: 0 }, ulubione: {} };
 try { const s = JSON.parse(localStorage.getItem(KLUCZ_LS) || "null"); if (s && s.karty) stan = scal(stan, s); } catch (e) {}
 const cfg = { url: "", klucz: "" };
 try { Object.assign(cfg, JSON.parse(localStorage.getItem(KLUCZ_LS + ".sync") || "{}")); } catch (e) {}
 if (!cfg.url && SYNC_URL_DOMYSLNY) cfg.url = SYNC_URL_DOMYSLNY;
-const paramK = new URLSearchParams(location.search).get("k");
-if (paramK) { cfg.klucz = paramK; zapiszCfg(); history.replaceState(null, "", location.pathname); Wymowa.diag("klucz z linku zapisany, silnik: " + Wymowa.cfg().uzyj); }
-function zapiszCfg() { try { localStorage.setItem(KLUCZ_LS + ".sync", JSON.stringify(cfg)); } catch (e) {} }
 
 function scal(a, b) {
-  // nowsza wersja karty wygrywa (pole z = czas zmiany); to samo w workerze
+  // nowsza wersja wygrywa (pole z = czas zmiany); to samo w powtórce i w workerze
   const out = { karty: Object.assign({}, a.karty), ustawienia: a.ustawienia, dzien: a.dzien, ulubione: Object.assign({}, a.ulubione || {}) };
   for (const k in (b.karty || {})) { const x = out.karty[k], y = b.karty[k]; if (!x || (y.z || 0) > (x.z || 0)) out.karty[k] = y; }
   for (const k in (b.ulubione || {})) { const x = out.ulubione[k], y = b.ulubione[k]; if (!x || (y.z || 0) > (x.z || 0)) out.ulubione[k] = y; }
@@ -160,7 +125,7 @@ function zapiszLokalnie() { try { localStorage.setItem(KLUCZ_LS, JSON.stringify(
 let syncTimer = null, syncBusy = false, syncDirty = false;
 function pokazSync(msg, err) { const el = $("sync"); el.textContent = msg; el.className = "sync" + (err ? " err" : ""); }
 async function syncTeraz(pobierzTylko) {
-  if (!cfg.url || !cfg.klucz) { pokazSync("bez synchronizacji (ustaw adres i klucz w ⚙)"); return; }
+  if (!cfg.url || !cfg.klucz) { pokazSync("bez synchronizacji (klucz ustawisz w powtórce, ⚙)"); return; }
   if (syncBusy) { syncDirty = true; return; }
   syncBusy = true;
   try {
@@ -170,366 +135,105 @@ async function syncTeraz(pobierzTylko) {
       body: pobierzTylko ? undefined : JSON.stringify(stan)
     });
     if (!r.ok) throw new Error("HTTP " + r.status);
-    const zdalny = await r.json();
-    stan = scal(stan, zdalny); zapiszLokalnie();
+    stan = scal(stan, await r.json()); zapiszLokalnie();
     pokazSync("zsynchronizowano " + new Date().toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" }));
+    if ($("overlay").hidden) rysujListe();
   } catch (e) { pokazSync("synchronizacja nie działa: " + e.message, true); }
   finally { syncBusy = false; if (syncDirty) { syncDirty = false; zaplanujSync(); } }
 }
 function zaplanujSync() { clearTimeout(syncTimer); syncTimer = setTimeout(() => syncTeraz(false), 3000); }
 document.addEventListener("visibilitychange", () => { if (document.hidden && syncTimer) { clearTimeout(syncTimer); syncTeraz(false); } });
 
-// ---------- SM-2 ----------
-function dzis() { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); }
-function dataStr(t) { const d = new Date(t); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
-function nowyStan() { return { iv: 0, ef: 2.5, termin: 0, reps: 0, seria: 0, z: 0 }; }
-function ocen(s, q) {
-  // q: 0 nie wiem, 1 trudno, 2 dobrze, 3 łatwo
-  s = Object.assign({}, s);
-  if (q === 0) { s.reps = 0; s.seria = 0; s.iv = 0; s.ef = Math.max(1.3, s.ef - 0.2); }
-  else {
-    if (q === 1) { s.iv = s.reps === 0 ? 1 : Math.max(1, Math.round(s.iv * 1.2)); s.ef = Math.max(1.3, s.ef - 0.15); }
-    else if (q === 2) { s.iv = s.reps === 0 ? 1 : s.reps === 1 ? 3 : Math.round(s.iv * s.ef); }
-    else { s.iv = s.reps === 0 ? 3 : s.reps === 1 ? 5 : Math.round(s.iv * s.ef * 1.3); s.ef = Math.min(3.0, s.ef + 0.15); }
-    s.reps++; s.seria++;
-  }
-  s.termin = dzis() + s.iv * DZIEN;
-  s.z = Date.now();
-  return s;
-}
-function podgladIv(s, q) { const n = ocen(s, q); return n.iv === 0 ? "dziś" : n.iv === 1 ? "1 dzień" : n.iv + " dni"; }
-
-// ---------- talia ----------
-const KARTY_MAP = {}; for (const k of KARTY) KARTY_MAP[k.id] = k;
-const LEKCJE = [...new Map(KARTY.map(k => [k.lekcja, k.lekcjaTytul])).entries()].sort((a, b) => a[0] - b[0]);
-for (const [n, t] of LEKCJE) { const o = document.createElement("option"); o.value = n; o.textContent = t; $("filtr").appendChild(o); }
-try { $("filtr").value = localStorage.getItem(KLUCZ_LS + ".filtr") || ""; } catch (e) {}
-$("filtr").addEventListener("change", () => { try { localStorage.setItem(KLUCZ_LS + ".filtr", $("filtr").value); } catch (e) {} if (wSesji) { zbudujKolejke(); nastepna(); } else ekranStartowy(); });
-
-function polskie(k) {
-  // "friend · przyjaciel" -> "przyjaciel"; bez nawiasów; warianty po / lub ,
-  const m = k.znaczenie.split("·"); return (m.length > 1 ? m.slice(1).join("·") : m[0]).trim();
-}
-function angielskie(k) { const m = k.znaczenie.split("·"); return m.length > 1 ? m[0].trim() : ""; }
-function normalizuj(s) { return s.toLowerCase().replace(/\(.*?\)/g, "").replace(/[^\p{L}\p{N} ]/gu, " ").replace(/\s+/g, " ").trim(); }
-function lev(a, b) {
-  const dp = Array.from({ length: a.length + 1 }, (_, i) => [i]); for (let j = 1; j <= b.length; j++) dp[0][j] = j;
-  for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++)
-    dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
-  return dp[a.length][b.length];
-}
-function pasujePolskie(k, wpis) {
-  const w = normalizuj(wpis); if (!w) return false;
-  const warianty = polskie(k).split(/[\/,;]/).map(normalizuj).filter(x => x);
-  return warianty.some(v => lev(v, w) <= Math.floor(v.length / 4) || (w.length >= 4 && v.split(" ").includes(w)));
-}
-
-let kolejka = [], zrobione = 0, razem = 0, biezaca = null, wSesji = false;
-function stanKarty(id) { return stan.karty[id] || null; }
-function zbudujKolejke(dodatkoweNowe) {
-  const f = $("filtr").value;
-  const karty = KARTY.filter(k => !f || String(k.lekcja) === f);
-  const teraz = dzis() + DZIEN - 1;
-  const zalegle = [], nowe = [];
-  for (const k of karty) for (const typ of ["B", "A"]) {
-    const id = k.id + "|" + typ, s = stanKarty(id);
-    if (!s) nowe.push({ id, k, typ });
-    else if (s.termin <= teraz) zalegle.push({ id, k, typ });
-  }
-  const d = dataStr(dzis());
-  if (stan.dzien.data !== d) stan.dzien = { data: d, nowe: 0 };
-  const limit = Math.max(0, stan.ustawienia.nowe - stan.dzien.nowe) + (dodatkoweNowe || 0);
-  for (let i = zalegle.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [zalegle[i], zalegle[j]] = [zalegle[j], zalegle[i]]; }
-  kolejka = zalegle.concat(nowe.slice(0, limit));
-  zrobione = 0; razem = kolejka.length;
-  pokazPostep();
-}
-function pokazPostep() {
-  $("prog").textContent = razem ? `${zrobione} / ${razem}` : "Powtórka";
-  $("bar").style.width = razem ? (100 * zrobione / razem) + "%" : "0";
-}
-
-// ---------- audio (Web Audio przez wymowa.js; bez elementu <audio>, patrz komentarz w wymowa.js) ----------
-function graj(k, wolno) {
-  if (!k.audio) return;
-  Wymowa.graj("../" + k.audio + (wolno ? "-slow" : "") + ".mp3").catch(e => Wymowa.diag("mp3 błąd: " + e.message));
-}
-
-// ---------- ulubione (gwiazdka na karcie; lista na stronie ../ulubione/) ----------
 function ulubiona(znaki) { const u = stan.ulubione[znaki]; return !!(u && u.on); }
 function przelaczUlubiona(znaki) { stan.ulubione[znaki] = { on: !ulubiona(znaki), z: Date.now() }; zapiszLokalnie(); zaplanujSync(); }
-function gwiazdka(k) {
-  const b = el("button", "star"); b.type = "button";
-  const odswiez = () => { const on = ulubiona(k.id); b.textContent = on ? "★" : "☆"; b.classList.toggle("on", on); b.title = on ? "usuń z ulubionych" : "dodaj do ulubionych"; };
-  odswiez(); b.addEventListener("click", () => { przelaczUlubiona(k.id); odswiez(); });
-  return b;
-}
 
-// ---------- karty ----------
-const card = $("card"), rate = $("rate");
-let sugestia = 2, odpowiedziano = false;
-
-function nastepna(w) {
-  rate.hidden = true; odpowiedziano = false; Wymowa.stopAudio(); widok = null; aktualna = null;
-  if (!w) biezaca = kolejka.shift() || null;
-  pokazPostep();
-  if (!biezaca) { koniec(); return; }
-  card.innerHTML = "";
-  card.appendChild(gwiazdka(biezaca.k));
-  if (biezaca.typ === "A") kartaA(biezaca, w); else kartaB(biezaca, w);
-  // nagranie następnej karty do bufora, żeby kolejne odtworzenie było natychmiastowe
-  if (kolejka[0] && kolejka[0].k.audio) Wymowa.preload("../" + kolejka[0].k.audio + ".mp3").catch(() => {});
-  if (kolejka[0] && kolejka[0].k.img) { const i = new Image(); i.src = "../" + kolejka[0].k.img; }
-}
-
-function obrazek(k) { const i = el("img", "obr"); i.src = "../" + k.img; i.alt = ""; return i; }
-// podpis zdjęcia: wymagany tylko przy CC BY (StockSnap/Rawpixel są CC0)
+// ---------- pomocnicze ----------
+function polskie(k) { const m = k.znaczenie.split("·"); return (m.length > 1 ? m.slice(1).join("·") : m[0]).trim(); }
+function angielskie(k) { const m = k.znaczenie.split("·"); return m.length > 1 ? m[0].trim() : ""; }
+function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+function graj(k, wolno) { if (!k.audio) return; Wymowa.graj("../" + k.audio + (wolno ? "-slow" : "") + ".mp3").catch(e => Wymowa.diag("mp3 błąd: " + e.message)); }
 function kredyt(k) {
   const o = k.obrazek; if (!o || o.licencja !== "by") return null;
   const a = o.autor || "autor nieznany";
   return el("div", "kred", "fot. " + (o.zrodlo ? `<a href="${o.zrodlo}" target="_blank" rel="noopener">${a}</a>` : a) + " · CC BY");
 }
+function norm(s) { return (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ł/g, "l"); }
 
-// ---- tryb "system-reload": zapis i odtworzenie sesji wokół przeładowania strony ----
-Wymowa.zapiszStan = () => ({
-  kolejka: kolejka.map(c => c.id), zrobione, razem, biezaca: biezaca ? biezaca.id : null, wSesji, filtr: $("filtr").value, widok
-});
-function odtworzPoPrzeladowaniu() {
-  const w = Wymowa.odbierzWynik();
-  if (!w || !w.strona || !w.strona.wSesji || !w.strona.biezaca) return false;
-  const st = w.strona;
-  const zId = id => { const [znaki, typ] = id.split("|"); const k = KARTY_MAP[znaki]; return k ? { id, k, typ } : null; };
-  $("filtr").value = st.filtr || "";
-  const b = zId(st.biezaca); if (!b) return false;
-  kolejka = st.kolejka.map(zId).filter(x => x); zrobione = st.zrobione; razem = st.razem; wSesji = true;
-  biezaca = b;
-  nastepna(st.widok);
-  if (aktualna && w.res) aktualna.zastosujWynik(w.res);
-  requestAnimationFrame(() => window.scrollTo(0, w.scrollY || 0));
-  return true;
+// ---------- lista ----------
+function ulubioneKarty() {
+  return KARTY.filter(k => ulubiona(k.id)).sort((a, b) => polskie(a).localeCompare(polskie(b), "pl"));
 }
-
-function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
-
-function odslon(k, kontener, zMikrofonem, onWynik) {
-  const r = el("div", "reveal");
-  if (k.img && !card.querySelector(".obr")) r.appendChild(obrazek(k));
-  r.appendChild(el("div", "hanzi", k.znaki));
-  r.appendChild(el("div", "pinyin", k.pinyin));
-  if (k.polski) r.appendChild(el("div", "pl", "po polsku: " + k.polski));
-  r.appendChild(el("div", "", polskie(k) + (angielskie(k) ? ` <span class="pl">· ${angielskie(k)}</span>` : "")));
-  const kr = kredyt(k); if (kr) r.appendChild(kr);
-  const b = el("button", "link", "🔊 posłuchaj"); b.type = "button"; b.addEventListener("click", () => graj(k)); r.appendChild(b);
-  const bw = el("button", "link", "🐢 wolniej"); bw.type = "button"; bw.addEventListener("click", () => graj(k, true)); r.appendChild(bw);
-  if (zMikrofonem) {
-    // ćwiczenie wymowy po odsłonięciu (nie wpływa na ocenę karty)
-    const mic = el("button", "mic"); mic.type = "button";
-    const out = el("div", "result"); out.hidden = true;
-    Wymowa.bind(mic, {
-      target: k.znaki,
-      onStart: () => { out.hidden = true; },
-      onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
-      onDone: onWynik || ((res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; })
-    });
-    r.appendChild(mic); r.appendChild(out);
-    kontener.appendChild(r);
-    return out;
+function rysujListe() {
+  const lista = $("lista"); lista.innerHTML = "";
+  const q = norm($("szukaj").value.trim());
+  const wszystkie = ulubioneKarty();
+  const karty = q ? wszystkie.filter(k => norm(polskie(k) + " " + angielskie(k) + " " + k.pinyin + " " + k.polski + " " + k.znaki).includes(q)) : wszystkie;
+  if (!wszystkie.length) { lista.appendChild(el("div", "pusto", "Nic tu jeszcze nie ma.<br>W <a href=\"../powtorka/\" style=\"color:var(--accent)\">powtórce</a> dotknij ☆ na karcie, żeby dodać zwrot do ulubionych.")); return; }
+  if (!karty.length) { lista.appendChild(el("div", "pusto", "Nic nie pasuje do „" + $("szukaj").value.trim() + "”.")); return; }
+  for (const k of karty) {
+    const b = el("button", "item"); b.type = "button";
+    const txt = el("div", "txt");
+    txt.appendChild(el("b", "", polskie(k)));
+    txt.appendChild(el("small", "", k.pinyin + (angielskie(k) ? " · " + angielskie(k) : "")));
+    b.appendChild(txt);
+    b.appendChild(el("span", "hz", k.znaki));
+    b.addEventListener("click", () => otworz(k));
+    lista.appendChild(b);
   }
-  kontener.appendChild(r);
-  return null;
 }
+$("szukaj").addEventListener("input", rysujListe);
 
-function pokazOcene(sug) {
-  const s = stanKarty(biezaca.id) || nowyStan();
-  sugestia = sug; odpowiedziano = true;
-  for (const b of rate.querySelectorAll("button")) b.classList.toggle("sug", Number(b.dataset.q) === sug);
-  $("d1").textContent = podgladIv(s, 1); $("d2").textContent = podgladIv(s, 2); $("d3").textContent = podgladIv(s, 3);
-  rate.hidden = false;
-}
-
-// Stan widoku bieżącej karty (do odtworzenia po przeładowaniu w trybie "system-reload")
-let widok = null, aktualna = null;
-
-// Karta A: polskie znaczenie -> powiedz po chińsku (mikrofon)
-function kartaA(c, w) {
-  const k = c.k;
-  widok = w || { typ: "A", podpowiedzi: 0, skip: false, wynik: null };
-  card.appendChild(el("div", "tag", "powiedz po chińsku"));
-  if (k.img) card.appendChild(obrazek(k));
-  card.appendChild(el("div", "q", polskie(k) + (angielskie(k) ? `<small>${angielskie(k)}</small>` : "")));
-  const out = el("div", "result"); out.hidden = true;
+// ---------- karta ----------
+let otwarta = null;
+function otworz(k) {
+  otwarta = k;
+  const card = $("card"); card.innerHTML = "";
+  $("o-ttl").textContent = k.lekcjaTytul || "";
+  const star = el("button", "star"); star.type = "button";
+  const odswiez = () => { const on = ulubiona(k.id); star.textContent = on ? "★" : "☆"; star.classList.toggle("on", on); star.title = on ? "usuń z ulubionych" : "dodaj do ulubionych"; };
+  odswiez(); star.addEventListener("click", () => { przelaczUlubiona(k.id); odswiez(); });
+  card.appendChild(star);
+  if (k.img) { const i = el("img", "obr"); i.src = "../" + k.img; i.alt = ""; card.appendChild(i); }
+  card.appendChild(el("div", "znacz", polskie(k) + (angielskie(k) ? `<small>${angielskie(k)}</small>` : "")));
+  card.appendChild(el("div", "hanzi", k.znaki));
+  card.appendChild(el("div", "pinyin", k.pinyin));
+  if (k.polski) card.appendChild(el("div", "pl", "po polsku: " + k.polski));
+  const kr = kredyt(k); if (kr) card.appendChild(kr);
+  const row = el("div", "row");
+  const b1 = el("button", "big", "🔊 posłuchaj"); b1.type = "button"; b1.addEventListener("click", () => graj(k)); row.appendChild(b1);
+  const b2 = el("button", "big", "🐢 wolniej"); b2.type = "button"; b2.addEventListener("click", () => graj(k, true)); row.appendChild(b2);
+  card.appendChild(row);
   const mic = el("button", "mic"); mic.type = "button";
-  const hint = el("button", "link", "podpowiedź"); hint.type = "button";
-  const hintBox = el("div", "pl"); hintBox.hidden = true;
-  const pokazPodpowiedz = (n, zDzwiekiem) => {
-    hintBox.hidden = false;
-    if (n === 1) { hintBox.textContent = k.pinyin; hint.textContent = "posłuchaj"; }
-    else { hintBox.textContent = k.pinyin + (k.polski ? " · " + k.polski : ""); if (zDzwiekiem) graj(k); }
-  };
-  hint.addEventListener("click", () => { widok.podpowiedzi++; pokazPodpowiedz(widok.podpowiedzi, true); });
-  card.appendChild(mic); card.appendChild(out); card.appendChild(hintBox); card.appendChild(hint);
-  const rev = el("div"); card.appendChild(rev);
-  let odslonieto = false;
-  const pokazWynik = (r, sug) => {
-    out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
-    if (sug === null) return;
-    if (!odslonieto) { odslonieto = true; odslon(k, rev); }
-    pokazOcene(sug);
-  };
-  const zastosujWynik = (res) => {
-    const r = Wymowa.render(res, k.znaki);
-    const lvl = r.grade ? r.grade.level : "none";
-    let sug = null;
-    if (lvl !== "none" || res.error) { sug = lvl === "exact" ? 2 : lvl === "tones" ? 1 : 0; if (widok.podpowiedzi && sug > 1) sug = 1; }
-    widok.wynik = { cls: r.cls, html: r.html, sug };
-    pokazWynik(r, sug);
-  };
+  const out = el("div", "result"); out.hidden = true;
   Wymowa.bind(mic, {
     target: k.znaki,
     onStart: () => { out.hidden = true; },
     onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
-    onDone: zastosujWynik
+    onDone: (res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; }
   });
-  const skip = el("button", "link", "nie pamiętam, pokaż"); skip.type = "button";
-  const pokaz = (zDzwiekiem) => { skip.hidden = true; if (!odslonieto) { odslonieto = true; odslon(k, rev); } if (zDzwiekiem) graj(k); pokazOcene(0); };
-  skip.addEventListener("click", () => { widok.skip = true; pokaz(true); });
-  card.appendChild(skip);
-  aktualna = { zastosujWynik };
-  // odtworzenie po przeładowaniu
-  if (w) {
-    if (w.podpowiedzi) pokazPodpowiedz(w.podpowiedzi, false);
-    if (w.skip) pokaz(false);
-    if (w.wynik) pokazWynik(w.wynik, w.wynik.sug);
+  card.appendChild(mic); card.appendChild(out);
+  $("overlay").hidden = false;
+  window.scrollTo(0, 0);
+  graj(k);
+}
+function zamknij() { Wymowa.stopAudio(); otwarta = null; $("overlay").hidden = true; rysujListe(); }
+$("wroc").addEventListener("click", (e) => { e.preventDefault(); zamknij(); });
+
+// tryb "system-reload": po przeładowaniu wróć do otwartej karty i pokaż wynik
+Wymowa.zapiszStan = () => ({ otwarta: otwarta ? otwarta.id : null, szukaj: $("szukaj").value });
+(function () {
+  const w = Wymowa.odbierzWynik();
+  if (!w || !w.strona) return;
+  $("szukaj").value = w.strona.szukaj || "";
+  const k = w.strona.otwarta && KARTY_MAP[w.strona.otwarta];
+  if (k) {
+    otworz(k); Wymowa.stopAudio();
+    if (w.res) { const out = $("card").querySelector(".result"), x = Wymowa.render(w.res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; }
   }
-}
+})();
 
-// Karta B: audio po chińsku -> co to znaczy (wybór, później wpis)
-function kartaB(c, w) {
-  const k = c.k, s = stanKarty(c.id);
-  const etap2 = s && s.seria >= 3 && s.iv >= 7;
-  widok = w || { typ: "B", opcje: null, wybor: null, wpis: null, wynikMic: null };
-  card.appendChild(el("div", "tag", "co to znaczy?"));
-  const big = el("button", "big", "🔊"); big.type = "button"; big.title = "posłuchaj jeszcze raz";
-  big.addEventListener("click", () => graj(k));
-  card.appendChild(big);
-  card.appendChild(el("div", "hint", "posłuchaj i " + (etap2 ? "napisz po polsku" : "wybierz znaczenie")));
-  const rev = el("div");
-  let revealOut = null;
-  const zastosujWynik = (res) => {
-    if (!revealOut) return;
-    const r = Wymowa.render(res, k.znaki);
-    widok.wynikMic = { cls: r.cls, html: r.html };
-    revealOut.hidden = false; revealOut.className = "result " + r.cls; revealOut.innerHTML = r.html;
-  };
-  const odslonB = () => { revealOut = odslon(k, rev, true, zastosujWynik); };
-  if (!etap2) {
-    let opcje;
-    if (w && w.opcje) opcje = w.opcje.map(id => KARTY_MAP[id]).filter(x => x);
-    else {
-      // dystraktory: ten sam rodzaj (zdanie / słowo), najlepiej z tej samej lekcji
-      const zdanie = x => /[。？！?!]/.test(x.znaki);
-      const inne = KARTY.filter(x => x.id !== k.id && polskie(x) !== polskie(k));
-      const tenRodzaj = inne.filter(x => zdanie(x) === zdanie(k));
-      const teSame = tenRodzaj.filter(x => x.lekcja === k.lekcja);
-      const pula = teSame.length >= 3 ? teSame : tenRodzaj.length >= 3 ? tenRodzaj : inne;
-      const dystr = []; const uzyte = new Set([polskie(k)]);
-      while (dystr.length < 3 && pula.length) { const x = pula[Math.floor(Math.random() * pula.length)]; if (!uzyte.has(polskie(x))) { uzyte.add(polskie(x)); dystr.push(x); } if (uzyte.size > pula.length) break; }
-      opcje = [k, ...dystr].sort(() => Math.random() - 0.5);
-      widok.opcje = opcje.map(x => x.id);
-    }
-    const box = el("div", "opts");
-    const wybierz = (o, b) => {
-      if (odpowiedziano) return;
-      widok.wybor = o.id;
-      for (const bb of box.querySelectorAll("button")) { bb.disabled = true; if (bb === b && o.id !== k.id) bb.classList.add("bad"); if (bb.textContent === polskie(k)) bb.classList.add("ok"); }
-      odslonB(); pokazOcene(o.id === k.id ? 2 : 0);
-    };
-    for (const o of opcje) {
-      const b = el("button", "opt", polskie(o)); b.type = "button";
-      b.addEventListener("click", () => wybierz(o, b));
-      box.appendChild(b);
-    }
-    card.appendChild(box);
-    if (w && w.wybor) { const idx = opcje.findIndex(o => o.id === w.wybor); if (idx >= 0) wybierz(opcje[idx], box.querySelectorAll("button")[idx]); }
-  } else {
-    const box = el("div", "typed");
-    const inp = el("input"); inp.type = "text"; inp.placeholder = "po polsku…"; inp.autocomplete = "off"; inp.autocapitalize = "off";
-    const ok = el("button", "", "sprawdź"); ok.type = "button";
-    const sprawdz = () => {
-      if (odpowiedziano) return;
-      widok.wpis = inp.value;
-      const trafione = pasujePolskie(k, inp.value);
-      inp.disabled = true; ok.disabled = true;
-      const out = el("div", "result " + (trafione ? "ok" : "bad"), trafione ? "✓ Tak." : "✗ Nie. Prawidłowo: <b>" + polskie(k) + "</b>");
-      card.appendChild(out);
-      odslonB(); pokazOcene(trafione ? 2 : 0);
-    };
-    ok.addEventListener("click", sprawdz); inp.addEventListener("keydown", e => { if (e.key === "Enter") sprawdz(); });
-    box.appendChild(inp); box.appendChild(ok); card.appendChild(box);
-    if (w && w.wpis !== null) { inp.value = w.wpis; sprawdz(); } else setTimeout(() => inp.focus(), 50);
-  }
-  card.appendChild(rev);
-  aktualna = { zastosujWynik };
-  if (w) { if (w.wynikMic && revealOut) { revealOut.hidden = false; revealOut.className = "result " + w.wynikMic.cls; revealOut.innerHTML = w.wynikMic.html; } }
-  else graj(k);
-}
-
-rate.addEventListener("click", (e) => {
-  const b = e.target.closest("button"); if (!b || !biezaca || !odpowiedziano) return;
-  const q = Number(b.dataset.q);
-  const byloNowe = !stanKarty(biezaca.id);
-  stan.karty[biezaca.id] = ocen(stanKarty(biezaca.id) || nowyStan(), q);
-  if (byloNowe) stan.dzien.nowe++;
-  if (q === 0) { kolejka.push(biezaca); razem++; }
-  zrobione++;
-  zapiszLokalnie(); zaplanujSync();
-  nastepna();
-});
-
-function koniec() {
-  wSesji = false;
-  card.innerHTML = "";
-  const jutro = dzis() + DZIEN, pojutrze = jutro + DZIEN;
-  const f = $("filtr").value;
-  const naJutro = Object.entries(stan.karty).filter(([id, s]) => s.termin < pojutrze && s.termin >= jutro && (!f || String((KARTY_MAP[id.split("|")[0]] || {}).lekcja) === f)).length;
-  const nieRuszone = KARTY.filter(k => (!f || String(k.lekcja) === f) && (!stanKarty(k.id + "|A") || !stanKarty(k.id + "|B"))).length;
-  card.appendChild(el("div", "q", razem ? "Koniec na dziś 🎉" : "Nic do powtórki"));
-  card.appendChild(el("div", "sum", `Jutro: ${naJutro} kart.<br>Słów jeszcze nie zaczętych: ${nieRuszone}.`));
-  if (nieRuszone) {
-    const b = el("button", "start", "jeszcze " + Math.min(10, nieRuszone) + " nowych"); b.type = "button";
-    b.addEventListener("click", () => { zbudujKolejke(10); wSesji = true; nastepna(); });
-    card.appendChild(b);
-  }
-}
-
-function ekranStartowy() {
-  zbudujKolejke();
-  card.innerHTML = "";
-  card.appendChild(el("div", "q", "Powtórka"));
-  card.appendChild(el("div", "sum", razem ? `Na dziś: ${razem} kart.` : "Nic do powtórki na dziś."));
-  card.appendChild(el("div", "hint", "Chiński sprawdzasz wymową: przytrzymaj 🎤, poczekaj na „mów teraz”, powiedz, puść.<br>Polski sprawdzasz ze słuchu: wybierasz znaczenie, a gdy karta dojrzeje, wpisujesz je."));
-  const b = el("button", "start", razem ? "Start" : "Odśwież"); b.type = "button";
-  b.addEventListener("click", () => { zbudujKolejke(); wSesji = true; nastepna(); });
-  card.appendChild(b);
-}
-
-// ---------- ustawienia ----------
-$("gear").addEventListener("click", () => {
-  $("s-nowe").value = stan.ustawienia.nowe; $("s-url").value = cfg.url; $("s-klucz").value = cfg.klucz;
-  try { $("s-silnik").value = localStorage.getItem("kubus.wymowa.silnik") || "auto"; } catch (e) {}
-  $("dlg").showModal();
-});
-$("s-anuluj").addEventListener("click", () => $("dlg").close());
-$("s-ok").addEventListener("click", () => {
-  stan.ustawienia = { nowe: Math.max(0, Number($("s-nowe").value) || 0), z: Date.now() };
-  cfg.url = $("s-url").value.trim(); cfg.klucz = $("s-klucz").value.trim(); zapiszCfg();
-  try { localStorage.setItem("kubus.wymowa.silnik", $("s-silnik").value); } catch (e) {}
-  Wymowa.diag("silnik: " + Wymowa.cfg().uzyj + " (ustawienie " + Wymowa.cfg().silnik + ")");
-  zapiszLokalnie(); $("dlg").close(); syncTeraz(false).then(() => { if (!wSesji) ekranStartowy(); });
-});
-
-if (!odtworzPoPrzeladowaniu()) ekranStartowy();
-syncTeraz(true).then(() => { if (!wSesji) ekranStartowy(); });
+rysujListe();
+syncTeraz(true);
 </script>
 </body>
 </html>

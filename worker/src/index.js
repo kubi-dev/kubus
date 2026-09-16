@@ -14,13 +14,18 @@ const CORS = {
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json", "Cache-Control": "no-store", ...CORS } });
 
-const PUSTY = { karty: {}, ustawienia: { nowe: 10, z: 0 }, dzien: { data: "", nowe: 0 } };
+const PUSTY = { karty: {}, ustawienia: { nowe: 10, z: 0 }, dzien: { data: "", nowe: 0 }, ulubione: {} };
 
 function scal(a, b) {
-  const out = { karty: { ...a.karty }, ustawienia: a.ustawienia || PUSTY.ustawienia, dzien: a.dzien || PUSTY.dzien };
+  const out = { karty: { ...a.karty }, ustawienia: a.ustawienia || PUSTY.ustawienia, dzien: a.dzien || PUSTY.dzien, ulubione: { ...(a.ulubione || {}) } };
   for (const k in (b.karty || {})) {
     const x = out.karty[k], y = b.karty[k];
     if (!x || (y.z || 0) > (x.z || 0)) out.karty[k] = y;
+  }
+  // ulubione zwroty: {znaki: {on: bool, z: czas zmiany}}, scalanie jak karty
+  for (const k in (b.ulubione || {})) {
+    const x = out.ulubione[k], y = b.ulubione[k];
+    if (!x || (y.z || 0) > (x.z || 0)) out.ulubione[k] = y;
   }
   if (b.ustawienia && (b.ustawienia.z || 0) > (out.ustawienia.z || 0)) out.ustawienia = b.ustawienia;
   if (b.dzien && (b.dzien.data > (out.dzien.data || "") || (b.dzien.data === out.dzien.data && (b.dzien.nowe || 0) > (out.dzien.nowe || 0)))) out.dzien = b.dzien;
