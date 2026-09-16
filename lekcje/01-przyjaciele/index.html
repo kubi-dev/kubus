@@ -8,11 +8,11 @@
 <style>
   :root {
     --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62;
-    --accent: #b8362d; --accent-soft: #f3d9d5; --line: #e6dccd;
+    --accent: #b8362d; --accent-soft: #f3d9d5; --line: #e6dccd; --star: #d99a1c;
   }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #171412; --card: #221e1a; --ink: #f1e9dd; --muted: #a2968a;
-            --accent: #e0574c; --accent-soft: #3a2320; --line: #332c26; }
+            --accent: #e0574c; --accent-soft: #3a2320; --line: #332c26; --star: #f0c04a; }
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
@@ -43,6 +43,8 @@
   .kred a { color: inherit; }
   .spk { position: absolute; top: 14px; right: 14px; font-size: 18px; opacity: .5; background: var(--card); border-radius: 999px; padding: 1px 6px; }
   .card:hover .spk { opacity: 1; }
+  .star { position: absolute; top: 14px; right: 50px; background: var(--card); border: none; border-radius: 999px; font-size: 18px; line-height: 1; cursor: pointer; color: var(--muted); padding: 3px 7px 2px; }
+  .star.on { color: var(--star); }
   .mic { margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 13px;
          padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer;
          touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
@@ -63,7 +65,7 @@
 <header>
   <p class="sub"><a href="../../" style="color:var(--accent)">← wszystkie lekcje</a></p>
   <h1>Lekcja 1 · Przyjaciele</h1>
-  <p class="sub">Kliknij kartę, żeby usłyszeć wymowę.</p>
+  <p class="sub">Kliknij kartę, żeby usłyszeć wymowę. Gwiazdka ☆ dodaje zwrot do <a href="../../ulubione/" style="color:var(--accent)">ulubionych</a>.</p>
   <p class="hint">Zapis polski: <b>ch</b> = polskie ch · <b>y</b> = polskie y · <b>ł</b> = polskie ł · <b>ü</b> = „i” z ustami ułożonymi do „u” · <b>kh, ph</b> = z przydechem (mocny wydech) · <b>dz, p</b> = bez przydechu (chińskie z, b) · <b>czh</b> = cz z przydechem (chińskie ch)</p>
   <div class="controls">
     <label>Silnik:
@@ -144,6 +146,50 @@ function kredyt(o) {
   return `<div class="kred">fot. ${o.zrodlo ? `<a href="${o.zrodlo}" target="_blank" rel="noopener">${a}</a>` : a} · CC BY</div>`;
 }
 
+// ---- ulubione: ten sam stan co powtórka (localStorage "kubus.powtorka" + worker), tu tylko pole "ulubione" ----
+const KLUCZ_LS = "kubus.powtorka";
+let stan = { karty: {}, ustawienia: { nowe: 10, z: 0 }, dzien: { data: "", nowe: 0 }, ulubione: {} };
+try { const s = JSON.parse(localStorage.getItem(KLUCZ_LS) || "null"); if (s && s.karty) stan = scal(stan, s); } catch (e) {}
+const cfg = { url: "", klucz: "" };
+try { Object.assign(cfg, JSON.parse(localStorage.getItem(KLUCZ_LS + ".sync") || "{}")); } catch (e) {}
+if (!cfg.url && window.SYNC_URL) cfg.url = window.SYNC_URL;
+function scal(a, b) {
+  // nowsza wersja wygrywa (pole z = czas zmiany); to samo w powtórce i w workerze
+  const out = { karty: Object.assign({}, a.karty), ustawienia: a.ustawienia, dzien: a.dzien, ulubione: Object.assign({}, a.ulubione || {}) };
+  for (const k in (b.karty || {})) { const x = out.karty[k], y = b.karty[k]; if (!x || (y.z || 0) > (x.z || 0)) out.karty[k] = y; }
+  for (const k in (b.ulubione || {})) { const x = out.ulubione[k], y = b.ulubione[k]; if (!x || (y.z || 0) > (x.z || 0)) out.ulubione[k] = y; }
+  if (b.ustawienia && (b.ustawienia.z || 0) > (a.ustawienia.z || 0)) out.ustawienia = b.ustawienia;
+  if (b.dzien && (b.dzien.data > (a.dzien.data || "") || (b.dzien.data === a.dzien.data && (b.dzien.nowe || 0) > (a.dzien.nowe || 0)))) out.dzien = b.dzien;
+  return out;
+}
+function zapiszLokalnie() { try { localStorage.setItem(KLUCZ_LS, JSON.stringify(stan)); } catch (e) {} }
+let syncTimer = null, syncBusy = false, syncDirty = false;
+async function syncTeraz(pobierzTylko) {
+  if (!cfg.url || !cfg.klucz) return;
+  if (syncBusy) { syncDirty = true; return; }
+  syncBusy = true;
+  try {
+    const r = await fetch(cfg.url.replace(/\/$/, "") + "/stan", {
+      method: pobierzTylko ? "GET" : "PUT",
+      headers: { "Authorization": "Bearer " + cfg.klucz, "Content-Type": "application/json" },
+      body: pobierzTylko ? undefined : JSON.stringify(stan)
+    });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    stan = scal(stan, await r.json()); zapiszLokalnie(); odswiezGwiazdki();
+  } catch (e) { Wymowa.diag("synchronizacja ulubionych: " + e.message); }
+  finally { syncBusy = false; if (syncDirty) { syncDirty = false; zaplanujSync(); } }
+}
+function zaplanujSync() { clearTimeout(syncTimer); syncTimer = setTimeout(() => syncTeraz(false), 3000); }
+document.addEventListener("visibilitychange", () => { if (document.hidden && syncTimer) { clearTimeout(syncTimer); syncTeraz(false); } });
+function ulubiona(znaki) { const u = stan.ulubione[znaki]; return !!(u && u.on); }
+function przelaczUlubiona(znaki) { stan.ulubione[znaki] = { on: !ulubiona(znaki), z: Date.now() }; zapiszLokalnie(); zaplanujSync(); }
+function odswiezGwiazdki() {
+  for (const b of document.querySelectorAll(".star")) {
+    const on = ulubiona(b.dataset.znaki);
+    b.textContent = on ? "★" : "☆"; b.classList.toggle("on", on); b.title = on ? "usuń z ulubionych" : "dodaj do ulubionych";
+  }
+}
+
 function render(sekcje) {
   const main = document.getElementById("main");
   for (const sek of sekcje) {
@@ -153,7 +199,7 @@ function render(sekcje) {
       if (p.audio) AUDIO[p.znaki] = p.audio;
       const c = document.createElement("div");
       c.className = "card";
-      c.innerHTML = `<span class="spk">🔊</span>
+      c.innerHTML = `<span class="spk">🔊</span><button class="star" type="button"></button>
         ${p.img ? `<img class="obr" src="${p.img}" alt="" loading="lazy">` : ""}
         <div class="hanzi">${p.znaki}</div>
         <div class="pinyin">${p.pinyin}</div>
@@ -163,13 +209,18 @@ function render(sekcje) {
         ${kredyt(p.img ? p.obrazek : null)}
         <button class="mic" type="button">🎤 przytrzymaj i mów</button>
         <div class="result" hidden></div>`;
-      c.addEventListener("click", (e) => { if (e.target.closest(".mic, .result, .kred a")) return; play(p.znaki, c); });
+      c.addEventListener("click", (e) => { if (e.target.closest(".mic, .result, .kred a, .star")) return; play(p.znaki, c); });
       bindMic(c.querySelector(".mic"), p.znaki, c);
+      const star = c.querySelector(".star");
+      star.dataset.znaki = p.znaki;
+      star.addEventListener("click", () => { przelaczUlubiona(p.znaki); odswiezGwiazdki(); });
       el.appendChild(c);
     }
   }
 }
 render(DATA.sekcje);
+odswiezGwiazdki();
+syncTeraz(true);
 
 if ("speechSynthesis" in window) speechSynthesis.getVoices();
 
