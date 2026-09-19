@@ -25,6 +25,7 @@ z transkrypcją. Jedna z osób to zawsze **Kubi** (user); pole `ty` wskazuje jeg
 8. **Deploy.** Po potwierdzeniu `./deploy.sh "Scenka: tytuł (lekcja N)"`. Link: `https://kubi-dev.github.io/kubus/podcast/`.
 
 ## Zasady
+- Sceny towarzyskie (impreza, kawa, poznawanie kogoś) zawsze z **koleżanką / dziewczyną** (np. 李美 Lǐ Měi), nie z kolegą. Kubi jest uprzejmy i lekko flirtuje (你很美丽, 你很可爱, 我们明天见？). Role usługowe (kelnerka, sprzedawczyni) też kobiece.
 - Nie zmieniaj `build.py`, `podcast.py`, `scenki.py`. Jeśli scenka wymaga innej struktury, powiedz userowi.
 - Nie deployuj przed potwierdzeniem, chyba że user każe „od razu wrzuć”.
 - JSON z `ensure_ascii` wyłączonym, 2 spacje wcięcia, jedna kwestia na linię.

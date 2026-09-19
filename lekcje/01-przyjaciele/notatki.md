@@ -44,4 +44,4 @@ Data: 2026-09-06
 | 谢谢 | xièxie | sie-sie |  | thank you · dziękuję |
 | 你呢？ | Nǐ ne? | ni ny |  | And you? · A ty? |
 | 北京 | Běijīng | pej-dzing |  | Beijing · Pekin |
-| 王明 | Wáng Míng | łang ming |  | Wang Ming (name) · Wang Ming (imię) |
+| 李美 | Lǐ Měi | li mej |  | Li Mei (name) · Li Mei (imię) |
