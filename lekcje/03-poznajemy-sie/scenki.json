@@ -1,0 +1,48 @@
+{
+  "scenki": [
+    {
+      "id": "turystka",
+      "tytul": "Turystka w kawiarni",
+      "opis": "Kubi zaczepia w kawiarni w Chiang Mai Li Mei, turystkę z Chin. Pyta, skąd jest, jak długo zostaje i prosi o WeChata.",
+      "role": {"A": "Li Mei", "B": "Kubi"},
+      "ty": "B",
+      "kwestie": [
+        {"kto": "B", "znaki": "你好！我叫Kubi。你叫什么名字？", "pinyin": "Nǐ hǎo! Wǒ jiào Kubi. Nǐ jiào shénme míngzi?", "polski": "Cześć! Jestem Kubi. Jak masz na imię?"},
+        {"kto": "A", "znaki": "我叫李美。很高兴认识你。", "pinyin": "Wǒ jiào Lǐ Měi. Hěn gāoxìng rènshi nǐ.", "polski": "Jestem Li Mei. Miło Cię poznać."},
+        {"kto": "B", "znaki": "很高兴认识你。你是来旅游的吗？", "pinyin": "Hěn gāoxìng rènshi nǐ. Nǐ shì lái lǚyóu de ma?", "polski": "Miło mi. Jesteś tu jako turystka?"},
+        {"kto": "A", "znaki": "是，我来旅游。你呢？", "pinyin": "Shì, wǒ lái lǚyóu. Nǐ ne?", "polski": "Tak, podróżuję. A ty?"},
+        {"kto": "B", "znaki": "我一个人在清迈旅居。你来自中国哪里？", "pinyin": "Wǒ yí ge rén zài Qīngmài lǚjū. Nǐ láizì Zhōngguó nǎlǐ?", "polski": "Mieszkam sam w Chiang Mai. Skąd w Chinach jesteś?"},
+        {"kto": "A", "znaki": "我来自北京。你在清迈多久时间？", "pinyin": "Wǒ láizì Běijīng. Nǐ zài Qīngmài duōjiǔ shíjiān?", "polski": "Z Pekinu. Jak długo jesteś w Chiang Mai?"},
+        {"kto": "B", "znaki": "很久。你后面会去哪里？", "pinyin": "Hěn jiǔ. Nǐ hòumiàn huì qù nǎlǐ?", "polski": "Długo. A ty gdzie jedziesz dalej?"},
+        {"kto": "A", "znaki": "我不知道。", "pinyin": "Wǒ bù zhīdào.", "polski": "Jeszcze nie wiem."},
+        {"kto": "B", "znaki": "你很友善。可以给我你的微信吗？", "pinyin": "Nǐ hěn yǒushàn. Kěyǐ gěi wǒ nǐ de Wēixìn ma?", "polski": "Jesteś bardzo miła. Dasz mi swojego WeChata?"},
+        {"kto": "A", "znaki": "当然啦！", "pinyin": "Dāngrán la!", "polski": "Oczywiście!"},
+        {"kto": "B", "znaki": "太好了！我们明天见。", "pinyin": "Tài hǎo le! Wǒmen míngtiān jiàn.", "polski": "Świetnie! Do jutra."},
+        {"kto": "A", "znaki": "明天见，拜拜！", "pinyin": "Míngtiān jiàn, bàibài!", "polski": "Do jutra, pa pa!"}
+      ],
+      "nowe": []
+    },
+    {
+      "id": "kolacja",
+      "tytul": "Kolacja z Li Mei",
+      "opis": "Kubi zaprasza Li Mei na kolację. Pyta, czy jest singielką, zamawiają jedzenie, prawią sobie komplementy i wieczór kończy się całusem.",
+      "role": {"A": "Li Mei", "B": "Kubi"},
+      "ty": "B",
+      "kwestie": [
+        {"kto": "B", "znaki": "李美，你是否单身？", "pinyin": "Lǐ Měi, nǐ shìfǒu dānshēn?", "polski": "Li Mei, jesteś singielką?"},
+        {"kto": "A", "znaki": "是，我是单身。你呢？", "pinyin": "Shì, wǒ shì dānshēn. Nǐ ne?", "polski": "Tak, jestem singielką. A ty?"},
+        {"kto": "B", "znaki": "我是单身。你愿意一起吃饭吗？", "pinyin": "Wǒ shì dānshēn. Nǐ yuànyì yìqǐ chīfàn ma?", "polski": "Ja też. Zjesz ze mną kolację?"},
+        {"kto": "A", "znaki": "愿意！你想吃什么？", "pinyin": "Yuànyì! Nǐ xiǎng chī shénme?", "polski": "Chętnie! Co chcesz zjeść?"},
+        {"kto": "B", "znaki": "我想吃饺子。你呢？", "pinyin": "Wǒ xiǎng chī jiǎozi. Nǐ ne?", "polski": "Chcę zjeść pierogi. A ty?"},
+        {"kto": "A", "znaki": "我想吃炒饭和鸡肉。", "pinyin": "Wǒ xiǎng chī chǎofàn hé jīròu.", "polski": "Chcę smażony ryż i kurczaka."},
+        {"kto": "B", "znaki": "太好了！你很漂亮。", "pinyin": "Tài hǎo le! Nǐ hěn piàoliang.", "polski": "Świetnie! Jesteś bardzo ładna."},
+        {"kto": "A", "znaki": "谢谢，你很帅。", "pinyin": "Xièxie, nǐ hěn shuài.", "polski": "Dziękuję, jesteś przystojny."},
+        {"kto": "B", "znaki": "我喜欢你。可以吻你吗？", "pinyin": "Wǒ xǐhuan nǐ. Kěyǐ wěn nǐ ma?", "polski": "Lubię Cię. Mogę Cię pocałować?"},
+        {"kto": "A", "znaki": "当然啦！", "pinyin": "Dāngrán la!", "polski": "Oczywiście!"},
+        {"kto": "B", "znaki": "成交！很多吻。晚安，李美。", "pinyin": "Chéngjiāo! Hěn duō wěn. Wǎn'ān, Lǐ Měi.", "polski": "Umowa stoi! Dużo całusów. Dobranoc, Li Mei."},
+        {"kto": "A", "znaki": "晚安，Kubi。", "pinyin": "Wǎn'ān, Kubi.", "polski": "Dobranoc, Kubi."}
+      ],
+      "nowe": []
+    }
+  ]
+}

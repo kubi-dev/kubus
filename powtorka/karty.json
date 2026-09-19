@@ -882,5 +882,369 @@
   "audio": "lekcje/02-jedzenie-i-napoje/audio/d51b2587ab",
   "img": "",
   "obrazek": null
+ },
+ {
+  "id": "你在清迈多久时间？",
+  "znaki": "你在清迈多久时间？",
+  "pinyin": "Nǐ zài Qīngmài duōjiǔ shíjiān?",
+  "polski": "ni dzaj ćhing-maj tło-dzioł szy-dzien",
+  "znaczenie": "How long are you staying in Chiang Mai? · Jak długo jesteś w Chiang Mai?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/623577f9c8",
+  "img": "lekcje/03-poznajemy-sie/obrazki/623577f9c8.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/5910318/image-background-public-domain-golden"
+  }
+ },
+ {
+  "id": "你是来旅游的吗？",
+  "znaki": "你是来旅游的吗？",
+  "pinyin": "Nǐ shì lái lǚyóu de ma?",
+  "polski": "ni szy laj lü-joł ty ma",
+  "znaczenie": "Are you here as a tourist? · Jesteś tu jako turystka?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/8c7423a9dd",
+  "img": "lekcje/03-poznajemy-sie/obrazki/8c7423a9dd.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/3282472/free-photo-image-road-bicycle-crossing-busy-street"
+  }
+ },
+ {
+  "id": "你是否愿意做我的朋友？",
+  "znaki": "你是否愿意做我的朋友？",
+  "pinyin": "Nǐ shìfǒu yuànyì zuò wǒ de péngyou?",
+  "polski": "ni szy-foł jüen-i dzło ło-ty phyng-joł",
+  "znaczenie": "Would you like to be my friend? · Chcesz zostać moją przyjaciółką?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/55096cd92d",
+  "img": "lekcje/03-poznajemy-sie/obrazki/55096cd92d.jpg",
+  "obrazek": {
+   "autor": "Helena Lopes",
+   "licencja": "cc0",
+   "zrodlo": "https://stocksnap.io/photo/friends-hugging-6ZYX4YY4IR"
+  }
+ },
+ {
+  "id": "可以给我你的微信吗？",
+  "znaki": "可以给我你的微信吗？",
+  "pinyin": "Kěyǐ gěi wǒ nǐ de Wēixìn ma?",
+  "polski": "khy-i kej ło ni-ty łej-sin ma",
+  "znaczenie": "Can you give me your WeChat? · Dasz mi swojego WeChata?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/1d937a3dd9",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你可以教我中文吗？",
+  "znaki": "你可以教我中文吗？",
+  "pinyin": "Nǐ kěyǐ jiāo wǒ Zhōngwén ma?",
+  "polski": "ni khy-i dział ło czung-łyn ma",
+  "znaczenie": "Can you teach me Chinese? · Nauczysz mnie chińskiego?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/6cc05a327a",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你是做什么工作的？",
+  "znaki": "你是做什么工作的？",
+  "pinyin": "Nǐ shì zuò shénme gōngzuò de?",
+  "polski": "ni szy dzło szyn-my kung-dzło ty",
+  "znaczenie": "What do you do for work? · Czym się zajmujesz?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/d198ebf9e5",
+  "img": "lekcje/03-poznajemy-sie/obrazki/d198ebf9e5.jpg",
+  "obrazek": {
+   "autor": "Direct Media",
+   "licencja": "cc0",
+   "zrodlo": "https://stocksnap.io/photo/business-man-HQLFQ0FSK0"
+  }
+ },
+ {
+  "id": "你来自中国哪里？",
+  "znaki": "你来自中国哪里？",
+  "pinyin": "Nǐ láizì Zhōngguó nǎlǐ?",
+  "polski": "ni laj-dzy czung-kło na-li",
+  "znaczenie": "Where in China are you from? · Skąd w Chinach jesteś?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/9e628d0458",
+  "img": "lekcje/03-poznajemy-sie/obrazki/9e628d0458.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/6449513/vector-sticker-public-domain-stars"
+  }
+ },
+ {
+  "id": "你后面会去哪里？",
+  "znaki": "你后面会去哪里？",
+  "pinyin": "Nǐ hòumiàn huì qù nǎlǐ?",
+  "polski": "ni choł-mien chłej ćhü na-li",
+  "znaczenie": "Where are you going next? · Gdzie jedziesz dalej?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/5040c118f9",
+  "img": "lekcje/03-poznajemy-sie/obrazki/5040c118f9.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/5917082/image-light-public-domain-free"
+  }
+ },
+ {
+  "id": "愿意",
+  "znaki": "愿意",
+  "pinyin": "yuànyì",
+  "polski": "jüen-i",
+  "znaczenie": "willing / yes · chcę / tak",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/218330f78b",
+  "img": "lekcje/03-poznajemy-sie/obrazki/218330f78b.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/5914523/image-background-public-domain-hand"
+  }
+ },
+ {
+  "id": "不愿意",
+  "znaki": "不愿意",
+  "pinyin": "bú yuànyì",
+  "polski": "pu jüen-i",
+  "znaczenie": "not willing / no · nie chcę / nie",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/d1de3e8fcf",
+  "img": "lekcje/03-poznajemy-sie/obrazki/d1de3e8fcf.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/5962041/free-public-domain-cc0-photo"
+  }
+ },
+ {
+  "id": "拜拜。",
+  "znaki": "拜拜。",
+  "pinyin": "Bàibài.",
+  "polski": "paj-paj",
+  "znaczenie": "bye bye · pa pa",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/1b13dffc39",
+  "img": "lekcje/03-poznajemy-sie/obrazki/1b13dffc39.jpg",
+  "obrazek": {
+   "autor": "Christian Haugen",
+   "licencja": "by",
+   "zrodlo": "https://www.flickr.com/photos/34073237@N04/3527799382"
+  }
+ },
+ {
+  "id": "很高兴认识你。",
+  "znaki": "很高兴认识你。",
+  "pinyin": "Hěn gāoxìng rènshi nǐ.",
+  "polski": "chyn kał-sing żyn-szy ni",
+  "znaczenie": "Nice to meet you. · Miło Cię poznać.",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/1f7295fdc1",
+  "img": "lekcje/03-poznajemy-sie/obrazki/1f7295fdc1.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/6613025/png-sticker-vintage"
+  }
+ },
+ {
+  "id": "你是否单身？",
+  "znaki": "你是否单身？",
+  "pinyin": "Nǐ shìfǒu dānshēn?",
+  "polski": "ni szy-foł tan-szyn",
+  "znaczenie": "Are you single? · Jesteś singielką?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/c1272f84f6",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你愿意一起吃饭吗？",
+  "znaki": "你愿意一起吃饭吗？",
+  "pinyin": "Nǐ yuànyì yìqǐ chīfàn ma?",
+  "polski": "ni jüen-i i-ćhi czhy-fan ma",
+  "znaczenie": "Would you like to have dinner together? · Zjesz ze mną kolację?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/72232757a4",
+  "img": "lekcje/03-poznajemy-sie/obrazki/72232757a4.jpg",
+  "obrazek": {
+   "autor": "Bruce Mars",
+   "licencja": "cc0",
+   "zrodlo": "https://stocksnap.io/photo/romantic-dinner-7OYXXTMJKP"
+  }
+ },
+ {
+  "id": "你很漂亮。",
+  "znaki": "你很漂亮。",
+  "pinyin": "Nǐ hěn piàoliang.",
+  "polski": "ni chyn phiał-liang",
+  "znaczenie": "You are very pretty. · Jesteś bardzo ładna.",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/03e5ef7519",
+  "img": "lekcje/03-poznajemy-sie/obrazki/03e5ef7519.jpg",
+  "obrazek": {
+   "autor": "Authentic Stock",
+   "licencja": "cc0",
+   "zrodlo": "https://stocksnap.io/photo/beauty-woman-44UZZC8IRN"
+  }
+ },
+ {
+  "id": "你很帅。",
+  "znaki": "你很帅。",
+  "pinyin": "Nǐ hěn shuài.",
+  "polski": "ni chyn szłaj",
+  "znaczenie": "You are handsome. · Jesteś przystojny.",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/caade7009d",
+  "img": "lekcje/03-poznajemy-sie/obrazki/caade7009d.jpg",
+  "obrazek": {
+   "autor": "citirecruitment",
+   "licencja": "by",
+   "zrodlo": "https://www.flickr.com/photos/125303894@N06/14202199100"
+  }
+ },
+ {
+  "id": "你很友善。",
+  "znaki": "你很友善。",
+  "pinyin": "Nǐ hěn yǒushàn.",
+  "polski": "ni chyn joł-szan",
+  "znaczenie": "You are friendly. · Jesteś miła.",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/9b7cda49b1",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "我一个人在清迈旅居。",
+  "znaki": "我一个人在清迈旅居。",
+  "pinyin": "Wǒ yí ge rén zài Qīngmài lǚjū.",
+  "polski": "ło i-ky żyn dzaj ćhing-maj lü-dzü",
+  "znaczenie": "I live in Chiang Mai on my own. · Mieszkam sam w Chiang Mai.",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/2ce3e839e1",
+  "img": "lekcje/03-poznajemy-sie/obrazki/2ce3e839e1.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/5907944/image-public-domain-free-worship"
+  }
+ },
+ {
+  "id": "旅游",
+  "znaki": "旅游",
+  "pinyin": "lǚyóu",
+  "polski": "lü-joł",
+  "znaczenie": "travel · podróżować",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/0ebbd85f68",
+  "img": "lekcje/03-poznajemy-sie/obrazki/0ebbd85f68.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/5918537/image-public-domain-person-red"
+  }
+ },
+ {
+  "id": "当然啦！",
+  "znaki": "当然啦！",
+  "pinyin": "Dāngrán la!",
+  "polski": "tang-żan la",
+  "znaczenie": "Of course! · Oczywiście!",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/5161d1f2f7",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "可以吻你吗？",
+  "znaki": "可以吻你吗？",
+  "pinyin": "Kěyǐ wěn nǐ ma?",
+  "polski": "khy-i łyn ni ma",
+  "znaczenie": "Can I kiss you? · Mogę Cię pocałować?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/28b2bba039",
+  "img": "lekcje/03-poznajemy-sie/obrazki/28b2bba039.jpg",
+  "obrazek": {
+   "autor": "Nathan Walker",
+   "licencja": "cc0",
+   "zrodlo": "https://stocksnap.io/photo/couple-kissing-UG86T8KW5X"
+  }
+ },
+ {
+  "id": "成交！",
+  "znaki": "成交！",
+  "pinyin": "Chéngjiāo!",
+  "polski": "czhyng-dział",
+  "znaczenie": "Deal! · Umowa stoi!",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/883260a8e3",
+  "img": "lekcje/03-poznajemy-sie/obrazki/883260a8e3.jpg",
+  "obrazek": {
+   "autor": "Direct Media",
+   "licencja": "cc0",
+   "zrodlo": "https://stocksnap.io/photo/people-high-YE8Y1H8GJK"
+  }
+ },
+ {
+  "id": "很多吻。",
+  "znaki": "很多吻。",
+  "pinyin": "Hěn duō wěn.",
+  "polski": "chyn tło łyn",
+  "znaczenie": "Lots of kisses. · Dużo całusów.",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/b05765226f",
+  "img": "lekcje/03-poznajemy-sie/obrazki/b05765226f.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/6287063/png-public-domain-woman"
+  }
+ },
+ {
+  "id": "晚安。",
+  "znaki": "晚安。",
+  "pinyin": "Wǎn'ān.",
+  "polski": "łan-an",
+  "znaczenie": "Good night. · Dobranoc.",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/ac68846341",
+  "img": "lekcje/03-poznajemy-sie/obrazki/ac68846341.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/10165782/vector-face-hand-person"
+  }
  }
 ]
