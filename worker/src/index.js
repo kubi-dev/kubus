@@ -97,7 +97,8 @@ async function trener(body, env) {
     if (r.stop_reason === "refusal") return json({ error: "trener odmówił" }, 502);
     const text = r.content.filter(b => b.type === "text").map(b => b.text).join("");
     const out = JSON.parse(text);
-    return json({ ...out, ms: Date.now() - t0 });
+    const u = r.usage || {};
+    return json({ ...out, ms: Date.now() - t0, tokeny: { wejscie: u.input_tokens, cache_zapis: u.cache_creation_input_tokens, cache_odczyt: u.cache_read_input_tokens, wyjscie: u.output_tokens } });
   } catch (e) { return json({ error: "trener: " + (e.message || e) }, 502); }
 }
 
