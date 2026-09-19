@@ -155,10 +155,10 @@
     const c = cfg();
     if (!c.url || !c.klucz) return wykres;
     const w = { cel: { znaki: g.target, pinyin: g.targetPy }, uslyszane: { znaki: g.best, pinyin: g.heardPy }, poziom: g.level, sylaby };
-    return wykres + `<div class="trener" data-czeka="1" data-w="${encodeURIComponent(JSON.stringify(w))}">⏳ trener słucha…</div>`;
+    return wykres + `<div class="trener" data-w="${encodeURIComponent(JSON.stringify(w))}"><button class="tr-pytaj" type="button">Spytaj trenera</button></div>`;
   }
   async function uzupelnijTrenera(el) {
-    el.removeAttribute("data-czeka");
+    el.innerHTML = "⏳ trener myśli…";
     const c = cfg(), t0 = Date.now();
     try {
       const w = JSON.parse(decodeURIComponent(el.dataset.w));
@@ -176,9 +176,12 @@
         onDone: (res) => { const x = render(res, cw.znaki); out.hidden = false; out.className = "result tr-wynik " + x.cls; out.innerHTML = x.html; } });
     } catch (e) { diag("trener błąd: " + e.message); el.textContent = "Trener niedostępny: " + e.message; }
   }
-  // placeholdery trenera wypełniamy, gdy tylko pojawią się w DOM (strony wstawiają html z render() same, także po przeładowaniu)
-  function szukajTrenera() { document.querySelectorAll(".trener[data-czeka]").forEach(uzupelnijTrenera); }
-  new MutationObserver(szukajTrenera).observe(document.documentElement, { childList: true, subtree: true });
+  // request do Claude dopiero po dotknięciu "Spytaj trenera" (strony wstawiają html z render() same, stąd delegacja zdarzenia)
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest(".tr-pytaj"); if (!b) return;
+    e.preventDefault(); e.stopPropagation();
+    uzupelnijTrenera(b.closest(".trener"));
+  }, true);
   (function () {
     const st = document.createElement("style");
     st.textContent = `
@@ -196,6 +199,7 @@
 .tony .ton.usl { color: #666; opacity: .8; }
 .tony .syl.zle .ton.usl { color: #b91c1c; opacity: 1; }
 .trener { margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(0,0,0,.15); font-size: 13px; }
+.trener .tr-pytaj { font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid currentColor; background: transparent; color: inherit; cursor: pointer; }
 .trener .tr-diag { font-weight: 600; }
 .trener .tr-rada { margin-top: 3px; }
 .trener .tr-cw { margin-top: 6px; }
