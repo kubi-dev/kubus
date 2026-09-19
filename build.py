@@ -7,11 +7,13 @@ Użycie: python3 build.py              # wszystkie lekcje
         python3 build.py --no-obrazki # bez pobierania obrazków
 """
 import hashlib, json, pathlib, subprocess, sys, time, urllib.parse
+import podcast
 
 ROOT = pathlib.Path(__file__).resolve().parent
 TEMPLATE = (ROOT / "template.html").read_text(encoding="utf-8")
 POWTORKA = (ROOT / "powtorka.html").read_text(encoding="utf-8")
 ULUBIONE = (ROOT / "ulubione.html").read_text(encoding="utf-8")
+PODCAST = (ROOT / "podcast.html").read_text(encoding="utf-8")
 # Wersja do cache-bustingu wymowa.js (hash pliku)
 WERSJA = hashlib.md5((ROOT / "wymowa.js").read_bytes()).hexdigest()[:8]
 # Adres workera synchronizacji (plik sync.url, jedna linia); pusty = tylko localStorage
@@ -89,13 +91,32 @@ def build_lesson(lesson_dir):
     (lesson_dir / "notatki.md").write_text("\n".join(md), encoding="utf-8")
     n = sum(len(s["pozycje"]) for s in data["sekcje"])
     print(f"{lesson_dir.name}: {n} pozycji")
+    pod = None
+    if not NO_AUDIO:
+        try: pod = podcast.build_lesson_podcast(lesson_dir, data)
+        except Exception as e: print(f"  ! podcast: {e}", file=sys.stderr)
     karty = [{"id": p["znaki"], "znaki": p["znaki"], "pinyin": p["pinyin"], "polski": p.get("polski", ""), "znaczenie": p["znaczenie"],
               "lekcja": data.get("numer", 0), "lekcjaTytul": data["tytul"],
               "audio": f"lekcje/{lesson_dir.name}/audio/{p['audio']}" if p.get("audio") else "",
               "img": f"lekcje/{lesson_dir.name}/{p['img']}" if p.get("img") else "",
               "obrazek": {k: p["obrazek"].get(k, "") for k in ("autor", "licencja", "zrodlo")} if p.get("img") else None}
              for sek in data["sekcje"] for p in sek["pozycje"]]
-    return {"dir": lesson_dir.name, "tytul": data["tytul"], "data": data.get("data", ""), "n": n, "numer": data.get("numer", 0), "karty": karty}
+    return {"dir": lesson_dir.name, "tytul": data["tytul"], "data": data.get("data", ""), "n": n, "numer": data.get("numer", 0), "karty": karty, "podcast": pod}
+
+def build_podcast(lessons):
+    """Strona podcast/index.html: odcinek zbiorczy + odcinki lekcji (mp3 buduje podcast.py)."""
+    odcinki = []
+    wsz = None
+    if not NO_AUDIO:
+        try: wsz = podcast.build_all_podcast(lessons)
+        except Exception as e: print(f"  ! podcast wszystko: {e}", file=sys.stderr)
+    if wsz: odcinki.append({"id": "wszystko", "tytul": "Wszystko do tej pory", "src": wsz["plik"], "sekund": wsz["sekund"], "n": wsz["n"], "data": ""})
+    for l in sorted(lessons, key=lambda l: -l["numer"]):
+        if l.get("podcast"):
+            odcinki.append({"id": l["dir"], "tytul": l["tytul"], "src": f"../lekcje/{l['dir']}/{l['podcast']['plik']}", "sekund": l["podcast"]["sekund"], "n": l["podcast"]["n"], "data": l["data"]})
+    out = ROOT / "podcast"; out.mkdir(exist_ok=True)
+    (out / "index.html").write_text(PODCAST.replace("{{ODCINKI_JSON}}", json.dumps(odcinki, ensure_ascii=False)), encoding="utf-8")
+    print(f"podcast: {len(odcinki)} odcinków")
 
 def build_powtorka(lessons):
     """Talia do powtórek ze wszystkich lekcji (pierwsze wystąpienie znaków wygrywa) + strona powtorka/index.html."""
@@ -143,6 +164,7 @@ INDEX = """<!DOCTYPE html>
   <h1>Notatki z chińskiego</h1>
     <a class="card" href="powtorka/"><div class="t">🔁 Powtórka</div><div class="m">codzienne powtórki: wymowa i rozumienie ze słuchu</div></a>
     <a class="card" href="ulubione/"><div class="t">★ Ulubione</div><div class="m">zwroty oznaczone gwiazdką w powtórce · ściąga na rozmowę</div></a>
+    <a class="card" href="podcast/"><div class="t">🎧 Podcast</div><div class="m">polski → chiński → pauza na powtórzenie · odcinek do każdej lekcji i do wszystkiego</div></a>
 {{LEKCJE}}
 </main>
 </body>
@@ -154,4 +176,5 @@ if __name__ == "__main__":
     lessons = [build_lesson(d) for d in dirs]
     build_index(lessons)
     build_powtorka(lessons)
+    build_podcast(lessons)
     print("index.html OK")

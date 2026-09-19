@@ -30,6 +30,14 @@ mały JSON z celem, usłyszanym tekstem i sylabami; wraca diagnoza po polsku, ws
 (słowo z tym samym tonem, zapis polski w konwencji notatek, nagranie wolno przez `GET /tts`, własny mikrofon). Licznik wpadek per ton
 w `localStorage kubus.tony`. Worker potrzebuje sekretu `ANTHROPIC_API_KEY` (`npx wrangler secret put ANTHROPIC_API_KEY`).
 
+## Podcast
+Strona `podcast/`: odcinek do każdej lekcji (`lekcje/NN/podcast.mp3`) i zbiorczy ze wszystkich zwrotów (`podcast/wszystko.mp3`).
+Buduje `podcast.py` (wołany z `build.py`): polski lektor (Google TTS `tl=pl`, pliki `audio/pl-*.mp3`) + istniejące mp3 chińskie
+(wolne i normalne) + cisza, sklejone przez ffmpeg. Schemat jak u Pimsleura: nowy zwrot = polski, chiński wolno, pauza, chiński
+normalnie, pauza; 4 zwroty później i na końcu odcinka przypomnienie = polski, pauza (mówisz sam), chiński. Odcinek zbiorczy to
+same przypomnienia, dwa przejścia w losowej kolejności. Manifest (`podcast.json`, `wszystko.json`) pomija przebudowę, gdy nic się
+nie zmieniło. Odtwarzacz zapamiętuje miejsce i tempo (`localStorage kubus.podcast.*`).
+
 ## Powtórki
 - Strona `powtorka/` (SM-2 jak w Anki). Karta A: obrazek + polskie znaczenie, mówisz po chińsku (mikrofon). Karta B: audio po chińsku, wybierasz znaczenie, po dojrzeniu karty wpisujesz; obrazek pokazuje się po odsłonięciu.
 - Gwiazdka ☆ na karcie (w powtórce i na stronie lekcji) dodaje zwrot do ulubionych. Strona `ulubione/` to ściąga na rozmowę: lista po polsku (z wyszukiwarką), dotknięcie otwiera kartę ze znakami, pinyin, zapisem polskim, nagraniem i mikrofonem. Ulubione są w tym samym stanie co postęp (pole `ulubione`), więc synchronizują się między urządzeniami.
@@ -40,6 +48,8 @@ w `localStorage kubus.tony`. Worker potrzebuje sekretu `ANTHROPIC_API_KEY` (`npx
 template.html            szablon strony lekcji
 obrazki.py               szukanie obrazków do kart (Openverse)
 powtorka.html            szablon strony powtórek
+podcast.html             szablon strony podcastu
+podcast.py               składanie odcinków mp3 (polski → chiński → pauza)
 ulubione.html            szablon strony ulubionych zwrotów
 wymowa.js                wspólny moduł: odtwarzanie mp3 (Web Audio) + sprawdzanie wymowy (mikrofon)
 worker/                  Cloudflare Worker synchronizacji postępu
@@ -51,6 +61,7 @@ lekcje/NN-slug/
   obrazki/               obrazki kart (pobrane wg pola "obrazek" w lekcja.json, zmniejszone do 640 px)
   index.html, notatki.md wygenerowane
 powtorka/                wygenerowana strona powtórek + karty.json
+podcast/                 wygenerowana strona podcastu + wszystko.mp3
 ulubione/                wygenerowana strona ulubionych
 index.html               wygenerowany indeks lekcji
 ```

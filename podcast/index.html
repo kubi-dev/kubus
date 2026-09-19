@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Podcast · Notatki z chińskiego</title>
+<style>
+  :root { --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62; --accent: #b8362d; --accent-soft: #f3d9d5; --line: #e6dccd; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #171412; --card: #221e1a; --ink: #f1e9dd; --muted: #a2968a; --accent: #e0574c; --accent-soft: #3a2320; --line: #332c26; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  header { padding: 14px 18px 8px; max-width: 620px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
+  header a { color: var(--accent); text-decoration: none; font-size: 14px; }
+  .ttl { flex: 1; text-align: center; font-size: 16px; font-weight: 600; }
+  main { max-width: 620px; margin: 0 auto; padding: 6px 18px 40px; }
+  .jak { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 4px 0 16px; }
+  .odc { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
+  .odc.gra { border-color: var(--accent); }
+  .odc .t { font-size: 17px; font-weight: 600; }
+  .odc .m { color: var(--muted); font-size: 13px; margin: 3px 0 10px; }
+  .odc audio { width: 100%; }
+  .row { display: flex; gap: 8px; margin-top: 8px; align-items: center; flex-wrap: wrap; }
+  button { font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
+  button.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+  .pos { color: var(--muted); font-size: 12px; margin-left: auto; }
+</style>
+</head>
+<body>
+<header><a href="../">← lekcje</a><div class="ttl">🎧 Podcast</div><span style="width:52px"></span></header>
+<main>
+  <div class="jak">Słuchawki na uszy. Najpierw polski, potem chiński wolno i normalnie, w pauzie powtarzasz.
+    Gdy słyszysz sam polski, to twoja kolej: powiedz po chińsku, zaraz usłyszysz odpowiedź. Odtwarzanie działa przy zablokowanym ekranie.</div>
+  <div id="lista"></div>
+</main>
+<script>
+const ODCINKI = [{"id": "wszystko", "tytul": "Wszystko do tej pory", "src": "wszystko.mp3", "sekund": 968, "n": 55, "data": ""}, {"id": "02-jedzenie-i-napoje", "tytul": "Lekcja 2 · Jedzenie i napoje", "src": "../lekcje/02-jedzenie-i-napoje/podcast.mp3", "sekund": 951, "n": 35, "data": "2026-09-09"}, {"id": "01-przyjaciele", "tytul": "Lekcja 1 · Przyjaciele", "src": "../lekcje/01-przyjaciele/podcast.mp3", "sekund": 563, "n": 20, "data": "2026-09-06"}];
+const $lista = document.getElementById("lista");
+const fmt = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+const ls = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+const tempo = Number(ls.get("kubus.podcast.tempo") || 1);
+let grajacy = null;
+
+for (const o of ODCINKI) {
+  const el = document.createElement("div"); el.className = "odc";
+  el.innerHTML = `<div class="t">${o.tytul}</div><div class="m">${fmt(o.sekund)} · ${o.n} zwrotów${o.data ? " · " + o.data : ""}</div>
+    <audio controls preload="none" src="${o.src}"></audio>
+    <div class="row"><span style="font-size:12px;color:var(--muted)">tempo</span>
+      ${[0.8, 1, 1.2].map(t => `<button data-tempo="${t}" class="${t === tempo ? "on" : ""}">${t}×</button>`).join("")}
+      <span class="pos"></span></div>`;
+  const a = el.querySelector("audio"), pos = el.querySelector(".pos"), kluczPos = "kubus.podcast.pos." + o.id;
+  a.playbackRate = tempo;
+  const zap = Number(ls.get(kluczPos) || 0);
+  if (zap > 20 && zap < o.sekund - 20) pos.textContent = "wznów od " + fmt(Math.floor(zap));
+  a.addEventListener("loadedmetadata", () => { if (zap > 20 && zap < o.sekund - 20) a.currentTime = zap; });
+  a.addEventListener("play", () => {
+    if (grajacy && grajacy !== a) grajacy.pause();
+    grajacy = a; document.querySelectorAll(".odc").forEach(x => x.classList.toggle("gra", x === el));
+    a.playbackRate = Number(ls.get("kubus.podcast.tempo") || 1);
+    if ("mediaSession" in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: o.tytul, artist: "Notatki z chińskiego", album: "Podcast" });
+  });
+  a.addEventListener("timeupdate", () => { if (Math.floor(a.currentTime) % 5 === 0) ls.set(kluczPos, String(a.currentTime)); pos.textContent = ""; });
+  a.addEventListener("ended", () => ls.set(kluczPos, "0"));
+  el.querySelectorAll("[data-tempo]").forEach(b => b.addEventListener("click", () => {
+    const t = Number(b.dataset.tempo); ls.set("kubus.podcast.tempo", String(t));
+    document.querySelectorAll("[data-tempo]").forEach(x => x.classList.toggle("on", Number(x.dataset.tempo) === t));
+    document.querySelectorAll("audio").forEach(x => x.playbackRate = t);
+  }));
+  $lista.appendChild(el);
+}
+</script>
+</body>
+</html>
