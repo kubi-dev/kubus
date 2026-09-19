@@ -102,9 +102,9 @@
     {
       "nazwa": "Ze scenek",
       "pozycje": [
-        {"znaki": "请", "pinyin": "qǐng", "polski": "ćhing", "notatki": "", "znaczenie": "please · proszę"},
-        {"znaki": "太好了！", "pinyin": "Tài hǎo le!", "polski": "thaj chał ly", "notatki": "", "znaczenie": "Great! · Świetnie!"},
-        {"znaki": "多少钱？", "pinyin": "Duōshao qián?", "polski": "tło-szał ćhien", "notatki": "", "znaczenie": "How much? · Ile to kosztuje?"}
+        {"znaki": "请", "pinyin": "qǐng", "polski": "ćhing", "notatki": "", "znaczenie": "please · proszę", "auto": "scenka"},
+        {"znaki": "太好了！", "pinyin": "Tài hǎo le!", "polski": "thaj chał ly", "notatki": "", "znaczenie": "Great! · Świetnie!", "auto": "scenka"},
+        {"znaki": "多少钱？", "pinyin": "Duōshao qián?", "polski": "tło-szał ćhien", "notatki": "", "znaczenie": "How much? · Ile to kosztuje?", "auto": "scenka"}
       ]
     }
   ]

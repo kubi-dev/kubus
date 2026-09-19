@@ -14,6 +14,7 @@ TEMPLATE = (ROOT / "template.html").read_text(encoding="utf-8")
 POWTORKA = (ROOT / "powtorka.html").read_text(encoding="utf-8")
 ULUBIONE = (ROOT / "ulubione.html").read_text(encoding="utf-8")
 PODCAST = (ROOT / "podcast.html").read_text(encoding="utf-8")
+SCENKI = (ROOT / "scenki.html").read_text(encoding="utf-8")
 # Wersja do cache-bustingu wymowa.js (hash pliku)
 WERSJA = hashlib.md5((ROOT / "wymowa.js").read_bytes()).hexdigest()[:8]
 # Adres workera synchronizacji (plik sync.url, jedna linia); pusty = tylko localStorage
@@ -81,8 +82,6 @@ def build_lesson(lesson_dir):
             img = ensure_image(lesson_dir, p)
             if img: p["img"] = img
             else: p.pop("img", None)
-    html = TEMPLATE.replace("{{TYTUL}}", data["tytul"]).replace("{{DATA_JSON}}", json.dumps(data, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
-    (lesson_dir / "index.html").write_text(html, encoding="utf-8")
     md = [f"# {data['tytul']}", "", f"Data: {data.get('data','')}", ""]
     for sek in data["sekcje"]:
         md += [f"## {sek['nazwa']}", "", "| Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |", "|---|---|---|---|---|"]
@@ -96,6 +95,9 @@ def build_lesson(lesson_dir):
         try: pod = podcast.build_lesson_podcast(lesson_dir, data)
         except Exception as e: print(f"  ! podcast: {e}", file=sys.stderr)
     scenki = build_scenki(lesson_dir, data)
+    data["podcast"] = pod; data["scenki"] = len([sc for sc in scenki if sc.get("podcast")])
+    html = TEMPLATE.replace("{{TYTUL}}", data["tytul"]).replace("{{DATA_JSON}}", json.dumps(data, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
+    (lesson_dir / "index.html").write_text(html, encoding="utf-8")
     karty = [{"id": p["znaki"], "znaki": p["znaki"], "pinyin": p["pinyin"], "polski": p.get("polski", ""), "znaczenie": p["znaczenie"],
               "lekcja": data.get("numer", 0), "lekcjaTytul": data["tytul"],
               "audio": f"lekcje/{lesson_dir.name}/audio/{p['audio']}" if p.get("audio") else "",
@@ -132,17 +134,18 @@ def build_podcast(lessons):
     if not NO_AUDIO:
         try: wsz = podcast.build_all_podcast(lessons)
         except Exception as e: print(f"  ! podcast wszystko: {e}", file=sys.stderr)
-    if wsz: odcinki.append({"id": "wszystko", "tytul": "Wszystko do tej pory", "src": wsz["plik"], "sekund": wsz["sekund"], "n": wsz["n"], "data": ""})
+    if wsz: odcinki.append({"id": "wszystko", "tytul": "Wszystko do tej pory", "src": f"{wsz['plik']}?v={wsz['sekund']}", "sekund": wsz["sekund"], "n": wsz["n"], "data": ""})
     for l in sorted(lessons, key=lambda l: -l["numer"]):
-        for sc in l.get("scenki", []):
-            if sc.get("podcast"):
-                odcinki.append({"id": f"{l['dir']}-{sc['id']}", "tytul": f"Scenka: {sc['tytul']}", "src": f"../lekcje/{l['dir']}/{sc['podcast']['plik']}", "sekund": sc["podcast"]["sekund"], "n": sc["podcast"]["n"],
-                                "data": l["tytul"], "scenka": {k: sc[k] for k in ("opis", "role", "ty", "kwestie", "nowe")}})
         if l.get("podcast"):
-            odcinki.append({"id": l["dir"], "tytul": l["tytul"], "src": f"../lekcje/{l['dir']}/{l['podcast']['plik']}", "sekund": l["podcast"]["sekund"], "n": l["podcast"]["n"], "data": l["data"]})
+            odcinki.append({"id": l["dir"], "tytul": l["tytul"], "src": f"../lekcje/{l['dir']}/{l['podcast']['plik']}?v={l['podcast']['sekund']}", "sekund": l["podcast"]["sekund"], "n": l["podcast"]["n"], "data": l["data"]})
     out = ROOT / "podcast"; out.mkdir(exist_ok=True)
     (out / "index.html").write_text(PODCAST.replace("{{ODCINKI_JSON}}", json.dumps(odcinki, ensure_ascii=False)), encoding="utf-8")
     print(f"podcast: {len(odcinki)} odcinków")
+    # strona scenek: pogrupowane lekcjami, od najnowszej
+    lek = [{"dir": l["dir"], "tytul": l["tytul"], "scenki": l["scenki"]} for l in sorted(lessons, key=lambda l: -l["numer"]) if l.get("scenki")]
+    out = ROOT / "scenki"; out.mkdir(exist_ok=True)
+    (out / "index.html").write_text(SCENKI.replace("{{SCENKI_JSON}}", json.dumps(lek, ensure_ascii=False)), encoding="utf-8")
+    print(f"scenki: {sum(len(l['scenki']) for l in lek)} scenek")
 
 def build_powtorka(lessons):
     """Talia do powtórek ze wszystkich lekcji (pierwsze wystąpienie znaków wygrywa) + strona powtorka/index.html."""
@@ -191,6 +194,7 @@ INDEX = """<!DOCTYPE html>
     <a class="card" href="powtorka/"><div class="t">🔁 Powtórka</div><div class="m">codzienne powtórki: wymowa i rozumienie ze słuchu</div></a>
     <a class="card" href="ulubione/"><div class="t">★ Ulubione</div><div class="m">zwroty oznaczone gwiazdką w powtórce · ściąga na rozmowę</div></a>
     <a class="card" href="podcast/"><div class="t">🎧 Podcast</div><div class="m">polski → chiński → pauza na powtórzenie · odcinek do każdej lekcji i do wszystkiego</div></a>
+    <a class="card" href="scenki/"><div class="t">🎭 Scenki</div><div class="m">krótkie rozmowy z poznanych słów · słuchasz, powtarzasz, grasz swoją rolę</div></a>
 {{LEKCJE}}
 </main>
 </body>

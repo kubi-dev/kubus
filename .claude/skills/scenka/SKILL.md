@@ -6,8 +6,9 @@ description: Tworzy scenki rodzajowe (mini dialogi) do lekcji chińskiego z pozn
 # Scenka do lekcji
 
 Scenka = krótki dialog (6–10 kwestii, dwie osoby) w sytuacji z życia, zbudowany z tego, co user już zna. Zapis w `lekcje/NN-slug/scenki.json`
-(format w nagłówku `scenki.py`). `build.py` robi z niej odcinek podcastu (`lekcje/NN-slug/scenka-<id>.mp3`) i pokazuje na stronie `podcast/`
-z transkrypcją. Jedna z osób to zawsze **Kubi** (user); pole `ty` wskazuje jego rolę, w odcinku user odpowiada za tę osobę.
+(format w nagłówku `scenki.py`). `build.py` robi z niej odcinek (`lekcje/NN-slug/scenka-<id>.mp3`) i pokazuje na stronie `scenki/` (pogrupowane lekcjami,
+z dialogiem). Odcinek to sama scenka: opis, cała rozmowa, po kolei, potem user gra swoją rolę. Nowe słowa NIE są uczone w odcinku,
+tylko dopisane do lekcji (pole `auto`, znaczek „✦ ze scenki” na karcie). Jedna z osób to zawsze **Kubi** (user); pole `ty` wskazuje jego rolę, w odcinku user odpowiada za tę osobę.
 
 ## Kroki
 
@@ -22,7 +23,7 @@ z transkrypcją. Jedna z osób to zawsze **Kubi** (user); pole `ty` wskazuje jeg
 5. **Nowe słowa do lekcji.** `python3 scenki.py wpisz lekcje/NN-slug` — dopisuje `nowe` do `lekcja.json` (sekcja „Ze scenek”), dzięki czemu trafiają do kart, powtórek i następnych scenek.
 6. **Build.** `python3 build.py` (nagrania kwestii i nowych słów, odcinki mp3, strona podcastu). Linie z `!` = błąd, uruchom ponownie.
 7. **Weryfikacja.** Pokaż userowi dialog (kto, znaki, pinyin, polski) i listę nowych słów. Popraw wg uwag, przebuduj.
-8. **Deploy.** Po potwierdzeniu `./deploy.sh "Scenka: tytuł (lekcja N)"`. Link: `https://kubi-dev.github.io/kubus/podcast/`.
+8. **Deploy.** Po potwierdzeniu `./deploy.sh "Scenka: tytuł (lekcja N)"`. Link: `https://kubi-dev.github.io/kubus/scenki/`.
 
 ## Zasady
 - Sceny towarzyskie (impreza, kawa, poznawanie kogoś) zawsze z **koleżanką / dziewczyną** (np. 李美 Lǐ Měi), nie z kolegą. Kubi jest uprzejmy i lekko flirtuje (你很美丽, 你很可爱, 我们明天见？). Role usługowe (kelnerka, sprzedawczyni) też kobiece.

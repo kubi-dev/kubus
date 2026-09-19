@@ -65,10 +65,10 @@
     {
       "nazwa": "Ze scenek",
       "pozycje": [
-        {"znaki": "谢谢", "pinyin": "xièxie", "polski": "sie-sie", "notatki": "", "znaczenie": "thank you · dziękuję"},
-        {"znaki": "你呢？", "pinyin": "Nǐ ne?", "polski": "ni ny", "notatki": "", "znaczenie": "And you? · A ty?"},
-        {"znaki": "北京", "pinyin": "Běijīng", "polski": "pej-dzing", "notatki": "", "znaczenie": "Beijing · Pekin"},
-        {"znaki": "李美", "pinyin": "Lǐ Měi", "polski": "li mej", "notatki": "", "znaczenie": "Li Mei (name) · Li Mei (imię)"}
+        {"znaki": "谢谢", "pinyin": "xièxie", "polski": "sie-sie", "notatki": "", "znaczenie": "thank you · dziękuję", "auto": "scenka"},
+        {"znaki": "你呢？", "pinyin": "Nǐ ne?", "polski": "ni ny", "notatki": "", "znaczenie": "And you? · A ty?", "auto": "scenka"},
+        {"znaki": "北京", "pinyin": "Běijīng", "polski": "pej-dzing", "notatki": "", "znaczenie": "Beijing · Pekin", "auto": "scenka"},
+        {"znaki": "李美", "pinyin": "Lǐ Měi", "polski": "li mej", "notatki": "", "znaczenie": "Li Mei (name) · Li Mei (imię)", "auto": "scenka"}
       ]
     }
   ]

@@ -41,10 +41,11 @@ nie zmieniło. Odtwarzacz zapamiętuje miejsce i tempo (`localStorage kubus.podc
 ## Scenki
 `lekcje/NN/scenki.json`: 1–2 mini dialogi (dwie osoby, jedna to Kubi) z poznanego słownictwa, pisane skillem `/scenka`.
 `python3 scenki.py sprawdz lekcje/NN` pilnuje, że ≥ 75% znaków dialogu jest ze słownictwa do tej lekcji włącznie, a reszta jest
-w polu `nowe`; `python3 scenki.py wpisz lekcje/NN` dopisuje `nowe` do `lekcja.json` (sekcja „Ze scenek”, więc trafiają do kart,
-powtórek i podcastu). `build.py` nagrywa kwestie i składa odcinek `lekcje/NN/scenka-<id>.mp3`: opis po polsku, nowe słowa, cała
-rozmowa, po kolei (polski, chiński wolno, pauza, chiński, pauza), cała rozmowa z pauzami, na końcu user gra swoją rolę
-(słyszy kwestie drugiej osoby, po polskiej podpowiedzi mówi swoją, słyszy odpowiedź). Strona `podcast/` pokazuje dialog z pinyinem.
+w polu `nowe`; `python3 scenki.py wpisz lekcje/NN` dopisuje `nowe` do `lekcja.json` (sekcja „Ze scenek”, pole `"auto": "scenka"`,
+strona lekcji pokazuje znaczek „✦ ze scenki”), więc trafiają do kart, powtórek i podcastu. `build.py` nagrywa kwestie i składa odcinek
+`lekcje/NN/scenka-<id>.mp3`: tytuł i opis po polsku, cała rozmowa, po kolei (polski, chiński wolno, pauza, chiński, pauza), na końcu
+user gra swoją rolę (słyszy kwestie drugiej osoby, po polskiej podpowiedzi mówi swoją, słyszy odpowiedź). Strona `scenki/` grupuje
+scenki lekcjami, z dialogiem (znaki, pinyin, polski). Strona lekcji linkuje do swojego odcinka podcastu i scenek.
 
 ## Powtórki
 - Strona `powtorka/` (SM-2 jak w Anki). Karta A: obrazek + polskie znaczenie, mówisz po chińsku (mikrofon). Karta B: audio po chińsku, wybierasz znaczenie, po dojrzeniu karty wpisujesz; obrazek pokazuje się po odsłonięciu.
@@ -57,6 +58,7 @@ template.html            szablon strony lekcji
 obrazki.py               szukanie obrazków do kart (Openverse)
 powtorka.html            szablon strony powtórek
 podcast.html             szablon strony podcastu
+scenki.html              szablon strony scenek
 podcast.py               składanie odcinków mp3 (polski → chiński → pauza)
 scenki.py                sprawdzanie i wpisywanie scenek (dialogów) do lekcji
 ulubione.html            szablon strony ulubionych zwrotów
@@ -73,6 +75,7 @@ lekcje/NN-slug/
   index.html, notatki.md wygenerowane
 powtorka/                wygenerowana strona powtórek + karty.json
 podcast/                 wygenerowana strona podcastu + wszystko.mp3
+scenki/                  wygenerowana strona scenek
 ulubione/                wygenerowana strona ulubionych
 index.html               wygenerowany indeks lekcji
 ```

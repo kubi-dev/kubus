@@ -77,7 +77,7 @@ def wpisz(lesson_dir):
         for n in sc.get("nowe", []):
             if n["znaki"] in juz: continue
             if sek is None: sek = {"nazwa": SEKCJA_NOWE, "pozycje": []}; data["sekcje"].append(sek)
-            sek["pozycje"].append({"znaki": n["znaki"], "pinyin": n["pinyin"], "polski": n.get("polski", ""), "notatki": n.get("notatki", ""), "znaczenie": n["znaczenie"]})
+            sek["pozycje"].append({"znaki": n["znaki"], "pinyin": n["pinyin"], "polski": n.get("polski", ""), "notatki": n.get("notatki", ""), "znaczenie": n["znaczenie"], "auto": "scenka"})
             juz.add(n["znaki"]); dodane.append(n["znaki"])
     if dodane:
         # zapis w stylu pliku: jedna pozycja na linię

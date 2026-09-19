@@ -139,12 +139,12 @@ def build_all_podcast(lessons):
     print(f"  podcast: podcast/wszystko.mp3 {sek/60:.1f} min, {len(zw)} zwrotów")
     return wynik
 
-def build_scene_podcast(lesson_dir, sc, nowe_pozycje):
-    """Odcinek scenki (lekcje/NN/scenka-<id>.mp3). sc = scenka z scenki.json z polem "audio" (klucz mp3) w każdej kwestii;
-    nowe_pozycje = pozycje z lekcja.json odpowiadające "nowe" (z audio). Struktura: opis po polsku, nowe słowa, cała rozmowa,
-    po kolei (PL, ZH wolno, pauza, ZH, pauza), cała rozmowa z pauzami, na końcu user gra swoją rolę (słyszy A, mówi B, słyszy B)."""
+def build_scene_podcast(lesson_dir, sc, nowe_pozycje=None):
+    """Odcinek scenki (lekcje/NN/scenka-<id>.mp3). sc = scenka z scenki.json z polem "audio" (klucz mp3) w każdej kwestii.
+    Struktura: tytuł i opis po polsku, cała rozmowa, po kolei (PL, ZH wolno, pauza, ZH, pauza), potem user gra swoją rolę
+    (słyszy kwestie drugiej osoby, po polskiej podpowiedzi mówi swoją, słyszy odpowiedź). Nowe słowa są w lekcji, nie tutaj."""
     dest = lesson_dir / f"scenka-{sc['id']}.mp3"; man = lesson_dir / f"scenka-{sc['id']}.json"
-    opis = {"wersja": 1, "opis": sc["opis"], "kwestie": [(k["kto"], k["znaki"], k["polski"]) for k in sc["kwestie"]], "nowe": [p["znaki"] for p in nowe_pozycje], "ty": sc.get("ty", "B"), "pauzy": [PAUZA_POWTORZ, PAUZA_PRZYPOMNIJ]}
+    opis = {"wersja": 2, "opis": sc["opis"], "kwestie": [(k["kto"], k["znaki"], k["polski"]) for k in sc["kwestie"]], "ty": sc.get("ty", "B"), "pauzy": [PAUZA_POWTORZ, PAUZA_PRZYPOMNIJ]}
     if _manifest_ok(dest, man, opis):
         return json.loads(man.read_text(encoding="utf-8"))["wynik"]
     kw = []
@@ -154,21 +154,14 @@ def build_scene_podcast(lesson_dir, sc, nowe_pozycje):
     if not kw: return None
     ty = sc.get("ty", "B"); role = sc.get("role", {})
     mow = lambda t: [pcm(ensure_pl(lesson_dir, t)), cisza(1.0)]
-    seg = mow(f"Scenka: {sc['tytul']}. {sc['opis']}")
-    if nowe_pozycje:
-        seg += mow("Najpierw nowe słowa.")
-        for z in _zwroty(lesson_dir, nowe_pozycje): nowy(seg, z)
-    seg += mow("Posłuchaj całej rozmowy.")
+    seg = mow(f"{sc['tytul']}. {sc['opis']}")
     for k in kw: seg += [k["zh"], cisza(0.7)]
-    seg += [cisza(0.5)] + mow("Teraz po kolei. Powtarzaj.")
+    seg += [cisza(0.5)] + mow("Po kolei.")
     for k in kw: nowy(seg, k)
-    seg += [cisza(0.5)] + mow("Jeszcze raz cała rozmowa. Powtarzaj każde zdanie.")
-    for k in kw: seg += [k["zh"], pauza(k["zh"], PAUZA_POWTORZ)]
-    seg += [cisza(0.5)] + mow(f"Teraz ty jesteś {role.get(ty, ty)}. Gdy usłyszysz polski, powiedz to po chińsku.")
+    seg += [cisza(0.5)] + mow(f"Teraz ty jesteś {role.get(ty, ty)}.")
     for k in kw:
         if k["kto"] == ty: seg += [k["pl"], pauza(k["zh"], PAUZA_PRZYPOMNIJ), k["zh"], cisza(0.6)]
         else: seg += [k["zh"], cisza(0.8)]
-    seg += [cisza(0.5)] + mow("Koniec scenki.")
     sek = zapisz(seg, dest)
     wynik = {"plik": dest.name, "sekund": round(sek), "n": len(kw)}
     man.write_text(json.dumps({"opis": opis, "wynik": wynik}, ensure_ascii=False), encoding="utf-8")

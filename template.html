@@ -59,12 +59,18 @@
   .result.bad { background: var(--accent-soft); color: var(--accent); }
   @media (prefers-color-scheme: dark) { .result.ok { background: #14351f; color: #9be2b0; } .result.mid { background: #3a2c10; color: #f0c674; } }
   .hint { color: var(--muted); font-size: 13px; margin-top: 8px; }
+  .linki { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .linki a { display: inline-block; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); text-decoration: none; font-size: 14px; }
+  .linki a:hover { border-color: var(--accent); }
+  .auto { position: absolute; top: 14px; left: 14px; font-size: 11px; color: var(--muted); background: var(--bg); border-radius: 999px; padding: 2px 8px; }
+  .card:has(.auto) .obr { margin-top: 18px; }
 </style>
 </head>
 <body>
 <header>
   <p class="sub"><a href="../../" style="color:var(--accent)">← wszystkie lekcje</a></p>
   <h1>{{TYTUL}}</h1>
+  <div class="linki" id="linki"></div>
   <p class="sub">Kliknij kartę, żeby usłyszeć wymowę. Gwiazdka ☆ dodaje zwrot do <a href="../../ulubione/" style="color:var(--accent)">ulubionych</a>.</p>
   <p class="hint">Zapis polski: <b>ch</b> = polskie ch · <b>y</b> = polskie y · <b>ł</b> = polskie ł · <b>ü</b> = „i” z ustami ułożonymi do „u” · <b>kh, ph</b> = z przydechem (mocny wydech) · <b>dz, p</b> = bez przydechu (chińskie z, b) · <b>czh</b> = cz z przydechem (chińskie ch)</p>
   <div class="controls">
@@ -200,6 +206,7 @@ function render(sekcje) {
       const c = document.createElement("div");
       c.className = "card";
       c.innerHTML = `<span class="spk">🔊</span><button class="star" type="button"></button>
+        ${p.auto ? `<span class="auto" title="dodane przez system ze scenki">✦ ze scenki</span>` : ""}
         ${p.img ? `<img class="obr" src="${p.img}" alt="" loading="lazy">` : ""}
         <div class="hanzi">${p.znaki}</div>
         <div class="pinyin">${p.pinyin}</div>
@@ -220,6 +227,11 @@ function render(sekcje) {
 }
 render(DATA.sekcje);
 odswiezGwiazdki();
+(function () {
+  const l = document.getElementById("linki"), dir = location.pathname.split("/").filter(Boolean).pop();
+  if (DATA.podcast) l.insertAdjacentHTML("beforeend", `<a href="../../podcast/#${dir}">🎧 Podcast lekcji · ${Math.round(DATA.podcast.sekund / 60)} min</a>`);
+  if (DATA.scenki) l.insertAdjacentHTML("beforeend", `<a href="../../scenki/#${dir}">🎭 Scenki · ${DATA.scenki}</a>`);
+})();
 syncTeraz(true);
 
 if ("speechSynthesis" in window) speechSynthesis.getVoices();

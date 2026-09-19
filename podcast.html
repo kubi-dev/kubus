@@ -35,7 +35,7 @@
 </style>
 </head>
 <body>
-<header><a href="../">← lekcje</a><div class="ttl">🎧 Podcast</div><span style="width:52px"></span></header>
+<header><a href="../">← lekcje</a><div class="ttl">🎧 Podcast</div><a href="../scenki/">scenki</a></header>
 <main>
   <div class="jak">Słuchawki na uszy. Najpierw polski, potem chiński wolno i normalnie, w pauzie powtarzasz.
     Gdy słyszysz sam polski, to twoja kolej: powiedz po chińsku, zaraz usłyszysz odpowiedź. Odtwarzanie działa przy zablokowanym ekranie.</div>
@@ -50,17 +50,12 @@ const tempo = Number(ls.get("kubus.podcast.tempo") || 1);
 let grajacy = null;
 
 for (const o of ODCINKI) {
-  const el = document.createElement("div"); el.className = "odc";
-  const sc = o.scenka;
-  const dialog = sc ? `<div class="dialog">${sc.kwestie.map(k => `<div class="kw${k.kto === sc.ty ? " ty" : ""}"><div class="kto">${sc.role[k.kto] || k.kto}</div><div><div class="hz">${k.znaki}</div><div class="py">${k.pinyin}</div><div>${k.polski}</div></div></div>`).join("")}
-      ${sc.nowe.length ? `<div class="nowe">Nowe słowa: ${sc.nowe.map(n => `<b>${n.znaki}</b> ${n.pinyin} · ${n.znaczenie.split("·").pop().trim()}`).join(" · ")}</div>` : ""}</div>` : "";
-  el.innerHTML = `<div class="t">${o.tytul}</div><div class="m">${fmt(o.sekund)} · ${o.n} ${sc ? "kwestii" : "zwrotów"}${o.data ? " · " + o.data : ""}</div>
-    ${sc ? `<div class="opis">${sc.opis} Ty jesteś: <b>${sc.role[sc.ty] || sc.ty}</b>.</div>` : ""}
+  const el = document.createElement("div"); el.className = "odc"; el.id = o.id;
+  el.innerHTML = `<div class="t">${o.tytul}</div><div class="m">${fmt(o.sekund)} · ${o.n} zwrotów${o.data ? " · " + o.data : ""}</div>
     <audio controls preload="none" src="${o.src}"></audio>
     <div class="row"><span style="font-size:12px;color:var(--muted)">tempo</span>
       ${[0.8, 1, 1.2].map(t => `<button data-tempo="${t}" class="${t === tempo ? "on" : ""}">${t}×</button>`).join("")}
-      ${sc ? `<button class="dlg">dialog</button>` : ""}<span class="pos"></span></div>${dialog}`;
-  if (sc) el.querySelector(".dlg").addEventListener("click", () => el.classList.toggle("otwarty"));
+      <span class="pos"></span></div>`;
   const a = el.querySelector("audio"), pos = el.querySelector(".pos"), kluczPos = "kubus.podcast.pos." + o.id;
   a.playbackRate = tempo;
   const zap = Number(ls.get(kluczPos) || 0);
@@ -81,6 +76,7 @@ for (const o of ODCINKI) {
   }));
   $lista.appendChild(el);
 }
+if (location.hash) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
 </script>
 </body>
 </html>

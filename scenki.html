@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scenki · Notatki z chińskiego</title>
+<style>
+  :root { --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62; --accent: #b8362d; --accent-soft: #f3d9d5; --line: #e6dccd; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #171412; --card: #221e1a; --ink: #f1e9dd; --muted: #a2968a; --accent: #e0574c; --accent-soft: #3a2320; --line: #332c26; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  header { padding: 14px 18px 8px; max-width: 620px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
+  header a { color: var(--accent); text-decoration: none; font-size: 14px; }
+  .ttl { flex: 1; text-align: center; font-size: 16px; font-weight: 600; }
+  main { max-width: 620px; margin: 0 auto; padding: 6px 18px 40px; }
+  .jak { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 4px 0 16px; }
+  h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 22px 0 10px; }
+  h2 a { color: inherit; text-decoration: none; }
+  .odc { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
+  .odc.gra { border-color: var(--accent); }
+  .odc .t { font-size: 17px; font-weight: 600; }
+  .odc .m { color: var(--muted); font-size: 13px; margin: 3px 0 8px; }
+  .opis { font-size: 14px; line-height: 1.45; margin: 0 0 10px; }
+  .odc audio { width: 100%; }
+  .row { display: flex; gap: 8px; margin-top: 8px; align-items: center; flex-wrap: wrap; }
+  button { font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
+  button.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+  .dialog { display: none; margin-top: 10px; border-top: 1px dashed var(--line); padding-top: 6px; }
+  .odc.otwarty .dialog { display: block; }
+  .kw { display: grid; grid-template-columns: 74px 1fr; gap: 2px 10px; padding: 6px 0; font-size: 14px; }
+  .kw .kto { color: var(--muted); font-size: 12px; padding-top: 3px; }
+  .kw.ty .kto { color: var(--accent); font-weight: 600; }
+  .kw .hz { font-size: 19px; font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+  .kw .py { color: var(--muted); font-size: 13px; }
+  .nowe { margin-top: 8px; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .nowe b { color: var(--ink); }
+</style>
+</head>
+<body>
+<header><a href="../">← lekcje</a><div class="ttl">🎭 Scenki</div><a href="../podcast/">podcast</a></header>
+<main>
+  <div class="jak">Krótkie rozmowy z tego, co już znasz. Odcinek: o czym jest, cała rozmowa, potem zdanie po zdaniu (polski, chiński wolno, pauza, chiński, pauza), na końcu grasz swoją rolę: po polskiej podpowiedzi mówisz po chińsku.</div>
+  <div id="lista"></div>
+</main>
+<script>
+const LEKCJE = {{SCENKI_JSON}};
+const $lista = document.getElementById("lista");
+const fmt = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+const ls = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+const tempo = Number(ls.get("kubus.podcast.tempo") || 1);
+let grajacy = null;
+
+for (const l of LEKCJE) {
+  const h = document.createElement("h2"); h.id = l.dir; h.innerHTML = `<a href="../lekcje/${l.dir}/">${l.tytul}</a>`; $lista.appendChild(h);
+  for (const sc of l.scenki) {
+    const el = document.createElement("div"); el.className = "odc"; el.id = l.dir + "-" + sc.id;
+    el.innerHTML = `<div class="t">${sc.tytul}</div><div class="m">${sc.podcast ? fmt(sc.podcast.sekund) + " · " : ""}${sc.kwestie.length} kwestii · ty jesteś <b>${sc.role[sc.ty] || sc.ty}</b></div>
+      <div class="opis">${sc.opis}</div>
+      ${sc.podcast ? `<audio controls preload="none" src="../lekcje/${l.dir}/${sc.podcast.plik}?v=${sc.podcast.sekund}"></audio>` : ""}
+      <div class="row"><span style="font-size:12px;color:var(--muted)">tempo</span>
+        ${[0.8, 1, 1.2].map(t => `<button data-tempo="${t}" class="${t === tempo ? "on" : ""}">${t}×</button>`).join("")}
+        <button class="dlg">dialog</button></div>
+      <div class="dialog">${sc.kwestie.map(k => `<div class="kw${k.kto === sc.ty ? " ty" : ""}"><div class="kto">${sc.role[k.kto] || k.kto}</div><div><div class="hz">${k.znaki}</div><div class="py">${k.pinyin}</div><div>${k.polski}</div></div></div>`).join("")}
+        ${sc.nowe.length ? `<div class="nowe">Słowa dodane do lekcji przez tę scenkę: ${sc.nowe.map(n => `<b>${n.znaki}</b> ${n.pinyin} · ${n.znaczenie.split("·").pop().trim()}`).join(" · ")}</div>` : ""}</div>`;
+    el.querySelector(".dlg").addEventListener("click", () => el.classList.toggle("otwarty"));
+    const a = el.querySelector("audio");
+    if (a) {
+      a.playbackRate = tempo;
+      a.addEventListener("play", () => {
+        if (grajacy && grajacy !== a) grajacy.pause();
+        grajacy = a; document.querySelectorAll(".odc").forEach(x => x.classList.toggle("gra", x === el));
+        a.playbackRate = Number(ls.get("kubus.podcast.tempo") || 1);
+        if ("mediaSession" in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: sc.tytul, artist: l.tytul, album: "Scenki" });
+      });
+      a.addEventListener("error", () => { el.querySelector(".m").textContent = "Nagranie nie wczytało się. Odśwież stronę."; });
+    }
+    el.querySelectorAll("[data-tempo]").forEach(b => b.addEventListener("click", () => {
+      const t = Number(b.dataset.tempo); ls.set("kubus.podcast.tempo", String(t));
+      document.querySelectorAll("[data-tempo]").forEach(x => x.classList.toggle("on", Number(x.dataset.tempo) === t));
+      document.querySelectorAll("audio").forEach(x => x.playbackRate = t);
+    }));
+    $lista.appendChild(el);
+  }
+}
+if (location.hash) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
+</script>
+</body>
+</html>
