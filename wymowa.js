@@ -168,7 +168,7 @@
       diag("trener: odpowiedź po " + (Date.now() - t0) + " ms");
       const slaby = slabyTon(), cw = j.cwiczenie || {};
       el.innerHTML = `<div class="tr-diag">${esc(j.diagnoza)}</div><div class="tr-rada">${esc(j.wskazowka)}</div>` +
-        (cw.znaki ? `<div class="tr-cw">Powtórz: <b class="tr-znaki">${esc(cw.znaki)}</b> <span>${esc(cw.pinyin)}</span> · ${esc(cw.polski)}<button class="mic tr-mic" type="button"></button><div class="result tr-wynik" hidden></div></div>` : "") +
+        (cw.znaki ? `<div class="tr-cw"><div class="tr-cw-tyt">${cw.ton ? "Ćwiczenie na " + cw.ton + ". ton" : "Ćwiczenie"} · powtórz:</div><b class="tr-znaki">${esc(cw.znaki)}</b> <span>${esc(cw.pinyin)}</span> · ${esc(cw.polski)}<div class="tr-wym">po polsku: <b>${esc(cw.wymowa)}</b></div><button class="mic tr-mic" type="button"></button><div class="result tr-wynik" hidden></div></div>` : "") +
         (slaby ? `<div class="tr-stat">Najczęściej ucieka ci ${slaby.ton}. ton (${slaby.razy}×).</div>` : "");
       const mic = el.querySelector(".tr-mic"), out = el.querySelector(".tr-wynik");
       if (mic) bind(mic, { target: () => cw.znaki,
@@ -203,7 +203,9 @@
 .trener .tr-diag { font-weight: 600; }
 .trener .tr-rada { margin-top: 3px; }
 .trener .tr-cw { margin-top: 6px; }
-.trener .tr-znaki { font-size: 18px; }
+.trener .tr-cw-tyt { font-size: 12px; opacity: .7; margin-bottom: 2px; }
+.trener .tr-znaki { font-size: 20px; }
+.trener .tr-wym { margin-top: 2px; font-size: 15px; }
 .trener .tr-mic { margin-top: 6px; }
 .trener .tr-wynik { margin-top: 6px; }
 .trener .tr-stat { margin-top: 6px; font-size: 12px; opacity: .7; }

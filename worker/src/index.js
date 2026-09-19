@@ -43,7 +43,12 @@ close = część sylab zła; bad = większość zła) i listę sylab z tonami (c
 Odpowiedz po polsku, krótko, jak trener na sali: bez wstępów.
 - diagnoza: 1-2 zdania, KTÓRA sylaba i CO poszło źle (np. "W 'hǎo' zszedłeś w 3. ton, ale nie wróciłeś do góry" albo "zh wymówiłeś jak polskie dź"). Jeśli poziom to tones, mów tylko o tonach.
 - wskazowka: 1-2 zdania, jak fizycznie wymówić właściwy ton albo głoskę, z polską analogią (np. 2. ton = jak pytające "co?", 3. ton = jak zawiedzione "no-o...", 4. ton = jak stanowcze "nie!", 1. ton = jak śpiewane "aaa" u lekarza).
-- cwiczenie: jedno proste słowo lub krótki zwrot (HSK1-2, 1-3 znaki) do powtórzenia, który ćwiczy ten sam problematyczny ton lub głoskę; znaki, pinyin z tonami, znaczenie po polsku.
+- cwiczenie: jedno proste słowo lub krótki zwrot (HSK1-2, 1-3 znaki) do powtórzenia, który ćwiczy ten sam problematyczny ton lub głoskę; znaki, pinyin z tonami, znaczenie po polsku, numer ćwiczonego tonu (ton: 1-4, 0 gdy chodzi o głoskę, nie ton)
+  oraz "wymowa": zapis wymowy polskimi literami, sylaby rozdzielone myślnikiem, w konwencji z notatek ucznia. Przykłady konwencji:
+  喝=chy, 水=szłej, 吃=czhy, 茶=czha, 我想=ło siang, 你好=ni chał, 咖啡=kha-fej, 鸡肉=dzi-żoł, 饺子=dział-dzy, 面条=mien-thiał, 米饭=mi-fan,
+  果汁=kło-czy, 啤酒=phi-dzioł, 牛奶=nioł-naj, 葡萄酒=phu-thał-dzioł, 我不知道=ło pu czy-tał, 朋友=phyng-joł.
+  Zasady konwencji: przydechowe p/t/k/q/ch/c zapisuj z "h" (ph, th, kh, czh, ćh, cch); nieprzydechowe b/d/g/zh/j/z jako p, t, k, cz, dź/dzi, dz;
+  x=si, sh=sz, r=ż, ü=ü, -ao=ał, -ou=oł, -ei=ej, -ai=aj, -uo=ło, -ui=łej, -e=y (po spółgłosce), -ang=ang, -eng=yng, -ong=ung, -ian=ien, -iang=iang.
 Bez emoji. Bez ocen typu "świetnie". Konkret.`;
 
 const TRENER_SCHEMA = {
@@ -51,8 +56,8 @@ const TRENER_SCHEMA = {
   properties: {
     diagnoza: { type: "string" },
     wskazowka: { type: "string" },
-    cwiczenie: { type: "object", additionalProperties: false, required: ["znaki", "pinyin", "polski"],
-      properties: { znaki: { type: "string" }, pinyin: { type: "string" }, polski: { type: "string" } } },
+    cwiczenie: { type: "object", additionalProperties: false, required: ["znaki", "pinyin", "polski", "wymowa", "ton"],
+      properties: { znaki: { type: "string" }, pinyin: { type: "string" }, polski: { type: "string" }, wymowa: { type: "string" }, ton: { type: "integer" } } },
   },
 };
 
