@@ -108,10 +108,104 @@
       return { cls: "bad", html, grade: g };
     }
     if (g.level === "exact") return { cls: "ok", html: `✓ Idealnie. Usłyszałem: <b>${t}</b> (${g.targetPy})${note}`, grade: g };
-    if (g.level === "tones") return { cls: "ok", html: `✓ Sylaby OK, sprawdź tony. Usłyszałem: <b>${g.best}</b> (${g.heardPy}), cel: ${g.targetPy}${note}`, grade: g };
-    if (g.level === "close") return { cls: "mid", html: `~ Blisko. Usłyszałem: <b>${g.best}</b> (${g.heardPy})<br>cel: ${t} (${g.targetPy})${note}`, grade: g };
-    return { cls: "bad", html: `✗ Usłyszałem: <b>${g.best}</b> (${g.heardPy})<br>cel: ${t} (${g.targetPy})${note}`, grade: g };
+    const trener = trenerHtml(g);
+    if (g.level === "tones") return { cls: "ok", html: `✓ Sylaby OK, sprawdź tony. Usłyszałem: <b>${g.best}</b> (${g.heardPy}), cel: ${g.targetPy}${note}${trener}`, grade: g };
+    if (g.level === "close") return { cls: "mid", html: `~ Blisko. Usłyszałem: <b>${g.best}</b> (${g.heardPy})<br>cel: ${t} (${g.targetPy})${note}${trener}`, grade: g };
+    return { cls: "bad", html: `✗ Usłyszałem: <b>${g.best}</b> (${g.heardPy})<br>cel: ${t} (${g.targetPy})${note}${trener}`, grade: g };
   }
+
+  // ---- trener tonów: wykres konturów (cel vs usłyszane) + rada od Claude (worker /trener) ----
+  // Tony "usłyszane" wynikają ze znaków, które zwróciło rozpoznawanie (homofon z innym tonem = zły ton).
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const KLUCZ_TONY = "kubus.tony";
+  // kontury tonów w polu 40x30: 1 równy wysoko, 2 rosnący, 3 opadająco-rosnący, 4 opadający, 5 neutralny (kropka)
+  const KONTUR = { 1: "M4 7 L36 7", 2: "M4 24 L36 6", 3: "M4 11 L20 26 L36 9", 4: "M4 4 L36 26" };
+  const svgTon = (ton, cls) => `<svg class="ton ${cls}" viewBox="0 0 40 30" aria-label="ton ${ton || "?"}">` +
+    (ton == null ? "" : ton === 5 ? `<circle cx="20" cy="16" r="3.5"/>` : `<path d="${KONTUR[ton]}"/>`) + `</svg>`;
+  // sylaby pinyin z numerem tonu: [{py: "nǐ", baza: "ni", ton: 3}], nie-chińskie znaki pomijamy
+  function sylabyZTonami(s) {
+    if (!window.pinyinPro) return [];
+    const num = pinyinPro.pinyin(s, { toneType: "num", type: "array" }), sym = pinyinPro.pinyin(s, { type: "array" });
+    const out = [];
+    num.forEach((n, i) => { const m = /^([a-zü]+)(\d)$/i.exec(n); if (m) out.push({ py: sym[i], baza: m[1].toLowerCase(), ton: Number(m[2]) || 5 }); });
+    return out;
+  }
+  // dopasowanie sylab celu do usłyszanych (LCS po bazie bez tonu); brak pary = null
+  function dopasuj(cel, usl) {
+    const n = cel.length, m = usl.length, dp = Array.from({ length: n + 1 }, () => Array(m + 1).fill(0));
+    for (let i = 1; i <= n; i++) for (let j = 1; j <= m; j++)
+      dp[i][j] = cel[i - 1].baza === usl[j - 1].baza ? dp[i - 1][j - 1] + 1 : Math.max(dp[i - 1][j], dp[i][j - 1]);
+    const pary = Array(n).fill(null);
+    for (let i = n, j = m; i > 0 && j > 0;) {
+      if (cel[i - 1].baza === usl[j - 1].baza) { pary[i - 1] = usl[j - 1]; i--; j--; }
+      else if (dp[i - 1][j] >= dp[i][j - 1]) i--; else j--;
+    }
+    return cel.map((c, i) => ({ cel: c.py, celTon: c.ton, usl: pary[i] ? pary[i].py : null, uslTon: pary[i] ? pary[i].ton : null }));
+  }
+  function zapiszTon(ton) { try { const t = JSON.parse(localStorage.getItem(KLUCZ_TONY) || "{}"); t[ton] = (t[ton] || 0) + 1; localStorage.setItem(KLUCZ_TONY, JSON.stringify(t)); } catch (e) {} }
+  function slabyTon() { try { const t = JSON.parse(localStorage.getItem(KLUCZ_TONY) || "{}"); let b = null; for (const k in t) if (!b || t[k] > t[b]) b = k; return b && t[b] >= 3 ? { ton: b, razy: t[b] } : null; } catch (e) { return null; } }
+  function trenerHtml(g) {
+    const sylaby = dopasuj(sylabyZTonami(g.target), sylabyZTonami(g.best));
+    if (!sylaby.length) return "";
+    sylaby.forEach(s => { if (s.uslTon != null && s.uslTon !== s.celTon) zapiszTon(s.celTon); });
+    const wykres = `<div class="tony"><div class="tony-os"><span>cel</span><span>ty</span></div>` + sylaby.map(s => {
+      const zle = s.uslTon == null || s.uslTon !== s.celTon;
+      return `<div class="syl${zle ? " zle" : ""}"><div class="py">${esc(s.cel)}</div>${svgTon(s.celTon, "cel")}${svgTon(s.uslTon, "usl")}<div class="py usl">${s.usl ? esc(s.usl) : "—"}</div></div>`;
+    }).join("") + `</div>`;
+    const c = cfg();
+    if (!c.url || !c.klucz) return wykres;
+    const w = { cel: { znaki: g.target, pinyin: g.targetPy }, uslyszane: { znaki: g.best, pinyin: g.heardPy }, poziom: g.level, sylaby };
+    return wykres + `<div class="trener" data-czeka="1" data-w="${encodeURIComponent(JSON.stringify(w))}">⏳ trener słucha…</div>`;
+  }
+  async function uzupelnijTrenera(el) {
+    el.removeAttribute("data-czeka");
+    const c = cfg(), t0 = Date.now();
+    try {
+      const w = JSON.parse(decodeURIComponent(el.dataset.w));
+      const r = await fetch(c.url + "/trener", { method: "POST", headers: { "Authorization": "Bearer " + c.klucz, "Content-Type": "application/json" }, body: JSON.stringify(w) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || ("HTTP " + r.status));
+      diag("trener: odpowiedź po " + (Date.now() - t0) + " ms");
+      const slaby = slabyTon(), cw = j.cwiczenie || {};
+      el.innerHTML = `<div class="tr-diag">${esc(j.diagnoza)}</div><div class="tr-rada">${esc(j.wskazowka)}</div>` +
+        (cw.znaki ? `<div class="tr-cw">Powtórz: <b class="tr-znaki">${esc(cw.znaki)}</b> <span>${esc(cw.pinyin)}</span> · ${esc(cw.polski)}<button class="mic tr-mic" type="button"></button><div class="result tr-wynik" hidden></div></div>` : "") +
+        (slaby ? `<div class="tr-stat">Najczęściej ucieka ci ${slaby.ton}. ton (${slaby.razy}×).</div>` : "");
+      const mic = el.querySelector(".tr-mic"), out = el.querySelector(".tr-wynik");
+      if (mic) bind(mic, { target: () => cw.znaki,
+        onInterim: (t) => { out.hidden = false; out.className = "result tr-wynik"; out.textContent = "słyszę: " + t; },
+        onDone: (res) => { const x = render(res, cw.znaki); out.hidden = false; out.className = "result tr-wynik " + x.cls; out.innerHTML = x.html; } });
+    } catch (e) { diag("trener błąd: " + e.message); el.textContent = "Trener niedostępny: " + e.message; }
+  }
+  // placeholdery trenera wypełniamy, gdy tylko pojawią się w DOM (strony wstawiają html z render() same, także po przeładowaniu)
+  function szukajTrenera() { document.querySelectorAll(".trener[data-czeka]").forEach(uzupelnijTrenera); }
+  new MutationObserver(szukajTrenera).observe(document.documentElement, { childList: true, subtree: true });
+  (function () {
+    const st = document.createElement("style");
+    st.textContent = `
+.tony { display: flex; gap: 6px; margin-top: 8px; align-items: flex-end; flex-wrap: wrap; }
+.tony-os { display: flex; flex-direction: column; justify-content: space-between; height: 62px; font-size: 10px; opacity: .6; padding: 12px 2px 0 0; }
+.tony .syl { display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 3px 4px; border-radius: 8px; background: rgba(0,0,0,.05); }
+.tony .syl.zle { background: rgba(220,60,60,.12); }
+.tony .py { font-size: 12px; line-height: 1.2; }
+.tony .py.usl { opacity: .7; }
+.tony .ton { width: 40px; height: 26px; }
+.tony .ton path { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.tony .ton circle { fill: currentColor; }
+.tony .ton.cel { color: #14532d; }
+.tony .syl.zle .ton.cel { color: #7c4a03; }
+.tony .ton.usl { color: #666; opacity: .8; }
+.tony .syl.zle .ton.usl { color: #b91c1c; opacity: 1; }
+.trener { margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(0,0,0,.15); font-size: 13px; }
+.trener .tr-diag { font-weight: 600; }
+.trener .tr-rada { margin-top: 3px; }
+.trener .tr-cw { margin-top: 6px; }
+.trener .tr-znaki { font-size: 18px; }
+.trener .tr-mic { margin-top: 6px; }
+.trener .tr-wynik { margin-top: 6px; }
+.trener .tr-stat { margin-top: 6px; font-size: 12px; opacity: .7; }
+@media (prefers-color-scheme: dark) { .tony .syl { background: rgba(255,255,255,.08); } .tony .syl.zle { background: rgba(255,90,90,.18); } .tony .ton.cel { color: #9be2b0; } .tony .syl.zle .ton.cel { color: #f0c674; } .tony .ton.usl { color: #aaa; } .tony .syl.zle .ton.usl { color: #ff7b7b; } .trener { border-top-color: rgba(255,255,255,.2); } }`;
+    document.head.appendChild(st);
+  })();
 
   // ---- sesja audio (kategoria AVAudioSession po stronie WebContent) ----
   let ostatniKoniecSR = 0;  // czas ostatniego przywrócenia kategorii; od niego liczymy odstęp do następnego start()
