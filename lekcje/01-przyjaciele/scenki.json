@@ -1,0 +1,27 @@
+{
+  "scenki": [
+    {
+      "id": "nowy-znajomy",
+      "tytul": "Nowy znajomy",
+      "opis": "Kubi poznaje kogoś na imprezie. Pytają się nawzajem o imię i skąd są.",
+      "role": {"A": "Znajomy", "B": "Kubi"},
+      "ty": "B",
+      "kwestie": [
+        {"kto": "A", "znaki": "你好吗？", "pinyin": "Nǐ hǎo ma?", "polski": "Jak się masz?"},
+        {"kto": "B", "znaki": "很好，谢谢。你叫什么名字？", "pinyin": "Hěn hǎo, xièxie. Nǐ jiào shénme míngzi?", "polski": "Dobrze, dziękuję. Jak masz na imię?"},
+        {"kto": "A", "znaki": "我叫王明。你呢？", "pinyin": "Wǒ jiào Wáng Míng. Nǐ ne?", "polski": "Nazywam się Wang Ming. A ty?"},
+        {"kto": "B", "znaki": "我叫Kubi。你来自哪里？", "pinyin": "Wǒ jiào Kubi. Nǐ láizì nǎlǐ?", "polski": "Jestem Kubi. Skąd jesteś?"},
+        {"kto": "A", "znaki": "我来自北京。你呢？", "pinyin": "Wǒ láizì Běijīng. Nǐ ne?", "polski": "Jestem z Pekinu. A ty?"},
+        {"kto": "B", "znaki": "我来自波兰。", "pinyin": "Wǒ láizì Bōlán.", "polski": "Jestem z Polski."},
+        {"kto": "A", "znaki": "你很聪明！我们明天见。", "pinyin": "Nǐ hěn cōngmíng! Wǒmen míngtiān jiàn.", "polski": "Jesteś bardzo mądry! Do zobaczenia jutro."},
+        {"kto": "B", "znaki": "好，明天见！", "pinyin": "Hǎo, míngtiān jiàn!", "polski": "Dobrze, do jutra!"}
+      ],
+      "nowe": [
+        {"znaki": "谢谢", "pinyin": "xièxie", "polski": "sie-sie", "notatki": "", "znaczenie": "thank you · dziękuję"},
+        {"znaki": "你呢？", "pinyin": "Nǐ ne?", "polski": "ni ny", "notatki": "", "znaczenie": "And you? · A ty?"},
+        {"znaki": "北京", "pinyin": "Běijīng", "polski": "pej-dzing", "notatki": "", "znaczenie": "Beijing · Pekin"},
+        {"znaki": "王明", "pinyin": "Wáng Míng", "polski": "łang ming", "notatki": "", "znaczenie": "Wang Ming (name) · Wang Ming (imię)"}
+      ]
+    }
+  ]
+}

@@ -95,13 +95,35 @@ def build_lesson(lesson_dir):
     if not NO_AUDIO:
         try: pod = podcast.build_lesson_podcast(lesson_dir, data)
         except Exception as e: print(f"  ! podcast: {e}", file=sys.stderr)
+    scenki = build_scenki(lesson_dir, data)
     karty = [{"id": p["znaki"], "znaki": p["znaki"], "pinyin": p["pinyin"], "polski": p.get("polski", ""), "znaczenie": p["znaczenie"],
               "lekcja": data.get("numer", 0), "lekcjaTytul": data["tytul"],
               "audio": f"lekcje/{lesson_dir.name}/audio/{p['audio']}" if p.get("audio") else "",
               "img": f"lekcje/{lesson_dir.name}/{p['img']}" if p.get("img") else "",
               "obrazek": {k: p["obrazek"].get(k, "") for k in ("autor", "licencja", "zrodlo")} if p.get("img") else None}
              for sek in data["sekcje"] for p in sek["pozycje"]]
-    return {"dir": lesson_dir.name, "tytul": data["tytul"], "data": data.get("data", ""), "n": n, "numer": data.get("numer", 0), "karty": karty, "podcast": pod}
+    return {"dir": lesson_dir.name, "tytul": data["tytul"], "data": data.get("data", ""), "n": n, "numer": data.get("numer", 0), "karty": karty, "podcast": pod, "scenki": scenki}
+
+def build_scenki(lesson_dir, data):
+    """Scenki z lekcje/NN/scenki.json: nagrania kwestii + odcinek mp3 każdej scenki. Zwraca listę do strony podcastu."""
+    f = lesson_dir / "scenki.json"
+    if not f.exists(): return []
+    out = []
+    pozycje = {p["znaki"]: p for s in data["sekcje"] for p in s["pozycje"]}
+    for sc in json.loads(f.read_text(encoding="utf-8"))["scenki"]:
+        for k in sc["kwestie"]:
+            try: k["audio"] = ensure_audio(lesson_dir, k["znaki"])
+            except Exception as e: print(f"  ! {e}", file=sys.stderr); k.pop("audio", None)
+        nowe = [pozycje[n["znaki"]] for n in sc.get("nowe", []) if n["znaki"] in pozycje and pozycje[n["znaki"]].get("audio")]
+        pod = None
+        if not NO_AUDIO:
+            try: pod = podcast.build_scene_podcast(lesson_dir, sc, nowe)
+            except Exception as e: print(f"  ! scenka {sc['id']}: {e}", file=sys.stderr)
+        out.append({"id": sc["id"], "tytul": sc["tytul"], "opis": sc["opis"], "role": sc.get("role", {}), "ty": sc.get("ty", "B"),
+                    "kwestie": [{"kto": k["kto"], "znaki": k["znaki"], "pinyin": k["pinyin"], "polski": k["polski"]} for k in sc["kwestie"]],
+                    "nowe": [{"znaki": n["znaki"], "pinyin": n["pinyin"], "polski": n.get("polski", ""), "znaczenie": n["znaczenie"]} for n in sc.get("nowe", [])],
+                    "podcast": pod})
+    return out
 
 def build_podcast(lessons):
     """Strona podcast/index.html: odcinek zbiorczy + odcinki lekcji (mp3 buduje podcast.py)."""
@@ -112,6 +134,10 @@ def build_podcast(lessons):
         except Exception as e: print(f"  ! podcast wszystko: {e}", file=sys.stderr)
     if wsz: odcinki.append({"id": "wszystko", "tytul": "Wszystko do tej pory", "src": wsz["plik"], "sekund": wsz["sekund"], "n": wsz["n"], "data": ""})
     for l in sorted(lessons, key=lambda l: -l["numer"]):
+        for sc in l.get("scenki", []):
+            if sc.get("podcast"):
+                odcinki.append({"id": f"{l['dir']}-{sc['id']}", "tytul": f"Scenka: {sc['tytul']}", "src": f"../lekcje/{l['dir']}/{sc['podcast']['plik']}", "sekund": sc["podcast"]["sekund"], "n": sc["podcast"]["n"],
+                                "data": l["tytul"], "scenka": {k: sc[k] for k in ("opis", "role", "ty", "kwestie", "nowe")}})
         if l.get("podcast"):
             odcinki.append({"id": l["dir"], "tytul": l["tytul"], "src": f"../lekcje/{l['dir']}/{l['podcast']['plik']}", "sekund": l["podcast"]["sekund"], "n": l["podcast"]["n"], "data": l["data"]})
     out = ROOT / "podcast"; out.mkdir(exist_ok=True)

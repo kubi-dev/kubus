@@ -51,3 +51,11 @@ Data: 2026-09-09
 | 你会说英语吗？ | Nǐ huì shuō Yīngyǔ ma? | ni chłej szło ing-ü ma | NI-HŁEJ-SŁO-ING-JU-MA | Do you speak English? · Czy mówisz po angielsku? |
 | 你想喝什么？ | Nǐ xiǎng hē shénme? | ni siang chy szyn-my | NI-SIA-HYA-SZA-MA | What do you want to drink? · Czego się napijesz? |
 | 你想吃什么？ | Nǐ xiǎng chī shénme? | ni siang czhy szyn-my | NI-SIA-CZY-SZA-MA | What do you want to eat? · Co chcesz zjeść? |
+
+## Ze scenek
+
+| Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
+|---|---|---|---|---|
+| 请 | qǐng | ćhing |  | please · proszę |
+| 太好了！ | Tài hǎo le! | thaj chał ly |  | Great! · Świetnie! |
+| 多少钱？ | Duōshao qián? | tło-szał ćhien |  | How much? · Ile to kosztuje? |

@@ -36,3 +36,12 @@ Data: 2026-09-06
 |---|---|---|---|---|
 | 是 | shì | szy | SZY | yes · tak |
 | 不是 | bú shì | pu szy | BU-SZY | no · nie |
+
+## Ze scenek
+
+| Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
+|---|---|---|---|---|
+| 谢谢 | xièxie | sie-sie |  | thank you · dziękuję |
+| 你呢？ | Nǐ ne? | ni ny |  | And you? · A ty? |
+| 北京 | Běijīng | pej-dzing |  | Beijing · Pekin |
+| 王明 | Wáng Míng | łang ming |  | Wang Ming (name) · Wang Ming (imię) |

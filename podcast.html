@@ -23,6 +23,15 @@
   button { font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
   button.on { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
   .pos { color: var(--muted); font-size: 12px; margin-left: auto; }
+  .opis { font-size: 14px; line-height: 1.45; margin: -4px 0 10px; }
+  .dialog { display: none; margin-top: 10px; border-top: 1px dashed var(--line); padding-top: 10px; }
+  .odc.otwarty .dialog { display: block; }
+  .kw { display: grid; grid-template-columns: 78px 1fr; gap: 2px 10px; padding: 6px 0; font-size: 14px; }
+  .kw .kto { color: var(--muted); font-size: 12px; padding-top: 3px; }
+  .kw.ty .kto { color: var(--accent); font-weight: 600; }
+  .kw .hz { font-size: 19px; font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+  .kw .py { color: var(--muted); font-size: 13px; }
+  .nowe { margin-top: 8px; font-size: 13px; color: var(--muted); line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -42,11 +51,16 @@ let grajacy = null;
 
 for (const o of ODCINKI) {
   const el = document.createElement("div"); el.className = "odc";
-  el.innerHTML = `<div class="t">${o.tytul}</div><div class="m">${fmt(o.sekund)} · ${o.n} zwrotów${o.data ? " · " + o.data : ""}</div>
+  const sc = o.scenka;
+  const dialog = sc ? `<div class="dialog">${sc.kwestie.map(k => `<div class="kw${k.kto === sc.ty ? " ty" : ""}"><div class="kto">${sc.role[k.kto] || k.kto}</div><div><div class="hz">${k.znaki}</div><div class="py">${k.pinyin}</div><div>${k.polski}</div></div></div>`).join("")}
+      ${sc.nowe.length ? `<div class="nowe">Nowe słowa: ${sc.nowe.map(n => `<b>${n.znaki}</b> ${n.pinyin} · ${n.znaczenie.split("·").pop().trim()}`).join(" · ")}</div>` : ""}</div>` : "";
+  el.innerHTML = `<div class="t">${o.tytul}</div><div class="m">${fmt(o.sekund)} · ${o.n} ${sc ? "kwestii" : "zwrotów"}${o.data ? " · " + o.data : ""}</div>
+    ${sc ? `<div class="opis">${sc.opis} Ty jesteś: <b>${sc.role[sc.ty] || sc.ty}</b>.</div>` : ""}
     <audio controls preload="none" src="${o.src}"></audio>
     <div class="row"><span style="font-size:12px;color:var(--muted)">tempo</span>
       ${[0.8, 1, 1.2].map(t => `<button data-tempo="${t}" class="${t === tempo ? "on" : ""}">${t}×</button>`).join("")}
-      <span class="pos"></span></div>`;
+      ${sc ? `<button class="dlg">dialog</button>` : ""}<span class="pos"></span></div>${dialog}`;
+  if (sc) el.querySelector(".dlg").addEventListener("click", () => el.classList.toggle("otwarty"));
   const a = el.querySelector("audio"), pos = el.querySelector(".pos"), kluczPos = "kubus.podcast.pos." + o.id;
   a.playbackRate = tempo;
   const zap = Number(ls.get(kluczPos) || 0);

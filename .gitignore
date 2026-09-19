@@ -3,3 +3,4 @@ worker/.wrangler/
 .wrangler/
 
 .cache/
+__pycache__/

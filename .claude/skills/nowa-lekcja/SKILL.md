@@ -26,7 +26,8 @@ Repo: strony lekcji chińskiego. Każda lekcja = katalog `lekcje/NN-slug/` z `le
 7. **Zapis.** Utwórz `lekcje/NN-slug/lekcja.json` w formacie jak `lekcje/01-przyjaciele/lekcja.json` (`numer`, `tytul` = "Lekcja N · Temat", `data` = data lekcji jeśli na zdjęciu, inaczej dzisiejsza, `sekcje`). Przenieś zdjęcia z `inbox/` do `lekcje/NN-slug/zdjecia/`.
 8. **Build.** `python3 build.py`. Sprawdź, że nie ma linii z `!` (błąd audio lub obrazka). Jeśli są, uruchom ponownie (Google czasem odrzuca request); przy obrazku, który dalej nie schodzi, wybierz innego kandydata.
 9. **Weryfikacja.** Pokaż userowi tabelę pozycji (znaki, pinyin, notatki, znaczenie, czy jest obrazek) i poproś o potwierdzenie lub poprawki. Poprawki nanieś w `lekcja.json` i przebuduj.
-10. **Deploy.** Po potwierdzeniu: `./deploy.sh "Lekcja N: temat"`. Podaj link: `https://kubi-dev.github.io/kubus/lekcje/NN-slug/` oraz indeks `https://kubi-dev.github.io/kubus/`. Strona pojawia się po ok. 1 min.
+10. **Scenka.** Zaproponuj userowi scenkę do tej lekcji: „Zrobić scenkę? (/scenka N)”. Jeśli tak, wykonaj skill `scenka` przed deployem.
+11. **Deploy.** Po potwierdzeniu: `./deploy.sh "Lekcja N: temat"`. Podaj link: `https://kubi-dev.github.io/kubus/lekcje/NN-slug/` oraz indeks `https://kubi-dev.github.io/kubus/`. Strona pojawia się po ok. 1 min.
 
 ## Zasady
 - Nie zmieniaj `template.html`, `build.py` ani `obrazki.py` w ramach tego skilla. Jeśli notatki wymagają nowego typu treści, powiedz userowi.

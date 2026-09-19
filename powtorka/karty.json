@@ -288,6 +288,54 @@
   }
  },
  {
+  "id": "谢谢",
+  "znaki": "谢谢",
+  "pinyin": "xièxie",
+  "polski": "sie-sie",
+  "znaczenie": "thank you · dziękuję",
+  "lekcja": 1,
+  "lekcjaTytul": "Lekcja 1 · Przyjaciele",
+  "audio": "lekcje/01-przyjaciele/audio/a34490b593",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你呢？",
+  "znaki": "你呢？",
+  "pinyin": "Nǐ ne?",
+  "polski": "ni ny",
+  "znaczenie": "And you? · A ty?",
+  "lekcja": 1,
+  "lekcjaTytul": "Lekcja 1 · Przyjaciele",
+  "audio": "lekcje/01-przyjaciele/audio/913660afab",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "北京",
+  "znaki": "北京",
+  "pinyin": "Běijīng",
+  "polski": "pej-dzing",
+  "znaczenie": "Beijing · Pekin",
+  "lekcja": 1,
+  "lekcjaTytul": "Lekcja 1 · Przyjaciele",
+  "audio": "lekcje/01-przyjaciele/audio/692e92669c",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "王明",
+  "znaki": "王明",
+  "pinyin": "Wáng Míng",
+  "polski": "łang ming",
+  "znaczenie": "Wang Ming (name) · Wang Ming (imię)",
+  "lekcja": 1,
+  "lekcjaTytul": "Lekcja 1 · Przyjaciele",
+  "audio": "lekcje/01-przyjaciele/audio/5e808a3819",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "面条",
   "znaki": "面条",
   "pinyin": "miàntiáo",
@@ -796,6 +844,42 @@
   "lekcja": 2,
   "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
   "audio": "lekcje/02-jedzenie-i-napoje/audio/3a30b55fcc",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "请",
+  "znaki": "请",
+  "pinyin": "qǐng",
+  "polski": "ćhing",
+  "znaczenie": "please · proszę",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/d1a34a5779",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "太好了！",
+  "znaki": "太好了！",
+  "pinyin": "Tài hǎo le!",
+  "polski": "thaj chał ly",
+  "znaczenie": "Great! · Świetnie!",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/0db9be67e4",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "多少钱？",
+  "znaki": "多少钱？",
+  "pinyin": "Duōshao qián?",
+  "polski": "tło-szał ćhien",
+  "znaczenie": "How much? · Ile to kosztuje?",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/d51b2587ab",
   "img": "",
   "obrazek": null
  }

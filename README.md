@@ -38,6 +38,14 @@ normalnie, pauza; 4 zwroty później i na końcu odcinka przypomnienie = polski,
 same przypomnienia, dwa przejścia w losowej kolejności. Manifest (`podcast.json`, `wszystko.json`) pomija przebudowę, gdy nic się
 nie zmieniło. Odtwarzacz zapamiętuje miejsce i tempo (`localStorage kubus.podcast.*`).
 
+## Scenki
+`lekcje/NN/scenki.json`: 1–2 mini dialogi (dwie osoby, jedna to Kubi) z poznanego słownictwa, pisane skillem `/scenka`.
+`python3 scenki.py sprawdz lekcje/NN` pilnuje, że ≥ 75% znaków dialogu jest ze słownictwa do tej lekcji włącznie, a reszta jest
+w polu `nowe`; `python3 scenki.py wpisz lekcje/NN` dopisuje `nowe` do `lekcja.json` (sekcja „Ze scenek”, więc trafiają do kart,
+powtórek i podcastu). `build.py` nagrywa kwestie i składa odcinek `lekcje/NN/scenka-<id>.mp3`: opis po polsku, nowe słowa, cała
+rozmowa, po kolei (polski, chiński wolno, pauza, chiński, pauza), cała rozmowa z pauzami, na końcu user gra swoją rolę
+(słyszy kwestie drugiej osoby, po polskiej podpowiedzi mówi swoją, słyszy odpowiedź). Strona `podcast/` pokazuje dialog z pinyinem.
+
 ## Powtórki
 - Strona `powtorka/` (SM-2 jak w Anki). Karta A: obrazek + polskie znaczenie, mówisz po chińsku (mikrofon). Karta B: audio po chińsku, wybierasz znaczenie, po dojrzeniu karty wpisujesz; obrazek pokazuje się po odsłonięciu.
 - Gwiazdka ☆ na karcie (w powtórce i na stronie lekcji) dodaje zwrot do ulubionych. Strona `ulubione/` to ściąga na rozmowę: lista po polsku (z wyszukiwarką), dotknięcie otwiera kartę ze znakami, pinyin, zapisem polskim, nagraniem i mikrofonem. Ulubione są w tym samym stanie co postęp (pole `ulubione`), więc synchronizują się między urządzeniami.
@@ -50,12 +58,15 @@ obrazki.py               szukanie obrazków do kart (Openverse)
 powtorka.html            szablon strony powtórek
 podcast.html             szablon strony podcastu
 podcast.py               składanie odcinków mp3 (polski → chiński → pauza)
+scenki.py                sprawdzanie i wpisywanie scenek (dialogów) do lekcji
 ulubione.html            szablon strony ulubionych zwrotów
 wymowa.js                wspólny moduł: odtwarzanie mp3 (Web Audio) + sprawdzanie wymowy (mikrofon)
 worker/                  Cloudflare Worker synchronizacji postępu
 build.py                 generator
 lekcje/NN-slug/
   lekcja.json            dane (źródło prawdy, edytuj tu)
+  scenki.json            dialogi do lekcji (skill /scenka)
+  podcast.mp3, scenka-*.mp3  odcinki podcastu (buduje podcast.py)
   zdjecia/               zdjęcia notatek
   audio/                 mp3 generowane z Google TTS
   obrazki/               obrazki kart (pobrane wg pola "obrazek" w lekcja.json, zmniejszone do 640 px)
