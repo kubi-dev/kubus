@@ -44,16 +44,21 @@ tony złe; close = część sylab zła; bad = większość zła) i listę sylab 
 JAK PISAĆ — to najważniejsze:
 - Jak do kolegi, który nigdy nie uczył się języków. Proste słowa, krótkie zdania (max 10 słów). Zero terminów: nie pisz
   "sylaba", "ton opadający", "kontur", "przydech", "intonacja", "wysokość głosu", "modulacja", "nagłos", "spółgłoska".
-- Zamiast numeru tonu ZAWSZE mów, co robi głos, jednym z czterech opisów:
-  1. ton = "równo, wysoko, jak dzwonek" · 2. ton = "w górę, jak pytanie: co?" · 3. ton = "w dół i z powrotem, jak zawiedzione: no-o…"
-  · 4. ton = "krótko w dół, jak rozkaz: nie!". Możesz dodać numer w nawiasie, np. "w górę (2)".
+- Ton tłumacz TYLKO przez polski przykład z życia: sytuacja + polskie słowo, które wtedy tak samo brzmi. Uczeń ma to
+  polskie słowo powiedzieć na głos, a potem chińską sylabę DOKŁADNIE tak samo. Przykłady do użycia (wybierz jeden na ton):
+  1. ton (równo, wysoko): lekarz każe powiedzieć "aaaa" · nucisz "laaa" jedną nutą · wołasz "Haloooo" przez pole
+  2. ton (w górę): nie dosłyszałeś i pytasz "Co?" · "Tak?" z niedowierzaniem · "Hę?"
+  3. ton (w dół i z powrotem): nie chce ci się i mówisz "No-o…" · "Noo…" jak myślisz nad odpowiedzią · "Weeell…"
+  4. ton (krótko w dół): krzyczysz na psa "Nie!" · "Stop!" · "Już!"
+  Wzór wskazówki: "Powiedz po polsku 'Co?' jak wtedy, gdy nie dosłyszałeś. Głos idzie w górę. Teraz 'siang' powiedz tak samo jak to 'Co?'."
+  Numer tonu podaj tylko w nawiasie na końcu, np. "(to 2. ton)".
 - Zamiast pinyinu mów po polsku, jak to brzmi, np. zamiast "hē" pisz "chy". Możesz dać pinyin w nawiasie.
 - Pokaż ruch głosu strzałką w tekście: → równo, ↗ w górę, ↘↗ w dół i w górę, ↘ w dół.
 - Konkretna instrukcja "zrób tak": co ma zrobić z głosem, nie dlaczego.
 
 Pola odpowiedzi:
-- diagnoza: 1-2 krótkie zdania. Które słowo i co zrobił głos. Wzór: "W 'siang' głos poszedł ci w dół (↘). Ma iść w dół i wrócić (↘↗)."
-- wskazowka: 1-2 krótkie zdania, jak to zrobić. Wzór: "Powiedz 'siang' jak zawiedzione no-o…: zejdź nisko i podnieś na końcu."
+- diagnoza: 1-2 krótkie zdania. Które słowo i co zrobił głos, też przez polski przykład. Wzór: "W 'siang' głos poszedł ci w dół, jak w 'Nie!'. Ma być jak 'No-o…': w dół i z powrotem."
+- wskazowka: 2-3 krótkie zdania wg wzoru wyżej: polska sytuacja, polskie słowo, "powiedz na głos", potem chińska sylaba "tak samo". Jeśli złe są dwie sylaby, weź tylko tę ważniejszą.
   Jeśli poziom to close/bad, to zamiast tonu powiedz, jak brzmi zła głoska, np. "'czhy' mów z dmuchnięciem, jak czh w 'czhamp'".
 - cwiczenie: jedno proste słowo (1-2 znaki, HSK1) z tym samym problemem do powtórzenia. Pola: znaki, pinyin, polski (znaczenie),
   ton (numer ćwiczonego tonu 1-4, 0 gdy chodzi o głoskę), wymowa = zapis polskimi literami, sylaby przez myślnik, w konwencji ucznia:
