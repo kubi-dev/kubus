@@ -20,13 +20,18 @@
         {"znaki": "饺子", "pinyin": "jiǎozi", "polski": "dział-dzy", "notatki": "DZIAŁ-ZY", "znaczenie": "dumplings · pierogi", "obrazek": {"id": "13430332-d81e-46cd-badd-b89a1bf4b282", "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA0L3Vwd2s2MTczMDMzOS13aWtpbWVkaWEtaW1hZ2Uta293cXZqcmsuanBn.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/3303453/free-photo-image-bread-cc0-cracker"}},
         {"znaki": "炒饭", "pinyin": "chǎofàn", "polski": "czhał-fan", "notatki": "CZOP-FA", "znaczenie": "fried rice · smażony ryż", "obrazek": {"id": "b66bb0f5-4794-44ed-be0e-3faea046484c", "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHgzOTMxNDgtaW1hZ2Uta3d2dmg5NzEuanBn.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5908820/image-public-domain-leaf-red"}},
         {"znaki": "粥", "pinyin": "zhōu", "polski": "czoł", "notatki": "DZOŁ", "znaczenie": "congee · kleik ryżowy", "obrazek": {"id": "153b4919-2d96-42c7-b7fd-a46ff1d52698", "url": "https://live.staticflickr.com/136/319209550_d029d15c33_b.jpg", "autor": "roland", "licencja": "by", "zrodlo": "https://www.flickr.com/photos/35034347371@N01/319209550"}},
-        {"znaki": "我喜欢……", "pinyin": "Wǒ xǐhuan…", "polski": "ło si-chłan", "notatki": "ŁO SI HŁAN", "znaczenie": "I like… · Lubię…"}
+        {"znaki": "我喜欢……", "pinyin": "Wǒ xǐhuan…", "polski": "ło si-chłan", "notatki": "ŁO SI HŁAN", "znaczenie": "I like… · Lubię…"},
+        {"znaki": "我想吃……", "pinyin": "Wǒ xiǎng chī…", "polski": "ło siang czhy", "notatki": "ŁO-SIA-CZY", "znaczenie": "I want to eat… · Chcę zjeść…"},
+        {"znaki": "我想吃饺子。", "pinyin": "Wǒ xiǎng chī jiǎozi.", "polski": "ło siang czhy dział-dzy", "notatki": "ŁO-SIA-CZY-DZIAŁ-ZY", "znaczenie": "I want to eat dumplings. · Chcę zjeść pierogi."},
+        {"znaki": "我想吃鸡肉。", "pinyin": "Wǒ xiǎng chī jīròu.", "polski": "ło siang czhy dzi-żoł", "notatki": "ŁO-SIA-CZY-DZI-RO", "znaczenie": "I want to eat chicken. · Chcę zjeść kurczaka."}
       ]
     },
     {
       "nazwa": "Napoje",
       "pozycje": [
         {"znaki": "我想喝……", "pinyin": "Wǒ xiǎng hē…", "polski": "ło siang chy", "notatki": "ŁO-SIA-HYA", "znaczenie": "I want to drink… · Chcę się napić…"},
+        {"znaki": "我想喝果汁。", "pinyin": "Wǒ xiǎng hē guǒzhī.", "polski": "ło siang chy kło-czy", "notatki": "ŁO-SIA-HYA-GŁO-DZY", "znaczenie": "I want to drink juice. · Chcę się napić soku."},
+        {"znaki": "我想喝啤酒。", "pinyin": "Wǒ xiǎng hē píjiǔ.", "polski": "ło siang chy phi-dzioł", "notatki": "ŁO-SIA-HYA-PI-DZIO", "znaczenie": "I want to drink beer. · Chcę się napić piwa."},
         {"znaki": "水", "pinyin": "shuǐ", "polski": "szłej", "notatki": "SŁEJ", "znaczenie": "water · woda", "obrazek": {"id": "887064fb-0978-440c-b0a4-dc0023306bc2", "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvaXMxNzg1Ny1pbWFnZS1rd3lzOHJ4eC5qcGc.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5968966/glass-water"}},
         {"znaki": "咖啡", "pinyin": "kāfēi", "polski": "kha-fej", "notatki": "CAFE", "znaczenie": "coffee · kawa", "obrazek": {"id": "18bfb8f5-81b4-4fb1-b312-d1593ae61424", "url": "https://cdn.stocksnap.io/img-thumbs/960w/WZKGHBRQIB.jpg", "autor": "Negative Space", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/coffee-cup-WZKGHBRQIB"}},
         {"znaki": "茶", "pinyin": "chá", "polski": "czha", "notatki": "CZA", "znaczenie": "tea · herbata", "obrazek": {"id": "22159df9-3e40-46ad-a27d-ae3b606f3b05", "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJ0ZWVfc2VydmljZV9lYXJsX2dyYXlfMC1pbWFnZS1reWJjbW5ody5qcGc.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/6031450/photo-image-public-domain-floral-bubbles"}},

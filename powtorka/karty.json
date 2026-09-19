@@ -524,6 +524,42 @@
   "obrazek": null
  },
  {
+  "id": "我想吃……",
+  "znaki": "我想吃……",
+  "pinyin": "Wǒ xiǎng chī…",
+  "polski": "ło siang czhy",
+  "znaczenie": "I want to eat… · Chcę zjeść…",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/45a4218f9a",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "我想吃饺子。",
+  "znaki": "我想吃饺子。",
+  "pinyin": "Wǒ xiǎng chī jiǎozi.",
+  "polski": "ło siang czhy dział-dzy",
+  "znaczenie": "I want to eat dumplings. · Chcę zjeść pierogi.",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/ede3048783",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "我想吃鸡肉。",
+  "znaki": "我想吃鸡肉。",
+  "pinyin": "Wǒ xiǎng chī jīròu.",
+  "polski": "ło siang czhy dzi-żoł",
+  "znaczenie": "I want to eat chicken. · Chcę zjeść kurczaka.",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/133e04acab",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "我想喝……",
   "znaki": "我想喝……",
   "pinyin": "Wǒ xiǎng hē…",
@@ -532,6 +568,30 @@
   "lekcja": 2,
   "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
   "audio": "lekcje/02-jedzenie-i-napoje/audio/0be4d1dd4d",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "我想喝果汁。",
+  "znaki": "我想喝果汁。",
+  "pinyin": "Wǒ xiǎng hē guǒzhī.",
+  "polski": "ło siang chy kło-czy",
+  "znaczenie": "I want to drink juice. · Chcę się napić soku.",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/a0fdbf34a5",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "我想喝啤酒。",
+  "znaki": "我想喝啤酒。",
+  "pinyin": "Wǒ xiǎng hē píjiǔ.",
+  "polski": "ło siang chy phi-dzioł",
+  "znaczenie": "I want to drink beer. · Chcę się napić piwa.",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/7c0f127241",
   "img": "",
   "obrazek": null
  },

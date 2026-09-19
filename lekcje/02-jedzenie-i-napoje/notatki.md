@@ -21,12 +21,17 @@ Data: 2026-09-09
 | 炒饭 | chǎofàn | czhał-fan | CZOP-FA | fried rice · smażony ryż |
 | 粥 | zhōu | czoł | DZOŁ | congee · kleik ryżowy |
 | 我喜欢…… | Wǒ xǐhuan… | ło si-chłan | ŁO SI HŁAN | I like… · Lubię… |
+| 我想吃…… | Wǒ xiǎng chī… | ło siang czhy | ŁO-SIA-CZY | I want to eat… · Chcę zjeść… |
+| 我想吃饺子。 | Wǒ xiǎng chī jiǎozi. | ło siang czhy dział-dzy | ŁO-SIA-CZY-DZIAŁ-ZY | I want to eat dumplings. · Chcę zjeść pierogi. |
+| 我想吃鸡肉。 | Wǒ xiǎng chī jīròu. | ło siang czhy dzi-żoł | ŁO-SIA-CZY-DZI-RO | I want to eat chicken. · Chcę zjeść kurczaka. |
 
 ## Napoje
 
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
 | 我想喝…… | Wǒ xiǎng hē… | ło siang chy | ŁO-SIA-HYA | I want to drink… · Chcę się napić… |
+| 我想喝果汁。 | Wǒ xiǎng hē guǒzhī. | ło siang chy kło-czy | ŁO-SIA-HYA-GŁO-DZY | I want to drink juice. · Chcę się napić soku. |
+| 我想喝啤酒。 | Wǒ xiǎng hē píjiǔ. | ło siang chy phi-dzioł | ŁO-SIA-HYA-PI-DZIO | I want to drink beer. · Chcę się napić piwa. |
 | 水 | shuǐ | szłej | SŁEJ | water · woda |
 | 咖啡 | kāfēi | kha-fej | CAFE | coffee · kawa |
 | 茶 | chá | czha | CZA | tea · herbata |
