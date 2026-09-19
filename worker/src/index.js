@@ -48,7 +48,8 @@ JAK PISAĆ — to najważniejsze:
   polskie słowo powiedzieć na głos, a potem chińską sylabę DOKŁADNIE tak samo. Przykłady do użycia (wybierz jeden na ton):
   1. ton (równo, wysoko): lekarz każe powiedzieć "aaaa" · nucisz "laaa" jedną nutą · wołasz "Haloooo" przez pole
   2. ton (w górę): nie dosłyszałeś i pytasz "Co?" · "Tak?" z niedowierzaniem · "Hę?"
-  3. ton (w dół i z powrotem): nie chce ci się i mówisz "No-o…" · "Noo…" jak myślisz nad odpowiedzią · "Weeell…"
+  3. ton (nisko, burcząc): zmęczone, niskie "mmm" · "nooo" gdy się z kimś nie zgadzasz, powoli i nisko · "eee…" gdy szukasz słowa.
+     Opisuj tak: "zacznij nisko, zejdź jeszcze niżej, jakbyś burczał, na końcu troszkę podnieś"
   4. ton (krótko w dół): krzyczysz na psa "Nie!" · "Stop!" · "Już!"
   Wzór wskazówki: "Powiedz po polsku 'Co?' jak wtedy, gdy nie dosłyszałeś. Głos idzie w górę. Teraz 'siang' powiedz tak samo jak to 'Co?'."
   Numer tonu podaj tylko w nawiasie na końcu, np. "(to 2. ton)".
@@ -58,6 +59,7 @@ JAK PISAĆ — to najważniejsze:
 
 Pola odpowiedzi:
 - diagnoza: 1-2 krótkie zdania. Które słowo i co zrobił głos, też przez polski przykład. Wzór: "W 'siang' głos poszedł ci w dół, jak w 'Nie!'. Ma być jak 'No-o…': w dół i z powrotem."
+- Uczeń ma pod tekstem przycisk z nagraniem złej sylaby i ćwiczenia (wolno). Zawsze zacznij wskazówkę od "Posłuchaj nagrania" i każ powtórzyć 3 razy.
 - wskazowka: 2-3 krótkie zdania wg wzoru wyżej: polska sytuacja, polskie słowo, "powiedz na głos", potem chińska sylaba "tak samo". Jeśli złe są dwie sylaby, weź tylko tę ważniejszą.
   Jeśli poziom to close/bad, to zamiast tonu powiedz, jak brzmi zła głoska, np. "'czhy' mów z dmuchnięciem, jak czh w 'czhamp'".
 - cwiczenie: jedno proste słowo (1-2 znaki, HSK1) z tym samym problemem do powtórzenia. Pola: znaki, pinyin, polski (znaczenie),
@@ -103,10 +105,21 @@ export default {
   async fetch(req, env) {
     if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
     const url = new URL(req.url);
-    if (url.pathname !== "/stan" && url.pathname !== "/wymowa" && url.pathname !== "/trener") return json({ error: "not found" }, 404);
+    if (!["/stan", "/wymowa", "/trener", "/tts"].includes(url.pathname)) return json({ error: "not found" }, 404);
     const auth = req.headers.get("Authorization") || "";
     const token = auth.startsWith("Bearer ") ? auth.slice(7) : url.searchParams.get("k");
     if (!env.TOKEN || token !== env.TOKEN) return json({ error: "unauthorized" }, 401);
+
+    // GET /tts?q=<znaki>&slow=1 -> mp3 z Google TTS (zh-CN); dla ćwiczeń trenera, których nie ma w audio/ lekcji
+    if (url.pathname === "/tts") {
+      const q = (url.searchParams.get("q") || "").trim();
+      if (!q || q.length > 20) return json({ error: "bad q" }, 400);
+      const slow = url.searchParams.get("slow") ? "&ttsspeed=0.24" : "";
+      const r = await fetch("https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q=" + encodeURIComponent(q) + slow,
+        { headers: { "User-Agent": "Mozilla/5.0", "Referer": "https://translate.google.com/" } });
+      if (!r.ok) return json({ error: "tts " + r.status }, 502);
+      return new Response(r.body, { headers: { "Content-Type": "audio/mpeg", "Cache-Control": "public, max-age=2592000", ...CORS } });
+    }
 
     if (url.pathname === "/trener") {
       if (req.method !== "POST") return json({ error: "method" }, 405);

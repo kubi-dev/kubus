@@ -125,9 +125,9 @@
   // sylaby pinyin z numerem tonu: [{py: "nǐ", baza: "ni", ton: 3}], nie-chińskie znaki pomijamy
   function sylabyZTonami(s) {
     if (!window.pinyinPro) return [];
-    const num = pinyinPro.pinyin(s, { toneType: "num", type: "array" }), sym = pinyinPro.pinyin(s, { type: "array" });
+    const num = pinyinPro.pinyin(s, { toneType: "num", type: "array" }), sym = pinyinPro.pinyin(s, { type: "array" }), znaki = [...s];
     const out = [];
-    num.forEach((n, i) => { const m = /^([a-zü]+)(\d)$/i.exec(n); if (m) out.push({ py: sym[i], baza: m[1].toLowerCase(), ton: Number(m[2]) || 5 }); });
+    num.forEach((n, i) => { const m = /^([a-zü]+)(\d)$/i.exec(n); if (m) out.push({ py: sym[i], baza: m[1].toLowerCase(), ton: Number(m[2]) || 5, znak: znaki[i] || "" }); });
     return out;
   }
   // dopasowanie sylab celu do usłyszanych (LCS po bazie bez tonu); brak pary = null
@@ -140,7 +140,7 @@
       if (cel[i - 1].baza === usl[j - 1].baza) { pary[i - 1] = usl[j - 1]; i--; j--; }
       else if (dp[i - 1][j] >= dp[i][j - 1]) i--; else j--;
     }
-    return cel.map((c, i) => ({ cel: c.py, celTon: c.ton, usl: pary[i] ? pary[i].py : null, uslTon: pary[i] ? pary[i].ton : null }));
+    return cel.map((c, i) => ({ znak: c.znak, cel: c.py, celTon: c.ton, usl: pary[i] ? pary[i].py : null, uslTon: pary[i] ? pary[i].ton : null }));
   }
   function zapiszTon(ton) { try { const t = JSON.parse(localStorage.getItem(KLUCZ_TONY) || "{}"); t[ton] = (t[ton] || 0) + 1; localStorage.setItem(KLUCZ_TONY, JSON.stringify(t)); } catch (e) {} }
   function slabyTon() { try { const t = JSON.parse(localStorage.getItem(KLUCZ_TONY) || "{}"); let b = null; for (const k in t) if (!b || t[k] > t[b]) b = k; return b && t[b] >= 3 ? { ton: b, razy: t[b] } : null; } catch (e) { return null; } }
@@ -167,8 +167,11 @@
       if (!r.ok) throw new Error(j.error || ("HTTP " + r.status));
       diag("trener: odpowiedź po " + (Date.now() - t0) + " ms");
       const slaby = slabyTon(), cw = j.cwiczenie || {};
-      el.innerHTML = `<div class="tr-diag">${esc(j.diagnoza)}</div><div class="tr-rada">${esc(j.wskazowka)}</div>` +
-        (cw.znaki ? `<div class="tr-cw"><div class="tr-cw-tyt">${cw.ton ? "Ćwiczenie na " + cw.ton + ". ton" : "Ćwiczenie"} · powtórz:</div><b class="tr-znaki">${esc(cw.znaki)}</b> <span>${esc(cw.pinyin)}</span> · ${esc(cw.polski)}<div class="tr-wym">po polsku: <b>${esc(cw.wymowa)}</b></div><button class="mic tr-mic" type="button"></button><div class="result tr-wynik" hidden></div></div>` : "") +
+      const zle = (w.sylaby || []).filter(s => s.znak && (s.uslTon == null || s.uslTon !== s.celTon));
+      const play = (znaki, py) => `<button class="tr-play" type="button" data-q="${esc(znaki)}">▶ ${esc(znaki)} <span>${esc(py)}</span> wolno</button>`;
+      const odsluch = zle.length ? `<div class="tr-odsluch">Posłuchaj: ${zle.map(s => play(s.znak, s.cel)).join(" ")} ${zle.length < (w.sylaby || []).length ? play(w.cel.znaki, "całość") : ""}</div>` : "";
+      el.innerHTML = `<div class="tr-diag">${esc(j.diagnoza)}</div>${odsluch}<div class="tr-rada">${esc(j.wskazowka)}</div>` +
+        (cw.znaki ? `<div class="tr-cw"><div class="tr-cw-tyt">${cw.ton ? "Ćwiczenie na " + cw.ton + ". ton" : "Ćwiczenie"} · powtórz:</div><b class="tr-znaki">${esc(cw.znaki)}</b> <span>${esc(cw.pinyin)}</span> · ${esc(cw.polski)}<div class="tr-wym">po polsku: <b>${esc(cw.wymowa)}</b></div><div class="tr-odsluch">${play(cw.znaki, cw.pinyin)}</div><button class="mic tr-mic" type="button"></button><div class="result tr-wynik" hidden></div></div>` : "") +
         (slaby ? `<div class="tr-stat">Najczęściej ucieka ci ${slaby.ton}. ton (${slaby.razy}×).</div>` : "");
       const mic = el.querySelector(".tr-mic"), out = el.querySelector(".tr-wynik");
       if (mic) bind(mic, { target: () => cw.znaki,
@@ -178,6 +181,8 @@
   }
   // request do Claude dopiero po dotknięciu "Spytaj trenera" (strony wstawiają html z render() same, stąd delegacja zdarzenia)
   document.addEventListener("click", (e) => {
+    const p = e.target.closest(".tr-play");
+    if (p) { e.preventDefault(); e.stopPropagation(); const c = cfg(); graj(c.url + "/tts?k=" + encodeURIComponent(c.klucz) + "&slow=1&q=" + encodeURIComponent(p.dataset.q)); return; }
     const b = e.target.closest(".tr-pytaj"); if (!b) return;
     e.preventDefault(); e.stopPropagation();
     uzupelnijTrenera(b.closest(".trener"));
@@ -201,6 +206,9 @@
 .trener { margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(0,0,0,.15); font-size: 13px; }
 .trener .tr-pytaj { font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid currentColor; background: transparent; color: inherit; cursor: pointer; }
 .trener .tr-diag { font-weight: 600; }
+.trener .tr-odsluch { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 6px; }
+.trener .tr-play { font: inherit; font-size: 14px; padding: 5px 10px; border-radius: 8px; border: 1px solid currentColor; background: transparent; color: inherit; cursor: pointer; }
+.trener .tr-play span { opacity: .7; font-size: 12px; }
 .trener .tr-rada { margin-top: 3px; }
 .trener .tr-cw { margin-top: 6px; }
 .trener .tr-cw-tyt { font-size: 12px; opacity: .7; margin-bottom: 2px; }
