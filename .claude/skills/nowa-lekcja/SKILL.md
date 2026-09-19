@@ -24,12 +24,19 @@ Repo: strony lekcji chińskiego. Każda lekcja = katalog `lekcje/NN-slug/` z `le
    - Obejrzyj każdy kolaż narzędziem Read i wybierz numer: zdjęcie ma pokazywać znaczenie od razu, bez tekstu na obrazku, bez wieloznaczności. Jeśli nic nie pasuje, spróbuj innego zapytania lub `--wszystkie` (Flickr/Wikimedia, licencja CC BY z podpisem), a jak dalej nic — pomiń.
    - Wpisz wybory: `python3 obrazki.py wpisz lekcje/NN-slug/lekcja.json "znaki=slug:N" ...` (slug = nazwa pliku kolażu bez rozszerzenia). Ręcznie można też ustawić pole `obrazek` z własnym `url` (dozwolone licencje: CC0, domena publiczna, CC BY; przy CC BY wypełnij `autor` i `zrodlo`, strona pokaże podpis).
 7. **Zapis.** Utwórz `lekcje/NN-slug/lekcja.json` w formacie jak `lekcje/01-przyjaciele/lekcja.json` (`numer`, `tytul` = "Lekcja N · Temat", `data` = data lekcji jeśli na zdjęciu, inaczej dzisiejsza, `sekcje`). Przenieś zdjęcia z `inbox/` do `lekcje/NN-slug/zdjecia/`.
-8. **Build.** `python3 build.py`. Sprawdź, że nie ma linii z `!` (błąd audio lub obrazka). Jeśli są, uruchom ponownie (Google czasem odrzuca request); przy obrazku, który dalej nie schodzi, wybierz innego kandydata.
-9. **Weryfikacja.** Pokaż userowi tabelę pozycji (znaki, pinyin, notatki, znaczenie, czy jest obrazek) i poproś o potwierdzenie lub poprawki. Poprawki nanieś w `lekcja.json` i przebuduj.
-10. **Scenka.** Zaproponuj userowi scenkę do tej lekcji: „Zrobić scenkę? (/scenka N)”. Jeśli tak, wykonaj skill `scenka` przed deployem.
-11. **Deploy.** Po potwierdzeniu: `./deploy.sh "Lekcja N: temat"`. Podaj link: `https://kubi-dev.github.io/kubus/lekcje/NN-slug/` oraz indeks `https://kubi-dev.github.io/kubus/`. Strona pojawia się po ok. 1 min.
+8. **Build.** `python3 build.py`. Buduje stronę lekcji, nagrania, obrazki, **odcinek podcastu lekcji** (`podcast.mp3`) i przebudowuje
+   odcinek „Wszystko do tej pory”. Sprawdź, że nie ma linii z `!` (błąd audio lub obrazka). Jeśli są, uruchom ponownie (Google czasem
+   odrzuca request); przy obrazku, który dalej nie schodzi, wybierz innego kandydata.
+9. **Weryfikacja.** Pokaż userowi tabelę pozycji (znaki, pinyin, notatki, znaczenie, czy jest obrazek) i poproś o potwierdzenie lub poprawki.
+   Poprawki nanieś w `lekcja.json` i przebuduj.
+10. **Scenki.** Po potwierdzeniu pozycji wykonaj skill `scenka` dla tej lekcji (bez pytania — to stały element procesu): 1–2 dialogi
+    z poznanego słownictwa, `scenki.py sprawdz`, `scenki.py wpisz` (nowe słowa trafiają do lekcji z `auto: scenka`), `python3 build.py`
+    (odcinki `scenka-*.mp3`, strona `scenki/`, karty „✦ ze scenki”). Pokaż dialogi userowi, popraw wg uwag.
+11. **Deploy.** Po potwierdzeniu: `./deploy.sh "Lekcja N: temat"`. Podaj linki: lekcja `https://kubi-dev.github.io/kubus/lekcje/NN-slug/`,
+    podcast `https://kubi-dev.github.io/kubus/podcast/#NN-slug`, scenki `https://kubi-dev.github.io/kubus/scenki/#NN-slug`, indeks
+    `https://kubi-dev.github.io/kubus/`. Strona pojawia się po ok. 1 min; jeśli user widzi starą wersję, ma odświeżyć (cache).
 
 ## Zasady
-- Nie zmieniaj `template.html`, `build.py` ani `obrazki.py` w ramach tego skilla. Jeśli notatki wymagają nowego typu treści, powiedz userowi.
-- Nie deployuj przed potwierdzeniem usera (krok 8), chyba że user wprost każe "od razu wrzuć".
+- Nie zmieniaj `template.html`, `build.py`, `podcast.py`, `scenki.py` ani `obrazki.py` w ramach tego skilla. Jeśli notatki wymagają nowego typu treści, powiedz userowi.
+- Nie deployuj przed potwierdzeniem usera (krok 9 i 10), chyba że user wprost każe "od razu wrzuć".
 - Pisz JSON z `ensure_ascii` wyłączonym (znaki chińskie dosłownie), 2 spacje wcięcia.
