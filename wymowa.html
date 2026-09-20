@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wymowa: tony i dźwięki · Notatki z chińskiego</title>
+<title>{{TYTUL}} · Notatki z chińskiego</title>
 <style>
   :root {
     --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62;
@@ -120,28 +120,30 @@
 </style>
 </head>
 <body>
-<header><a href="../">← lekcje</a><div class="ttl">🗣 Wymowa: tony i dźwięki</div><a href="../powtorka/">powtórka</a></header>
+<header><a href="../">← lekcje</a><div class="ttl">{{TYTUL}}</div>{{LINK}}</header>
 <nav><div class="in">
-  <a href="#tony">Tony</a><a href="#zmiany">Zmiany</a><a href="#zdania">W zdaniu</a><a href="#pary">Pary tonów</a><a href="#uszy">Ucho</a><a href="#dzwieki">Dźwięki</a><a href="#cwicz">Ćwicz</a>
+  <a href="#tony" data-tryb="tony">Tony</a><a href="#zmiany" data-tryb="tony">Zmiany</a><a href="#zdania" data-tryb="tony">W zdaniu</a><a href="#pary" data-tryb="tony">Pary tonów</a><a href="#uszy" data-tryb="tony">Ucho</a><a href="#dzwieki" data-tryb="dzwieki">Dźwięki</a><a href="#koniec" data-tryb="dzwieki">Na koniec</a><a href="#cwicz">Ćwicz</a>
   <label><input type="checkbox" id="slow"> wolniej</label>
 </div></nav>
 
 <main>
-  <h1>Tony i dźwięki dla Polaka</h1>
-  <p class="intro">Tu ćwiczysz to, czego polski nie ma: melodię słowa (tony) i kilka dźwięków. Dotknij słowa, żeby je usłyszeć. Przytrzymaj 🎤, powiedz, puść. Na dole są ćwiczenia na ucho i wynik: co ci najczęściej ucieka.</p>
+  <h1>{{NAGLOWEK}}</h1>
+  <p class="intro">{{WSTEP}} Na dole są ćwiczenia na ucho i wynik: co ci najczęściej ucieka.</p>
   <p class="hint">Pojedyncze krótkie słowa telefon łapie słabo. Jak trzy razy nie rozpozna, nie znaczy to, że mówisz źle. Mikrofon sprawdzaj najlepiej na słowach z dwóch części.</p>
-  <p class="hint">Zapis polski: <b>ch</b> = polskie ch · <b>y</b> = polskie y · <b>ł</b> = polskie ł · <b>ü</b> = „i” z ustami ułożonymi do „u” · <b>kh, ph, th, czh</b> = z mocnym wydechem · <b>dz, p, t, k</b> = bez wydechu (chińskie z, b, d, g)</p>
+  <p class="hint" data-tryb="tony">Zapis polski: <b>ch</b> = polskie ch · <b>y</b> = polskie y · <b>ł</b> = polskie ł · <b>j</b> = polskie j · <b>p, t, k, dz</b> = jak po polsku, bez wydechu (chińskie b, d, g, z)</p>
+  <p class="hint" data-tryb="dzwieki">Zapis polski: <b>ch</b> = polskie ch · <b>y</b> = polskie y · <b>ł</b> = polskie ł · <b>ü</b> = „i” z ustami ułożonymi do „u” · <b>kh, ph, th, czh, cch, ćh</b> = z mocnym wydechem · <b>dz, p, t, k</b> = bez wydechu (chińskie z, b, d, g)</p>
 
-  <section id="tony"><h2>Tony · co robi głos</h2><p class="intro">Cztery melodie plus jedna „bez melodii”. Każdą masz w polskim, tylko nie w słowie, a w sytuacji.</p><div id="s-wstep"></div><div id="s-tony"></div></section>
-  <section id="zmiany"><h2>Zmiany tonów · kiedy słowo brzmi inaczej niż w słowniku</h2><div id="s-zmiany"></div></section>
-  <section id="zdania"><h2>W całym słowie i zdaniu · polskie nawyki</h2><div id="s-zdania"></div></section>
-  <section id="pary"><h2>Pary tonów · dwa słowa, jedna melodia</h2><p class="intro">Chiński mówi się parami. Wybierz parę, posłuchaj kilku słów z tą samą melodią, powtórz. <span id="pary-start"></span></p><div class="siatka" id="siatka"></div><div id="s-pary"></div></section>
-  <section id="uszy"><h2>Tylko ton się różni · ucho</h2><p class="intro">Te same litery, inna melodia, zupełnie inne słowo. Posłuchaj obu, potem powiedz każde.</p><div id="s-uszy"></div></section>
-  <section id="dzwieki"><h2>Dźwięki · trudne dla Polaka</h2><p class="intro">Od najtrudniejszych. Każda grupa: jak to zrobić po polsku, para słów, która różni się tylko tym jednym dźwiękiem, i mikrofon.</p><div id="s-dzwieki"></div></section>
+  <section id="tony" data-tryb="tony"><h2>Tony · co robi głos</h2><p class="intro">Cztery melodie plus jedna „bez melodii”. Każdą masz w polskim, tylko nie w słowie, a w sytuacji.</p><div id="s-wstep"></div><div id="s-tony"></div></section>
+  <section id="zmiany" data-tryb="tony"><h2>Zmiany tonów · kiedy słowo brzmi inaczej niż w słowniku</h2><div id="s-zmiany"></div></section>
+  <section id="zdania" data-tryb="tony"><h2>W całym słowie i zdaniu · polskie nawyki</h2><div id="s-zdania"></div></section>
+  <section id="pary" data-tryb="tony"><h2>Pary tonów · dwa słowa, jedna melodia</h2><p class="intro">Chiński mówi się parami. Wybierz parę, posłuchaj kilku słów z tą samą melodią, powtórz. <span id="pary-start"></span></p><div class="siatka" id="siatka"></div><div id="s-pary"></div></section>
+  <section id="uszy" data-tryb="tony"><h2>Tylko ton się różni · ucho</h2><p class="intro">Te same litery, inna melodia, zupełnie inne słowo. Posłuchaj obu, potem powiedz każde.</p><div id="s-uszy"></div></section>
+  <section id="dzwieki" data-tryb="dzwieki"><h2>Dźwięki · od najtrudniejszego</h2><p class="intro">Jedna grupa naraz. Otwórz, przeczytaj, posłuchaj pary, powiedz oba słowa. Dopiero potem następna grupa.</p><div id="s-dzwieki"></div></section>
+  <section id="koniec" data-tryb="dzwieki"><h2>Na koniec · wszystko razem</h2><div id="s-koniec"></div></section>
 
   <section id="cwicz"><h2>Ćwicz · ucho i usta</h2>
     <div class="tryby" id="tryby">
-      <button type="button" data-t="ton" class="on">Który ton?</button>
+      <button type="button" data-t="ton" data-tryb="tony">Który ton?</button>
       <button type="button" data-t="para">Które słowo?</button>
       <button type="button" data-t="powiedz">Powiedz to</button>
     </div>
@@ -164,6 +166,8 @@
 <script src="../wymowa.js?v={{WERSJA}}"></script>
 <script>
 const DATA = {{DATA_JSON}};
+const TRYB = DATA.tryb || "tony";   // "tony" albo "dzwieki": strona pokazuje tylko swoje sekcje
+for (const el of document.querySelectorAll("[data-tryb]")) if (el.dataset.tryb !== TRYB) el.remove();
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const slowCb = $("slow");
@@ -237,7 +241,7 @@ function blokEsc(lab, tekst) { return blok(lab, esc(tekst), true); }
 
 // ---- tony ----
 (function () {
-  const root = $("s-tony");
+  const root = $("s-tony"); if (!root) return;
   for (const t of DATA.tony) {
     const c = document.createElement("div"); c.className = "card"; c.id = "ton-" + t.ton;
     c.innerHTML = `<h3>${svgTon(t.ton, "big")}<span>${esc(t.nazwa)}</span></h3><div class="opis">${esc(t.opis)}</div>` +
@@ -249,7 +253,7 @@ function blokEsc(lab, tekst) { return blok(lab, esc(tekst), true); }
 })();
 // ---- karty z tytułem, opisem i słowami: wstęp, zmiany tonów, zdania ----
 function karty(rootId, lista) {
-  const root = $(rootId);
+  const root = $(rootId); if (!root) return;
   for (const z of (lista || [])) {
     const c = document.createElement("div"); c.className = "card"; c.id = "k-" + z.id;
     c.innerHTML = `<h3>${esc(z.tytul)}</h3><div class="opis">${esc(z.opis)}</div><div class="slowa"></div>`;
@@ -257,10 +261,10 @@ function karty(rootId, lista) {
     root.appendChild(c);
   }
 }
-karty("s-wstep", DATA.wstep); karty("s-zmiany", DATA.zmiany_tonow); karty("s-zdania", DATA.zdania);
+karty("s-wstep", DATA.wstep); karty("s-zmiany", DATA.zmiany_tonow); karty("s-zdania", DATA.zdania); karty("s-koniec", DATA.koniec);
 // ---- pary tonów: siatka 4x4 (+ lekki), wybór pokazuje słowa ----
 (function () {
-  const siatka = $("siatka"), root = $("s-pary");
+  const siatka = $("siatka"), root = $("s-pary"); if (!siatka) return;
   const kolej = ["1", "2", "3", "4"];
   const mapa = {}; for (const p of DATA.pary_tonow) mapa[p.tony] = p;
   const przyciski = [];
@@ -289,15 +293,15 @@ karty("s-wstep", DATA.wstep); karty("s-zmiany", DATA.zmiany_tonow); karty("s-zda
 })();
 // ---- minimalne pary tonów ----
 (function () {
-  const root = $("s-uszy");
+  const root = $("s-uszy"); if (!root) return;
   const c = document.createElement("div"); c.className = "card";
   for (const p of DATA.minimalne_pary_tonow) c.appendChild(para(p, "tony"));
   root.appendChild(c);
 })();
 // ---- dźwięki ----
 (function () {
-  const root = $("s-dzwieki");
-  DATA.dzwieki.forEach((g, i) => {
+  const root = $("s-dzwieki"); if (!root) return;
+  (DATA.dzwieki || []).forEach((g, i) => {
     const c = document.createElement("details"); c.className = "card grupa" + (g.trudnosc <= 1 ? " latwe" : ""); c.id = "dz-" + g.id;
     if (i === 0) c.open = true;
     c.innerHTML = `<summary><h3 style="margin:0">${esc(g.tytul)}</h3><span class="trud">${g.trudnosc >= 4 ? "trudne" : g.trudnosc >= 2 ? "średnie" : "masz za darmo"}</span></summary>
@@ -310,7 +314,7 @@ karty("s-wstep", DATA.wstep); karty("s-zmiany", DATA.zmiany_tonow); karty("s-zda
 })();
 
 // ---- ćwiczenia: "Który ton?", "Które słowo?", "Powiedz to" ----
-const KLUCZ_STAT = "kubus.wymowa.stat";   // { grupa: { ok, zle } }, grupa = "ton1".."ton4", "tony" (pary tonów), id grupy dźwięków, "mowa"
+const KLUCZ_STAT = "kubus.wymowa.stat." + TRYB;   // { grupa: { ok, zle } }, grupa = "ton1".."ton4", "tony" (pary tonów), id grupy dźwięków, "mowa"
 function statTab() { try { return JSON.parse(localStorage.getItem(KLUCZ_STAT) || "{}"); } catch (e) { return {}; } }
 function zapiszStat(grupa, ok) {
   const t = statTab(); t[grupa] = t[grupa] || { ok: 0, zle: 0 }; t[grupa][ok ? "ok" : "zle"]++;
@@ -318,7 +322,7 @@ function zapiszStat(grupa, ok) {
   rysujStaty();
 }
 const NAZWY = { ton1: "1. ton", ton2: "2. ton", ton3: "3. ton", ton4: "4. ton", ton5: "lekki ton", tony: "słowa różniące się tonem", mowa: "mówienie (mikrofon)" };
-for (const g of DATA.dzwieki) NAZWY[g.id] = g.tytul;
+for (const g of (DATA.dzwieki || [])) NAZWY[g.id] = g.tytul;
 const LINK = (k) => /^ton[1-5]$/.test(k) ? "#ton-" + k[3] : k === "tony" ? "#uszy" : k === "mowa" ? "#cwicz" : "#dz-" + k;
 function rysujStaty() {
   const t = statTab(), rows = Object.keys(t).map(k => ({ k, ok: t[k].ok, zle: t[k].zle, n: t[k].ok + t[k].zle })).filter(r => r.n > 0)
@@ -336,22 +340,23 @@ const PARY = [];    // pary: [{a, b, grupa}]
 (function () {
   const seen = new Set();
   const dodaj = (s) => { if ([...s.znaki].length !== 1 || seen.has(s.znaki)) return; const t = tonZPinyin(s.pinyin); if (t === 5) return; seen.add(s.znaki); JEDNO.push(Object.assign({ ton: t }, s)); };
-  for (const t of DATA.tony) for (const s of t.slowa) dodaj(s);
-  for (const p of DATA.minimalne_pary_tonow) { dodaj(p.a); dodaj(p.b); PARY.push({ a: p.a, b: p.b, grupa: "tony" }); }
-  for (const g of DATA.dzwieki) for (const p of (g.pary || [])) { dodaj(p.a); dodaj(p.b); PARY.push({ a: p.a, b: p.b, grupa: g.id }); }
+  for (const t of (DATA.tony || [])) for (const s of t.slowa) dodaj(s);
+  for (const p of (DATA.minimalne_pary_tonow || [])) { dodaj(p.a); dodaj(p.b); PARY.push({ a: p.a, b: p.b, grupa: "tony" }); }
+  for (const g of (DATA.dzwieki || [])) for (const p of (g.pary || [])) { dodaj(p.a); dodaj(p.b); PARY.push({ a: p.a, b: p.b, grupa: g.id }); }
 })();
 const DLUZSZE = (function () { const seen = new Set(), out = []; const dodaj = s => { if ([...s.znaki].length < 2 || seen.has(s.znaki)) return; seen.add(s.znaki); out.push(s); };
-  for (const k of ["wstep", "tony", "zmiany_tonow", "zdania", "pary_tonow"]) for (const x of (DATA[k] || [])) for (const s of x.slowa) dodaj(s);
-  for (const p of PARY) { dodaj(p.a); dodaj(p.b); } for (const g of DATA.dzwieki) for (const s of (g.slowa || [])) dodaj(s); return out; })();
+  for (const k of ["wstep", "tony", "zmiany_tonow", "zdania", "pary_tonow", "koniec"]) for (const x of (DATA[k] || [])) for (const s of x.slowa) dodaj(s);
+  for (const p of PARY) { dodaj(p.a); dodaj(p.b); } for (const g of (DATA.dzwieki || [])) for (const s of (g.slowa || [])) dodaj(s); return out; })();
 const los = a => a[Math.floor(Math.random() * a.length)];
-let tryb = "ton", runda = { n: 0, ok: 0 }, biezace = null;
+let tryb = TRYB === "tony" ? "ton" : "para", runda = { n: 0, ok: 0 }, biezace = null;
+$("tryby").querySelector(`[data-t="${tryb}"]`).classList.add("on");
 $("tryby").addEventListener("click", (e) => {
   const b = e.target.closest("button"); if (!b) return;
   tryb = b.dataset.t; for (const x of $("tryby").children) x.classList.toggle("on", x === b);
   runda = { n: 0, ok: 0 }; $("q-body").innerHTML = ""; $("q-fb").textContent = ""; $("q-wynik").textContent = ""; $("q-start").hidden = false; $("q-dalej").innerHTML = "";
   $("q-pyt").textContent = tryb === "ton" ? "Usłyszysz jedno słowo. Który to ton?" : tryb === "para" ? "Usłyszysz jedno z dwóch słów. Które?" : "Zobaczysz słowo. Powiedz je do mikrofonu.";
 });
-$("q-pyt").textContent = "Usłyszysz jedno słowo. Który to ton?";
+$("q-pyt").textContent = tryb === "ton" ? "Usłyszysz jedno słowo. Który to ton?" : "Usłyszysz jedno z dwóch słów. Które?";
 $("q-start").addEventListener("click", () => { $("q-start").hidden = true; nastepne(); });
 function wynikRundy() { $("q-wynik").textContent = runda.n ? `W tej rundzie: ${runda.ok} z ${runda.n} dobrze.` : ""; }
 function nastepne() {

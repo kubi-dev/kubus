@@ -47,19 +47,22 @@ strona lekcji pokazuje znaczek „✦ ze scenki”), więc trafiają do kart, po
 user gra swoją rolę (słyszy kwestie drugiej osoby, po polskiej podpowiedzi mówi swoją, słyszy odpowiedź). Strona `scenki/` grupuje
 scenki lekcjami, z dialogiem (znaki, pinyin, polski). Strona lekcji linkuje do swojego odcinka podcastu i scenek.
 
-## Wymowa: tony i dźwięki
-Strona `wymowa/`: osobna sekcja do ćwiczenia tego, czego polski nie ma. Dane w `wymowa.json` (źródło prawdy, edytuj tu):
+## Tony i dźwięki
+Dwie osobne strony z jednego szablonu `wymowa.html`: `tony/` (tylko melodia słowa; WSZYSTKIE słowa mają dźwięki, które Polak ma
+z polskiego: m n l f s sz dz dź ś ł j oraz b d g = polskie p t k, bez wydechu/ü/e/-ng/twardego y/er, żeby uczyć jednej rzeczy naraz)
+i `dzwieki/` (dźwięki, których polski nie ma, jedna grupa naraz, na końcu liczby 1–10 jako „wszystko razem”).
+Dane w `wymowa.json` (źródło prawdy, edytuj tu):
 `wstep` (zasada, znaczki nad literami), `tony` (5 kart: co robi głos, polska sytuacja, ćwiczenie „powiedz po polsku… teraz tak samo…”,
 błąd Polaków, słowa), `zmiany_tonow` (dwa/trzy niskie, 不, 一, lekkie końcówki), `zdania` (polski nacisk, pytanie bez podnoszenia
-głosu, ręka, liczby 1–10), `pary_tonow` (20 par 1–4 × 1–4 plus 4 z lekkim tonem, kolejność od najtrudniejszych dla Polaka),
+głosu, ręka), `koniec` (liczby 1–10, strona dźwięków), `pary_tonow` (20 par 1–4 × 1–4 plus 4 z lekkim tonem, kolejność od najtrudniejszych dla Polaka),
 `minimalne_pary_tonow` (te same litery, inny ton), `dzwieki` (grupy od najtrudniejszej: wydech p/b t/d k/g i c/z ch/zh q/j, ü/u,
 twarde „y” po z c s zh ch sh r, e, -n/-ng, r, ukryte litery -ian -iu -ui -un -ong, er, „masz za darmo”: trzy szeregi, h, ł, aj/ej/ał/oł).
 Każdy wpis: `znaki`, `pinyin`, `polski` (zapis wg konwencji notatek), `znaczenie`; build dopisuje `lekcja`, gdy słowo jest w lekcjach
-(znaczek L1/L2/L3). `build.py` (`build_wymowa`) nagrywa mp3 (wolno i normalnie) do `wymowa/audio/` i składa `wymowa/index.html` z `wymowa.html`.
+(znaczek L1/L2/L3). `build.py` (`build_wymowa`, tabela `STRONY_WYMOWY`) nagrywa mp3 (wolno i normalnie) do `tony/audio/` i `dzwieki/audio/` i składa obie strony.
 Strona: każde słowo ▶ i 🎤 (ten sam `wymowa.js`, trener tonów działa jak w lekcjach), siatka par tonów, pary słów obok siebie
 (rozpoznanie drugiego słowa z pary = osobny komunikat), ćwiczenia „Który ton?” (pojedyncze słowa, ton z pinyinu w danych),
 „Które słowo?” (pary tonów i dźwięków), „Powiedz to” (tylko słowa z ≥ 2 znaków, bo pojedyncze telefon rozpoznaje losowo).
-Licznik wpadek per ton/grupa w `localStorage kubus.wymowa.stat`, lista „co ci najczęściej ucieka” linkuje do sekcji.
+Licznik wpadek per ton/grupa w `localStorage kubus.wymowa.stat.<strona>`, lista „co ci najczęściej ucieka” linkuje do sekcji.
 Treść powstała z badania (tony i dźwięki trudne dla Polaków, metody ćwiczeń) i została sprawdzona pod kątem chińskiego i prostego polskiego.
 
 ## Powtórki
@@ -74,8 +77,8 @@ obrazki.py               szukanie obrazków do kart (Openverse)
 powtorka.html            szablon strony powtórek
 podcast.html             szablon strony podcastu
 scenki.html              szablon strony scenek
-wymowa.html              szablon strony wymowy (tony i dźwięki)
-wymowa.json              treść strony wymowy (źródło prawdy)
+wymowa.html              szablon stron tony/ i dzwieki/
+wymowa.json              treść obu stron (źródło prawdy)
 podcast.py               składanie odcinków mp3 (polski → chiński → pauza)
 scenki.py                sprawdzanie i wpisywanie scenek (dialogów) do lekcji
 ulubione.html            szablon strony ulubionych zwrotów
@@ -93,7 +96,7 @@ lekcje/NN-slug/
 powtorka/                wygenerowana strona powtórek + karty.json
 podcast/                 wygenerowana strona podcastu + wszystko.mp3
 scenki/                  wygenerowana strona scenek
-wymowa/                  wygenerowana strona wymowy + audio/ (mp3 słów spoza lekcji)
+tony/, dzwieki/          wygenerowane strony tonów i dźwięków + audio/
 ulubione/                wygenerowana strona ulubionych
 index.html               wygenerowany indeks lekcji
 ```

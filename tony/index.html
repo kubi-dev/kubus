@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tony · Notatki z chińskiego</title>
+<style>
+  :root {
+    --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62;
+    --accent: #b8362d; --accent-soft: #f3d9d5; --line: #e6dccd; --star: #d99a1c;
+    --ok-bg: #dff3e3; --ok-ink: #14532d; --mid-bg: #fdf0d5; --mid-ink: #7c4a03;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #171412; --card: #221e1a; --ink: #f1e9dd; --muted: #a2968a;
+            --accent: #e0574c; --accent-soft: #3a2320; --line: #332c26; --star: #f0c04a;
+            --ok-bg: #14351f; --ok-ink: #9be2b0; --mid-bg: #3a2c10; --mid-ink: #f0c674; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  header { padding: 14px 18px 8px; max-width: 760px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
+  header a { color: var(--accent); text-decoration: none; font-size: 14px; }
+  .ttl { flex: 1; text-align: center; font-size: 16px; font-weight: 600; }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+  nav .in { max-width: 760px; margin: 0 auto; padding: 8px 12px; display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  nav .in::-webkit-scrollbar { display: none; }
+  nav a { flex: none; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); text-decoration: none; font-size: 14px; }
+  nav a.on { border-color: var(--accent); color: var(--accent); }
+  nav label { flex: none; display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--muted); padding-left: 6px; }
+  main { max-width: 760px; margin: 0 auto; padding: 8px 16px 80px; }
+  section { padding-top: 8px; }
+  h1 { margin: 12px 0 4px; font-size: 24px; }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 26px 0 10px; }
+  .intro { color: var(--muted); font-size: 14px; margin: 0 0 6px; line-height: 1.45; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
+  .card h3 { margin: 0 0 6px; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+  .card h3 .big { width: 54px; height: 40px; flex: none; }
+  .card h3 .big path { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  .card h3 .big circle { fill: var(--accent); }
+  .opis { font-size: 15px; line-height: 1.45; margin: 4px 0; white-space: pre-line; }
+  .pl { margin: 8px 0; padding: 10px 12px; border-radius: 10px; background: var(--bg); font-size: 15px; line-height: 1.45; }
+  .pl b { color: var(--accent); }
+  .pl .lab { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 2px; }
+  .blad { font-size: 13px; color: var(--muted); margin: 6px 0 0; line-height: 1.4; }
+  .blad b { color: var(--ink); }
+  .trud { font-size: 12px; color: var(--muted); margin-left: auto; font-weight: 400; white-space: nowrap; }
+  /* wiersz słowa: ▶ znaki pinyin zapis-polski znaczenie 🎤 */
+  .slowa { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .w { display: grid; grid-template-columns: auto auto 1fr auto; grid-template-areas: "play zn info mic" "res res res res"; align-items: center; gap: 4px 10px; padding: 6px 8px; border-radius: 10px; background: var(--bg); }
+  .w.playing { outline: 2px solid var(--accent); }
+  .w .play { grid-area: play; font: inherit; font-size: 16px; width: 36px; height: 36px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+  .w .zn { grid-area: zn; font-size: 24px; line-height: 1.1; cursor: pointer; }
+  .w .info { grid-area: info; min-width: 0; cursor: pointer; }
+  .w .py { font-size: 14px; color: var(--accent); }
+  .w .ppl { font-size: 14px; }
+  .w .mn { font-size: 13px; color: var(--muted); }
+  .w .lek { font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 6px; margin-left: 4px; }
+  .w .mic { grid-area: mic; }
+  .w .result { grid-area: res; }
+  .mic { display: inline-flex; align-items: center; gap: 4px; font: inherit; font-size: 12px; padding: 6px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer;
+         touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; white-space: nowrap; }
+  .mic.rec { background: var(--accent); color: #fff; border-color: var(--accent); animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { opacity: .6; } }
+  .result { font-size: 13px; padding: 8px 10px; border-radius: 8px; background: var(--card); line-height: 1.4; }
+  .result.ok { background: var(--ok-bg); color: var(--ok-ink); }
+  .result.mid { background: var(--mid-bg); color: var(--mid-ink); }
+  .result.bad { background: var(--accent-soft); color: var(--accent); }
+  /* pary: dwa słowa obok siebie + różnica */
+  .para { margin-top: 10px; padding: 8px; border-radius: 12px; border: 1px dashed var(--line); }
+  .para .dwa { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .para .roz { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+  .para .w { grid-template-columns: auto 1fr; grid-template-areas: "play zn" "info info" "mic mic" "res res"; }
+  .para .w .zn { font-size: 26px; }
+  /* siatka par tonów */
+  .siatka { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 8px 0; }
+  .siatka button { font: inherit; font-size: 14px; padding: 10px 4px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .siatka button.on { border-color: var(--accent); background: var(--accent-soft); }
+  .siatka button .k { display: flex; gap: 2px; }
+  .siatka button .k svg { width: 22px; height: 16px; }
+  .siatka button .k path { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; }
+  .siatka button .k circle { fill: currentColor; }
+  .siatka button .n { font-size: 11px; color: var(--muted); }
+  /* ćwiczenia */
+  .tryby { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+  .tryby button, .btn { font: inherit; font-size: 14px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+  .tryby button.on { border-color: var(--accent); background: var(--accent-soft); }
+  .btn.main { background: var(--accent); color: #fff; border-color: var(--accent); font-size: 16px; padding: 12px 22px; }
+  .quiz { text-align: center; padding: 8px 0; }
+  .quiz .pyt { font-size: 15px; margin: 8px 0; min-height: 22px; }
+  .odp { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0; }
+  .odp.dwa { grid-template-columns: 1fr 1fr; }
+  .odp button { font: inherit; padding: 10px 6px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .odp button svg { width: 44px; height: 32px; }
+  .odp button path { fill: none; stroke: currentColor; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+  .odp button circle { fill: currentColor; }
+  .odp button .zn { font-size: 26px; }
+  .odp button .py { font-size: 13px; color: var(--accent); }
+  .odp button .mn { font-size: 12px; color: var(--muted); }
+  .odp button.dobrze { border-color: #2e9e5b; background: var(--ok-bg); color: var(--ok-ink); }
+  .odp button.zle { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+  .odp button:disabled { cursor: default; }
+  .fb { margin: 8px 0; font-size: 15px; min-height: 22px; }
+  .fb.ok { color: var(--ok-ink); } .fb.bad { color: var(--accent); }
+  .wynik { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .staty { margin-top: 10px; font-size: 13px; }
+  .staty .row { display: flex; justify-content: space-between; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  .staty .row a { color: var(--accent); text-decoration: none; }
+  .staty .bar { height: 6px; border-radius: 3px; background: var(--line); margin-top: 4px; overflow: hidden; }
+  .staty .bar i { display: block; height: 100%; background: var(--accent); }
+  .hint { color: var(--muted); font-size: 13px; }
+  .diag { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+  .diag pre { max-height: 200px; overflow: auto; font-size: 11px; white-space: pre-wrap; word-break: break-all; background: var(--card); padding: 8px; border-radius: 8px; }
+  details.grupa summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; }
+  details.grupa summary::-webkit-details-marker { display: none; }
+  details.grupa summary::after { content: "▸"; margin-left: auto; color: var(--muted); transition: transform .15s; }
+  details.grupa[open] summary::after { transform: rotate(90deg); }
+  .latwe { border-style: dashed; }
+  [hidden] { display: none !important; }
+  @media (max-width: 420px) { .odp { grid-template-columns: repeat(2, 1fr); } .para .dwa { gap: 4px; } }
+</style>
+</head>
+<body>
+<header><a href="../">← lekcje</a><div class="ttl">Tony</div><a href="../dzwieki/">dźwięki →</a></header>
+<nav><div class="in">
+  <a href="#tony" data-tryb="tony">Tony</a><a href="#zmiany" data-tryb="tony">Zmiany</a><a href="#zdania" data-tryb="tony">W zdaniu</a><a href="#pary" data-tryb="tony">Pary tonów</a><a href="#uszy" data-tryb="tony">Ucho</a><a href="#dzwieki" data-tryb="dzwieki">Dźwięki</a><a href="#koniec" data-tryb="dzwieki">Na koniec</a><a href="#cwicz">Ćwicz</a>
+  <label><input type="checkbox" id="slow"> wolniej</label>
+</div></nav>
+
+<main>
+  <h1>Tony dla Polaka</h1>
+  <p class="intro">Tu ćwiczysz tylko melodię słowa. Wszystkie słowa na tej stronie mają dźwięki, które masz z polskiego, więc jak coś nie wychodzi, to ton, nie dźwięk. Dotknij słowa, żeby je usłyszeć. Przytrzymaj 🎤, powiedz, puść. Na dole są ćwiczenia na ucho i wynik: co ci najczęściej ucieka.</p>
+  <p class="hint">Pojedyncze krótkie słowa telefon łapie słabo. Jak trzy razy nie rozpozna, nie znaczy to, że mówisz źle. Mikrofon sprawdzaj najlepiej na słowach z dwóch części.</p>
+  <p class="hint" data-tryb="tony">Zapis polski: <b>ch</b> = polskie ch · <b>y</b> = polskie y · <b>ł</b> = polskie ł · <b>j</b> = polskie j · <b>p, t, k, dz</b> = jak po polsku, bez wydechu (chińskie b, d, g, z)</p>
+  <p class="hint" data-tryb="dzwieki">Zapis polski: <b>ch</b> = polskie ch · <b>y</b> = polskie y · <b>ł</b> = polskie ł · <b>ü</b> = „i” z ustami ułożonymi do „u” · <b>kh, ph, th, czh, cch, ćh</b> = z mocnym wydechem · <b>dz, p, t, k</b> = bez wydechu (chińskie z, b, d, g)</p>
+
+  <section id="tony" data-tryb="tony"><h2>Tony · co robi głos</h2><p class="intro">Cztery melodie plus jedna „bez melodii”. Każdą masz w polskim, tylko nie w słowie, a w sytuacji.</p><div id="s-wstep"></div><div id="s-tony"></div></section>
+  <section id="zmiany" data-tryb="tony"><h2>Zmiany tonów · kiedy słowo brzmi inaczej niż w słowniku</h2><div id="s-zmiany"></div></section>
+  <section id="zdania" data-tryb="tony"><h2>W całym słowie i zdaniu · polskie nawyki</h2><div id="s-zdania"></div></section>
+  <section id="pary" data-tryb="tony"><h2>Pary tonów · dwa słowa, jedna melodia</h2><p class="intro">Chiński mówi się parami. Wybierz parę, posłuchaj kilku słów z tą samą melodią, powtórz. <span id="pary-start"></span></p><div class="siatka" id="siatka"></div><div id="s-pary"></div></section>
+  <section id="uszy" data-tryb="tony"><h2>Tylko ton się różni · ucho</h2><p class="intro">Te same litery, inna melodia, zupełnie inne słowo. Posłuchaj obu, potem powiedz każde.</p><div id="s-uszy"></div></section>
+  <section id="dzwieki" data-tryb="dzwieki"><h2>Dźwięki · od najtrudniejszego</h2><p class="intro">Jedna grupa naraz. Otwórz, przeczytaj, posłuchaj pary, powiedz oba słowa. Dopiero potem następna grupa.</p><div id="s-dzwieki"></div></section>
+  <section id="koniec" data-tryb="dzwieki"><h2>Na koniec · wszystko razem</h2><div id="s-koniec"></div></section>
+
+  <section id="cwicz"><h2>Ćwicz · ucho i usta</h2>
+    <div class="tryby" id="tryby">
+      <button type="button" data-t="ton" data-tryb="tony">Który ton?</button>
+      <button type="button" data-t="para">Które słowo?</button>
+      <button type="button" data-t="powiedz">Powiedz to</button>
+    </div>
+    <div class="card quiz" id="quiz">
+      <div class="pyt" id="q-pyt"></div>
+      <button class="btn main" id="q-start" type="button">▶ Start</button>
+      <div id="q-body"></div>
+      <div class="fb" id="q-fb"></div>
+      <div id="q-dalej"></div>
+      <div class="wynik" id="q-wynik"></div>
+    </div>
+    <div class="card"><b>Co ci najczęściej ucieka</b><div class="staty" id="staty"><span class="hint">Jeszcze nic. Zrób kilka rund wyżej.</span></div></div>
+  </section>
+
+  <details class="diag"><summary>diagnostyka mikrofonu</summary><pre id="diag-log"></pre></details>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
+<script>window.SYNC_URL = "https://kubus-sync.dark-mud-b74c.workers.dev";</script>
+<script src="../wymowa.js?v=1286b022"></script>
+<script>
+const DATA = {"wstep": [{"id": "zasada", "tytul": "Jedna zasada na cały kurs", "opis": "Nigdy nie ucz się słowa bez tonu. Ton to część słowa, tak jak litery. „chał” nisko to jedno słowo. „chał” z góry w dół to już inne. Gdy powtarzasz słówko, mów je na głos. W głowie tony nie działają.", "slowa": [{"znaki": "好", "pinyin": "hǎo", "polski": "chał", "znaczenie": "dobry (nisko)"}, {"znaki": "号", "pinyin": "hào", "polski": "chał", "znaczenie": "numer (z góry w dół)"}]}, {"id": "znaczki", "tytul": "Znaczki nad literami", "opis": "Nad literą stoi kreska albo daszek. To instrukcja dla głosu. Nic więcej nie znaczy.\nmā: prosta kreska. Równo i wysoko, jak „aaa” u lekarza.\nmá: kreska do góry. Głos w górę, jak „Co?”.\nmǎ: daszek. Nisko i zostań na dole.\nmà: kreska w dół. Z góry w dół, jak „Nie!”.\nma: bez znaczka. Krótko i cicho.\nDaszek zawsze pokazuje dół. Kreska w dół zawsze pokazuje „Nie!”. Tyle wystarczy.", "slowa": [{"znaki": "妈", "pinyin": "mā", "polski": "ma", "znaczenie": "mama"}, {"znaki": "麻", "pinyin": "má", "polski": "ma", "znaczenie": "konopie; drętwieć"}, {"znaki": "马", "pinyin": "mǎ", "polski": "ma", "znaczenie": "koń"}, {"znaki": "骂", "pinyin": "mà", "polski": "ma", "znaczenie": "nakrzyczeć na kogoś"}, {"znaki": "吗", "pinyin": "ma", "polski": "ma", "znaczenie": "robi ze zdania pytanie"}]}], "tony": [{"id": "ton1", "ton": 1, "nazwa": "1. ton · równo i wysoko", "opis": "Głos idzie wysoko i zostaje tam równo. Jak jedna zanucona nuta. Nic nie drga, nic nie spada. Trzymasz aż do końca słowa.", "przyklad_pl": "U lekarza otwierasz usta i mówisz długie „Aaaa”. Albo sygnał „zajęte” w telefonie: jedna równa nuta.", "jak_cwiczyc": "Powiedz na głos „Aaaa” jak u lekarza. Równo, bez ruchu w górę i w dół. Teraz tak samo powiedz „ma” (妈). Teraz „san” (三). Teraz „pa” (八).", "blad_polakow": "Dwa błędy. Pierwszy: zaczynasz za wysoko, prawie piszczysz. Wtedy nie masz już miejsca na inne tony. Drugi: głos ci opada na końcu. Tak jak w polskim zdaniu z kropką. Poznasz po tym: drugie „ma” brzmi niżej niż pierwsze. Powiedz „Aaaa” dwa razy pod rząd, tak samo wysoko. Nie mów, tylko nuć.", "slowa": [{"znaki": "妈", "pinyin": "mā", "polski": "ma", "znaczenie": "mama"}, {"znaki": "三", "pinyin": "sān", "polski": "san", "znaczenie": "trzy"}, {"znaki": "八", "pinyin": "bā", "polski": "pa", "znaczenie": "osiem"}, {"znaki": "一", "pinyin": "yī", "polski": "i", "znaczenie": "jeden"}, {"znaki": "猫", "pinyin": "māo", "polski": "mał", "znaczenie": "kot"}, {"znaki": "高", "pinyin": "gāo", "polski": "kał", "znaczenie": "wysoki"}, {"znaki": "家", "pinyin": "jiā", "polski": "dzia", "znaczenie": "dom, rodzina"}, {"znaki": "说", "pinyin": "shuō", "polski": "szło", "znaczenie": "mówić"}]}, {"id": "ton2", "ton": 2, "nazwa": "2. ton · z dołu do góry, jak „Co?”", "opis": "Głos zaczyna nisko i jedzie w górę. Tak jak przy pytaniu „Co?”. Ważne: zacznij nisko. Inaczej nie ma dokąd jechać.", "przyklad_pl": "Ktoś coś mruknął, a ty nie dosłyszałeś: „Co?”. Albo z niedowierzaniem: „Serio?”.", "jak_cwiczyc": "Powiedz na głos „Co?” jakbyś nie dosłyszał. Teraz tak samo „laj” (来). Teraz „mej” (没). Teraz „paj” (白). Zacznij nisko, skończ wysoko.", "blad_polakow": "Zaczynasz za wysoko i głos wychodzi płaski. Brzmi wtedy jak 1. ton. Albo skaczesz w górę dopiero na samym końcu. Poznasz po tym: „laj” (来, przyjść) brzmi równo. Ratunek: powiedz „Co?” jeszcze raz. Zacznij od najniższego dźwięku, jaki umiesz wydać.", "slowa": [{"znaki": "来", "pinyin": "lái", "polski": "laj", "znaczenie": "przyjść"}, {"znaki": "没", "pinyin": "méi", "polski": "mej", "znaczenie": "nie ma, nie (było)"}, {"znaki": "白", "pinyin": "bái", "polski": "paj", "znaczenie": "biały"}, {"znaki": "楼", "pinyin": "lóu", "polski": "loł", "znaczenie": "piętro, budynek"}, {"znaki": "拿", "pinyin": "ná", "polski": "na", "znaczenie": "brać, trzymać"}, {"znaki": "麻", "pinyin": "má", "polski": "ma", "znaczenie": "konopie; drętwieć"}, {"znaki": "油", "pinyin": "yóu", "polski": "joł", "znaczenie": "olej"}, {"znaki": "男", "pinyin": "nán", "polski": "nan", "znaczenie": "mężczyzna, męski"}]}, {"id": "ton3", "ton": 3, "nazwa": "3. ton · nisko i zostań na dole", "opis": "Głos schodzi na sam dół i tam zostaje. Nie wraca do góry. Wraca tylko wtedy, gdy mówisz słowo samo i powoli. Ten ton trwa dłużej niż inne.", "przyklad_pl": "Niskie, burkliwe „mhm” z głębi piersi. Tak mówisz, gdy zgadzasz się niechętnie. Albo zrezygnowane, niskie „no…”.", "jak_cwiczyc": "Znajdź najniższy dźwięk, jaki umiesz wydać. Zostań tam trzy sekundy. Powiedz z tego miejsca „mhm”. Teraz tak samo „ło” (我). Teraz „ni” (你). Teraz „chał” (好). Nie wracaj do góry.", "blad_polakow": "To najtrudniejszy ton dla Polaka. Polskie ucho nie pilnuje niskich dźwięków. Dlatego nie schodzisz dość nisko. Drugi błąd: wszędzie robisz dołek w dół i w górę. Wtedy brzmi to jak 2. ton. Poznasz po tym: „chał” (好) kończy ci się wysoko. Brzmi jak pytanie. Ma kończyć się nisko, prawie chrypką. Powiedz niskie „mhm” i zostaw głos na dole.", "slowa": [{"znaki": "好", "pinyin": "hǎo", "polski": "chał", "znaczenie": "dobry"}, {"znaki": "我", "pinyin": "wǒ", "polski": "ło", "znaczenie": "ja"}, {"znaki": "你", "pinyin": "nǐ", "polski": "ni", "znaczenie": "ty"}, {"znaki": "买", "pinyin": "mǎi", "polski": "maj", "znaczenie": "kupować"}, {"znaki": "美", "pinyin": "měi", "polski": "mej", "znaczenie": "piękny"}, {"znaki": "很", "pinyin": "hěn", "polski": "chyn", "znaczenie": "bardzo"}, {"znaki": "有", "pinyin": "yǒu", "polski": "joł", "znaczenie": "mieć"}, {"znaki": "小", "pinyin": "xiǎo", "polski": "siał", "znaczenie": "mały"}, {"znaki": "马", "pinyin": "mǎ", "polski": "ma", "znaczenie": "koń"}, {"znaki": "五", "pinyin": "wǔ", "polski": "łu", "znaczenie": "pięć"}]}, {"id": "ton4", "ton": 4, "nazwa": "4. ton · z góry w dół, jak „Nie!”", "opis": "Głos zaczyna wysoko i spada ostro na dół. Krótko i z energią, jak cios. To nie jest smutne opadanie.", "przyklad_pl": "Stanowcze „Nie!”, „Stój!”, „Dość!”. Albo „Ha!”, gdy kogoś przyłapałeś.", "jak_cwiczyc": "Powiedz na głos ostre „Nie!”. Teraz tak samo „pu” (不). Teraz „ta” (大). Teraz „aj” (爱). Krótko, z góry na dół.", "blad_polakow": "Mówisz za miękko i za długo. Wychodzi łagodny koniec polskiego zdania. Drugi błąd: dajesz 4. ton na ostatnie słowo każdego zdania. Robisz tak, bo tak kończysz zdanie po polsku. Poznasz po tym: „ni chał” (你好) spada ci na końcu. A 好 ma zejść nisko, nie spaść z góry. Powiedz krótkie „Nie!” i porównaj.", "slowa": [{"znaki": "不", "pinyin": "bù", "polski": "pu", "znaczenie": "nie"}, {"znaki": "大", "pinyin": "dà", "polski": "ta", "znaczenie": "duży"}, {"znaki": "爱", "pinyin": "ài", "polski": "aj", "znaczenie": "kochać"}, {"znaki": "卖", "pinyin": "mài", "polski": "maj", "znaczenie": "sprzedawać"}, {"znaki": "要", "pinyin": "yào", "polski": "jał", "znaczenie": "chcieć"}, {"znaki": "做", "pinyin": "zuò", "polski": "dzło", "znaczenie": "robić"}, {"znaki": "叫", "pinyin": "jiào", "polski": "dział", "znaczenie": "nazywać się"}, {"znaki": "累", "pinyin": "lèi", "polski": "lej", "znaczenie": "zmęczony"}, {"znaki": "饭", "pinyin": "fàn", "polski": "fan", "znaczenie": "posiłek, ryż"}, {"znaki": "骂", "pinyin": "mà", "polski": "ma", "znaczenie": "nakrzyczeć"}]}, {"id": "ton5", "ton": 5, "nazwa": "lekki ton · krótko i cicho, jak „-ma” w „mama”", "opis": "Druga część słowa jest krótka i cicha. Nie ma własnej wysokości. Po prostu leci doczepiona za pierwszą częścią. Jest dwa razy krótsza niż zwykle.", "przyklad_pl": "Polskie „MA-ma” albo „TA-to”. Pierwsza część mocna, druga krótka i cicha.", "jak_cwiczyc": "Powiedz na głos „mama” jak do dziecka. Posłuchaj, jakie krótkie jest drugie „ma”. Teraz tak samo „ma-ma” (妈妈). Teraz „sie-sie” (谢谢). Teraz „ło-myn” (我们).", "blad_polakow": "Dajesz drugiej części pełną długość i własny nacisk. Po polsku obie części słowa brzmią tak samo mocno. Poznasz po tym: „sie-sie” brzmi jak dwa równe słowa. Ma być „SIE-sie”, drugie ciche i krótkie. Powiedz „mama” i posłuchaj drugiego „ma”. Uwaga: po 3. tonie ta lekka część idzie w górę (我们 ło-myn). Po 1. i 4. tonie leci w dół (谢谢 sie-sie). Po 2. zostaje w środku (爷爷 je-je).", "slowa": [{"znaki": "妈妈", "pinyin": "māma", "polski": "ma-ma", "znaczenie": "mama"}, {"znaki": "谢谢", "pinyin": "xièxie", "polski": "sie-sie", "znaczenie": "dziękuję", "lekcja": 1}, {"znaki": "我们", "pinyin": "wǒmen", "polski": "ło-myn", "znaczenie": "my"}, {"znaki": "爸爸", "pinyin": "bàba", "polski": "pa-pa", "znaczenie": "tata"}, {"znaki": "爷爷", "pinyin": "yéye", "polski": "je-je", "znaczenie": "dziadek"}, {"znaki": "奶奶", "pinyin": "nǎinai", "polski": "naj-naj", "znaczenie": "babcia"}, {"znaki": "妹妹", "pinyin": "mèimei", "polski": "mej-mej", "znaczenie": "młodsza siostra"}, {"znaki": "喜欢", "pinyin": "xǐhuan", "polski": "si-chłan", "znaczenie": "lubić"}]}], "zmiany_tonow": [{"id": "z33", "tytul": "Dwa niskie pod rząd: pierwszy idzie w górę", "opis": "Niektóre słowa mówisz nisko, jak znudzone „nooo”. Gdy dwa takie słowa stoją obok, pierwsze idzie w górę. W górę jak polskie „Co?”, gdy nie dosłyszałeś. Drugie zostaje nisko. Powiedz na głos: „Co? nooo”. Teraz tak samo: ni chał (cześć). W zapisie nic się nie zmienia, zmienia się tylko głos. Błąd Polaka: mówi oba nisko albo oba w górę.", "slowa": [{"znaki": "你好", "pinyin": "nǐ hǎo", "polski": "ni chał", "znaczenie": "cześć"}, {"znaki": "很好", "pinyin": "hěn hǎo", "polski": "chyn chał", "znaczenie": "bardzo dobrze"}, {"znaki": "小姐", "pinyin": "xiǎojiě", "polski": "siał-dzie", "znaczenie": "panna, proszę pani"}, {"znaki": "我买", "pinyin": "wǒ mǎi", "polski": "ło maj", "znaczenie": "kupuję"}, {"znaki": "你有", "pinyin": "nǐ yǒu", "polski": "ni joł", "znaczenie": "masz"}]}, {"id": "z333", "tytul": "Trzy niskie pod rząd", "opis": "Czasem trzy niskie słowa stoją obok siebie. Wtedy wszystkie oprócz ostatniego idą w górę. Ostatnie zostaje na dole.\nPowiedz na głos: „Co? Co? nooo”. Teraz tak samo: ło chyn chał. „ło” i „chyn” w górę, „chał” nisko.", "slowa": [{"znaki": "我很好", "pinyin": "wǒ hěn hǎo", "polski": "ło chyn chał", "znaczenie": "mam się dobrze"}, {"znaki": "你很好", "pinyin": "nǐ hěn hǎo", "polski": "ni chyn chał", "znaczenie": "masz się dobrze"}, {"znaki": "我也有", "pinyin": "wǒ yě yǒu", "polski": "ło je joł", "znaczenie": "ja też mam"}]}, {"id": "zbu", "tytul": "不 (nie): czasem idzie w górę zamiast w dół", "opis": "不 znaczy „nie”. Normalnie leci z góry w dół, jak stanowcze „Nie!”. Ale czasem następne słowo też leci z góry w dół. Wtedy 不 idzie w górę, jak zdziwione „Co?”. Powiedz na głos: „Co? Nie!”. Teraz tak samo: pu jał (不要, nie chcę). Gdy następne słowo nie spada, 不 zostaje jak było: pu chał (不好).", "slowa": [{"znaki": "不要", "pinyin": "bú yào", "polski": "pu jał", "znaczenie": "nie chcę"}, {"znaki": "不爱", "pinyin": "bú ài", "polski": "pu aj", "znaczenie": "nie kocham"}, {"znaki": "不卖", "pinyin": "bú mài", "polski": "pu maj", "znaczenie": "nie sprzedaję"}, {"znaki": "不好", "pinyin": "bù hǎo", "polski": "pu chał", "znaczenie": "niedobrze (tu bez zmiany)"}, {"znaki": "不来", "pinyin": "bù lái", "polski": "pu laj", "znaczenie": "nie przyjdzie (tu bez zmiany)"}]}, {"id": "zyi", "tytul": "一 (jeden): głos zależy od następnego słowa", "opis": "一 znaczy „jeden”. Samo mówisz je równo i wysoko, jak „aaa” u lekarza. Czasem następne słowo leci z góry w dół. Wtedy 一 idzie w górę, jak zdziwione „Co?”. Powiedz na głos: „Co?”. Teraz tak samo: i pan (一半, połowa). Przed innymi słowami 一 spada z góry w dół, jak „Nie!”: i paj (一百, sto). W liczbach zostaje równe: ti-i (第一, pierwszy).", "slowa": [{"znaki": "一半", "pinyin": "yí bàn", "polski": "i pan", "znaczenie": "połowa"}, {"znaki": "一百", "pinyin": "yì bǎi", "polski": "i paj", "znaczenie": "sto"}, {"znaki": "一杯", "pinyin": "yì bēi", "polski": "i pej", "znaczenie": "jedna szklanka"}, {"znaki": "第一", "pinyin": "dìyī", "polski": "ti-i", "znaczenie": "pierwszy"}]}, {"id": "zlekki", "tytul": "Lekka końcówka: krótko i cicho", "opis": "Niektóre słowa mają końcówkę bez własnego głosu. Mówisz ją krótko i cicho, doczepioną do przodu. Powiedz na głos polskie „mama” — druga część jest słabsza. Teraz tak samo: ma-ma (妈妈), sie-sie (谢谢).", "slowa": [{"znaki": "谢谢", "pinyin": "xièxie", "polski": "sie-sie", "znaczenie": "dziękuję", "lekcja": 1}, {"znaki": "妈妈", "pinyin": "māma", "polski": "ma-ma", "znaczenie": "mama"}, {"znaki": "你好吗", "pinyin": "nǐ hǎo ma", "polski": "ni chał ma", "znaczenie": "jak się masz"}, {"znaki": "爸爸", "pinyin": "bàba", "polski": "pa-pa", "znaczenie": "tata"}]}, {"id": "zkoncowki", "tytul": "Małe słówka na końcu zdania też są bez tonu", "opis": "Mów je krótko i cicho, doklejone do poprzedniego słowa. Nie mów „ma” osobno i mocno. Ma ledwo być słychać.", "slowa": [{"znaki": "你好吗", "pinyin": "nǐ hǎo ma", "polski": "ni chał ma", "znaczenie": "jak się masz?"}, {"znaki": "你要吗", "pinyin": "nǐ yào ma", "polski": "ni jał ma", "znaczenie": "chcesz?"}, {"znaki": "好吧", "pinyin": "hǎo ba", "polski": "chał pa", "znaczenie": "no dobra"}, {"znaki": "走吧", "pinyin": "zǒu ba", "polski": "dzoł pa", "znaczenie": "chodźmy"}]}], "zdania": [{"id": "nacisk", "tytul": "Nie naciskaj po polsku", "opis": "Po polsku mocniej mówisz przedostatnią część słowa: po-mi-DO-ry, ko-le-ŻAN-ka. Po chińsku tak nie wolno. Każda część ma swój własny głos i swoją długość.\nPowiedz powoli, trzy równe kawałki. Nie „ło-AJ-ni”. Trzy kawałki, każdy tak samo mocny.", "slowa": [{"znaki": "我爱你", "pinyin": "wǒ ài nǐ", "polski": "ło aj ni", "znaczenie": "kocham cię"}, {"znaki": "我也要", "pinyin": "wǒ yě yào", "polski": "ło je jał", "znaczenie": "ja też chcę"}, {"znaki": "买米饭", "pinyin": "mǎi mǐfàn", "polski": "maj mi-fan", "znaczenie": "kupić ryż"}, {"znaki": "小妹妹", "pinyin": "xiǎo mèimei", "polski": "siał mej-mej", "znaczenie": "mała siostrzyczka"}]}, {"id": "pytanie", "tytul": "Pytanie nie idzie w górę", "opis": "Po polsku na końcu pytania podnosisz głos: „Jesteś głodny?”. Po chińsku nie. Pytanie robi małe słówko na końcu albo samo słowo pytające. Głos zostaje taki, jaki ma być.\n你好吗: „chał” nisko, „ma” krótko i cicho. Nie podnoś.\n你来吗: „laj” idzie w górę, bo tak ma to słowo. Nie dlatego, że to pytanie.\nJak podniesiesz głos na końcu, zmienisz ostatnie słowo.", "slowa": [{"znaki": "你好吗", "pinyin": "nǐ hǎo ma", "polski": "ni chał ma", "znaczenie": "jak się masz?"}, {"znaki": "你要吗", "pinyin": "nǐ yào ma", "polski": "ni jał ma", "znaczenie": "chcesz?"}, {"znaki": "你来吗", "pinyin": "nǐ lái ma", "polski": "ni laj ma", "znaczenie": "przyjdziesz?"}, {"znaki": "你买吗", "pinyin": "nǐ mǎi ma", "polski": "ni maj ma", "znaczenie": "kupujesz?"}]}, {"id": "reka", "tytul": "Rysuj głos ręką", "opis": "Mów i jednocześnie prowadź rękę w powietrzu.\nRówno i wysoko: ręka płasko na wysokości oczu.\nW górę („Co?”): ręka od pasa do oczu.\nNisko: ręka nisko przy pasie i zostaje.\nZ góry w dół („Nie!”): ręka ostro z góry na dół.\nJak ręka stoi w miejscu, a mówisz „w górę”, to znaczy, że mówisz płasko.\nSprawdź dół tak: powiedz „chał” (好) i połóż palce na gardle, nisko, tuż nad obojczykiem. Przy dobrym niskim głosie czujesz tam drganie. Jak czujesz je wyżej, pod brodą, mówisz za wysoko.", "slowa": [{"znaki": "妈", "pinyin": "mā", "polski": "ma", "znaczenie": "mama"}, {"znaki": "麻", "pinyin": "má", "polski": "ma", "znaczenie": "konopie"}, {"znaki": "马", "pinyin": "mǎ", "polski": "ma", "znaczenie": "koń"}, {"znaki": "骂", "pinyin": "mà", "polski": "ma", "znaczenie": "nakrzyczeć"}]}], "pary_tonow": [{"id": "t3-2", "tony": "3-2", "opis": "Najtrudniejsza para. Pierwsze słowo trzymaj nisko, jak zamyślone „yyy”. Drugie puść w górę, jak pytające „Co?”. Polakowi łatwo wychodzi odwrotnie: najpierw w górę, potem nisko. A tak właśnie brzmi 你好 (ní hǎo). Powiedz na głos: „yyy… Co?”. Potem tak samo mej-kło.", "slowa": [{"znaki": "美国", "pinyin": "Měiguó", "polski": "mej-kło", "znaczenie": "USA"}, {"znaki": "小孩", "pinyin": "xiǎohái", "polski": "siał-chaj", "znaczenie": "dziecko"}, {"znaki": "好玩", "pinyin": "hǎowán", "polski": "chał-łan", "znaczenie": "fajny, zabawny"}]}, {"id": "t2-1", "tony": "2-1", "opis": "Pierwsze w górę, jak pytające „Co?”. Drugie równo i wysoko, jak „aaa” u lekarza. Pułapka: pierwsze zaczynasz za wysoko i nie masz dokąd jechać. Zacznij nisko. Powiedz na głos: „Co? aaa”. Potem ming-thien. Porównaj 白猫 paj-mał (w górę, potem równo) z 小猫 siał-mał (nisko, potem równo). Drugie słowo takie samo.", "slowa": [{"znaki": "白猫", "pinyin": "báimāo", "polski": "paj-mał", "znaczenie": "biały kot"}, {"znaki": "白花", "pinyin": "báihuā", "polski": "paj-chła", "znaczenie": "biały kwiat"}, {"znaki": "拿书", "pinyin": "ná shū", "polski": "na szu", "znaczenie": "wziąć książkę"}]}, {"id": "t2-4", "tony": "2-4", "opis": "W górę, potem ostro w dół. Powiedz na głos: „Co? Nie!”. Pierwsze zacznij nisko, żeby miało dokąd rosnąć.", "slowa": [{"znaki": "难过", "pinyin": "nánguò", "polski": "nan-kło", "znaczenie": "smutny"}, {"znaki": "白饭", "pinyin": "báifàn", "polski": "paj-fan", "znaczenie": "gotowany ryż"}, {"znaki": "拿到", "pinyin": "nádào", "polski": "na-tał", "znaczenie": "dostać"}]}, {"id": "t3-3", "tony": "3-3", "opis": "Dwa niskie słowa pod rząd. Wtedy pierwsze samo jedzie w górę, jak „Co?”. Drugie zostaje nisko. Dlatego 你好 mówi się „ní hǎo”. Zapis się nie zmienia, tylko wymowa.", "slowa": [{"znaki": "你好", "pinyin": "nǐ hǎo", "polski": "ni chał", "znaczenie": "cześć"}, {"znaki": "很好", "pinyin": "hěn hǎo", "polski": "chyn chał", "znaczenie": "bardzo dobrze"}, {"znaki": "小姐", "pinyin": "xiǎojiě", "polski": "siał-dzie", "znaczenie": "panna"}]}, {"id": "t2-3", "tony": "2-3", "opis": "W górę, potem nisko. Powiedz na głos: „Co? yyy…”. Ta para wychodzi Polakom dobrze. Niskie drugie słowo samo ściąga głos w dół. Ćwicz ją przed parami 2-1 i 2-4.", "slowa": [{"znaki": "没有", "pinyin": "méiyǒu", "polski": "mej-joł", "znaczenie": "nie ma, nie mieć"}, {"znaki": "来买", "pinyin": "lái mǎi", "polski": "laj maj", "znaczenie": "przyjść kupić"}, {"znaki": "白米", "pinyin": "báimǐ", "polski": "paj-mi", "znaczenie": "biały ryż"}]}, {"id": "t4-4", "tony": "4-4", "opis": "Dwa razy z góry w dół, ale jednym ruchem. Nie rób dwóch osobnych „Nie! Nie!”. Bardziej jak szybkie „Nie ma!”. Pierwsze słowo jest krótsze i nie spada do końca.", "slowa": [{"znaki": "做饭", "pinyin": "zuòfàn", "polski": "dzło-fan", "znaczenie": "gotować"}, {"znaki": "味道", "pinyin": "wèidào", "polski": "łej-tał", "znaczenie": "smak"}, {"znaki": "爱笑", "pinyin": "ài xiào", "polski": "aj siał", "znaczenie": "lubić się śmiać"}]}, {"id": "t3-4", "tony": "3-4", "opis": "Nisko, potem ostro w dół. Powiedz na głos: „yyy… Nie!”. Pierwsze zostaje na dole. Drugie skacze do góry i spada.", "slowa": [{"znaki": "米饭", "pinyin": "mǐfàn", "polski": "mi-fan", "znaczenie": "ryż (gotowany)", "lekcja": 2}, {"znaki": "买卖", "pinyin": "mǎimài", "polski": "maj-maj", "znaczenie": "handel"}, {"znaki": "早饭", "pinyin": "zǎofàn", "polski": "dzał-fan", "znaczenie": "śniadanie"}]}, {"id": "t3-1", "tony": "3-1", "opis": "Nisko, potem równo i wysoko. Powiedz na głos: „yyy… aaa”. Najlepsza para na naukę tego wysokiego, równego słowa. Po niskim głos sam ląduje na dobrej wysokości.", "slowa": [{"znaki": "手机", "pinyin": "shǒujī", "polski": "szoł-dzi", "znaczenie": "telefon komórkowy"}, {"znaki": "小猫", "pinyin": "xiǎomāo", "polski": "siał-mał", "znaczenie": "kotek"}, {"znaki": "老家", "pinyin": "lǎojiā", "polski": "lał-dzia", "znaczenie": "rodzinne strony"}]}, {"id": "t1-3", "tony": "1-3", "opis": "Równo wysoko, potem nisko i zostań na dole. Powiedz na głos: „aaa… yyy”. Nie puszczaj drugiego słowa w górę na końcu.", "slowa": [{"znaki": "家里", "pinyin": "jiālǐ", "polski": "dzia-li", "znaczenie": "w domu"}, {"znaki": "三百", "pinyin": "sānbǎi", "polski": "san-paj", "znaczenie": "trzysta"}, {"znaki": "高手", "pinyin": "gāoshǒu", "polski": "kał-szoł", "znaczenie": "mistrz"}]}, {"id": "t1-2", "tony": "1-2", "opis": "Równo wysoko, potem z dołu w górę. Powiedz na głos: „aaa… Co?”. Trudne, bo po wysokim trzeba najpierw zejść na dół.", "slowa": [{"znaki": "阿姨", "pinyin": "āyí", "polski": "a-i", "znaczenie": "ciocia"}, {"znaki": "加油", "pinyin": "jiāyóu", "polski": "dzia-joł", "znaczenie": "dawaj! (dosłownie: dolej paliwa)"}, {"znaki": "高楼", "pinyin": "gāolóu", "polski": "kał-loł", "znaczenie": "wieżowiec"}]}, {"id": "t2-2", "tony": "2-2", "opis": "Dwa razy w górę. Powiedz na głos: „Co? Co?”. Każde zaczynaj nisko. Po pierwszym nie zostawaj na górze.", "slowa": [{"znaki": "男孩", "pinyin": "nánhái", "polski": "nan-chaj", "znaczenie": "chłopiec"}, {"znaki": "没来", "pinyin": "méi lái", "polski": "mej laj", "znaczenie": "nie przyszedł"}, {"znaki": "拿来", "pinyin": "nálái", "polski": "na-laj", "znaczenie": "przynieść"}]}, {"id": "t4-3", "tony": "4-3", "opis": "Z góry w dół, potem nisko. Powiedz na głos: „Nie! yyy…”. Drugie słowo zostaje na dole, tam gdzie skończyło pierwsze.", "slowa": [{"znaki": "汉堡", "pinyin": "hànbǎo", "polski": "chan-pał", "znaczenie": "hamburger", "lekcja": 2}, {"znaki": "大海", "pinyin": "dàhǎi", "polski": "ta-chaj", "znaczenie": "morze"}, {"znaki": "大米", "pinyin": "dàmǐ", "polski": "ta-mi", "znaczenie": "ryż (surowy)"}]}, {"id": "t4-2", "tony": "4-2", "opis": "Z góry w dół, potem z dołu w górę. Powiedz na głos: „Nie! Co?”. Drugie zaczyna tam, gdzie pierwsze skończyło.", "slowa": [{"znaki": "大楼", "pinyin": "dàlóu", "polski": "ta-loł", "znaczenie": "duży budynek"}, {"znaki": "大门", "pinyin": "dàmén", "polski": "ta-myn", "znaczenie": "brama"}, {"znaki": "要来", "pinyin": "yào lái", "polski": "jał laj", "znaczenie": "ma przyjść"}]}, {"id": "t4-1", "tony": "4-1", "opis": "Z góry w dół, potem równo wysoko. Powiedz na głos: „Nie! aaa”. Po spadku wskocz z powrotem na górę i trzymaj.", "slowa": [{"znaki": "蛋糕", "pinyin": "dàngāo", "polski": "tan-kał", "znaczenie": "ciasto", "lekcja": 2}, {"znaki": "大家", "pinyin": "dàjiā", "polski": "ta-dzia", "znaczenie": "wszyscy"}, {"znaki": "卖花", "pinyin": "mài huā", "polski": "maj chła", "znaczenie": "sprzedawać kwiaty"}]}, {"id": "t1-4", "tony": "1-4", "opis": "Równo wysoko, potem z góry w dół. Powiedz na głos: „aaa… Nie!”. Łatwe: drugie słowo startuje tam, gdzie stało pierwsze.", "slowa": [{"znaki": "说话", "pinyin": "shuōhuà", "polski": "szło-chła", "znaczenie": "mówić, rozmawiać"}, {"znaki": "山路", "pinyin": "shānlù", "polski": "szan-lu", "znaczenie": "górska droga"}, {"znaki": "收费", "pinyin": "shōufèi", "polski": "szoł-fej", "znaczenie": "opłata"}]}, {"id": "t1-1", "tony": "1-1", "opis": "Najłatwiejsza para. Dwa razy równo i wysoko, na tej samej wysokości. Jak dwa razy „aaa” u lekarza. Głos nie rusza się ani w górę, ani w dół.", "slowa": [{"znaki": "飞机", "pinyin": "fēijī", "polski": "fej-dzi", "znaczenie": "samolot"}, {"znaki": "沙发", "pinyin": "shāfā", "polski": "sza-fa", "znaczenie": "kanapa"}, {"znaki": "西瓜", "pinyin": "xīguā", "polski": "si-kła", "znaczenie": "arbuz"}]}, {"id": "t3-5", "tony": "3-5", "opis": "Nisko, potem krótko i cicho, odrobinę wyżej. Powiedz nisko „ło”, a zaraz po tym szybko „myn”. Tylko tutaj ta cicha końcówka idzie wyżej niż początek.", "slowa": [{"znaki": "我们", "pinyin": "wǒmen", "polski": "ło-myn", "znaczenie": "my"}, {"znaki": "姐姐", "pinyin": "jiějie", "polski": "dzie-dzie", "znaczenie": "starsza siostra"}, {"znaki": "喜欢", "pinyin": "xǐhuan", "polski": "si-chłan", "znaczenie": "lubić"}]}, {"id": "t2-5", "tony": "2-5", "opis": "W górę, potem krótko i cicho, w środku. Jak polskie „MA-ma”, ale pierwsze „MA” jedzie w górę. Powiedz: „Co?” i dorzuć ciche „ma”.", "slowa": [{"znaki": "爷爷", "pinyin": "yéye", "polski": "je-je", "znaczenie": "dziadek"}, {"znaki": "麻烦", "pinyin": "máfan", "polski": "ma-fan", "znaczenie": "kłopot"}]}, {"id": "t4-5", "tony": "4-5", "opis": "Z góry w dół, potem krótko i cicho na samym dole. 谢谢 to „SIE-sie”, z mocnym pierwszym kawałkiem. Nie dwa razy równo „sie-sie”.", "slowa": [{"znaki": "谢谢", "pinyin": "xièxie", "polski": "sie-sie", "znaczenie": "dziękuję", "lekcja": 1}, {"znaki": "爸爸", "pinyin": "bàba", "polski": "pa-pa", "znaczenie": "tata"}, {"znaki": "妹妹", "pinyin": "mèimei", "polski": "mej-mej", "znaczenie": "młodsza siostra"}]}, {"id": "t1-5", "tony": "1-5", "opis": "Równo wysoko, potem krótko i cicho, lekko w dół. Dokładnie jak polskie „MA-ma”. Powiedz na głos „MA-ma”, a potem tak samo ma-ma.", "slowa": [{"znaki": "妈妈", "pinyin": "māma", "polski": "ma-ma", "znaczenie": "mama"}, {"znaki": "姑姑", "pinyin": "gūgu", "polski": "ku-ku", "znaczenie": "ciocia (siostra taty)"}]}], "minimalne_pary_tonow": [{"a": {"znaki": "买", "pinyin": "mǎi", "polski": "maj", "znaczenie": "kupować"}, "b": {"znaki": "卖", "pinyin": "mài", "polski": "maj", "znaczenie": "sprzedawać"}, "roznica": "Kupować: nisko, jak namyślone „nooo”. Sprzedawać: krótko w dół, jak ostre „Nie!”. To samo słowo, odwrotne znaczenie."}, {"a": {"znaki": "妈", "pinyin": "mā", "polski": "ma", "znaczenie": "mama"}, "b": {"znaki": "马", "pinyin": "mǎ", "polski": "ma", "znaczenie": "koń"}, "roznica": "Mama: równo i wysoko. Koń: nisko. Pomylisz i nazwiesz mamę koniem."}, {"a": {"znaki": "麻", "pinyin": "má", "polski": "ma", "znaczenie": "konopie; drętwieć"}, "b": {"znaki": "马", "pinyin": "mǎ", "polski": "ma", "znaczenie": "koń"}, "roznica": "W górę jak „Co?” kontra nisko jak „nooo”. Ta para idzie Polakom najgorzej."}, {"a": {"znaki": "马", "pinyin": "mǎ", "polski": "ma", "znaczenie": "koń"}, "b": {"znaki": "骂", "pinyin": "mà", "polski": "ma", "znaczenie": "nakrzyczeć"}, "roznica": "Nisko i zostań kontra z góry w dół."}, {"a": {"znaki": "油", "pinyin": "yóu", "polski": "joł", "znaczenie": "olej"}, "b": {"znaki": "有", "pinyin": "yǒu", "polski": "joł", "znaczenie": "mieć"}, "roznica": "W górę jak „Co?” kontra nisko jak „nooo”."}, {"a": {"znaki": "猫", "pinyin": "māo", "polski": "mał", "znaczenie": "kot"}, "b": {"znaki": "毛", "pinyin": "máo", "polski": "mał", "znaczenie": "sierść, futro"}, "roznica": "Równo i wysoko kontra z dołu w górę."}, {"a": {"znaki": "鸭", "pinyin": "yā", "polski": "ja", "znaczenie": "kaczka"}, "b": {"znaki": "牙", "pinyin": "yá", "polski": "ja", "znaczenie": "ząb"}, "roznica": "Równo i wysoko kontra w górę jak „Co?”."}, {"a": {"znaki": "飞", "pinyin": "fēi", "polski": "fej", "znaczenie": "latać"}, "b": {"znaki": "肥", "pinyin": "féi", "polski": "fej", "znaczenie": "tłusty"}, "roznica": "Równo kontra w górę."}, {"a": {"znaki": "八", "pinyin": "bā", "polski": "pa", "znaczenie": "osiem"}, "b": {"znaki": "爸", "pinyin": "bà", "polski": "pa", "znaczenie": "tata"}, "roznica": "Równo i wysoko kontra z góry w dół jak „Nie!”."}, {"a": {"znaki": "一", "pinyin": "yī", "polski": "i", "znaczenie": "jeden"}, "b": {"znaki": "椅", "pinyin": "yǐ", "polski": "i", "znaczenie": "krzesło"}, "roznica": "Równo i wysoko kontra nisko."}, {"a": {"znaki": "狗", "pinyin": "gǒu", "polski": "koł", "znaczenie": "pies"}, "b": {"znaki": "够", "pinyin": "gòu", "polski": "koł", "znaczenie": "wystarczy"}, "roznica": "Nisko kontra z góry w dół."}, {"a": {"znaki": "打", "pinyin": "dǎ", "polski": "ta", "znaczenie": "bić, uderzać"}, "b": {"znaki": "大", "pinyin": "dà", "polski": "ta", "znaczenie": "duży"}, "roznica": "Nisko kontra z góry w dół."}, {"a": {"znaki": "好", "pinyin": "hǎo", "polski": "chał", "znaczenie": "dobry"}, "b": {"znaki": "号", "pinyin": "hào", "polski": "chał", "znaczenie": "numer"}, "roznica": "Nisko kontra z góry w dół."}, {"a": {"znaki": "美", "pinyin": "měi", "polski": "mej", "znaczenie": "piękny"}, "b": {"znaki": "妹", "pinyin": "mèi", "polski": "mej", "znaczenie": "młodsza siostra"}, "roznica": "Nisko kontra z góry w dół."}, {"a": {"znaki": "小", "pinyin": "xiǎo", "polski": "siał", "znaczenie": "mały"}, "b": {"znaki": "笑", "pinyin": "xiào", "polski": "siał", "znaczenie": "śmiać się"}, "roznica": "Nisko kontra z góry w dół."}, {"a": {"znaki": "拿", "pinyin": "ná", "polski": "na", "znaczenie": "brać"}, "b": {"znaki": "那", "pinyin": "nà", "polski": "na", "znaczenie": "tamten, tamto"}, "roznica": "W górę kontra z góry w dół."}, {"a": {"znaki": "白", "pinyin": "bái", "polski": "paj", "znaczenie": "biały"}, "b": {"znaki": "百", "pinyin": "bǎi", "polski": "paj", "znaczenie": "sto"}, "roznica": "W górę jak „Co?” kontra nisko jak „nooo”. Przy liczeniu pieniędzy słychać od razu."}, {"a": {"znaki": "三", "pinyin": "sān", "polski": "san", "znaczenie": "trzy"}, "b": {"znaki": "伞", "pinyin": "sǎn", "polski": "san", "znaczenie": "parasol"}, "roznica": "Równo i wysoko kontra nisko."}, {"a": {"znaki": "吻", "pinyin": "wěn", "polski": "łyn", "znaczenie": "pocałunek"}, "b": {"znaki": "问", "pinyin": "wèn", "polski": "łyn", "znaczenie": "pytać"}, "roznica": "Nisko kontra z góry w dół. Pomylisz i zamiast zapytać, pocałujesz."}], "audio": {"好": "ac2c8f13c6", "号": "f7b3204e43", "妈": "11148107cd", "麻": "4430d7daa7", "马": "4e2572e0c7", "骂": "aefa6b4338", "吗": "2988084a74", "三": "e662ff59a0", "八": "edf1acd5c6", "一": "7941da94db", "猫": "b655de688e", "高": "4296d7d293", "家": "a6cdd2a00b", "说": "ddc9d3d10d", "来": "f7b0a3bd20", "没": "3672c6af97", "白": "9b9a35c22a", "楼": "302a1f4343", "拿": "c7f7acf5b6", "油": "da82fdfc33", "男": "36a4908a55", "我": "1681525453", "你": "df1fd91011", "买": "8be34d50fd", "美": "5a93a27052", "很": "5e360de1b1", "有": "cc4ad2fd27", "小": "391b8fa9c7", "五": "1fcc29d077", "不": "9eba1ab697", "大": "ab18e30c0d", "爱": "8f743c2c68", "卖": "821d5fce78", "要": "5438c873f9", "做": "7105106a36", "叫": "27ead3ff93", "累": "af467b208f", "饭": "094f7310ef", "妈妈": "e6c7ee6003", "谢谢": "a34490b593", "我们": "ab4a85fc2e", "爸爸": "0d00c80f61", "爷爷": "e571dca2d0", "奶奶": "2144381ade", "妹妹": "1c097b12de", "喜欢": "3d6c396cf4", "你好": "7eca689f0d", "很好": "745e25a85e", "小姐": "832c2de240", "我买": "a2619bee9c", "你有": "11e73ceb0d", "我很好": "9ff5718cf6", "你很好": "2313b8602c", "我也有": "bc22269604", "不要": "498957b3e3", "不爱": "3e70a2fd08", "不卖": "d66c9d20d4", "不好": "3ed53de49b", "不来": "1ce7a0dc07", "一半": "e10997c55b", "一百": "61b0509932", "一杯": "7d1c992527", "第一": "918024a677", "你好吗": "7c62edd327", "你要吗": "a98a8916d2", "好吧": "cb5fbaf245", "走吧": "268cb2b3d0", "我爱你": "4f2016c6b9", "我也要": "3b87203eb1", "买米饭": "85c4a37b9c", "小妹妹": "3f754d188f", "你来吗": "3c06b609bc", "你买吗": "7dc69dd80d", "美国": "1efc978309", "小孩": "7a1e377ab4", "好玩": "d165380c5c", "白猫": "dd129b76d9", "白花": "909ee7ea93", "拿书": "9291c4e2f6", "难过": "aa267ae009", "白饭": "ad50588b78", "拿到": "41248c6fb1", "没有": "b4ebe3f519", "来买": "30fb4305ae", "白米": "349b58bd05", "做饭": "e69a3d7106", "味道": "a0a56c0fed", "爱笑": "72e11be362", "米饭": "edfec00f07", "买卖": "bebc404e87", "早饭": "667373f0fc", "手机": "9f9d36327d", "小猫": "acf5547a8c", "老家": "7bdfe10632", "家里": "8d4e40061e", "三百": "c0b431f391", "高手": "c1fa964163", "阿姨": "d0160f65bb", "加油": "062286ae94", "高楼": "1bdc163403", "男孩": "151be9ebd4", "没来": "4920a38af2", "拿来": "553e0f59d8", "汉堡": "e70c386d70", "大海": "8ed231e76f", "大米": "3146efa4d6", "大楼": "c83e57a1d7", "大门": "cd13576afe", "要来": "1633643b37", "蛋糕": "daa6cfa7e2", "大家": "f40c127750", "卖花": "4c7247e6c4", "说话": "b3aa9cae4c", "山路": "722f028f96", "收费": "b00379d1b0", "飞机": "16678800cf", "沙发": "9ffb45209e", "西瓜": "b9af3fd5d3", "姐姐": "033e1fb01c", "麻烦": "d01ea71a33", "姑姑": "d21483207d", "毛": "6f74ec994e", "鸭": "3840579d1b", "牙": "d582052b07", "飞": "a8dd7133d9", "肥": "bf2f5c1819", "爸": "ab10119e36", "椅": "732515816d", "狗": "5090e44ef9", "够": "1901fd70d5", "打": "0e1ceeea46", "妹": "aa8098078b", "笑": "1300f40cb6", "那": "995c3ec9d7", "百": "81ec89a2a8", "伞": "e3c7a14b3f", "吻": "03b09592e6", "问": "57fe12bfc3"}, "tryb": "tony"};
+const TRYB = DATA.tryb || "tony";   // "tony" albo "dzwieki": strona pokazuje tylko swoje sekcje
+for (const el of document.querySelectorAll("[data-tryb]")) if (el.dataset.tryb !== TRYB) el.remove();
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const slowCb = $("slow");
+try { slowCb.checked = localStorage.getItem("kubus.wymowa.wolno") === "1"; } catch (e) {}
+slowCb.addEventListener("change", () => { try { localStorage.setItem("kubus.wymowa.wolno", slowCb.checked ? "1" : "0"); } catch (e) {} });
+
+// kontury tonów (jak w wymowa.js): 1 równy wysoko, 2 rosnący, 3 opada i wraca, 4 opadający, 5 lekki (kropka)
+const KONTUR = { 1: "M4 7 L36 7", 2: "M4 24 L36 6", 3: "M4 11 L20 26 L36 9", 4: "M4 4 L36 26" };
+const svgTon = (ton, cls) => `<svg class="${cls || ""}" viewBox="0 0 40 30" aria-label="ton ${ton}">${ton === 5 ? `<circle cx="20" cy="16" r="3.5"/>` : `<path d="${KONTUR[ton]}"/>`}</svg>`;
+// numer tonu pierwszej sylaby z pinyinu w danych (znaczek nad literą); bez znaczka = 5 (lekki).
+// Z danych, nie z pinyin-pro: znak z kilkoma czytaniami (干, 只) dostałby domyślne, a nie to, które ćwiczymy.
+const TONY_ZNAK = { "āēīōūǖ": 1, "áéíóúǘ": 2, "ǎěǐǒǔǚ": 3, "àèìòùǜ": 4 };
+function tonZPinyin(pinyin) {
+  for (const ch of (pinyin || "").normalize("NFC")) for (const k in TONY_ZNAK) if (k.includes(ch)) return TONY_ZNAK[k];
+  return 5;
+}
+
+// ---- audio: mp3 z wymowa/audio/ przez Wymowa.graj (Web Audio, bez <audio>) ----
+const AUDIO = DATA.audio || {};
+let grajacy = null, nrOdtworzenia = 0;
+function graj(znaki, el) {
+  const f = AUDIO[znaki];
+  if (grajacy) grajacy.classList.remove("playing");
+  grajacy = el || null; if (el) el.classList.add("playing");
+  if (!f) { Wymowa.diag("brak mp3 dla " + znaki); return Promise.resolve(false); }
+  const moje = ++nrOdtworzenia;
+  return Wymowa.graj("audio/" + f + (slowCb.checked ? "-slow" : "") + ".mp3", { onEnd: () => { if (moje === nrOdtworzenia && grajacy) { grajacy.classList.remove("playing"); grajacy = null; } } })
+    .catch(e => { Wymowa.diag("mp3 błąd: " + e.message); return false; });
+}
+Wymowa.beforeStart = () => { if (grajacy) { grajacy.classList.remove("playing"); grajacy = null; } };
+
+// ---- wiersz słowa ----
+function wiersz(s, opts) {
+  opts = opts || {};
+  const d = document.createElement("div"); d.className = "w";
+  d.innerHTML = `<button class="play" type="button" aria-label="posłuchaj">▶</button><span class="zn">${esc(s.znaki)}</span>
+    <span class="info"><span class="py">${esc(s.pinyin)}</span>${s.polski ? ` · <span class="ppl">${esc(s.polski)}</span>` : ""}<br><span class="mn">${esc(s.znaczenie)}</span>${s.lekcja ? `<span class="lek" title="znasz z lekcji ${s.lekcja}">L${s.lekcja}</span>` : ""}</span>
+    ${opts.bezMic ? "" : `<button class="mic" type="button"></button><div class="result" hidden></div>`}`;
+  d.addEventListener("click", (e) => { if (e.target.closest(".mic, .result")) return; graj(s.znaki, d); });
+  if (!opts.bezMic) bindMic(d.querySelector(".mic"), d.querySelector(".result"), s.znaki, opts.para);
+  return d;
+}
+function bindMic(btn, out, target, para) {
+  Wymowa.bind(btn, {
+    target: () => target,
+    onStart: () => { out.hidden = true; },
+    onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
+    onDone: (res) => {
+      const r = Wymowa.render(res, target);
+      out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
+      // w parze: rozpoznanie drugiego słowa z pary = trafiłeś dokładnie w błąd, który ćwiczysz
+      if (para && r.grade && r.grade.best && r.grade.best === Wymowa.strip(para.znaki))
+        out.innerHTML = `✗ Usłyszałem <b>${esc(para.znaki)}</b> (${esc(para.pinyin)}, ${esc(para.znaczenie)}), czyli drugie słowo z pary. Posłuchaj obu jeszcze raz.` ;
+      if (r.grade && r.grade.level !== "none") zapiszStat(para ? "mowa" : "mowa", r.grade.level === "exact");
+    }
+  });
+  btn.textContent = "🎤 mów";
+  const obs = new MutationObserver(() => { if (btn.textContent === Wymowa.LABEL_IDLE) btn.textContent = "🎤 mów"; });
+  obs.observe(btn, { childList: true, characterData: true, subtree: true });
+}
+function para(p, klucz) {
+  const d = document.createElement("div"); d.className = "para";
+  const dwa = document.createElement("div"); dwa.className = "dwa";
+  dwa.appendChild(wiersz(p.a, { para: p.b })); dwa.appendChild(wiersz(p.b, { para: p.a }));
+  d.appendChild(dwa);
+  if (p.roznica) d.insertAdjacentHTML("beforeend", `<div class="roz">${esc(p.roznica)}</div>`);
+  return d;
+}
+function blok(lab, tekst, b) { return tekst ? `<div class="pl"><span class="lab">${lab}</span>${b ? tekst.replace(/„([^”]+)”/g, "„<b>$1</b>”") : esc(tekst)}</div>` : ""; }
+function blokEsc(lab, tekst) { return blok(lab, esc(tekst), true); }
+
+// ---- tony ----
+(function () {
+  const root = $("s-tony"); if (!root) return;
+  for (const t of DATA.tony) {
+    const c = document.createElement("div"); c.className = "card"; c.id = "ton-" + t.ton;
+    c.innerHTML = `<h3>${svgTon(t.ton, "big")}<span>${esc(t.nazwa)}</span></h3><div class="opis">${esc(t.opis)}</div>` +
+      blokEsc("Po polsku brzmi tak", t.przyklad_pl) + blokEsc("Zrób tak", t.jak_cwiczyc) +
+      (t.blad_polakow ? `<div class="blad"><b>Na co uważać:</b> ${esc(t.blad_polakow)}</div>` : "") + `<div class="slowa"></div>`;
+    const sl = c.querySelector(".slowa"); for (const s of t.slowa) sl.appendChild(wiersz(s));
+    root.appendChild(c);
+  }
+})();
+// ---- karty z tytułem, opisem i słowami: wstęp, zmiany tonów, zdania ----
+function karty(rootId, lista) {
+  const root = $(rootId); if (!root) return;
+  for (const z of (lista || [])) {
+    const c = document.createElement("div"); c.className = "card"; c.id = "k-" + z.id;
+    c.innerHTML = `<h3>${esc(z.tytul)}</h3><div class="opis">${esc(z.opis)}</div><div class="slowa"></div>`;
+    const sl = c.querySelector(".slowa"); for (const s of (z.slowa || [])) sl.appendChild(wiersz(s));
+    root.appendChild(c);
+  }
+}
+karty("s-wstep", DATA.wstep); karty("s-zmiany", DATA.zmiany_tonow); karty("s-zdania", DATA.zdania); karty("s-koniec", DATA.koniec);
+// ---- pary tonów: siatka 4x4 (+ lekki), wybór pokazuje słowa ----
+(function () {
+  const siatka = $("siatka"), root = $("s-pary"); if (!siatka) return;
+  const kolej = ["1", "2", "3", "4"];
+  const mapa = {}; for (const p of DATA.pary_tonow) mapa[p.tony] = p;
+  const przyciski = [];
+  const pokaz = (klucz) => {
+    for (const b of przyciski) b.classList.toggle("on", b.dataset.k === klucz);
+    root.innerHTML = "";
+    const p = mapa[klucz]; if (!p) return;
+    const c = document.createElement("div"); c.className = "card";
+    c.innerHTML = `<h3>${svgTon(Number(klucz[0]), "big")}${svgTon(Number(klucz[2]), "big")}<span>tony ${esc(klucz)}</span></h3><div class="opis">${esc(p.opis)}</div><div class="slowa"></div>`;
+    const sl = c.querySelector(".slowa"); for (const s of p.slowa) sl.appendChild(wiersz(s));
+    root.appendChild(c);
+    try { localStorage.setItem("kubus.wymowa.para", klucz); } catch (e) {}
+  };
+  const dodaj = (a, b) => {
+    const k = a + "-" + b, p = mapa[k];
+    const btn = document.createElement("button"); btn.type = "button"; btn.dataset.k = k;
+    btn.innerHTML = `<span class="k">${svgTon(Number(a))}${svgTon(Number(b))}</span><span class="n">${k}${p && p.slowa[0] ? " · " + esc(p.slowa[0].znaki) : ""}</span>`;
+    btn.disabled = !p; btn.addEventListener("click", () => pokaz(k));
+    siatka.appendChild(btn); przyciski.push(btn);
+  };
+  for (const a of kolej) for (const b of kolej) dodaj(a, b);
+  for (const p of DATA.pary_tonow) if (/-5$/.test(p.tony) || /^5-/.test(p.tony)) dodaj(p.tony[0], p.tony[2]);
+  $("pary-start").textContent = "Polakom idą najgorzej: " + DATA.pary_tonow.slice(0, 5).map(p => p.tony).join(", ") + ". Zacznij od nich.";
+  let start = null; try { start = localStorage.getItem("kubus.wymowa.para"); } catch (e) {}
+  pokaz(start && mapa[start] ? start : (DATA.pary_tonow[0] ? DATA.pary_tonow[0].tony : "1-1"));
+})();
+// ---- minimalne pary tonów ----
+(function () {
+  const root = $("s-uszy"); if (!root) return;
+  const c = document.createElement("div"); c.className = "card";
+  for (const p of DATA.minimalne_pary_tonow) c.appendChild(para(p, "tony"));
+  root.appendChild(c);
+})();
+// ---- dźwięki ----
+(function () {
+  const root = $("s-dzwieki"); if (!root) return;
+  (DATA.dzwieki || []).forEach((g, i) => {
+    const c = document.createElement("details"); c.className = "card grupa" + (g.trudnosc <= 1 ? " latwe" : ""); c.id = "dz-" + g.id;
+    if (i === 0) c.open = true;
+    c.innerHTML = `<summary><h3 style="margin:0">${esc(g.tytul)}</h3><span class="trud">${g.trudnosc >= 4 ? "trudne" : g.trudnosc >= 2 ? "średnie" : "masz za darmo"}</span></summary>
+      <div class="opis" style="margin-top:8px">${esc(g.opis)}</div>` + blokEsc("Po polsku", g.przyklad_pl) + blokEsc("Zrób tak", g.jak_cwiczyc) +
+      (g.blad_polakow ? `<div class="blad"><b>Na co uważać:</b> ${esc(g.blad_polakow)}</div>` : "") + `<div class="pary"></div><div class="slowa"></div>`;
+    const pr = c.querySelector(".pary"); for (const p of (g.pary || [])) pr.appendChild(para(p, g.id));
+    const sl = c.querySelector(".slowa"); for (const s of (g.slowa || [])) sl.appendChild(wiersz(s));
+    root.appendChild(c);
+  });
+})();
+
+// ---- ćwiczenia: "Który ton?", "Które słowo?", "Powiedz to" ----
+const KLUCZ_STAT = "kubus.wymowa.stat." + TRYB;   // { grupa: { ok, zle } }, grupa = "ton1".."ton4", "tony" (pary tonów), id grupy dźwięków, "mowa"
+function statTab() { try { return JSON.parse(localStorage.getItem(KLUCZ_STAT) || "{}"); } catch (e) { return {}; } }
+function zapiszStat(grupa, ok) {
+  const t = statTab(); t[grupa] = t[grupa] || { ok: 0, zle: 0 }; t[grupa][ok ? "ok" : "zle"]++;
+  try { localStorage.setItem(KLUCZ_STAT, JSON.stringify(t)); } catch (e) {}
+  rysujStaty();
+}
+const NAZWY = { ton1: "1. ton", ton2: "2. ton", ton3: "3. ton", ton4: "4. ton", ton5: "lekki ton", tony: "słowa różniące się tonem", mowa: "mówienie (mikrofon)" };
+for (const g of (DATA.dzwieki || [])) NAZWY[g.id] = g.tytul;
+const LINK = (k) => /^ton[1-5]$/.test(k) ? "#ton-" + k[3] : k === "tony" ? "#uszy" : k === "mowa" ? "#cwicz" : "#dz-" + k;
+function rysujStaty() {
+  const t = statTab(), rows = Object.keys(t).map(k => ({ k, ok: t[k].ok, zle: t[k].zle, n: t[k].ok + t[k].zle })).filter(r => r.n > 0)
+    .sort((a, b) => (b.zle / b.n) - (a.zle / a.n) || b.zle - a.zle);
+  const el = $("staty");
+  if (!rows.length) { el.innerHTML = `<span class="hint">Jeszcze nic. Zrób kilka rund wyżej.</span>`; return; }
+  el.innerHTML = rows.map(r => `<div class="row"><div style="flex:1"><a href="${LINK(r.k)}">${esc(NAZWY[r.k] || r.k)}</a><div class="bar"><i style="width:${Math.round(100 * r.zle / r.n)}%"></i></div></div><div>${r.zle} z ${r.n} źle</div></div>`).join("") +
+    `<div class="hint" style="margin-top:6px">Kolejność: od tego, co idzie najgorzej. Dotknij nazwy, żeby przejść do ćwiczenia.</div>`;
+}
+rysujStaty();
+
+// pule do ćwiczeń
+const JEDNO = [];   // słowa jednoznakowe z całej strony: [{znaki, pinyin, polski, znaczenie, ton}]
+const PARY = [];    // pary: [{a, b, grupa}]
+(function () {
+  const seen = new Set();
+  const dodaj = (s) => { if ([...s.znaki].length !== 1 || seen.has(s.znaki)) return; const t = tonZPinyin(s.pinyin); if (t === 5) return; seen.add(s.znaki); JEDNO.push(Object.assign({ ton: t }, s)); };
+  for (const t of (DATA.tony || [])) for (const s of t.slowa) dodaj(s);
+  for (const p of (DATA.minimalne_pary_tonow || [])) { dodaj(p.a); dodaj(p.b); PARY.push({ a: p.a, b: p.b, grupa: "tony" }); }
+  for (const g of (DATA.dzwieki || [])) for (const p of (g.pary || [])) { dodaj(p.a); dodaj(p.b); PARY.push({ a: p.a, b: p.b, grupa: g.id }); }
+})();
+const DLUZSZE = (function () { const seen = new Set(), out = []; const dodaj = s => { if ([...s.znaki].length < 2 || seen.has(s.znaki)) return; seen.add(s.znaki); out.push(s); };
+  for (const k of ["wstep", "tony", "zmiany_tonow", "zdania", "pary_tonow", "koniec"]) for (const x of (DATA[k] || [])) for (const s of x.slowa) dodaj(s);
+  for (const p of PARY) { dodaj(p.a); dodaj(p.b); } for (const g of (DATA.dzwieki || [])) for (const s of (g.slowa || [])) dodaj(s); return out; })();
+const los = a => a[Math.floor(Math.random() * a.length)];
+let tryb = TRYB === "tony" ? "ton" : "para", runda = { n: 0, ok: 0 }, biezace = null;
+$("tryby").querySelector(`[data-t="${tryb}"]`).classList.add("on");
+$("tryby").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  tryb = b.dataset.t; for (const x of $("tryby").children) x.classList.toggle("on", x === b);
+  runda = { n: 0, ok: 0 }; $("q-body").innerHTML = ""; $("q-fb").textContent = ""; $("q-wynik").textContent = ""; $("q-start").hidden = false; $("q-dalej").innerHTML = "";
+  $("q-pyt").textContent = tryb === "ton" ? "Usłyszysz jedno słowo. Który to ton?" : tryb === "para" ? "Usłyszysz jedno z dwóch słów. Które?" : "Zobaczysz słowo. Powiedz je do mikrofonu.";
+});
+$("q-pyt").textContent = tryb === "ton" ? "Usłyszysz jedno słowo. Który to ton?" : "Usłyszysz jedno z dwóch słów. Które?";
+$("q-start").addEventListener("click", () => { $("q-start").hidden = true; nastepne(); });
+function wynikRundy() { $("q-wynik").textContent = runda.n ? `W tej rundzie: ${runda.ok} z ${runda.n} dobrze.` : ""; }
+function nastepne() {
+  $("q-fb").textContent = ""; $("q-fb").className = "fb"; $("q-dalej").innerHTML = "";
+  const body = $("q-body"); body.innerHTML = "";
+  if (tryb === "ton") {
+    const s = biezace = los(JEDNO);
+    body.innerHTML = `<button class="btn" id="q-play" type="button">🔊 posłuchaj jeszcze raz</button><div class="odp">` +
+      [1, 2, 3, 4].map(t => `<button type="button" data-t="${t}">${svgTon(t)}<span class="mn">${t}. ton</span></button>`).join("") + `</div>`;
+    graj(s.znaki); $("q-play").addEventListener("click", () => graj(s.znaki));
+    for (const b of body.querySelectorAll(".odp button")) b.addEventListener("click", () => {
+      const t = Number(b.dataset.t), ok = t === s.ton;
+      for (const x of body.querySelectorAll(".odp button")) { x.disabled = true; if (Number(x.dataset.t) === s.ton) x.classList.add("dobrze"); }
+      if (!ok) b.classList.add("zle");
+      runda.n++; if (ok) runda.ok++; zapiszStat("ton" + s.ton, ok); wynikRundy();
+      $("q-fb").className = "fb " + (ok ? "ok" : "bad");
+      $("q-fb").innerHTML = (ok ? "✓ Tak. " : `✗ To był ${s.ton}. ton. `) + `<b>${esc(s.znaki)}</b> ${esc(s.pinyin)} · ${esc(s.polski || "")} · ${esc(s.znaczenie)}`;
+      $("q-dalej").innerHTML = `<button class="btn" id="q-powt" type="button">🔊 posłuchaj</button> <button class="btn main" id="q-next" type="button">dalej ▶</button>`;
+      $("q-powt").addEventListener("click", () => graj(s.znaki)); $("q-next").addEventListener("click", nastepne);
+    });
+  } else if (tryb === "para") {
+    const p = biezace = los(PARY), cel = Math.random() < .5 ? p.a : p.b, kolej = Math.random() < .5 ? [p.a, p.b] : [p.b, p.a];
+    body.innerHTML = `<button class="btn" id="q-play" type="button">🔊 posłuchaj jeszcze raz</button><div class="odp dwa">` +
+      kolej.map((s, i) => `<button type="button" data-i="${i}"><span class="zn">${esc(s.znaki)}</span><span class="py">${esc(s.pinyin)}</span><span class="mn">${esc(s.znaczenie)}</span></button>`).join("") + `</div>`;
+    graj(cel.znaki); $("q-play").addEventListener("click", () => graj(cel.znaki));
+    for (const b of body.querySelectorAll(".odp button")) b.addEventListener("click", () => {
+      const s = kolej[Number(b.dataset.i)], ok = s === cel;
+      for (const x of body.querySelectorAll(".odp button")) { x.disabled = true; if (kolej[Number(x.dataset.i)] === cel) x.classList.add("dobrze"); }
+      if (!ok) b.classList.add("zle");
+      runda.n++; if (ok) runda.ok++; zapiszStat(p.grupa, ok); wynikRundy();
+      $("q-fb").className = "fb " + (ok ? "ok" : "bad");
+      $("q-fb").innerHTML = (ok ? "✓ Tak: " : "✗ To było: ") + `<b>${esc(cel.znaki)}</b> ${esc(cel.pinyin)} · ${esc(cel.polski || "")}` + (p.grupa !== "tony" ? ` <a href="#dz-${esc(p.grupa)}" style="color:var(--accent)">(${esc(NAZWY[p.grupa] || "")})</a>` : "");
+      body.insertAdjacentHTML("beforeend", `<div class="para" style="text-align:left"><div class="dwa"></div></div>`); $("q-dalej").innerHTML = `<button class="btn main" id="q-next" type="button">dalej ▶</button>`;
+      const dwa = body.querySelector(".para .dwa"); dwa.appendChild(wiersz(p.a, { para: p.b })); dwa.appendChild(wiersz(p.b, { para: p.a }));
+      $("q-next").addEventListener("click", nastepne);
+    });
+  } else {
+    // tylko słowa z dwóch i więcej części: pojedyncze telefon rozpoznaje losowo
+    const s = biezace = los(DLUZSZE);
+    body.innerHTML = `<div class="hint">Najpierw powiedz sam, potem sprawdź nagraniem.</div>`;
+    const w = wiersz(s); w.style.textAlign = "left"; body.appendChild(w);
+    $("q-dalej").innerHTML = `<button class="btn main" id="q-next" type="button">dalej ▶</button>`;
+    $("q-next").addEventListener("click", nastepne);
+  }
+}
+
+// nawigacja: podświetl sekcję na ekranie
+(function () {
+  const linki = [...document.querySelectorAll("nav a")];
+  const obs = new IntersectionObserver((es) => { for (const e of es) if (e.isIntersecting) for (const l of linki) l.classList.toggle("on", l.getAttribute("href") === "#" + e.target.id); }, { rootMargin: "-40% 0px -55% 0px" });
+  for (const s of document.querySelectorAll("main section")) obs.observe(s);
+})();
+</script>
+</body>
+</html>
