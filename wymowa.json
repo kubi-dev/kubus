@@ -1,0 +1,2841 @@
+{
+ "wstep": [
+  {
+   "id": "zasada",
+   "tytul": "Jedna zasada na cały kurs",
+   "opis": "Nigdy nie ucz się słowa bez tonu. Ton to część słowa, tak jak litery. „chał” nisko to jedno słowo. „chał” z góry w dół to już inne. Gdy powtarzasz słówko, mów je na głos. W głowie tony nie działają.",
+   "slowa": [
+    {
+     "znaki": "好",
+     "pinyin": "hǎo",
+     "polski": "chał",
+     "znaczenie": "dobry (nisko)"
+    },
+    {
+     "znaki": "号",
+     "pinyin": "hào",
+     "polski": "chał",
+     "znaczenie": "numer (z góry w dół)"
+    }
+   ]
+  },
+  {
+   "id": "znaczki",
+   "tytul": "Znaczki nad literami",
+   "opis": "Nad literą stoi kreska albo daszek. To instrukcja dla głosu. Nic więcej nie znaczy.\nmā: prosta kreska. Równo i wysoko, jak „aaa” u lekarza.\nmá: kreska do góry. Głos w górę, jak „Co?”.\nmǎ: daszek. Nisko i zostań na dole.\nmà: kreska w dół. Z góry w dół, jak „Nie!”.\nma: bez znaczka. Krótko i cicho.\nDaszek zawsze pokazuje dół. Kreska w dół zawsze pokazuje „Nie!”. Tyle wystarczy.",
+   "slowa": [
+    {
+     "znaki": "妈",
+     "pinyin": "mā",
+     "polski": "ma",
+     "znaczenie": "mama"
+    },
+    {
+     "znaki": "麻",
+     "pinyin": "má",
+     "polski": "ma",
+     "znaczenie": "konopie; drętwieć"
+    },
+    {
+     "znaki": "马",
+     "pinyin": "mǎ",
+     "polski": "ma",
+     "znaczenie": "koń"
+    },
+    {
+     "znaki": "骂",
+     "pinyin": "mà",
+     "polski": "ma",
+     "znaczenie": "nakrzyczeć na kogoś"
+    },
+    {
+     "znaki": "吗",
+     "pinyin": "ma",
+     "polski": "ma",
+     "znaczenie": "robi ze zdania pytanie"
+    }
+   ]
+  }
+ ],
+ "tony": [
+  {
+   "id": "ton1",
+   "ton": 1,
+   "nazwa": "1. ton · równo i wysoko",
+   "opis": "Głos idzie wysoko i zostaje tam równo. Jak jedna zanucona nuta. Nic nie drga, nic nie spada. Trzymasz aż do końca słowa.",
+   "przyklad_pl": "U lekarza otwierasz usta i mówisz długie „Aaaa”. Albo sygnał „zajęte” w telefonie: jedna równa nuta.",
+   "jak_cwiczyc": "Powiedz na głos „Aaaa” jak u lekarza. Równo, bez ruchu w górę i w dół. Teraz tak samo powiedz „ma” (妈). Teraz „san” (三). Teraz „chy” (喝).",
+   "blad_polakow": "Dwa błędy. Pierwszy: zaczynasz za wysoko, prawie piszczysz. Wtedy nie masz już miejsca na inne tony. Drugi: głos ci opada na końcu. Tak jak w polskim zdaniu z kropką. Poznasz po tym: drugie „ma” brzmi niżej niż pierwsze. Powiedz „Aaaa” dwa razy pod rząd, tak samo wysoko. Nie mów, tylko nuć.",
+   "slowa": [
+    {
+     "znaki": "喝",
+     "pinyin": "hē",
+     "polski": "chy",
+     "znaczenie": "pić",
+     "lekcja": 2
+    },
+    {
+     "znaki": "吃",
+     "pinyin": "chī",
+     "polski": "czhy",
+     "znaczenie": "jeść",
+     "lekcja": 2
+    },
+    {
+     "znaki": "说",
+     "pinyin": "shuō",
+     "polski": "szło",
+     "znaczenie": "mówić",
+     "lekcja": 2
+    },
+    {
+     "znaki": "咖啡",
+     "pinyin": "kāfēi",
+     "polski": "kha-fej",
+     "znaczenie": "kawa",
+     "lekcja": 2
+    },
+    {
+     "znaki": "单身",
+     "pinyin": "dānshēn",
+     "polski": "tan-szyn",
+     "znaczenie": "singiel",
+     "lekcja": 3
+    },
+    {
+     "znaki": "三",
+     "pinyin": "sān",
+     "polski": "san",
+     "znaczenie": "trzy"
+    },
+    {
+     "znaki": "天",
+     "pinyin": "tiān",
+     "polski": "thien",
+     "znaczenie": "dzień, niebo"
+    }
+   ]
+  },
+  {
+   "id": "ton2",
+   "ton": 2,
+   "nazwa": "2. ton · z dołu do góry, jak „Co?”",
+   "opis": "Głos zaczyna nisko i jedzie w górę. Tak jak przy pytaniu „Co?”. Ważne: zacznij nisko. Inaczej nie ma dokąd jechać.",
+   "przyklad_pl": "Ktoś coś mruknął, a ty nie dosłyszałeś: „Co?”. Albo z niedowierzaniem: „Serio?”.",
+   "jak_cwiczyc": "Powiedz na głos „Co?” jakbyś nie dosłyszał. Teraz tak samo „żyn” (人). Teraz „czha” (茶). Teraz „laj” (来). Zacznij nisko, skończ wysoko.",
+   "blad_polakow": "Zaczynasz za wysoko i głos wychodzi płaski. Brzmi wtedy jak 1. ton. Albo skaczesz w górę dopiero na samym końcu. Poznasz po tym: „czha” (茶, herbata) brzmi równo. Ratunek: powiedz „Co?” jeszcze raz. Zacznij od najniższego dźwięku, jaki umiesz wydać.",
+   "slowa": [
+    {
+     "znaki": "人",
+     "pinyin": "rén",
+     "polski": "żyn",
+     "znaczenie": "człowiek",
+     "lekcja": 3
+    },
+    {
+     "znaki": "茶",
+     "pinyin": "chá",
+     "polski": "czha",
+     "znaczenie": "herbata",
+     "lekcja": 2
+    },
+    {
+     "znaki": "来",
+     "pinyin": "lái",
+     "polski": "laj",
+     "znaczenie": "przyjść, przychodzić",
+     "lekcja": 1
+    },
+    {
+     "znaki": "钱",
+     "pinyin": "qián",
+     "polski": "ćhien",
+     "znaczenie": "pieniądze",
+     "lekcja": 2
+    },
+    {
+     "znaki": "牛",
+     "pinyin": "niú",
+     "polski": "nioł",
+     "znaczenie": "krowa, wół",
+     "lekcja": 2
+    },
+    {
+     "znaki": "十",
+     "pinyin": "shí",
+     "polski": "szy",
+     "znaczenie": "dziesięć"
+    },
+    {
+     "znaki": "学习",
+     "pinyin": "xuéxí",
+     "polski": "süe-si",
+     "znaczenie": "uczyć się"
+    }
+   ]
+  },
+  {
+   "id": "ton3",
+   "ton": 3,
+   "nazwa": "3. ton · nisko i zostań na dole",
+   "opis": "Głos schodzi na sam dół i tam zostaje. Nie wraca do góry. Wraca tylko wtedy, gdy mówisz słowo samo i powoli. Ten ton trwa dłużej niż inne.",
+   "przyklad_pl": "Niskie, burkliwe „mhm” z głębi piersi. Tak mówisz, gdy zgadzasz się niechętnie. Albo zrezygnowane, niskie „no…”.",
+   "jak_cwiczyc": "Znajdź najniższy dźwięk, jaki umiesz wydać. Zostań tam trzy sekundy. Powiedz z tego miejsca „mhm”. Teraz tak samo „ło” (我). Teraz „ni” (你). Teraz „chał” (好). Nie wracaj do góry.",
+   "blad_polakow": "To najtrudniejszy ton dla Polaka. Polskie ucho nie pilnuje niskich dźwięków. Dlatego nie schodzisz dość nisko. Drugi błąd: wszędzie robisz dołek w dół i w górę. Wtedy brzmi to jak 2. ton. Poznasz po tym: „chał” (好) kończy ci się wysoko. Brzmi jak pytanie. Ma kończyć się nisko, prawie chrypką. Powiedz niskie „mhm” i zostaw głos na dole.",
+   "slowa": [
+    {
+     "znaki": "我",
+     "pinyin": "wǒ",
+     "polski": "ło",
+     "znaczenie": "ja",
+     "lekcja": 1
+    },
+    {
+     "znaki": "你",
+     "pinyin": "nǐ",
+     "polski": "ni",
+     "znaczenie": "ty",
+     "lekcja": 1
+    },
+    {
+     "znaki": "好",
+     "pinyin": "hǎo",
+     "polski": "chał",
+     "znaczenie": "dobry",
+     "lekcja": 1
+    },
+    {
+     "znaki": "很",
+     "pinyin": "hěn",
+     "polski": "chyn",
+     "znaczenie": "bardzo",
+     "lekcja": 1
+    },
+    {
+     "znaki": "想",
+     "pinyin": "xiǎng",
+     "polski": "siang",
+     "znaczenie": "chcieć",
+     "lekcja": 2
+    },
+    {
+     "znaki": "水",
+     "pinyin": "shuǐ",
+     "polski": "szłej",
+     "znaczenie": "woda",
+     "lekcja": 2
+    },
+    {
+     "znaki": "请",
+     "pinyin": "qǐng",
+     "polski": "ćhing",
+     "znaczenie": "proszę",
+     "lekcja": 2
+    },
+    {
+     "znaki": "买",
+     "pinyin": "mǎi",
+     "polski": "maj",
+     "znaczenie": "kupować"
+    }
+   ]
+  },
+  {
+   "id": "ton4",
+   "ton": 4,
+   "nazwa": "4. ton · z góry w dół, jak „Nie!”",
+   "opis": "Głos zaczyna wysoko i spada ostro na dół. Krótko i z energią, jak cios. To nie jest smutne opadanie.",
+   "przyklad_pl": "Stanowcze „Nie!”, „Stój!”, „Dość!”. Albo „Ha!”, gdy kogoś przyłapałeś.",
+   "jak_cwiczyc": "Powiedz na głos ostre „Nie!”. Teraz tak samo „szy” (是). Teraz „pu” (不). Teraz „ćhü” (去). Krótko, z góry na dół.",
+   "blad_polakow": "Mówisz za miękko i za długo. Wychodzi łagodny koniec polskiego zdania. Drugi błąd: dajesz 4. ton na ostatnie słowo każdego zdania. Robisz tak, bo tak kończysz zdanie po polsku. Poznasz po tym: „ni chał” (你好) spada ci na końcu. A 好 ma zejść nisko, nie spaść z góry. Powiedz krótkie „Nie!” i porównaj.",
+   "slowa": [
+    {
+     "znaki": "是",
+     "pinyin": "shì",
+     "polski": "szy",
+     "znaczenie": "być; tak (w odpowiedzi)",
+     "lekcja": 1
+    },
+    {
+     "znaki": "不",
+     "pinyin": "bù",
+     "polski": "pu",
+     "znaczenie": "nie",
+     "lekcja": 2
+    },
+    {
+     "znaki": "去",
+     "pinyin": "qù",
+     "polski": "ćhü",
+     "znaczenie": "iść, jechać",
+     "lekcja": 3
+    },
+    {
+     "znaki": "太",
+     "pinyin": "tài",
+     "polski": "thaj",
+     "znaczenie": "zbyt, za bardzo",
+     "lekcja": 2
+    },
+    {
+     "znaki": "做",
+     "pinyin": "zuò",
+     "polski": "dzło",
+     "znaczenie": "robić",
+     "lekcja": 3
+    },
+    {
+     "znaki": "大",
+     "pinyin": "dà",
+     "polski": "ta",
+     "znaczenie": "duży"
+    },
+    {
+     "znaki": "看",
+     "pinyin": "kàn",
+     "polski": "khan",
+     "znaczenie": "patrzeć"
+    }
+   ]
+  },
+  {
+   "id": "ton5",
+   "ton": 5,
+   "nazwa": "lekki ton · krótko i cicho, jak „-ma” w „mama”",
+   "opis": "Druga część słowa jest krótka i cicha. Nie ma własnej wysokości. Po prostu leci doczepiona za pierwszą częścią. Jest dwa razy krótsza niż zwykle.",
+   "przyklad_pl": "Polskie „MA-ma” albo „TA-to”. Pierwsza część mocna, druga krótka i cicha.",
+   "jak_cwiczyc": "Powiedz na głos „mama” jak do dziecka. Posłuchaj, jakie krótkie jest drugie „ma”. Teraz tak samo „ma-ma” (妈妈). Teraz „sie-sie” (谢谢). Teraz „phyng-joł” (朋友).",
+   "blad_polakow": "Dajesz drugiej części pełną długość i własny nacisk. Po polsku obie części słowa brzmią tak samo mocno. Poznasz po tym: „sie-sie” brzmi jak dwa równe słowa. Ma być „SIE-sie”, drugie ciche i krótkie. Powiedz „mama” i posłuchaj drugiego „ma”. Uwaga: po 3. tonie ta lekka część idzie w górę (我们 ło-myn). Po 1. i 4. tonie leci w dół (谢谢 sie-sie). Po 2. zostaje w środku (朋友 phyng-joł).",
+   "slowa": [
+    {
+     "znaki": "谢谢",
+     "pinyin": "xièxie",
+     "polski": "sie-sie",
+     "znaczenie": "dziękuję",
+     "lekcja": 1
+    },
+    {
+     "znaki": "朋友",
+     "pinyin": "péngyou",
+     "polski": "phyng-joł",
+     "znaczenie": "przyjaciel",
+     "lekcja": 1
+    },
+    {
+     "znaki": "我们",
+     "pinyin": "wǒmen",
+     "polski": "ło-myn",
+     "znaczenie": "my",
+     "lekcja": 1
+    },
+    {
+     "znaki": "什么",
+     "pinyin": "shénme",
+     "polski": "szyn-my",
+     "znaczenie": "co",
+     "lekcja": 1
+    },
+    {
+     "znaki": "名字",
+     "pinyin": "míngzi",
+     "polski": "ming-dzy",
+     "znaczenie": "imię",
+     "lekcja": 1
+    },
+    {
+     "znaki": "喜欢",
+     "pinyin": "xǐhuan",
+     "polski": "si-chłan",
+     "znaczenie": "lubić",
+     "lekcja": 1
+    },
+    {
+     "znaki": "饺子",
+     "pinyin": "jiǎozi",
+     "polski": "dział-dzy",
+     "znaczenie": "pierogi",
+     "lekcja": 2
+    },
+    {
+     "znaki": "妈妈",
+     "pinyin": "māma",
+     "polski": "ma-ma",
+     "znaczenie": "mama"
+    }
+   ]
+  }
+ ],
+ "zmiany_tonow": [
+  {
+   "id": "z33",
+   "tytul": "Dwa niskie pod rząd: pierwszy idzie w górę",
+   "opis": "Niektóre słowa mówisz nisko, jak znudzone „nooo”. Gdy dwa takie słowa stoją obok, pierwsze idzie w górę. W górę jak polskie „Co?”, gdy nie dosłyszałeś. Drugie zostaje nisko. Powiedz na głos: „Co? nooo”. Teraz tak samo: ni chał (cześć). W zapisie nic się nie zmienia, zmienia się tylko głos. Błąd Polaka: mówi oba nisko albo oba w górę.",
+   "slowa": [
+    {
+     "znaki": "你好",
+     "pinyin": "nǐ hǎo",
+     "polski": "ni chał",
+     "znaczenie": "cześć",
+     "lekcja": 1
+    },
+    {
+     "znaki": "很好",
+     "pinyin": "hěn hǎo",
+     "polski": "chyn chał",
+     "znaczenie": "bardzo dobrze",
+     "lekcja": 1
+    },
+    {
+     "znaki": "可以",
+     "pinyin": "kěyǐ",
+     "polski": "khy-i",
+     "znaczenie": "móc, można",
+     "lekcja": 3
+    },
+    {
+     "znaki": "我想",
+     "pinyin": "wǒ xiǎng",
+     "polski": "ło siang",
+     "znaczenie": "chcę",
+     "lekcja": 2
+    }
+   ]
+  },
+  {
+   "id": "z333",
+   "tytul": "Trzy niskie pod rząd",
+   "opis": "Czasem trzy niskie słowa stoją obok siebie. Wtedy wszystkie oprócz ostatniego idą w górę. Ostatnie zostaje na dole.\nPowiedz na głos: „Co? Co? nooo”. Teraz tak samo: ło chyn chał. „ło” i „chyn” w górę, „chał” nisko.\nUwaga: w 我想吃 (ło siang czhy) niskie są tylko dwa pierwsze. Działa zwykła reguła: pierwsze w górę.",
+   "slowa": [
+    {
+     "znaki": "我很好",
+     "pinyin": "wǒ hěn hǎo",
+     "polski": "ło chyn chał",
+     "znaczenie": "mam się dobrze"
+    },
+    {
+     "znaki": "你很可爱",
+     "pinyin": "nǐ hěn kě'ài",
+     "polski": "ni chyn khy-aj",
+     "znaczenie": "jesteś słodka"
+    },
+    {
+     "znaki": "我想吃",
+     "pinyin": "wǒ xiǎng chī",
+     "polski": "ło siang czhy",
+     "znaczenie": "chcę jeść"
+    }
+   ]
+  },
+  {
+   "id": "zbu",
+   "tytul": "不 (nie): czasem idzie w górę zamiast w dół",
+   "opis": "不 znaczy „nie”. Normalnie leci z góry w dół, jak stanowcze „Nie!”. Ale czasem następne słowo też leci z góry w dół. Wtedy 不 idzie w górę, jak zdziwione „Co?”. Powiedz na głos: „Co? Nie!”. Teraz tak samo: pu szy (nie, to nie tak). Przed resztą słów 不 nic nie zmienia: pu chał. Tak samo pu czy-tał (nie wiem).",
+   "slowa": [
+    {
+     "znaki": "不是",
+     "pinyin": "bú shì",
+     "polski": "pu szy",
+     "znaczenie": "nie, to nie tak",
+     "lekcja": 1
+    },
+    {
+     "znaki": "不愿意",
+     "pinyin": "bú yuànyì",
+     "polski": "pu jüen-i",
+     "znaczenie": "nie chcę",
+     "lekcja": 3
+    },
+    {
+     "znaki": "不知道",
+     "pinyin": "bù zhīdào",
+     "polski": "pu czy-tał",
+     "znaczenie": "nie wiem (tu bez zmiany; „tał” możesz powiedzieć krótko i cicho)",
+     "lekcja": 2
+    },
+    {
+     "znaki": "不好",
+     "pinyin": "bù hǎo",
+     "polski": "pu chał",
+     "znaczenie": "niedobrze (tu bez zmiany)"
+    }
+   ]
+  },
+  {
+   "id": "zyi",
+   "tytul": "一 (jeden): głos zależy od następnego słowa",
+   "opis": "一 znaczy „jeden”. Samo mówisz je równo i wysoko, jak „aaa” u lekarza. Czasem następne słowo leci z góry w dół. Wtedy 一 idzie w górę, jak zdziwione „Co?”. Powiedz na głos: „Co?”. Teraz tak samo: i-ky (jedna sztuka). Przed resztą słów 一 leci w dół, jak „Nie!”. Tak jest w i-ćhi (razem) i i-thien (jeden dzień). Na końcu i w liczbach zostaje równo i wysoko. Tak jest w ti-i (pierwszy).",
+   "slowa": [
+    {
+     "znaki": "一起",
+     "pinyin": "yìqǐ",
+     "polski": "i-ćhi",
+     "znaczenie": "razem",
+     "lekcja": 3
+    },
+    {
+     "znaki": "一个",
+     "pinyin": "yí ge",
+     "polski": "i-ky",
+     "znaczenie": "jeden, jedna sztuka",
+     "lekcja": 3
+    },
+    {
+     "znaki": "一天",
+     "pinyin": "yì tiān",
+     "polski": "i-thien",
+     "znaczenie": "jeden dzień"
+    },
+    {
+     "znaki": "第一",
+     "pinyin": "dìyī",
+     "polski": "ti-i",
+     "znaczenie": "pierwszy"
+    }
+   ]
+  },
+  {
+   "id": "zlekki",
+   "tytul": "Lekka końcówka: krótko i cicho",
+   "opis": "Niektóre słowa mają końcówkę bez własnego głosu. Mówisz ją krótko i cicho, doczepioną do przodu. Powiedz na głos polskie „mama” — druga część jest słabsza. Teraz tak samo: sie-sie (dziękuję), phyng-joł (przyjaciel). Ten sam kawałek raz bywa pełnym słowem: 马 ma, koń. A raz cichą końcówką: 吗 ma, zamienia zdanie w pytanie.",
+   "slowa": [
+    {
+     "znaki": "谢谢",
+     "pinyin": "xièxie",
+     "polski": "sie-sie",
+     "znaczenie": "dziękuję",
+     "lekcja": 1
+    },
+    {
+     "znaki": "朋友",
+     "pinyin": "péngyou",
+     "polski": "phyng-joł",
+     "znaczenie": "przyjaciel",
+     "lekcja": 1
+    },
+    {
+     "znaki": "你好吗",
+     "pinyin": "nǐ hǎo ma",
+     "polski": "ni chał ma",
+     "znaczenie": "jak się masz",
+     "lekcja": 1
+    },
+    {
+     "znaki": "妈妈",
+     "pinyin": "māma",
+     "polski": "ma-ma",
+     "znaczenie": "mama"
+    }
+   ]
+  },
+  {
+   "id": "zkoncowki",
+   "tytul": "Małe słówka na końcu zdania też są bez tonu",
+   "opis": "Mów je krótko i cicho, doklejone do poprzedniego słowa. Nie mów „ly” osobno i mocno. Ma ledwo być słychać.",
+   "slowa": [
+    {
+     "znaki": "太好了",
+     "pinyin": "tài hǎo le",
+     "polski": "thaj chał ly",
+     "znaczenie": "super!"
+    },
+    {
+     "znaki": "你呢",
+     "pinyin": "nǐ ne",
+     "polski": "ni ny",
+     "znaczenie": "a ty?"
+    },
+    {
+     "znaki": "当然啦",
+     "pinyin": "dāngrán la",
+     "polski": "tang-żan la",
+     "znaczenie": "jasne!"
+    },
+    {
+     "znaki": "你好吗",
+     "pinyin": "nǐ hǎo ma",
+     "polski": "ni chał ma",
+     "znaczenie": "jak się masz?"
+    }
+   ]
+  }
+ ],
+ "zdania": [
+  {
+   "id": "nacisk",
+   "tytul": "Nie naciskaj po polsku",
+   "opis": "Po polsku mocniej mówisz przedostatnią część słowa: po-mi-DO-ry, ko-le-ŻAN-ka. Po chińsku tak nie wolno. Każda część ma swój własny głos i swoją długość.\nPowiedz powoli, trzy równe kawałki. Nie „nü-PHYNG-joł”. Trzy kawałki, każdy tak samo mocny.",
+   "slowa": [
+    {
+     "znaki": "女朋友",
+     "pinyin": "nǚpéngyou",
+     "polski": "nü-phyng-joł",
+     "znaczenie": "dziewczyna"
+    },
+    {
+     "znaki": "不知道",
+     "pinyin": "bù zhīdào",
+     "polski": "pu czy-tał",
+     "znaczenie": "nie wiem"
+    },
+    {
+     "znaki": "多少钱",
+     "pinyin": "duōshao qián",
+     "polski": "tło-szał ćhien",
+     "znaczenie": "ile to kosztuje"
+    },
+    {
+     "znaki": "中国人",
+     "pinyin": "Zhōngguórén",
+     "polski": "czung-kło-żyn",
+     "znaczenie": "Chińczyk"
+    }
+   ]
+  },
+  {
+   "id": "pytanie",
+   "tytul": "Pytanie nie idzie w górę",
+   "opis": "Po polsku na końcu pytania podnosisz głos: „Jesteś głodny?”. Po chińsku nie. Pytanie robi małe słówko na końcu albo samo słowo pytające. Głos zostaje taki, jaki ma być.\n你好吗: „chał” nisko, „ma” krótko i cicho. Nie podnoś.\n多少钱: „ćhien” idzie w górę, bo tak ma to słowo. Nie dlatego, że to pytanie.\nJak podniesiesz głos na końcu, zmienisz ostatnie słowo.",
+   "slowa": [
+    {
+     "znaki": "你好吗",
+     "pinyin": "nǐ hǎo ma",
+     "polski": "ni chał ma",
+     "znaczenie": "jak się masz?"
+    },
+    {
+     "znaki": "你想吃什么",
+     "pinyin": "nǐ xiǎng chī shénme",
+     "polski": "ni siang czhy szyn-my",
+     "znaczenie": "co chcesz zjeść?"
+    },
+    {
+     "znaki": "多少钱",
+     "pinyin": "duōshao qián",
+     "polski": "tło-szał ćhien",
+     "znaczenie": "ile to kosztuje?"
+    }
+   ]
+  },
+  {
+   "id": "reka",
+   "tytul": "Rysuj głos ręką",
+   "opis": "Mów i jednocześnie prowadź rękę w powietrzu.\nRówno i wysoko: ręka płasko na wysokości oczu.\nW górę („Co?”): ręka od pasa do oczu.\nNisko: ręka nisko przy pasie i zostaje.\nZ góry w dół („Nie!”): ręka ostro z góry na dół.\nJak ręka stoi w miejscu, a mówisz „w górę”, to znaczy, że mówisz płasko.\nSprawdź dół tak: powiedz „chał” (好) i połóż palce na gardle, nisko, tuż nad obojczykiem. Przy dobrym niskim głosie czujesz tam drganie. Jak czujesz je wyżej, pod brodą, mówisz za wysoko.",
+   "slowa": [
+    {
+     "znaki": "妈",
+     "pinyin": "mā",
+     "polski": "ma",
+     "znaczenie": "mama"
+    },
+    {
+     "znaki": "人",
+     "pinyin": "rén",
+     "polski": "żyn",
+     "znaczenie": "człowiek"
+    },
+    {
+     "znaki": "好",
+     "pinyin": "hǎo",
+     "polski": "chał",
+     "znaczenie": "dobry"
+    },
+    {
+     "znaki": "不",
+     "pinyin": "bù",
+     "polski": "pu",
+     "znaczenie": "nie"
+    }
+   ]
+  },
+  {
+   "id": "liczby",
+   "tytul": "Policz od 1 do 10",
+   "opis": "Jeden krótki zestaw, w którym siedzą wszystkie tony. Od razu przydatny: ceny, godziny.\nPara do ucha: 四 „sy” (cztery) to twarde s, z góry w dół. 十 „szy” (dziesięć) to sz, głos w górę. Przy cenach mylą się najczęściej.",
+   "slowa": [
+    {
+     "znaki": "一",
+     "pinyin": "yī",
+     "polski": "i",
+     "znaczenie": "jeden"
+    },
+    {
+     "znaki": "二",
+     "pinyin": "èr",
+     "polski": "ar",
+     "znaczenie": "dwa"
+    },
+    {
+     "znaki": "三",
+     "pinyin": "sān",
+     "polski": "san",
+     "znaczenie": "trzy"
+    },
+    {
+     "znaki": "四",
+     "pinyin": "sì",
+     "polski": "sy",
+     "znaczenie": "cztery"
+    },
+    {
+     "znaki": "五",
+     "pinyin": "wǔ",
+     "polski": "łu",
+     "znaczenie": "pięć"
+    },
+    {
+     "znaki": "六",
+     "pinyin": "liù",
+     "polski": "lioł",
+     "znaczenie": "sześć"
+    },
+    {
+     "znaki": "七",
+     "pinyin": "qī",
+     "polski": "ćhi",
+     "znaczenie": "siedem"
+    },
+    {
+     "znaki": "八",
+     "pinyin": "bā",
+     "polski": "pa",
+     "znaczenie": "osiem"
+    },
+    {
+     "znaki": "九",
+     "pinyin": "jiǔ",
+     "polski": "dzioł",
+     "znaczenie": "dziewięć"
+    },
+    {
+     "znaki": "十",
+     "pinyin": "shí",
+     "polski": "szy",
+     "znaczenie": "dziesięć"
+    }
+   ]
+  }
+ ],
+ "pary_tonow": [
+  {
+   "id": "t3-2",
+   "tony": "3-2",
+   "opis": "Najtrudniejsza para. Pierwsze słowo trzymaj nisko, jak zamyślone „yyy”. Drugie puść w górę, jak pytające „Co?”. Polakowi łatwo wychodzi odwrotnie: najpierw w górę, potem nisko. A tak właśnie brzmi 你好 (ní hǎo). Powiedz na głos: „yyy… Co?”. Potem tak samo lü-joł.",
+   "slowa": [
+    {
+     "znaki": "旅游",
+     "pinyin": "lǚyóu",
+     "polski": "lü-joł",
+     "znaczenie": "podróżować",
+     "lekcja": 3
+    },
+    {
+     "znaki": "美国",
+     "pinyin": "Měiguó",
+     "polski": "mej-kło",
+     "znaczenie": "USA"
+    }
+   ]
+  },
+  {
+   "id": "t2-1",
+   "tony": "2-1",
+   "opis": "Pierwsze w górę, jak pytające „Co?”. Drugie równo i wysoko, jak „aaa” u lekarza. Pułapka: pierwsze zaczynasz za wysoko i nie masz dokąd jechać. Zacznij nisko. Powiedz na głos: „Co? aaa”. Potem ming-thien. Porównaj z 好吃 chał czhy. Tam pierwsze słowo jest nisko, tu jedzie w górę. Drugie słowo w obu jest takie samo.",
+   "slowa": [
+    {
+     "znaki": "难吃",
+     "pinyin": "nánchī",
+     "polski": "nan-czhy",
+     "znaczenie": "niesmaczne"
+    },
+    {
+     "znaki": "明天",
+     "pinyin": "míngtiān",
+     "polski": "ming-thien",
+     "znaczenie": "jutro",
+     "lekcja": 1
+    },
+    {
+     "znaki": "时间",
+     "pinyin": "shíjiān",
+     "polski": "szy-dzien",
+     "znaczenie": "czas",
+     "lekcja": 3
+    }
+   ]
+  },
+  {
+   "id": "t2-4",
+   "tony": "2-4",
+   "opis": "W górę, potem ostro w dół. Powiedz na głos: „Co? Nie!”. Pierwsze zacznij nisko, żeby miało dokąd rosnąć.",
+   "slowa": [
+    {
+     "znaki": "鱼肉",
+     "pinyin": "yúròu",
+     "polski": "ü-żoł",
+     "znaczenie": "mięso z ryby",
+     "lekcja": 2
+    },
+    {
+     "znaki": "牛肉",
+     "pinyin": "niúròu",
+     "polski": "nioł-żoł",
+     "znaczenie": "wołowina",
+     "lekcja": 2
+    },
+    {
+     "znaki": "学校",
+     "pinyin": "xuéxiào",
+     "polski": "süe-siał",
+     "znaczenie": "szkoła"
+    }
+   ]
+  },
+  {
+   "id": "t3-3",
+   "tony": "3-3",
+   "opis": "Dwa niskie słowa pod rząd. Wtedy pierwsze samo jedzie w górę, jak „Co?”. Drugie zostaje nisko. Dlatego 你好 mówi się „ní hǎo”. Zapis się nie zmienia, tylko wymowa.",
+   "slowa": [
+    {
+     "znaki": "你好",
+     "pinyin": "nǐ hǎo",
+     "polski": "ni chał",
+     "znaczenie": "cześć",
+     "lekcja": 1
+    },
+    {
+     "znaki": "很好",
+     "pinyin": "hěn hǎo",
+     "polski": "chyn chał",
+     "znaczenie": "bardzo dobrze",
+     "lekcja": 1
+    },
+    {
+     "znaki": "可以",
+     "pinyin": "kěyǐ",
+     "polski": "khy-i",
+     "znaczenie": "móc, można",
+     "lekcja": 3
+    }
+   ]
+  },
+  {
+   "id": "t2-3",
+   "tony": "2-3",
+   "opis": "W górę, potem nisko. Powiedz na głos: „Co? yyy…”. Ta para wychodzi Polakom dobrze. Niskie drugie słowo samo ściąga głos w dół. Ćwicz ją przed parami 2-1 i 2-4.",
+   "slowa": [
+    {
+     "znaki": "啤酒",
+     "pinyin": "píjiǔ",
+     "polski": "phi-dzioł",
+     "znaczenie": "piwo",
+     "lekcja": 2
+    },
+    {
+     "znaki": "牛奶",
+     "pinyin": "niúnǎi",
+     "polski": "nioł-naj",
+     "znaczenie": "mleko",
+     "lekcja": 2
+    }
+   ]
+  },
+  {
+   "id": "t4-4",
+   "tony": "4-4",
+   "opis": "Dwa razy z góry w dół, ale jednym ruchem. Nie rób dwóch osobnych „Nie! Nie!”. Bardziej jak szybkie „Nie ma!”. Pierwsze słowo jest krótsze i nie spada do końca.",
+   "slowa": [
+    {
+     "znaki": "愿意",
+     "pinyin": "yuànyì",
+     "polski": "jüen-i",
+     "znaczenie": "chcieć, zgadzać się",
+     "lekcja": 3
+    },
+    {
+     "znaki": "再见",
+     "pinyin": "zàijiàn",
+     "polski": "dzaj-dzien",
+     "znaczenie": "do widzenia"
+    }
+   ]
+  },
+  {
+   "id": "t3-4",
+   "tony": "3-4",
+   "opis": "Nisko, potem ostro w dół. Powiedz na głos: „yyy… Nie!”. Pierwsze zostaje na dole. Drugie skacze do góry i spada.",
+   "slowa": [
+    {
+     "znaki": "米饭",
+     "pinyin": "mǐfàn",
+     "polski": "mi-fan",
+     "znaczenie": "ryż",
+     "lekcja": 2
+    },
+    {
+     "znaki": "美丽",
+     "pinyin": "měilì",
+     "polski": "mej-li",
+     "znaczenie": "piękna",
+     "lekcja": 1
+    }
+   ]
+  },
+  {
+   "id": "t3-1",
+   "tony": "3-1",
+   "opis": "Nisko, potem równo i wysoko. Powiedz na głos: „yyy… aaa”. Najlepsza para na naukę tego wysokiego, równego słowa. Po niskim głos sam ląduje na dobrej wysokości.",
+   "slowa": [
+    {
+     "znaki": "好吃",
+     "pinyin": "hǎochī",
+     "polski": "chał czhy",
+     "znaczenie": "smaczne",
+     "lekcja": 1
+    },
+    {
+     "znaki": "老师",
+     "pinyin": "lǎoshī",
+     "polski": "lał-szy",
+     "znaczenie": "nauczyciel"
+    }
+   ]
+  },
+  {
+   "id": "t1-3",
+   "tony": "1-3",
+   "opis": "Równo wysoko, potem nisko i zostań na dole. Powiedz na głos: „aaa… yyy”. Nie puszczaj drugiego słowa w górę na końcu.",
+   "slowa": [
+    {
+     "znaki": "英语",
+     "pinyin": "Yīngyǔ",
+     "polski": "ing-ü",
+     "znaczenie": "angielski",
+     "lekcja": 2
+    },
+    {
+     "znaki": "开始",
+     "pinyin": "kāishǐ",
+     "polski": "khaj-szy",
+     "znaczenie": "zaczynać"
+    }
+   ]
+  },
+  {
+   "id": "t1-2",
+   "tony": "1-2",
+   "opis": "Równo wysoko, potem z dołu w górę. Powiedz na głos: „aaa… Co?”. Trudne, bo po wysokim trzeba najpierw zejść na dół.",
+   "slowa": [
+    {
+     "znaki": "中文",
+     "pinyin": "Zhōngwén",
+     "polski": "czung-łyn",
+     "znaczenie": "chiński (język)",
+     "lekcja": 3
+    },
+    {
+     "znaki": "中国",
+     "pinyin": "Zhōngguó",
+     "polski": "czung-kło",
+     "znaczenie": "Chiny",
+     "lekcja": 3
+    }
+   ]
+  },
+  {
+   "id": "t2-2",
+   "tony": "2-2",
+   "opis": "Dwa razy w górę. Powiedz na głos: „Co? Co?”. Każde zaczynaj nisko. Po pierwszym nie zostawaj na górze.",
+   "slowa": [
+    {
+     "znaki": "红茶",
+     "pinyin": "hóngchá",
+     "polski": "chung-czha",
+     "znaczenie": "czarna herbata (dosłownie: czerwona)"
+    },
+    {
+     "znaki": "学习",
+     "pinyin": "xuéxí",
+     "polski": "süe-si",
+     "znaczenie": "uczyć się"
+    }
+   ]
+  },
+  {
+   "id": "t4-3",
+   "tony": "4-3",
+   "opis": "Z góry w dół, potem nisko. Powiedz na głos: „Nie! yyy…”. Drugie słowo zostaje na dole, tam gdzie skończyło pierwsze.",
+   "slowa": [
+    {
+     "znaki": "汉堡",
+     "pinyin": "hànbǎo",
+     "polski": "chan-pał",
+     "znaczenie": "hamburger",
+     "lekcja": 2
+    },
+    {
+     "znaki": "汉语",
+     "pinyin": "Hànyǔ",
+     "polski": "chan-ü",
+     "znaczenie": "język chiński"
+    }
+   ]
+  },
+  {
+   "id": "t4-2",
+   "tony": "4-2",
+   "opis": "Z góry w dół, potem z dołu w górę. Powiedz na głos: „Nie! Co?”. Drugie zaczyna tam, gdzie pierwsze skończyło.",
+   "slowa": [
+    {
+     "znaki": "面条",
+     "pinyin": "miàntiáo",
+     "polski": "mien-thiał",
+     "znaczenie": "makaron",
+     "lekcja": 2
+    },
+    {
+     "znaki": "问题",
+     "pinyin": "wèntí",
+     "polski": "łyn-thi",
+     "znaczenie": "pytanie, problem"
+    }
+   ]
+  },
+  {
+   "id": "t4-1",
+   "tony": "4-1",
+   "opis": "Z góry w dół, potem równo wysoko. Powiedz na głos: „Nie! aaa”. Po spadku wskocz z powrotem na górę i trzymaj.",
+   "slowa": [
+    {
+     "znaki": "蛋糕",
+     "pinyin": "dàngāo",
+     "polski": "tan-kał",
+     "znaczenie": "ciasto",
+     "lekcja": 2
+    },
+    {
+     "znaki": "面包",
+     "pinyin": "miànbāo",
+     "polski": "mien-pał",
+     "znaczenie": "chleb",
+     "lekcja": 2
+    }
+   ]
+  },
+  {
+   "id": "t1-4",
+   "tony": "1-4",
+   "opis": "Równo wysoko, potem z góry w dół. Powiedz na głos: „aaa… Nie!”. Łatwe: drugie słowo startuje tam, gdzie stało pierwsze.",
+   "slowa": [
+    {
+     "znaki": "高兴",
+     "pinyin": "gāoxìng",
+     "polski": "kał-sing",
+     "znaczenie": "zadowolony",
+     "lekcja": 3
+    },
+    {
+     "znaki": "工作",
+     "pinyin": "gōngzuò",
+     "polski": "kung-dzło",
+     "znaczenie": "praca",
+     "lekcja": 3
+    }
+   ]
+  },
+  {
+   "id": "t1-1",
+   "tony": "1-1",
+   "opis": "Najłatwiejsza para. Dwa razy równo i wysoko, na tej samej wysokości. Jak dwa razy „aaa” u lekarza. Głos nie rusza się ani w górę, ani w dół.",
+   "slowa": [
+    {
+     "znaki": "咖啡",
+     "pinyin": "kāfēi",
+     "polski": "kha-fej",
+     "znaczenie": "kawa",
+     "lekcja": 2
+    },
+    {
+     "znaki": "今天",
+     "pinyin": "jīntiān",
+     "polski": "dzin-thien",
+     "znaczenie": "dzisiaj"
+    }
+   ]
+  },
+  {
+   "id": "t3-5",
+   "tony": "3-5",
+   "opis": "Nisko, potem krótko i cicho, odrobinę wyżej. Powiedz nisko „ło”, a zaraz po tym szybko „myn”. Tylko tutaj ta cicha końcówka idzie wyżej niż początek.",
+   "slowa": [
+    {
+     "znaki": "我们",
+     "pinyin": "wǒmen",
+     "polski": "ło-myn",
+     "znaczenie": "my",
+     "lekcja": 1
+    },
+    {
+     "znaki": "喜欢",
+     "pinyin": "xǐhuan",
+     "polski": "si-chłan",
+     "znaczenie": "lubić",
+     "lekcja": 1
+    },
+    {
+     "znaki": "饺子",
+     "pinyin": "jiǎozi",
+     "polski": "dział-dzy",
+     "znaczenie": "pierogi",
+     "lekcja": 2
+    }
+   ]
+  },
+  {
+   "id": "t2-5",
+   "tony": "2-5",
+   "opis": "W górę, potem krótko i cicho, w środku. Jak polskie „MA-ma”, ale pierwsze „MA” jedzie w górę. Powiedz: „Co?” i dorzuć ciche „ma”.",
+   "slowa": [
+    {
+     "znaki": "朋友",
+     "pinyin": "péngyou",
+     "polski": "phyng-joł",
+     "znaczenie": "przyjaciel",
+     "lekcja": 1
+    },
+    {
+     "znaki": "名字",
+     "pinyin": "míngzi",
+     "polski": "ming-dzy",
+     "znaczenie": "imię",
+     "lekcja": 1
+    },
+    {
+     "znaki": "什么",
+     "pinyin": "shénme",
+     "polski": "szyn-my",
+     "znaczenie": "co",
+     "lekcja": 1
+    }
+   ]
+  },
+  {
+   "id": "t4-5",
+   "tony": "4-5",
+   "opis": "Z góry w dół, potem krótko i cicho na samym dole. 谢谢 to „SIE-sie”, z mocnym pierwszym kawałkiem. Nie dwa razy równo „sie-sie”.",
+   "slowa": [
+    {
+     "znaki": "谢谢",
+     "pinyin": "xièxie",
+     "polski": "sie-sie",
+     "znaczenie": "dziękuję",
+     "lekcja": 1
+    },
+    {
+     "znaki": "漂亮",
+     "pinyin": "piàoliang",
+     "polski": "phiał-liang",
+     "znaczenie": "ładna",
+     "lekcja": 3
+    },
+    {
+     "znaki": "认识",
+     "pinyin": "rènshi",
+     "polski": "żyn-szy",
+     "znaczenie": "znać (kogoś)",
+     "lekcja": 3
+    }
+   ]
+  },
+  {
+   "id": "t1-5",
+   "tony": "1-5",
+   "opis": "Równo wysoko, potem krótko i cicho, lekko w dół. Dokładnie jak polskie „MA-ma”. Powiedz na głos „MA-ma”, a potem tak samo ma-ma.",
+   "slowa": [
+    {
+     "znaki": "聪明",
+     "pinyin": "cōngming",
+     "polski": "cchung-ming",
+     "znaczenie": "mądry",
+     "lekcja": 1
+    },
+    {
+     "znaki": "妈妈",
+     "pinyin": "māma",
+     "polski": "ma-ma",
+     "znaczenie": "mama"
+    }
+   ]
+  }
+ ],
+ "minimalne_pary_tonow": [
+  {
+   "a": {
+    "znaki": "买",
+    "pinyin": "mǎi",
+    "polski": "maj",
+    "znaczenie": "kupować"
+   },
+   "b": {
+    "znaki": "卖",
+    "pinyin": "mài",
+    "polski": "maj",
+    "znaczenie": "sprzedawać"
+   },
+   "roznica": "Kupować: nisko, jak namyślone „nooo”. Sprzedawać: krótko w dół, jak ostre „Nie!”. To samo słowo, odwrotne znaczenie."
+  },
+  {
+   "a": {
+    "znaki": "水",
+    "pinyin": "shuǐ",
+    "polski": "szłej",
+    "znaczenie": "woda",
+    "lekcja": 2
+   },
+   "b": {
+    "znaki": "睡",
+    "pinyin": "shuì",
+    "polski": "szłej",
+    "znaczenie": "spać"
+   },
+   "roznica": "Woda: nisko, jak namyślone „nooo”. Spać: krótko w dół, jak ostre „Nie!”."
+  },
+  {
+   "a": {
+    "znaki": "十",
+    "pinyin": "shí",
+    "polski": "szy",
+    "znaczenie": "dziesięć"
+   },
+   "b": {
+    "znaki": "是",
+    "pinyin": "shì",
+    "polski": "szy",
+    "znaczenie": "tak, być",
+    "lekcja": 1
+   },
+   "roznica": "Dziesięć: w górę, jak zdziwione „Co?”. Tak, być: krótko w dół, jak ostre „Nie!”."
+  },
+  {
+   "a": {
+    "znaki": "鱼",
+    "pinyin": "yú",
+    "polski": "ü",
+    "znaczenie": "ryba"
+   },
+   "b": {
+    "znaki": "雨",
+    "pinyin": "yǔ",
+    "polski": "ü",
+    "znaczenie": "deszcz"
+   },
+   "roznica": "鱼 idzie w górę, jak zdziwione „Co?”. 雨 nisko, jak namyślone „nooo”."
+  },
+  {
+   "a": {
+    "znaki": "白",
+    "pinyin": "bái",
+    "polski": "paj",
+    "znaczenie": "biały"
+   },
+   "b": {
+    "znaki": "百",
+    "pinyin": "bǎi",
+    "polski": "paj",
+    "znaczenie": "sto"
+   },
+   "roznica": "白 w górę, jak „Co?”. 百 nisko, jak „nooo”. Przy liczeniu pieniędzy słychać od razu."
+  },
+  {
+   "a": {
+    "znaki": "吻",
+    "pinyin": "wěn",
+    "polski": "łyn",
+    "znaczenie": "całować",
+    "lekcja": 3
+   },
+   "b": {
+    "znaki": "问",
+    "pinyin": "wèn",
+    "polski": "łyn",
+    "znaczenie": "pytać"
+   },
+   "roznica": "Całować: nisko, jak namyślone „nooo”. Pytać: krótko w dół, jak ostre „Nie!”. Przy Li Mei lepiej nie pomylić."
+  },
+  {
+   "a": {
+    "znaki": "茶",
+    "pinyin": "chá",
+    "polski": "czha",
+    "znaczenie": "herbata",
+    "lekcja": 2
+   },
+   "b": {
+    "znaki": "差",
+    "pinyin": "chà",
+    "polski": "czha",
+    "znaczenie": "gorszy, brakuje"
+   },
+   "roznica": "Herbata: w górę, jak zdziwione „Co?”. Gorszy: krótko w dół, jak ostre „Nie!”."
+  },
+  {
+   "a": {
+    "znaki": "好",
+    "pinyin": "hǎo",
+    "polski": "chał",
+    "znaczenie": "dobry",
+    "lekcja": 1
+   },
+   "b": {
+    "znaki": "号",
+    "pinyin": "hào",
+    "polski": "chał",
+    "znaczenie": "numer"
+   },
+   "roznica": "Dobry: nisko, jak namyślone „nooo”. Numer: krótko w dół, jak ostre „Nie!”."
+  },
+  {
+   "a": {
+    "znaki": "请",
+    "pinyin": "qǐng",
+    "polski": "ćhing",
+    "znaczenie": "proszę",
+    "lekcja": 2
+   },
+   "b": {
+    "znaki": "清",
+    "pinyin": "qīng",
+    "polski": "ćhing",
+    "znaczenie": "czysty — ten sam znak co w 清迈 (Chiang Mai)",
+    "lekcja": 3
+   },
+   "roznica": "Proszę: nisko, jak namyślone „nooo”. Czysty: równo i wysoko, jak „aaa” u lekarza."
+  },
+  {
+   "a": {
+    "znaki": "妈",
+    "pinyin": "mā",
+    "polski": "ma",
+    "znaczenie": "mama"
+   },
+   "b": {
+    "znaki": "马",
+    "pinyin": "mǎ",
+    "polski": "ma",
+    "znaczenie": "koń"
+   },
+   "roznica": "Mama: równo i wysoko, jak „aaa” u lekarza. Koń: nisko, jak namyślone „nooo”. Klasyczna wpadka."
+  },
+  {
+   "a": {
+    "znaki": "汤",
+    "pinyin": "tāng",
+    "polski": "thang",
+    "znaczenie": "zupa"
+   },
+   "b": {
+    "znaki": "糖",
+    "pinyin": "táng",
+    "polski": "thang",
+    "znaczenie": "cukier"
+   },
+   "roznica": "Zupa: równo i wysoko, jak „aaa” u lekarza. Cukier: w górę, jak zdziwione „Co?”. W restauracji to słychać."
+  },
+  {
+   "a": {
+    "znaki": "三",
+    "pinyin": "sān",
+    "polski": "san",
+    "znaczenie": "trzy"
+   },
+   "b": {
+    "znaki": "伞",
+    "pinyin": "sǎn",
+    "polski": "san",
+    "znaczenie": "parasol"
+   },
+   "roznica": "Trzy: równo i wysoko, jak „aaa” u lekarza. Parasol: nisko, jak namyślone „nooo”."
+  },
+  {
+   "a": {
+    "znaki": "猫",
+    "pinyin": "māo",
+    "polski": "mał",
+    "znaczenie": "kot"
+   },
+   "b": {
+    "znaki": "毛",
+    "pinyin": "máo",
+    "polski": "mał",
+    "znaczenie": "sierść"
+   },
+   "roznica": "Kot: równo i wysoko, jak „aaa” u lekarza. Sierść: w górę, jak zdziwione „Co?”."
+  },
+  {
+   "a": {
+    "znaki": "狗",
+    "pinyin": "gǒu",
+    "polski": "koł",
+    "znaczenie": "pies"
+   },
+   "b": {
+    "znaki": "够",
+    "pinyin": "gòu",
+    "polski": "koł",
+    "znaczenie": "wystarczy"
+   },
+   "roznica": "Pies: nisko, jak namyślone „nooo”. Wystarczy: krótko w dół, jak ostre „Nie!”."
+  },
+  {
+   "a": {
+    "znaki": "打",
+    "pinyin": "dǎ",
+    "polski": "ta",
+    "znaczenie": "uderzać, grać"
+   },
+   "b": {
+    "znaki": "大",
+    "pinyin": "dà",
+    "polski": "ta",
+    "znaczenie": "duży"
+   },
+   "roznica": "Uderzać, grać: nisko, jak namyślone „nooo”. Duży: krótko w dół, jak ostre „Nie!”."
+  },
+  {
+   "a": {
+    "znaki": "水饺",
+    "pinyin": "shuǐjiǎo",
+    "polski": "szłej-dział",
+    "znaczenie": "pierogi gotowane"
+   },
+   "b": {
+    "znaki": "睡觉",
+    "pinyin": "shuìjiào",
+    "polski": "szłej-dział",
+    "znaczenie": "spać"
+   },
+   "roznica": "Pierogi: pierwsze słowo idzie w górę, drugie zostaje nisko. Spać: oba krótko w dół, jak dwa razy „Nie!”. Zamów źle, a powiesz „idę spać”."
+  },
+  {
+   "a": {
+    "znaki": "眼睛",
+    "pinyin": "yǎnjing",
+    "polski": "jen-dzing",
+    "znaczenie": "oczy"
+   },
+   "b": {
+    "znaki": "眼镜",
+    "pinyin": "yǎnjìng",
+    "polski": "jen-dzing",
+    "znaczenie": "okulary"
+   },
+   "roznica": "Oczy: druga część lekka i cicha, ledwo ją słychać. Okulary: druga część mocno w dół, jak ostre „Nie!”."
+  }
+ ],
+ "dzwieki": [
+  {
+   "id": "wydech-ptk",
+   "tytul": "p / b, t / d, k / g · dmuchnij albo nie",
+   "trudnosc": 5,
+   "opis": "Chińskie p, t, k to mocne dmuchnięcie. Tak dmuchasz na gorącą zupę. Chińskie b, d, g to to samo, ale bez dmuchnięcia. Po polsku 'pa' i 'ba' różnią się czym innym. Dlatego Polak tej różnicy nie słyszy i mówi oba tak samo.",
+   "przyklad_pl": "Dmuchnij na gorącą zupę i powiedz 'pa'. To jest chińskie 怕 (bać się). Teraz powiedz zwykłe polskie 'ba'. To jest chińskie 爸 (tata).",
+   "jak_cwiczyc": "Trzymaj kartkę tuż przed ustami. Powiedz polskie 'ba' — kartka stoi. Teraz dmuchnij: 'pha' — kartka ma drgnąć. Zasada: chińskie b, d, g mów jak polskie p, t, k bez wydechu. Chińskie p, t, k mów z mocnym wydechem: ph, th, kh.",
+   "blad_polakow": "Mówisz 'pa' po polsku, bez dmuchnięcia. Chińczyk słyszy wtedy 'ba'. Zamiast 'boję się' mówisz 'tata'. To najczęstszy błąd, który zmienia słowo.",
+   "pary": [
+    {
+     "a": {
+      "znaki": "爸",
+      "pinyin": "bà",
+      "polski": "pa",
+      "znaczenie": "tata"
+     },
+     "b": {
+      "znaki": "怕",
+      "pinyin": "pà",
+      "polski": "pha",
+      "znaczenie": "bać się"
+     },
+     "roznica": "bez dmuchnięcia (tata) albo z dmuchnięciem (bać się)"
+    },
+    {
+     "a": {
+      "znaki": "肚子",
+      "pinyin": "dùzi",
+      "polski": "tu-dzy",
+      "znaczenie": "brzuch"
+     },
+     "b": {
+      "znaki": "兔子",
+      "pinyin": "tùzi",
+      "polski": "thu-dzy",
+      "znaczenie": "królik"
+     },
+     "roznica": "bez dmuchnięcia (brzuch) albo z dmuchnięciem (królik)"
+    },
+    {
+     "a": {
+      "znaki": "哥",
+      "pinyin": "gē",
+      "polski": "ky",
+      "znaczenie": "starszy brat"
+     },
+     "b": {
+      "znaki": "科",
+      "pinyin": "kē",
+      "polski": "khy",
+      "znaczenie": "dziedzina, przedmiot w szkole"
+     },
+     "roznica": "哥 bez dmuchnięcia, jak polskie „k” w „kyś”. 科 z mocnym dmuchnięciem: „khy”."
+    },
+    {
+     "a": {
+      "znaki": "白",
+      "pinyin": "bái",
+      "polski": "paj",
+      "znaczenie": "biały"
+     },
+     "b": {
+      "znaki": "排",
+      "pinyin": "pái",
+      "polski": "phaj",
+      "znaczenie": "rząd, kolejka"
+     },
+     "roznica": "bez dmuchnięcia (biały) albo z dmuchnięciem (kolejka)"
+    },
+    {
+     "a": {
+      "znaki": "地",
+      "pinyin": "dì",
+      "polski": "ti",
+      "znaczenie": "ziemia"
+     },
+     "b": {
+      "znaki": "替",
+      "pinyin": "tì",
+      "polski": "thi",
+      "znaczenie": "zamiast"
+     },
+     "roznica": "bez dmuchnięcia (ziemia) albo z dmuchnięciem (zamiast)"
+    },
+    {
+     "a": {
+      "znaki": "工",
+      "pinyin": "gōng",
+      "polski": "kung",
+      "znaczenie": "praca",
+      "lekcja": 3
+     },
+     "b": {
+      "znaki": "空",
+      "pinyin": "kōng",
+      "polski": "khung",
+      "znaczenie": "pusty"
+     },
+     "roznica": "bez dmuchnięcia (praca) albo z dmuchnięciem (pusty)"
+    }
+   ],
+   "slowa": [
+    {
+     "znaki": "啤酒",
+     "pinyin": "píjiǔ",
+     "polski": "phi-dzioł",
+     "znaczenie": "piwo",
+     "lekcja": 2
+    },
+    {
+     "znaki": "咖啡",
+     "pinyin": "kāfēi",
+     "polski": "kha-fej",
+     "znaczenie": "kawa",
+     "lekcja": 2
+    },
+    {
+     "znaki": "太",
+     "pinyin": "tài",
+     "polski": "thaj",
+     "znaczenie": "zbyt",
+     "lekcja": 2
+    },
+    {
+     "znaki": "蛋糕",
+     "pinyin": "dàngāo",
+     "polski": "tan-kał",
+     "znaczenie": "ciasto",
+     "lekcja": 2
+    },
+    {
+     "znaki": "面包",
+     "pinyin": "miànbāo",
+     "polski": "mien-pał",
+     "znaczenie": "chleb",
+     "lekcja": 2
+    },
+    {
+     "znaki": "北京",
+     "pinyin": "Běijīng",
+     "polski": "pej-dzing",
+     "znaczenie": "Pekin",
+     "lekcja": 1
+    }
+   ]
+  },
+  {
+   "id": "wydech-syczace",
+   "tytul": "c / z, ch / zh, q / j · dmuchnij albo nie, teraz przy c, cz, ć",
+   "trudnosc": 5,
+   "opis": "Ta sama zasada co przy p i b. Chińskie z, zh, j to polskie dz, cz, dzi bez dmuchnięcia. Chińskie c, ch, q to te same dźwięki plus mocny wydech: cch, czh, ćh.",
+   "przyklad_pl": "Powiedz polskie 'dzwon' — tak zaczyna się chińskie z. Powiedz 'cena' i dmuchnij — tak brzmi chińskie c. Uwaga: chińskie 'ch' to polskie 'cz' z dmuchnięciem, nigdy polskie 'ch'.",
+   "jak_cwiczyc": "Powiedz 'dzał' jak w 'dzwon' (早, wcześnie). Kartka przed ustami stoi. Teraz 'cchał' z dmuchnięciem (草, trawa). Kartka drga. Tak samo powiedz 'dzi' (鸡, kurczak) i 'ćhi' (七, siedem).",
+   "blad_polakow": "Czytasz chińskie 'ch' jak polskie 'ch'. Wtedy 吃 (jeść) wychodzi 'chy' zamiast 'czhy'. Drugi błąd: mówisz c, ch, q bez dmuchnięcia. Chińczyk słyszy wtedy z, zh, j: 七 'ćhi' (siedem) brzmi jak 鸡 'dzi' (kurczak).",
+   "pary": [
+    {
+     "a": {
+      "znaki": "早",
+      "pinyin": "zǎo",
+      "polski": "dzał",
+      "znaczenie": "wcześnie"
+     },
+     "b": {
+      "znaki": "草",
+      "pinyin": "cǎo",
+      "polski": "cchał",
+      "znaczenie": "trawa"
+     },
+     "roznica": "dz bez dmuchnięcia (wcześnie) albo c z dmuchnięciem (trawa)"
+    },
+    {
+     "a": {
+      "znaki": "只",
+      "pinyin": "zhī",
+      "polski": "czy",
+      "znaczenie": "sztuka (liczenie zwierząt)"
+     },
+     "b": {
+      "znaki": "吃",
+      "pinyin": "chī",
+      "polski": "czhy",
+      "znaczenie": "jeść",
+      "lekcja": 2
+     },
+     "roznica": "cz bez dmuchnięcia (sztuka) albo cz z dmuchnięciem (jeść)"
+    },
+    {
+     "a": {
+      "znaki": "找",
+      "pinyin": "zhǎo",
+      "polski": "czał",
+      "znaczenie": "szukać"
+     },
+     "b": {
+      "znaki": "炒",
+      "pinyin": "chǎo",
+      "polski": "czhał",
+      "znaczenie": "smażyć",
+      "lekcja": 2
+     },
+     "roznica": "cz bez dmuchnięcia (szukać) albo cz z dmuchnięciem (smażyć)"
+    },
+    {
+     "a": {
+      "znaki": "鸡",
+      "pinyin": "jī",
+      "polski": "dzi",
+      "znaczenie": "kurczak",
+      "lekcja": 2
+     },
+     "b": {
+      "znaki": "七",
+      "pinyin": "qī",
+      "polski": "ćhi",
+      "znaczenie": "siedem"
+     },
+     "roznica": "dź bez dmuchnięcia (kurczak) albo ć z dmuchnięciem (siedem)"
+    },
+    {
+     "a": {
+      "znaki": "几",
+      "pinyin": "jǐ",
+      "polski": "dzi",
+      "znaczenie": "ile"
+     },
+     "b": {
+      "znaki": "起",
+      "pinyin": "qǐ",
+      "polski": "ćhi",
+      "znaczenie": "wstawać, ruszać (ten sam znak co w 一起)",
+      "lekcja": 3
+     },
+     "roznica": "dź bez dmuchnięcia (ile) albo ć z dmuchnięciem (wstawać)"
+    },
+    {
+     "a": {
+      "znaki": "做",
+      "pinyin": "zuò",
+      "polski": "dzło",
+      "znaczenie": "robić",
+      "lekcja": 3
+     },
+     "b": {
+      "znaki": "错",
+      "pinyin": "cuò",
+      "polski": "cchło",
+      "znaczenie": "błąd"
+     },
+     "roznica": "dz bez dmuchnięcia (robić) albo c z dmuchnięciem (błąd)"
+    }
+   ],
+   "slowa": [
+    {
+     "znaki": "茶",
+     "pinyin": "chá",
+     "polski": "czha",
+     "znaczenie": "herbata",
+     "lekcja": 2
+    },
+    {
+     "znaki": "请",
+     "pinyin": "qǐng",
+     "polski": "ćhing",
+     "znaczenie": "proszę",
+     "lekcja": 2
+    },
+    {
+     "znaki": "果汁",
+     "pinyin": "guǒzhī",
+     "polski": "kło-czy",
+     "znaczenie": "sok",
+     "lekcja": 2
+    },
+    {
+     "znaki": "饺子",
+     "pinyin": "jiǎozi",
+     "polski": "dział-dzy",
+     "znaczenie": "pierogi",
+     "lekcja": 2
+    },
+    {
+     "znaki": "聪明",
+     "pinyin": "cōngming",
+     "polski": "cchung-ming",
+     "znaczenie": "mądry",
+     "lekcja": 1
+    },
+    {
+     "znaki": "粥",
+     "pinyin": "zhōu",
+     "polski": "czoł",
+     "znaczenie": "kleik ryżowy",
+     "lekcja": 2
+    }
+   ]
+  },
+  {
+   "id": "u-ue",
+   "tytul": "ü / u · 'i' z ustami do 'u'",
+   "trudnosc": 4,
+   "opis": "Polski nie ma tego dźwięku. Powiedz 'i' i nie ruszaj już językiem. Teraz ułóż usta jak do gwizdania. Pułapka: po j, q, x, y pisze się zwykłe 'u', a czyta się ü.",
+   "przyklad_pl": "Ułóż usta jak do dmuchania w butelkę. Teraz powiedz 'i'. Wyjdzie coś między 'i' a 'u'. To jest 女 nǚ, czyli kobieta.",
+   "jak_cwiczyc": "Powiedz polskie 'nu'. Teraz powiedz 'ni'. Teraz powiedz 'ni' z ustami jak do 'nu'. To jest 'nü'. Tak samo zrób 'lü' (绿, zielony), 'ćhü' (去, iść), 'ü' (鱼, ryba).",
+   "blad_polakow": "Mówisz zwykłe 'u' i 女 (kobieta) brzmi jak 努 (wysiłek). A 去 (iść) brzmi jak 'ćhu'. Drugi błąd: widzisz 'qu', 'xu', 'yu' i czytasz przez 'u'. Po j, q, x, y zwykłego 'u' w ogóle nie ma. Tam zawsze czytaj ü.",
+   "pary": [
+    {
+     "a": {
+      "znaki": "女",
+      "pinyin": "nǚ",
+      "polski": "nü",
+      "znaczenie": "kobieta",
+      "lekcja": 1
+     },
+     "b": {
+      "znaki": "努",
+      "pinyin": "nǔ",
+      "polski": "nu",
+      "znaczenie": "wysilać się"
+     },
+     "roznica": "usta do 'u', język na 'i' (kobieta) albo zwykłe 'u' (wysilać się)"
+    },
+    {
+     "a": {
+      "znaki": "绿",
+      "pinyin": "lǜ",
+      "polski": "lü",
+      "znaczenie": "zielony"
+     },
+     "b": {
+      "znaki": "路",
+      "pinyin": "lù",
+      "polski": "lu",
+      "znaczenie": "droga"
+     },
+     "roznica": "ü (zielony) albo zwykłe u (droga)"
+    },
+    {
+     "a": {
+      "znaki": "鱼",
+      "pinyin": "yú",
+      "polski": "ü",
+      "znaczenie": "ryba",
+      "lekcja": 2
+     },
+     "b": {
+      "znaki": "无",
+      "pinyin": "wú",
+      "polski": "łu",
+      "znaczenie": "nie ma, bez"
+     },
+     "roznica": "ü (ryba) albo zwykłe u (bez)"
+    },
+    {
+     "a": {
+      "znaki": "雨",
+      "pinyin": "yǔ",
+      "polski": "ü",
+      "znaczenie": "deszcz"
+     },
+     "b": {
+      "znaki": "五",
+      "pinyin": "wǔ",
+      "polski": "łu",
+      "znaczenie": "pięć"
+     },
+     "roznica": "ü (deszcz) albo zwykłe u (pięć)"
+    }
+   ],
+   "slowa": [
+    {
+     "znaki": "旅游",
+     "pinyin": "lǚyóu",
+     "polski": "lü-joł",
+     "znaczenie": "podróżować",
+     "lekcja": 3
+    },
+    {
+     "znaki": "女朋友",
+     "pinyin": "nǚpéngyou",
+     "polski": "nü-phyng-joł",
+     "znaczenie": "dziewczyna",
+     "lekcja": 1
+    },
+    {
+     "znaki": "鱼肉",
+     "pinyin": "yúròu",
+     "polski": "ü-żoł",
+     "znaczenie": "ryba (mięso)",
+     "lekcja": 2
+    },
+    {
+     "znaki": "英语",
+     "pinyin": "Yīngyǔ",
+     "polski": "ing-ü",
+     "znaczenie": "angielski",
+     "lekcja": 2
+    },
+    {
+     "znaki": "愿意",
+     "pinyin": "yuànyì",
+     "polski": "jüen-i",
+     "znaczenie": "chcieć",
+     "lekcja": 3
+    },
+    {
+     "znaki": "去",
+     "pinyin": "qù",
+     "polski": "ćhü",
+     "znaczenie": "iść, jechać",
+     "lekcja": 3
+    }
+   ]
+  },
+  {
+   "id": "i-twarde",
+   "tytul": "zi, ci, si, zhi, chi, shi, ri · to jest polskie 'y', nie 'i'",
+   "trudnosc": 4,
+   "opis": "Po z, c, s, zh, ch, sh, r litera 'i' to polskie 'y'. Tak jak w słowach 'czy' i 'szyć'. Nigdy miękko, jak w 'siano'. Miękka wersja to zupełnie inne chińskie słowa.",
+   "przyklad_pl": "Powiedz polskie 'czy' i 'szyć'. Tak brzmią chińskie chi i shi. Powiedz polskie 'syk'. Tak brzmi chińskie si.",
+   "jak_cwiczyc": "Powiedz polskie 'czy'. Teraz tak samo, z dmuchnięciem: 'czhy' (吃, jeść). Powiedz 'syk' bez k. Teraz 'sy' (四, cztery). Powiedz 'szyć' bez ć. Teraz 'szy' (是, być).",
+   "blad_polakow": "Widzisz 'si' i czytasz miękko, jak w 'siano'. Wtedy 四 sì (cztery) zamienia się w 细 xì (cienki). 'zi' przeczytane jak 'dzi' to też już inne słowo. Mów twardo, przez 'y'.",
+   "pary": [
+    {
+     "a": {
+      "znaki": "四",
+      "pinyin": "sì",
+      "polski": "sy",
+      "znaczenie": "cztery"
+     },
+     "b": {
+      "znaki": "细",
+      "pinyin": "xì",
+      "polski": "si",
+      "znaczenie": "cienki, drobny"
+     },
+     "roznica": "twarde 'sy' (cztery) albo miękkie 'si' (cienki)"
+    },
+    {
+     "a": {
+      "znaki": "字",
+      "pinyin": "zì",
+      "polski": "dzy",
+      "znaczenie": "znak pisma"
+     },
+     "b": {
+      "znaki": "记",
+      "pinyin": "jì",
+      "polski": "dzi",
+      "znaczenie": "zapisywać, pamiętać"
+     },
+     "roznica": "twarde 'dzy' (znak) albo miękkie 'dzi' (pamiętać)"
+    },
+    {
+     "a": {
+      "znaki": "十",
+      "pinyin": "shí",
+      "polski": "szy",
+      "znaczenie": "dziesięć"
+     },
+     "b": {
+      "znaki": "习",
+      "pinyin": "xí",
+      "polski": "si",
+      "znaczenie": "ćwiczyć (jak w 学习)"
+     },
+     "roznica": "twarde 'szy' (dziesięć) albo miękkie 'si' (ćwiczyć)"
+    },
+    {
+     "a": {
+      "znaki": "词",
+      "pinyin": "cí",
+      "polski": "cchy",
+      "znaczenie": "słowo"
+     },
+     "b": {
+      "znaki": "骑",
+      "pinyin": "qí",
+      "polski": "ćhi",
+      "znaczenie": "jechać (na rowerze, konno)"
+     },
+     "roznica": "twarde 'cchy' (słowo) albo miękkie 'ćhi' (jechać)"
+    }
+   ],
+   "slowa": [
+    {
+     "znaki": "吃",
+     "pinyin": "chī",
+     "polski": "czhy",
+     "znaczenie": "jeść",
+     "lekcja": 2
+    },
+    {
+     "znaki": "知道",
+     "pinyin": "zhīdào",
+     "polski": "czy-tał",
+     "znaczenie": "wiedzieć",
+     "lekcja": 2
+    },
+    {
+     "znaki": "来自",
+     "pinyin": "láizì",
+     "polski": "laj-dzy",
+     "znaczenie": "pochodzić z",
+     "lekcja": 1
+    },
+    {
+     "znaki": "名字",
+     "pinyin": "míngzi",
+     "polski": "ming-dzy",
+     "znaczenie": "imię",
+     "lekcja": 1
+    },
+    {
+     "znaki": "时间",
+     "pinyin": "shíjiān",
+     "polski": "szy-dzien",
+     "znaczenie": "czas",
+     "lekcja": 3
+    },
+    {
+     "znaki": "是",
+     "pinyin": "shì",
+     "polski": "szy",
+     "znaczenie": "tak, być",
+     "lekcja": 1
+    },
+    {
+     "znaki": "日",
+     "pinyin": "rì",
+     "polski": "ży",
+     "znaczenie": "dzień, słońce"
+    }
+   ]
+  },
+  {
+   "id": "e-tylne",
+   "tytul": "e · nie polskie 'e', bliżej 'y' z tyłu gardła",
+   "trudnosc": 3,
+   "opis": "Chińskie 'e' samo, bez i albo u z przodu, nie brzmi jak polskie 'e'. Powiedz 'o' i rozciągnij usta na boki. Języka nie ruszaj. Wyjdzie coś między 'y' a 'o'. W 'ie', 'üe' i 'ei' czytasz zwykłe polskie 'e'.",
+   "przyklad_pl": "Powiedz zastanawiające 'yyy...' i cofnij język do tyłu. Tak brzmi 喝 hē, czyli 'pić': 'chy'.",
+   "jak_cwiczyc": "Powiedz 'okno'. Przy 'o' rozciągnij usta jak do uśmiechu. Z tego dźwięku zrób 'chy' (喝, pić). Teraz 'khy' (可, można). Teraz 'y' (饿, głodny).",
+   "blad_polakow": "Mówisz polskie 'e' i 喝 brzmi jak 'che'. A 可以 brzmi jak 'ke-i'. Rzadko zmienia to słowo, ale od razu słychać obcokrajowca.",
+   "pary": [
+    {
+     "a": {
+      "znaki": "车",
+      "pinyin": "chē",
+      "polski": "czhy",
+      "znaczenie": "samochód"
+     },
+     "b": {
+      "znaki": "出",
+      "pinyin": "chū",
+      "polski": "czhu",
+      "znaczenie": "wychodzić"
+     },
+     "roznica": "usta rozciągnięte na boki (samochód) albo usta w kółko, zwykłe u (wychodzić)"
+    },
+    {
+     "a": {
+      "znaki": "热",
+      "pinyin": "rè",
+      "polski": "ży",
+      "znaczenie": "gorący"
+     },
+     "b": {
+      "znaki": "入",
+      "pinyin": "rù",
+      "polski": "żu",
+      "znaczenie": "wchodzić"
+     },
+     "roznica": "'y' z tyłu gardła (gorący) albo zwykłe u (wchodzić)"
+    },
+    {
+     "a": {
+      "znaki": "课",
+      "pinyin": "kè",
+      "polski": "khy",
+      "znaczenie": "lekcja"
+     },
+     "b": {
+      "znaki": "裤",
+      "pinyin": "kù",
+      "polski": "khu",
+      "znaczenie": "spodnie"
+     },
+     "roznica": "'y' z tyłu gardła (lekcja) albo zwykłe u (spodnie)"
+    },
+    {
+     "a": {
+      "znaki": "哥",
+      "pinyin": "gē",
+      "polski": "ky",
+      "znaczenie": "starszy brat"
+     },
+     "b": {
+      "znaki": "姑",
+      "pinyin": "gū",
+      "polski": "ku",
+      "znaczenie": "ciotka (siostra ojca)"
+     },
+     "roznica": "'y' z tyłu gardła (brat) albo zwykłe u (ciotka)"
+    }
+   ],
+   "slowa": [
+    {
+     "znaki": "喝",
+     "pinyin": "hē",
+     "polski": "chy",
+     "znaczenie": "pić",
+     "lekcja": 2
+    },
+    {
+     "znaki": "和",
+     "pinyin": "hé",
+     "polski": "chy",
+     "znaczenie": "i",
+     "lekcja": 1
+    },
+    {
+     "znaki": "可以",
+     "pinyin": "kěyǐ",
+     "polski": "khy-i",
+     "znaczenie": "móc",
+     "lekcja": 3
+    },
+    {
+     "znaki": "什么",
+     "pinyin": "shénme",
+     "polski": "szyn-my",
+     "znaczenie": "co",
+     "lekcja": 1
+    },
+    {
+     "znaki": "饿",
+     "pinyin": "è",
+     "polski": "y",
+     "znaczenie": "głodny"
+    }
+   ]
+  },
+  {
+   "id": "n-ng",
+   "tytul": "-n / -ng · 'ten' albo 'bank' bez k",
+   "trudnosc": 3,
+   "opis": "Na końcu słowa chiński ma dwa różne 'n'. Zwykłe -n: język dotyka za zębami, jak w 'ten'. A -ng: język z tyłu, jak w 'bank' tuż przed 'k'. Po polsku takie -ng słyszysz tylko przed k albo g. Nigdy na końcu słowa.",
+   "przyklad_pl": "Powiedz 'bank' i zatrzymaj się tuż przed 'k'. To, co słyszysz, to chińskie -ng. Teraz powiedz powoli 'ten' i trzymaj język za zębami. To jest -n.",
+   "jak_cwiczyc": "Powiedz 'bank' bez k: 'bang'. Teraz tak samo 'fyng' (风, wiatr). Powiedz 'ten' i trzymaj język za zębami. Teraz 'fyn' (分, minuta). Nie mów przez nos, jak w 'ę'.",
+   "blad_polakow": "Mówisz -ng jak zwykłe n i 风 (wiatr) brzmi jak 分 (minuta). Albo mówisz -n przez nos, jak polskie 'ę', i wychodzi 'fę'. To mniej groźne niż tony i dmuchnięcie. Sami Chińczycy z południa to mieszają.",
+   "pary": [
+    {
+     "a": {
+      "znaki": "分",
+      "pinyin": "fēn",
+      "polski": "fyn",
+      "znaczenie": "minuta"
+     },
+     "b": {
+      "znaki": "风",
+      "pinyin": "fēng",
+      "polski": "fyng",
+      "znaczenie": "wiatr"
+     },
+     "roznica": "język za zębami (minuta) albo język z tyłu jak w 'bank' (wiatr)"
+    },
+    {
+     "a": {
+      "znaki": "信",
+      "pinyin": "xìn",
+      "polski": "sin",
+      "znaczenie": "list, wiadomość (jak w 微信)",
+      "lekcja": 3
+     },
+     "b": {
+      "znaki": "姓",
+      "pinyin": "xìng",
+      "polski": "sing",
+      "znaczenie": "nazwisko"
+     },
+     "roznica": "-n (list) albo -ng (nazwisko)"
+    },
+    {
+     "a": {
+      "znaki": "山",
+      "pinyin": "shān",
+      "polski": "szan",
+      "znaczenie": "góra"
+     },
+     "b": {
+      "znaki": "商",
+      "pinyin": "shāng",
+      "polski": "szang",
+      "znaczenie": "handel"
+     },
+     "roznica": "-n (góra) albo -ng (handel)"
+    },
+    {
+     "a": {
+      "znaki": "饭",
+      "pinyin": "fàn",
+      "polski": "fan",
+      "znaczenie": "ryż, posiłek",
+      "lekcja": 2
+     },
+     "b": {
+      "znaki": "放",
+      "pinyin": "fàng",
+      "polski": "fang",
+      "znaczenie": "położyć"
+     },
+     "roznica": "-n (posiłek) albo -ng (położyć)"
+    },
+    {
+     "a": {
+      "znaki": "新",
+      "pinyin": "xīn",
+      "polski": "sin",
+      "znaczenie": "nowy"
+     },
+     "b": {
+      "znaki": "星",
+      "pinyin": "xīng",
+      "polski": "sing",
+      "znaczenie": "gwiazda"
+     },
+     "roznica": "-n (nowy) albo -ng (gwiazda)"
+    }
+   ],
+   "slowa": [
+    {
+     "znaki": "很",
+     "pinyin": "hěn",
+     "polski": "chyn",
+     "znaczenie": "bardzo",
+     "lekcja": 1
+    },
+    {
+     "znaki": "米饭",
+     "pinyin": "mǐfàn",
+     "polski": "mi-fan",
+     "znaczenie": "ryż",
+     "lekcja": 2
+    },
+    {
+     "znaki": "单身",
+     "pinyin": "dānshēn",
+     "polski": "tan-szyn",
+     "znaczenie": "singiel",
+     "lekcja": 3
+    },
+    {
+     "znaki": "北京",
+     "pinyin": "Běijīng",
+     "polski": "pej-dzing",
+     "znaczenie": "Pekin",
+     "lekcja": 1
+    },
+    {
+     "znaki": "高兴",
+     "pinyin": "gāoxìng",
+     "polski": "kał-sing",
+     "znaczenie": "zadowolony",
+     "lekcja": 3
+    },
+    {
+     "znaki": "当然",
+     "pinyin": "dāngrán",
+     "polski": "tang-żan",
+     "znaczenie": "oczywiście",
+     "lekcja": 3
+    },
+    {
+     "znaki": "晚安",
+     "pinyin": "wǎn'ān",
+     "polski": "łan-an",
+     "znaczenie": "dobranoc",
+     "lekcja": 3
+    }
+   ]
+  },
+  {
+   "id": "r-poczatkowe",
+   "tytul": "r na początku · to polskie „ż”, nie „r”",
+   "trudnosc": 2,
+   "opis": "Chińskie r na początku wcale nie warczy. To zwykłe polskie „ż” z „żaby”. Cofnij tylko język odrobinę głębiej. Usta ułóż lekko w dzióbek.",
+   "przyklad_pl": "Powiedz na głos „żaba”. Masz już 人 rén: „żyn” (człowiek).",
+   "jak_cwiczyc": "Powiedz „żaba”. Teraz samo „ż”, język trochę głębiej. Teraz „żyn” (人, człowiek). Teraz „żoł” (肉, mięso). Ani razu nie warcz jak w „rower”.",
+   "blad_polakow": "Widzisz literę r i mówisz „rower”. Chińczyk tego nie rozpozna. Zapamiętaj: chińskie r to polskie ż.",
+   "pary": [
+    {
+     "a": {
+      "znaki": "热",
+      "pinyin": "rè",
+      "polski": "ży",
+      "znaczenie": "gorący"
+     },
+     "b": {
+      "znaki": "乐",
+      "pinyin": "lè",
+      "polski": "ly",
+      "znaczenie": "radość"
+     },
+     "roznica": "ż (gorący) albo l (radość)"
+    },
+    {
+     "a": {
+      "znaki": "肉",
+      "pinyin": "ròu",
+      "polski": "żoł",
+      "znaczenie": "mięso",
+      "lekcja": 2
+     },
+     "b": {
+      "znaki": "漏",
+      "pinyin": "lòu",
+      "polski": "loł",
+      "znaczenie": "przeciekać"
+     },
+     "roznica": "ż (mięso) albo l (przeciekać)"
+    },
+    {
+     "a": {
+      "znaki": "让",
+      "pinyin": "ràng",
+      "polski": "żang",
+      "znaczenie": "pozwolić"
+     },
+     "b": {
+      "znaki": "浪",
+      "pinyin": "làng",
+      "polski": "lang",
+      "znaczenie": "fala"
+     },
+     "roznica": "ż (pozwolić) albo l (fala)"
+    },
+    {
+     "a": {
+      "znaki": "然",
+      "pinyin": "rán",
+      "polski": "żan",
+      "znaczenie": "tak, w ten sposób (jak w 当然)",
+      "lekcja": 3
+     },
+     "b": {
+      "znaki": "兰",
+      "pinyin": "lán",
+      "polski": "lan",
+      "znaczenie": "orchidea (jak w 波兰)",
+      "lekcja": 1
+     },
+     "roznica": "ż (当然) albo l (波兰)"
+    }
+   ],
+   "slowa": [
+    {
+     "znaki": "人",
+     "pinyin": "rén",
+     "polski": "żyn",
+     "znaczenie": "człowiek",
+     "lekcja": 3
+    },
+    {
+     "znaki": "鸡肉",
+     "pinyin": "jīròu",
+     "polski": "dzi-żoł",
+     "znaczenie": "kurczak",
+     "lekcja": 2
+    },
+    {
+     "znaki": "认识",
+     "pinyin": "rènshi",
+     "polski": "żyn-szy",
+     "znaczenie": "znać",
+     "lekcja": 3
+    },
+    {
+     "znaki": "当然",
+     "pinyin": "dāngrán",
+     "polski": "tang-żan",
+     "znaczenie": "oczywiście",
+     "lekcja": 3
+    },
+    {
+     "znaki": "日本",
+     "pinyin": "Rìběn",
+     "polski": "ży-pyn",
+     "znaczenie": "Japonia"
+    }
+   ]
+  },
+  {
+   "id": "ukryte-litery",
+   "tytul": "-ian, -iu, -ui, -un, -üan · pinyin ukrywa jedną literę",
+   "trudnosc": 2,
+   "opis": "Kilka końcówek pisze się krócej, niż się mówi. „-ian” mówisz „ien”. „-iu” mówisz „ioł”. „-ui” mówisz „łej”. „-un” mówisz „łyn”. „yuan” i „xuan” to „jüen” i „süen”. Nasz polski zapis już to pokazuje. Czytaj polski zapis, nie pinyin.\nWyjątek: po j, q, x, y „un” to „ün”: 裙子 ćhün-dzy (spódnica). Wszędzie indziej „un” to „łyn”: 春 czhłyn, 对 tłej.\nJeszcze jedna ukryta litera: „ong” mówisz „ung”. 中国 czung-kło, 工作 kung-dzło. Nigdy „czong”. Za to „eng” zostaje „yng”: 朋友 phyng-joł.",
+   "przyklad_pl": "Powiedz „cień”. Dodaj mocny wydech: „ćhien” (钱, pieniądze). Powiedz „klej”. Dołóż „sz”: „szłej” (水, woda). Nie mów „ćian” ani „szui”.",
+   "jak_cwiczyc": "Powiedz „klej”. Teraz „szłej” (水, woda). Powiedz „pień”. Teraz „thien” z mocnym wydechem (天, dzień). Powiedz „lio” i dodaj „ł”: „lioł” (六, sześć).",
+   "blad_polakow": "Czytasz literka po literce: „tian”, „dui”, „liu”, „xuan”. Brzmi obco. Do tego „ian” i „iang” zaczynają ci się mylić.",
+   "pary": [
+    {
+     "a": {
+      "znaki": "间",
+      "pinyin": "jiān",
+      "polski": "dzien",
+      "znaczenie": "odstęp, między (jak w 时间)",
+      "lekcja": 3
+     },
+     "b": {
+      "znaki": "江",
+      "pinyin": "jiāng",
+      "polski": "dziang",
+      "znaczenie": "rzeka"
+     },
+     "roznica": "„ien” (jak w 时间) albo „iang” (rzeka)"
+    },
+    {
+     "a": {
+      "znaki": "先",
+      "pinyin": "xiān",
+      "polski": "sien",
+      "znaczenie": "najpierw"
+     },
+     "b": {
+      "znaki": "香",
+      "pinyin": "xiāng",
+      "polski": "siang",
+      "znaczenie": "pachnący"
+     },
+     "roznica": "„ien” (najpierw) albo „iang” (pachnący)"
+    },
+    {
+     "a": {
+      "znaki": "钱",
+      "pinyin": "qián",
+      "polski": "ćhien",
+      "znaczenie": "pieniądze",
+      "lekcja": 2
+     },
+     "b": {
+      "znaki": "强",
+      "pinyin": "qiáng",
+      "polski": "ćhiang",
+      "znaczenie": "silny"
+     },
+     "roznica": "„ien” (pieniądze) albo „iang” (silny)"
+    },
+    {
+     "a": {
+      "znaki": "连",
+      "pinyin": "lián",
+      "polski": "lien",
+      "znaczenie": "łączyć"
+     },
+     "b": {
+      "znaki": "凉",
+      "pinyin": "liáng",
+      "polski": "liang",
+      "znaczenie": "chłodny"
+     },
+     "roznica": "„ien” (łączyć) albo „iang” (chłodny)"
+    }
+   ],
+   "slowa": [
+    {
+     "znaki": "水",
+     "pinyin": "shuǐ",
+     "polski": "szłej",
+     "znaczenie": "woda",
+     "lekcja": 2
+    },
+    {
+     "znaki": "面条",
+     "pinyin": "miàntiáo",
+     "polski": "mien-thiał",
+     "znaczenie": "makaron",
+     "lekcja": 2
+    },
+    {
+     "znaki": "时间",
+     "pinyin": "shíjiān",
+     "polski": "szy-dzien",
+     "znaczenie": "czas",
+     "lekcja": 3
+    },
+    {
+     "znaki": "愿意",
+     "pinyin": "yuànyì",
+     "polski": "jüen-i",
+     "znaczenie": "chcieć",
+     "lekcja": 3
+    },
+    {
+     "znaki": "啤酒",
+     "pinyin": "píjiǔ",
+     "polski": "phi-dzioł",
+     "znaczenie": "piwo",
+     "lekcja": 2
+    },
+    {
+     "znaki": "六",
+     "pinyin": "liù",
+     "polski": "lioł",
+     "znaczenie": "sześć"
+    },
+    {
+     "znaki": "对",
+     "pinyin": "duì",
+     "polski": "tłej",
+     "znaczenie": "zgadza się"
+    },
+    {
+     "znaki": "春",
+     "pinyin": "chūn",
+     "polski": "czhłyn",
+     "znaczenie": "wiosna"
+    },
+    {
+     "znaki": "裙子",
+     "pinyin": "qúnzi",
+     "polski": "ćhün-dzy",
+     "znaczenie": "spódnica"
+    },
+    {
+     "znaki": "工作",
+     "pinyin": "gōngzuò",
+     "polski": "kung-dzło",
+     "znaczenie": "praca"
+    },
+    {
+     "znaki": "中国",
+     "pinyin": "Zhōngguó",
+     "polski": "czung-kło",
+     "znaczenie": "Chiny"
+    }
+   ]
+  },
+  {
+   "id": "er",
+   "tytul": "er · „ar” z językiem zagiętym do góry",
+   "trudnosc": 2,
+   "opis": "To nie jest „e” plus polskie „r”. Mów „a” i zaginaj czubek języka do góry. Nie trzęś nim, tylko zagnij. Brzmi jak „sir” z amerykańskiego filmu. Takich słów jest mało, ale są bardzo częste.\nCzasem to samo „r” dokleja się na koniec innego słowa. Wtedy końcówka znika, a język zagina się do góry. 哪儿 „nar” (gdzie), 这儿 „czar” (tutaj). Nie mów „na-er”. To jeden kawałek.",
+   "przyklad_pl": "Udawaj Amerykanina mówiącego „sir”. Sam koniec to 二 èr: „ar” (dwa).",
+   "jak_cwiczyc": "Powiedz „a”. Zagnij czubek języka w górę, nie trzęś nim. Teraz głosem z góry w dół: „ar” (二, dwa). Teraz „ar-dzy” (儿子, syn).",
+   "blad_polakow": "Mówisz twarde „er” jak w „ser”. Język ma się zagiąć, a nie trząść.",
+   "pary": [
+    {
+     "a": {
+      "znaki": "二",
+      "pinyin": "èr",
+      "polski": "ar",
+      "znaczenie": "dwa"
+     },
+     "b": {
+      "znaki": "饿",
+      "pinyin": "è",
+      "polski": "y",
+      "znaczenie": "głodny"
+     },
+     "roznica": "z zagiętym językiem (dwa) albo bez (głodny)"
+    },
+    {
+     "a": {
+      "znaki": "儿",
+      "pinyin": "ér",
+      "polski": "ar",
+      "znaczenie": "dziecko, syn"
+     },
+     "b": {
+      "znaki": "额",
+      "pinyin": "é",
+      "polski": "y",
+      "znaczenie": "czoło"
+     },
+     "roznica": "z zagiętym językiem (dziecko) albo bez (czoło)"
+    },
+    {
+     "a": {
+      "znaki": "而",
+      "pinyin": "ér",
+      "polski": "ar",
+      "znaczenie": "a, ale"
+     },
+     "b": {
+      "znaki": "鹅",
+      "pinyin": "é",
+      "polski": "y",
+      "znaczenie": "gęś"
+     },
+     "roznica": "z zagiętym językiem (ale) albo bez (gęś)"
+    }
+   ],
+   "slowa": [
+    {
+     "znaki": "二",
+     "pinyin": "èr",
+     "polski": "ar",
+     "znaczenie": "dwa"
+    },
+    {
+     "znaki": "儿子",
+     "pinyin": "érzi",
+     "polski": "ar-dzy",
+     "znaczenie": "syn"
+    },
+    {
+     "znaki": "女儿",
+     "pinyin": "nǚ'ér",
+     "polski": "nü-ar",
+     "znaczenie": "córka"
+    },
+    {
+     "znaki": "耳朵",
+     "pinyin": "ěrduo",
+     "polski": "ar-tło",
+     "znaczenie": "ucho"
+    },
+    {
+     "znaki": "哪儿",
+     "pinyin": "nǎr",
+     "polski": "nar",
+     "znaczenie": "gdzie"
+    },
+    {
+     "znaki": "这儿",
+     "pinyin": "zhèr",
+     "polski": "czar",
+     "znaczenie": "tutaj"
+    },
+    {
+     "znaki": "一点儿",
+     "pinyin": "yìdiǎnr",
+     "polski": "i-tiar",
+     "znaczenie": "troszkę"
+    }
+   ]
+  },
+  {
+   "id": "trzy-szeregi",
+   "tytul": "j q x · zh ch sh · z c s · masz to po polsku",
+   "trudnosc": 1,
+   "opis": "Polski ma trzy podobne zestawy: ś ć dź, sz cz dż, s c dz. Chiński ma dokładnie te same trzy: x q j, sh ch zh, s c z. Anglik męczy się z tym latami. Ty masz to za darmo. Dokładasz tylko mocny wydech przy q, ch, c.",
+   "przyklad_pl": "Powiedz „siano” — masz x. Powiedz „szal” — masz sh. Powiedz „sen” — masz s. 西 xī to „si” jak w „siano”. 诗 shī to „szy” jak w „szyć”.",
+   "jak_cwiczyc": "Powiedz „siano”, „szyć”, „syk”. Teraz „si” (西), „szy” (诗), „sy” (四). Słyszysz? To już umiesz. Teraz to samo z „dzi” (鸡), „czy” (只), „dzy” (字).",
+   "blad_polakow": "Tu prawie nic ci nie grozi. Jedna pułapka: czytasz pinyin po angielsku. „x” to nie „ks”, „j” to nie polskie „j”. Czytaj po polsku: x = ś, j = dź. A q to ć z mocnym wydechem.",
+   "pary": [
+    {
+     "a": {
+      "znaki": "西",
+      "pinyin": "xī",
+      "polski": "si",
+      "znaczenie": "zachód"
+     },
+     "b": {
+      "znaki": "诗",
+      "pinyin": "shī",
+      "polski": "szy",
+      "znaczenie": "wiersz"
+     },
+     "roznica": "ś (zachód) albo sz (wiersz)"
+    },
+    {
+     "a": {
+      "znaki": "小",
+      "pinyin": "xiǎo",
+      "polski": "siał",
+      "znaczenie": "mały"
+     },
+     "b": {
+      "znaki": "少",
+      "pinyin": "shǎo",
+      "polski": "szał",
+      "znaczenie": "mało (jak w 多少)",
+      "lekcja": 2
+     },
+     "roznica": "ś (mały) albo sz (mało)"
+    },
+    {
+     "a": {
+      "znaki": "鸡",
+      "pinyin": "jī",
+      "polski": "dzi",
+      "znaczenie": "kurczak",
+      "lekcja": 2
+     },
+     "b": {
+      "znaki": "只",
+      "pinyin": "zhī",
+      "polski": "czy",
+      "znaczenie": "sztuka"
+     },
+     "roznica": "dź (kurczak) albo dż (sztuka)"
+    },
+    {
+     "a": {
+      "znaki": "七",
+      "pinyin": "qī",
+      "polski": "ćhi",
+      "znaczenie": "siedem"
+     },
+     "b": {
+      "znaki": "吃",
+      "pinyin": "chī",
+      "polski": "czhy",
+      "znaczenie": "jeść",
+      "lekcja": 2
+     },
+     "roznica": "ć z mocnym wydechem (siedem) albo cz z mocnym wydechem (jeść)"
+    },
+    {
+     "a": {
+      "znaki": "三",
+      "pinyin": "sān",
+      "polski": "san",
+      "znaczenie": "trzy"
+     },
+     "b": {
+      "znaki": "山",
+      "pinyin": "shān",
+      "polski": "szan",
+      "znaczenie": "góra"
+     },
+     "roznica": "s (trzy) albo sz (góra)"
+    },
+    {
+     "a": {
+      "znaki": "早",
+      "pinyin": "zǎo",
+      "polski": "dzał",
+      "znaczenie": "wcześnie"
+     },
+     "b": {
+      "znaki": "找",
+      "pinyin": "zhǎo",
+      "polski": "czał",
+      "znaczenie": "szukać"
+     },
+     "roznica": "dz (wcześnie) albo dż (szukać)"
+    }
+   ],
+   "slowa": [
+    {
+     "znaki": "谢谢",
+     "pinyin": "xièxie",
+     "polski": "sie-sie",
+     "znaczenie": "dziękuję",
+     "lekcja": 1
+    },
+    {
+     "znaki": "喜欢",
+     "pinyin": "xǐhuan",
+     "polski": "si-chłan",
+     "znaczenie": "lubić",
+     "lekcja": 1
+    },
+    {
+     "znaki": "想",
+     "pinyin": "xiǎng",
+     "polski": "siang",
+     "znaczenie": "chcieć",
+     "lekcja": 2
+    },
+    {
+     "znaki": "说",
+     "pinyin": "shuō",
+     "polski": "szło",
+     "znaczenie": "mówić",
+     "lekcja": 2
+    },
+    {
+     "znaki": "中国",
+     "pinyin": "Zhōngguó",
+     "polski": "czung-kło",
+     "znaczenie": "Chiny",
+     "lekcja": 3
+    },
+    {
+     "znaki": "叫",
+     "pinyin": "jiào",
+     "polski": "dział",
+     "znaczenie": "nazywać się",
+     "lekcja": 1
+    }
+   ]
+  },
+  {
+   "id": "za-darmo",
+   "tytul": "Co masz za darmo jako Polak",
+   "trudnosc": 1,
+   "opis": "Większość chińskich dźwięków to polskie dźwięki pod inną literą. h = polskie ch. w = ł. y = j. r = ż. ai = aj, ei = ej, ao = ał, ou = oł. m n l f mówisz dokładnie jak po polsku. b d g to polskie p t k bez wydechu (汉堡 to „chan-pał”, 中国 to „czung-kło”). Czytaj pinyin po polsku, nie po angielsku. Wtedy połowa roboty jest z głowy.\nJeszcze to: uo = ło (说 szło, 做 dzło), ua = ła, uai = łaj, ui = łej (水 szłej), iu = ioł (六 lioł). Litera u po spółgłosce to zwykle polskie ł, nie u.",
+   "przyklad_pl": "好 hǎo to „chał” jak w „chałwa”. 我 wǒ to „ło” jak w „łoś”. 买 mǎi to „maj” jak miesiąc maj. 美 měi to „mej”.",
+   "jak_cwiczyc": "Powiedz „chałwa” bez „wa”. Teraz to samo nisko: „chał” (好, dobry). Powiedz „łoś” bez „ś”. Teraz to samo nisko: „ło” (我, ja). Od zera uczysz się tylko: tonów, mocnego wydechu, ü, e, -ng, twardego y i er.",
+   "blad_polakow": "Jedyny błąd to pomylone literki. Pinyin „h” to polskie „ch”. Pinyin „ch” to polskie „cz” z mocnym wydechem. 好 to „chał”, 炒 to „czhał”. Nie pomyl tych dwóch.",
+   "pary": [
+    {
+     "a": {
+      "znaki": "好",
+      "pinyin": "hǎo",
+      "polski": "chał",
+      "znaczenie": "dobry",
+      "lekcja": 1
+     },
+     "b": {
+      "znaki": "炒",
+      "pinyin": "chǎo",
+      "polski": "czhał",
+      "znaczenie": "smażyć",
+      "lekcja": 2
+     },
+     "roznica": "pinyin h = polskie ch (dobry); pinyin ch = polskie cz z mocnym wydechem (smażyć)"
+    },
+    {
+     "a": {
+      "znaki": "喝",
+      "pinyin": "hē",
+      "polski": "chy",
+      "znaczenie": "pić",
+      "lekcja": 2
+     },
+     "b": {
+      "znaki": "车",
+      "pinyin": "chē",
+      "polski": "czhy",
+      "znaczenie": "samochód"
+     },
+     "roznica": "ch jak w „chleb” (pić) albo cz z mocnym wydechem (samochód)"
+    },
+    {
+     "a": {
+      "znaki": "买",
+      "pinyin": "mǎi",
+      "polski": "maj",
+      "znaczenie": "kupować"
+     },
+     "b": {
+      "znaki": "美",
+      "pinyin": "měi",
+      "polski": "mej",
+      "znaczenie": "piękny",
+      "lekcja": 1
+     },
+     "roznica": "„aj” jak w „daj” (kupować) albo „ej” jak w „klej” (piękny)"
+    },
+    {
+     "a": {
+      "znaki": "一",
+      "pinyin": "yī",
+      "polski": "i",
+      "znaczenie": "jeden",
+      "lekcja": 3
+     },
+     "b": {
+      "znaki": "鸡",
+      "pinyin": "jī",
+      "polski": "dzi",
+      "znaczenie": "kurczak",
+      "lekcja": 2
+     },
+     "roznica": "pinyin y = polskie j, więc „i” (jeden); pinyin j = polskie dź, więc „dzi” (kurczak)"
+    }
+   ],
+   "slowa": [
+    {
+     "znaki": "我",
+     "pinyin": "wǒ",
+     "polski": "ło",
+     "znaczenie": "ja",
+     "lekcja": 1
+    },
+    {
+     "znaki": "好",
+     "pinyin": "hǎo",
+     "polski": "chał",
+     "znaczenie": "dobry",
+     "lekcja": 1
+    },
+    {
+     "znaki": "来",
+     "pinyin": "lái",
+     "polski": "laj",
+     "znaczenie": "przyjść",
+     "lekcja": 1
+    },
+    {
+     "znaki": "牛奶",
+     "pinyin": "niúnǎi",
+     "polski": "nioł-naj",
+     "znaczenie": "mleko",
+     "lekcja": 2
+    },
+    {
+     "znaki": "晚安",
+     "pinyin": "wǎn'ān",
+     "polski": "łan-an",
+     "znaczenie": "dobranoc",
+     "lekcja": 3
+    },
+    {
+     "znaki": "汉堡",
+     "pinyin": "hànbǎo",
+     "polski": "chan-pał",
+     "znaczenie": "hamburger",
+     "lekcja": 2
+    }
+   ]
+  }
+ ]
+}

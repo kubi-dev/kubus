@@ -47,6 +47,21 @@ strona lekcji pokazuje znaczek „✦ ze scenki”), więc trafiają do kart, po
 user gra swoją rolę (słyszy kwestie drugiej osoby, po polskiej podpowiedzi mówi swoją, słyszy odpowiedź). Strona `scenki/` grupuje
 scenki lekcjami, z dialogiem (znaki, pinyin, polski). Strona lekcji linkuje do swojego odcinka podcastu i scenek.
 
+## Wymowa: tony i dźwięki
+Strona `wymowa/`: osobna sekcja do ćwiczenia tego, czego polski nie ma. Dane w `wymowa.json` (źródło prawdy, edytuj tu):
+`wstep` (zasada, znaczki nad literami), `tony` (5 kart: co robi głos, polska sytuacja, ćwiczenie „powiedz po polsku… teraz tak samo…”,
+błąd Polaków, słowa), `zmiany_tonow` (dwa/trzy niskie, 不, 一, lekkie końcówki), `zdania` (polski nacisk, pytanie bez podnoszenia
+głosu, ręka, liczby 1–10), `pary_tonow` (20 par 1–4 × 1–4 plus 4 z lekkim tonem, kolejność od najtrudniejszych dla Polaka),
+`minimalne_pary_tonow` (te same litery, inny ton), `dzwieki` (grupy od najtrudniejszej: wydech p/b t/d k/g i c/z ch/zh q/j, ü/u,
+twarde „y” po z c s zh ch sh r, e, -n/-ng, r, ukryte litery -ian -iu -ui -un -ong, er, „masz za darmo”: trzy szeregi, h, ł, aj/ej/ał/oł).
+Każdy wpis: `znaki`, `pinyin`, `polski` (zapis wg konwencji notatek), `znaczenie`; build dopisuje `lekcja`, gdy słowo jest w lekcjach
+(znaczek L1/L2/L3). `build.py` (`build_wymowa`) nagrywa mp3 (wolno i normalnie) do `wymowa/audio/` i składa `wymowa/index.html` z `wymowa.html`.
+Strona: każde słowo ▶ i 🎤 (ten sam `wymowa.js`, trener tonów działa jak w lekcjach), siatka par tonów, pary słów obok siebie
+(rozpoznanie drugiego słowa z pary = osobny komunikat), ćwiczenia „Który ton?” (pojedyncze słowa, ton z pinyinu w danych),
+„Które słowo?” (pary tonów i dźwięków), „Powiedz to” (tylko słowa z ≥ 2 znaków, bo pojedyncze telefon rozpoznaje losowo).
+Licznik wpadek per ton/grupa w `localStorage kubus.wymowa.stat`, lista „co ci najczęściej ucieka” linkuje do sekcji.
+Treść powstała z badania (tony i dźwięki trudne dla Polaków, metody ćwiczeń) i została sprawdzona pod kątem chińskiego i prostego polskiego.
+
 ## Powtórki
 - Strona `powtorka/` (SM-2 jak w Anki). Karta A: obrazek + polskie znaczenie, mówisz po chińsku (mikrofon). Karta B: audio po chińsku, wybierasz znaczenie, po dojrzeniu karty wpisujesz; obrazek pokazuje się po odsłonięciu.
 - Gwiazdka ☆ na karcie (w powtórce i na stronie lekcji) dodaje zwrot do ulubionych. Strona `ulubione/` to ściąga na rozmowę: lista po polsku (z wyszukiwarką), dotknięcie otwiera kartę ze znakami, pinyin, zapisem polskim, nagraniem i mikrofonem. Ulubione są w tym samym stanie co postęp (pole `ulubione`), więc synchronizują się między urządzeniami.
@@ -59,6 +74,8 @@ obrazki.py               szukanie obrazków do kart (Openverse)
 powtorka.html            szablon strony powtórek
 podcast.html             szablon strony podcastu
 scenki.html              szablon strony scenek
+wymowa.html              szablon strony wymowy (tony i dźwięki)
+wymowa.json              treść strony wymowy (źródło prawdy)
 podcast.py               składanie odcinków mp3 (polski → chiński → pauza)
 scenki.py                sprawdzanie i wpisywanie scenek (dialogów) do lekcji
 ulubione.html            szablon strony ulubionych zwrotów
@@ -76,6 +93,7 @@ lekcje/NN-slug/
 powtorka/                wygenerowana strona powtórek + karty.json
 podcast/                 wygenerowana strona podcastu + wszystko.mp3
 scenki/                  wygenerowana strona scenek
+wymowa/                  wygenerowana strona wymowy + audio/ (mp3 słów spoza lekcji)
 ulubione/                wygenerowana strona ulubionych
 index.html               wygenerowany indeks lekcji
 ```

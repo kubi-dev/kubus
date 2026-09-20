@@ -15,6 +15,7 @@ POWTORKA = (ROOT / "powtorka.html").read_text(encoding="utf-8")
 ULUBIONE = (ROOT / "ulubione.html").read_text(encoding="utf-8")
 PODCAST = (ROOT / "podcast.html").read_text(encoding="utf-8")
 SCENKI = (ROOT / "scenki.html").read_text(encoding="utf-8")
+WYMOWA = (ROOT / "wymowa.html").read_text(encoding="utf-8")
 # Wersja do cache-bustingu wymowa.js (hash pliku)
 WERSJA = hashlib.md5((ROOT / "wymowa.js").read_bytes()).hexdigest()[:8]
 # Adres workera synchronizacji (plik sync.url, jedna linia); pusty = tylko localStorage
@@ -164,6 +165,37 @@ def build_powtorka(lessons):
     html = ULUBIONE.replace("{{KARTY_JSON}}", json.dumps(karty, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
     (out / "index.html").write_text(html, encoding="utf-8")
 
+def build_wymowa(lessons):
+    """Strona wymowa/index.html: tony i dźwięki trudne dla Polaka. Dane w wymowa.json (źródło prawdy), nagrania mp3
+    (wolno i normalnie) do wymowa/audio/ jak w lekcjach. Słowa znane z lekcji dostają numer lekcji (znaczek L1, L2…)."""
+    f = ROOT / "wymowa.json"
+    if not f.exists(): return
+    data = json.loads(f.read_text(encoding="utf-8"))
+    out = ROOT / "wymowa"; out.mkdir(exist_ok=True)
+    lekcja = {}
+    for l in sorted(lessons, key=lambda l: l["numer"]):
+        for k in l["karty"]: lekcja.setdefault(k["id"], l["numer"])
+    def slowa():
+        for k in ("wstep", "tony", "zmiany_tonow", "zdania"):
+            for t in data.get(k, []): yield from t["slowa"]
+        for p in data.get("pary_tonow", []): yield from p["slowa"]
+        for p in data.get("minimalne_pary_tonow", []): yield p["a"]; yield p["b"]
+        for g in data.get("dzwieki", []):
+            for p in g.get("pary", []): yield p["a"]; yield p["b"]
+            yield from g.get("slowa", [])
+    audio, n = {}, 0
+    for s in slowa():
+        n += 1
+        if s["znaki"] in lekcja: s["lekcja"] = lekcja[s["znaki"]]
+        else: s.pop("lekcja", None)
+        if s["znaki"] in audio: continue
+        try: audio[s["znaki"]] = ensure_audio(out, s["znaki"])
+        except Exception as e: print(f"  ! {e}", file=sys.stderr)
+    data["audio"] = audio
+    html = WYMOWA.replace("{{DATA_JSON}}", json.dumps(data, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
+    (out / "index.html").write_text(html, encoding="utf-8")
+    print(f"wymowa: {n} słów, {len(audio)} nagrań")
+
 def build_index(lessons):
     items = "\n".join(
         f'    <a class="card" href="lekcje/{l["dir"]}/"><div class="t">{l["tytul"]}</div><div class="m">{l["data"]} · {l["n"]} pozycji</div></a>'
@@ -195,6 +227,7 @@ INDEX = """<!DOCTYPE html>
     <a class="card" href="ulubione/"><div class="t">★ Ulubione</div><div class="m">zwroty oznaczone gwiazdką w powtórce · ściąga na rozmowę</div></a>
     <a class="card" href="podcast/"><div class="t">🎧 Podcast</div><div class="m">polski → chiński → pauza na powtórzenie · odcinek do każdej lekcji i do wszystkiego</div></a>
     <a class="card" href="scenki/"><div class="t">🎭 Scenki</div><div class="m">krótkie rozmowy z poznanych słów · słuchasz, powtarzasz, grasz swoją rolę</div></a>
+    <a class="card" href="wymowa/"><div class="t">🗣 Wymowa</div><div class="m">tony i dźwięki trudne dla Polaka · ucho, pary słów, mikrofon</div></a>
 {{LEKCJE}}
 </main>
 </body>
@@ -207,4 +240,5 @@ if __name__ == "__main__":
     build_index(lessons)
     build_powtorka(lessons)
     build_podcast(lessons)
+    build_wymowa(lessons)
     print("index.html OK")

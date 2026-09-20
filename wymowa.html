@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wymowa: tony i dźwięki · Notatki z chińskiego</title>
+<style>
+  :root {
+    --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62;
+    --accent: #b8362d; --accent-soft: #f3d9d5; --line: #e6dccd; --star: #d99a1c;
+    --ok-bg: #dff3e3; --ok-ink: #14532d; --mid-bg: #fdf0d5; --mid-ink: #7c4a03;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #171412; --card: #221e1a; --ink: #f1e9dd; --muted: #a2968a;
+            --accent: #e0574c; --accent-soft: #3a2320; --line: #332c26; --star: #f0c04a;
+            --ok-bg: #14351f; --ok-ink: #9be2b0; --mid-bg: #3a2c10; --mid-ink: #f0c674; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  header { padding: 14px 18px 8px; max-width: 760px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
+  header a { color: var(--accent); text-decoration: none; font-size: 14px; }
+  .ttl { flex: 1; text-align: center; font-size: 16px; font-weight: 600; }
+  nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+  nav .in { max-width: 760px; margin: 0 auto; padding: 8px 12px; display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  nav .in::-webkit-scrollbar { display: none; }
+  nav a { flex: none; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); text-decoration: none; font-size: 14px; }
+  nav a.on { border-color: var(--accent); color: var(--accent); }
+  nav label { flex: none; display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--muted); padding-left: 6px; }
+  main { max-width: 760px; margin: 0 auto; padding: 8px 16px 80px; }
+  section { padding-top: 8px; }
+  h1 { margin: 12px 0 4px; font-size: 24px; }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 26px 0 10px; }
+  .intro { color: var(--muted); font-size: 14px; margin: 0 0 6px; line-height: 1.45; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
+  .card h3 { margin: 0 0 6px; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+  .card h3 .big { width: 54px; height: 40px; flex: none; }
+  .card h3 .big path { fill: none; stroke: var(--accent); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  .card h3 .big circle { fill: var(--accent); }
+  .opis { font-size: 15px; line-height: 1.45; margin: 4px 0; white-space: pre-line; }
+  .pl { margin: 8px 0; padding: 10px 12px; border-radius: 10px; background: var(--bg); font-size: 15px; line-height: 1.45; }
+  .pl b { color: var(--accent); }
+  .pl .lab { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 2px; }
+  .blad { font-size: 13px; color: var(--muted); margin: 6px 0 0; line-height: 1.4; }
+  .blad b { color: var(--ink); }
+  .trud { font-size: 12px; color: var(--muted); margin-left: auto; font-weight: 400; white-space: nowrap; }
+  /* wiersz słowa: ▶ znaki pinyin zapis-polski znaczenie 🎤 */
+  .slowa { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .w { display: grid; grid-template-columns: auto auto 1fr auto; grid-template-areas: "play zn info mic" "res res res res"; align-items: center; gap: 4px 10px; padding: 6px 8px; border-radius: 10px; background: var(--bg); }
+  .w.playing { outline: 2px solid var(--accent); }
+  .w .play { grid-area: play; font: inherit; font-size: 16px; width: 36px; height: 36px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+  .w .zn { grid-area: zn; font-size: 24px; line-height: 1.1; cursor: pointer; }
+  .w .info { grid-area: info; min-width: 0; cursor: pointer; }
+  .w .py { font-size: 14px; color: var(--accent); }
+  .w .ppl { font-size: 14px; }
+  .w .mn { font-size: 13px; color: var(--muted); }
+  .w .lek { font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 6px; margin-left: 4px; }
+  .w .mic { grid-area: mic; }
+  .w .result { grid-area: res; }
+  .mic { display: inline-flex; align-items: center; gap: 4px; font: inherit; font-size: 12px; padding: 6px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer;
+         touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; white-space: nowrap; }
+  .mic.rec { background: var(--accent); color: #fff; border-color: var(--accent); animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { opacity: .6; } }
+  .result { font-size: 13px; padding: 8px 10px; border-radius: 8px; background: var(--card); line-height: 1.4; }
+  .result.ok { background: var(--ok-bg); color: var(--ok-ink); }
+  .result.mid { background: var(--mid-bg); color: var(--mid-ink); }
+  .result.bad { background: var(--accent-soft); color: var(--accent); }
+  /* pary: dwa słowa obok siebie + różnica */
+  .para { margin-top: 10px; padding: 8px; border-radius: 12px; border: 1px dashed var(--line); }
+  .para .dwa { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .para .roz { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+  .para .w { grid-template-columns: auto 1fr; grid-template-areas: "play zn" "info info" "mic mic" "res res"; }
+  .para .w .zn { font-size: 26px; }
+  /* siatka par tonów */
+  .siatka { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 8px 0; }
+  .siatka button { font: inherit; font-size: 14px; padding: 10px 4px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .siatka button.on { border-color: var(--accent); background: var(--accent-soft); }
+  .siatka button .k { display: flex; gap: 2px; }
+  .siatka button .k svg { width: 22px; height: 16px; }
+  .siatka button .k path { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; }
+  .siatka button .k circle { fill: currentColor; }
+  .siatka button .n { font-size: 11px; color: var(--muted); }
+  /* ćwiczenia */
+  .tryby { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+  .tryby button, .btn { font: inherit; font-size: 14px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+  .tryby button.on { border-color: var(--accent); background: var(--accent-soft); }
+  .btn.main { background: var(--accent); color: #fff; border-color: var(--accent); font-size: 16px; padding: 12px 22px; }
+  .quiz { text-align: center; padding: 8px 0; }
+  .quiz .pyt { font-size: 15px; margin: 8px 0; min-height: 22px; }
+  .odp { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0; }
+  .odp.dwa { grid-template-columns: 1fr 1fr; }
+  .odp button { font: inherit; padding: 10px 6px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .odp button svg { width: 44px; height: 32px; }
+  .odp button path { fill: none; stroke: currentColor; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+  .odp button circle { fill: currentColor; }
+  .odp button .zn { font-size: 26px; }
+  .odp button .py { font-size: 13px; color: var(--accent); }
+  .odp button .mn { font-size: 12px; color: var(--muted); }
+  .odp button.dobrze { border-color: #2e9e5b; background: var(--ok-bg); color: var(--ok-ink); }
+  .odp button.zle { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+  .odp button:disabled { cursor: default; }
+  .fb { margin: 8px 0; font-size: 15px; min-height: 22px; }
+  .fb.ok { color: var(--ok-ink); } .fb.bad { color: var(--accent); }
+  .wynik { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .staty { margin-top: 10px; font-size: 13px; }
+  .staty .row { display: flex; justify-content: space-between; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  .staty .row a { color: var(--accent); text-decoration: none; }
+  .staty .bar { height: 6px; border-radius: 3px; background: var(--line); margin-top: 4px; overflow: hidden; }
+  .staty .bar i { display: block; height: 100%; background: var(--accent); }
+  .hint { color: var(--muted); font-size: 13px; }
+  .diag { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+  .diag pre { max-height: 200px; overflow: auto; font-size: 11px; white-space: pre-wrap; word-break: break-all; background: var(--card); padding: 8px; border-radius: 8px; }
+  details.grupa summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; }
+  details.grupa summary::-webkit-details-marker { display: none; }
+  details.grupa summary::after { content: "▸"; margin-left: auto; color: var(--muted); transition: transform .15s; }
+  details.grupa[open] summary::after { transform: rotate(90deg); }
+  .latwe { border-style: dashed; }
+  [hidden] { display: none !important; }
+  @media (max-width: 420px) { .odp { grid-template-columns: repeat(2, 1fr); } .para .dwa { gap: 4px; } }
+</style>
+</head>
+<body>
+<header><a href="../">← lekcje</a><div class="ttl">🗣 Wymowa: tony i dźwięki</div><a href="../powtorka/">powtórka</a></header>
+<nav><div class="in">
+  <a href="#tony">Tony</a><a href="#zmiany">Zmiany</a><a href="#zdania">W zdaniu</a><a href="#pary">Pary tonów</a><a href="#uszy">Ucho</a><a href="#dzwieki">Dźwięki</a><a href="#cwicz">Ćwicz</a>
+  <label><input type="checkbox" id="slow"> wolniej</label>
+</div></nav>
+
+<main>
+  <h1>Tony i dźwięki dla Polaka</h1>
+  <p class="intro">Tu ćwiczysz to, czego polski nie ma: melodię słowa (tony) i kilka dźwięków. Dotknij słowa, żeby je usłyszeć. Przytrzymaj 🎤, powiedz, puść. Na dole są ćwiczenia na ucho i wynik: co ci najczęściej ucieka.</p>
+  <p class="hint">Pojedyncze krótkie słowa telefon łapie słabo. Jak trzy razy nie rozpozna, nie znaczy to, że mówisz źle. Mikrofon sprawdzaj najlepiej na słowach z dwóch części.</p>
+  <p class="hint">Zapis polski: <b>ch</b> = polskie ch · <b>y</b> = polskie y · <b>ł</b> = polskie ł · <b>ü</b> = „i” z ustami ułożonymi do „u” · <b>kh, ph, th, czh</b> = z mocnym wydechem · <b>dz, p, t, k</b> = bez wydechu (chińskie z, b, d, g)</p>
+
+  <section id="tony"><h2>Tony · co robi głos</h2><p class="intro">Cztery melodie plus jedna „bez melodii”. Każdą masz w polskim, tylko nie w słowie, a w sytuacji.</p><div id="s-wstep"></div><div id="s-tony"></div></section>
+  <section id="zmiany"><h2>Zmiany tonów · kiedy słowo brzmi inaczej niż w słowniku</h2><div id="s-zmiany"></div></section>
+  <section id="zdania"><h2>W całym słowie i zdaniu · polskie nawyki</h2><div id="s-zdania"></div></section>
+  <section id="pary"><h2>Pary tonów · dwa słowa, jedna melodia</h2><p class="intro">Chiński mówi się parami. Wybierz parę, posłuchaj kilku słów z tą samą melodią, powtórz. <span id="pary-start"></span></p><div class="siatka" id="siatka"></div><div id="s-pary"></div></section>
+  <section id="uszy"><h2>Tylko ton się różni · ucho</h2><p class="intro">Te same litery, inna melodia, zupełnie inne słowo. Posłuchaj obu, potem powiedz każde.</p><div id="s-uszy"></div></section>
+  <section id="dzwieki"><h2>Dźwięki · trudne dla Polaka</h2><p class="intro">Od najtrudniejszych. Każda grupa: jak to zrobić po polsku, para słów, która różni się tylko tym jednym dźwiękiem, i mikrofon.</p><div id="s-dzwieki"></div></section>
+
+  <section id="cwicz"><h2>Ćwicz · ucho i usta</h2>
+    <div class="tryby" id="tryby">
+      <button type="button" data-t="ton" class="on">Który ton?</button>
+      <button type="button" data-t="para">Które słowo?</button>
+      <button type="button" data-t="powiedz">Powiedz to</button>
+    </div>
+    <div class="card quiz" id="quiz">
+      <div class="pyt" id="q-pyt"></div>
+      <button class="btn main" id="q-start" type="button">▶ Start</button>
+      <div id="q-body"></div>
+      <div class="fb" id="q-fb"></div>
+      <div id="q-dalej"></div>
+      <div class="wynik" id="q-wynik"></div>
+    </div>
+    <div class="card"><b>Co ci najczęściej ucieka</b><div class="staty" id="staty"><span class="hint">Jeszcze nic. Zrób kilka rund wyżej.</span></div></div>
+  </section>
+
+  <details class="diag"><summary>diagnostyka mikrofonu</summary><pre id="diag-log"></pre></details>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
+<script>window.SYNC_URL = "{{SYNC_URL}}";</script>
+<script src="../wymowa.js?v={{WERSJA}}"></script>
+<script>
+const DATA = {{DATA_JSON}};
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const slowCb = $("slow");
+try { slowCb.checked = localStorage.getItem("kubus.wymowa.wolno") === "1"; } catch (e) {}
+slowCb.addEventListener("change", () => { try { localStorage.setItem("kubus.wymowa.wolno", slowCb.checked ? "1" : "0"); } catch (e) {} });
+
+// kontury tonów (jak w wymowa.js): 1 równy wysoko, 2 rosnący, 3 opada i wraca, 4 opadający, 5 lekki (kropka)
+const KONTUR = { 1: "M4 7 L36 7", 2: "M4 24 L36 6", 3: "M4 11 L20 26 L36 9", 4: "M4 4 L36 26" };
+const svgTon = (ton, cls) => `<svg class="${cls || ""}" viewBox="0 0 40 30" aria-label="ton ${ton}">${ton === 5 ? `<circle cx="20" cy="16" r="3.5"/>` : `<path d="${KONTUR[ton]}"/>`}</svg>`;
+// numer tonu pierwszej sylaby z pinyinu w danych (znaczek nad literą); bez znaczka = 5 (lekki).
+// Z danych, nie z pinyin-pro: znak z kilkoma czytaniami (干, 只) dostałby domyślne, a nie to, które ćwiczymy.
+const TONY_ZNAK = { "āēīōūǖ": 1, "áéíóúǘ": 2, "ǎěǐǒǔǚ": 3, "àèìòùǜ": 4 };
+function tonZPinyin(pinyin) {
+  for (const ch of (pinyin || "").normalize("NFC")) for (const k in TONY_ZNAK) if (k.includes(ch)) return TONY_ZNAK[k];
+  return 5;
+}
+
+// ---- audio: mp3 z wymowa/audio/ przez Wymowa.graj (Web Audio, bez <audio>) ----
+const AUDIO = DATA.audio || {};
+let grajacy = null, nrOdtworzenia = 0;
+function graj(znaki, el) {
+  const f = AUDIO[znaki];
+  if (grajacy) grajacy.classList.remove("playing");
+  grajacy = el || null; if (el) el.classList.add("playing");
+  if (!f) { Wymowa.diag("brak mp3 dla " + znaki); return Promise.resolve(false); }
+  const moje = ++nrOdtworzenia;
+  return Wymowa.graj("audio/" + f + (slowCb.checked ? "-slow" : "") + ".mp3", { onEnd: () => { if (moje === nrOdtworzenia && grajacy) { grajacy.classList.remove("playing"); grajacy = null; } } })
+    .catch(e => { Wymowa.diag("mp3 błąd: " + e.message); return false; });
+}
+Wymowa.beforeStart = () => { if (grajacy) { grajacy.classList.remove("playing"); grajacy = null; } };
+
+// ---- wiersz słowa ----
+function wiersz(s, opts) {
+  opts = opts || {};
+  const d = document.createElement("div"); d.className = "w";
+  d.innerHTML = `<button class="play" type="button" aria-label="posłuchaj">▶</button><span class="zn">${esc(s.znaki)}</span>
+    <span class="info"><span class="py">${esc(s.pinyin)}</span>${s.polski ? ` · <span class="ppl">${esc(s.polski)}</span>` : ""}<br><span class="mn">${esc(s.znaczenie)}</span>${s.lekcja ? `<span class="lek" title="znasz z lekcji ${s.lekcja}">L${s.lekcja}</span>` : ""}</span>
+    ${opts.bezMic ? "" : `<button class="mic" type="button"></button><div class="result" hidden></div>`}`;
+  d.addEventListener("click", (e) => { if (e.target.closest(".mic, .result")) return; graj(s.znaki, d); });
+  if (!opts.bezMic) bindMic(d.querySelector(".mic"), d.querySelector(".result"), s.znaki, opts.para);
+  return d;
+}
+function bindMic(btn, out, target, para) {
+  Wymowa.bind(btn, {
+    target: () => target,
+    onStart: () => { out.hidden = true; },
+    onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
+    onDone: (res) => {
+      const r = Wymowa.render(res, target);
+      out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
+      // w parze: rozpoznanie drugiego słowa z pary = trafiłeś dokładnie w błąd, który ćwiczysz
+      if (para && r.grade && r.grade.best && r.grade.best === Wymowa.strip(para.znaki))
+        out.innerHTML = `✗ Usłyszałem <b>${esc(para.znaki)}</b> (${esc(para.pinyin)}, ${esc(para.znaczenie)}), czyli drugie słowo z pary. Posłuchaj obu jeszcze raz.` ;
+      if (r.grade && r.grade.level !== "none") zapiszStat(para ? "mowa" : "mowa", r.grade.level === "exact");
+    }
+  });
+  btn.textContent = "🎤 mów";
+  const obs = new MutationObserver(() => { if (btn.textContent === Wymowa.LABEL_IDLE) btn.textContent = "🎤 mów"; });
+  obs.observe(btn, { childList: true, characterData: true, subtree: true });
+}
+function para(p, klucz) {
+  const d = document.createElement("div"); d.className = "para";
+  const dwa = document.createElement("div"); dwa.className = "dwa";
+  dwa.appendChild(wiersz(p.a, { para: p.b })); dwa.appendChild(wiersz(p.b, { para: p.a }));
+  d.appendChild(dwa);
+  if (p.roznica) d.insertAdjacentHTML("beforeend", `<div class="roz">${esc(p.roznica)}</div>`);
+  return d;
+}
+function blok(lab, tekst, b) { return tekst ? `<div class="pl"><span class="lab">${lab}</span>${b ? tekst.replace(/„([^”]+)”/g, "„<b>$1</b>”") : esc(tekst)}</div>` : ""; }
+function blokEsc(lab, tekst) { return blok(lab, esc(tekst), true); }
+
+// ---- tony ----
+(function () {
+  const root = $("s-tony");
+  for (const t of DATA.tony) {
+    const c = document.createElement("div"); c.className = "card"; c.id = "ton-" + t.ton;
+    c.innerHTML = `<h3>${svgTon(t.ton, "big")}<span>${esc(t.nazwa)}</span></h3><div class="opis">${esc(t.opis)}</div>` +
+      blokEsc("Po polsku brzmi tak", t.przyklad_pl) + blokEsc("Zrób tak", t.jak_cwiczyc) +
+      (t.blad_polakow ? `<div class="blad"><b>Na co uważać:</b> ${esc(t.blad_polakow)}</div>` : "") + `<div class="slowa"></div>`;
+    const sl = c.querySelector(".slowa"); for (const s of t.slowa) sl.appendChild(wiersz(s));
+    root.appendChild(c);
+  }
+})();
+// ---- karty z tytułem, opisem i słowami: wstęp, zmiany tonów, zdania ----
+function karty(rootId, lista) {
+  const root = $(rootId);
+  for (const z of (lista || [])) {
+    const c = document.createElement("div"); c.className = "card"; c.id = "k-" + z.id;
+    c.innerHTML = `<h3>${esc(z.tytul)}</h3><div class="opis">${esc(z.opis)}</div><div class="slowa"></div>`;
+    const sl = c.querySelector(".slowa"); for (const s of (z.slowa || [])) sl.appendChild(wiersz(s));
+    root.appendChild(c);
+  }
+}
+karty("s-wstep", DATA.wstep); karty("s-zmiany", DATA.zmiany_tonow); karty("s-zdania", DATA.zdania);
+// ---- pary tonów: siatka 4x4 (+ lekki), wybór pokazuje słowa ----
+(function () {
+  const siatka = $("siatka"), root = $("s-pary");
+  const kolej = ["1", "2", "3", "4"];
+  const mapa = {}; for (const p of DATA.pary_tonow) mapa[p.tony] = p;
+  const przyciski = [];
+  const pokaz = (klucz) => {
+    for (const b of przyciski) b.classList.toggle("on", b.dataset.k === klucz);
+    root.innerHTML = "";
+    const p = mapa[klucz]; if (!p) return;
+    const c = document.createElement("div"); c.className = "card";
+    c.innerHTML = `<h3>${svgTon(Number(klucz[0]), "big")}${svgTon(Number(klucz[2]), "big")}<span>tony ${esc(klucz)}</span></h3><div class="opis">${esc(p.opis)}</div><div class="slowa"></div>`;
+    const sl = c.querySelector(".slowa"); for (const s of p.slowa) sl.appendChild(wiersz(s));
+    root.appendChild(c);
+    try { localStorage.setItem("kubus.wymowa.para", klucz); } catch (e) {}
+  };
+  const dodaj = (a, b) => {
+    const k = a + "-" + b, p = mapa[k];
+    const btn = document.createElement("button"); btn.type = "button"; btn.dataset.k = k;
+    btn.innerHTML = `<span class="k">${svgTon(Number(a))}${svgTon(Number(b))}</span><span class="n">${k}${p && p.slowa[0] ? " · " + esc(p.slowa[0].znaki) : ""}</span>`;
+    btn.disabled = !p; btn.addEventListener("click", () => pokaz(k));
+    siatka.appendChild(btn); przyciski.push(btn);
+  };
+  for (const a of kolej) for (const b of kolej) dodaj(a, b);
+  for (const p of DATA.pary_tonow) if (/-5$/.test(p.tony) || /^5-/.test(p.tony)) dodaj(p.tony[0], p.tony[2]);
+  $("pary-start").textContent = "Polakom idą najgorzej: " + DATA.pary_tonow.slice(0, 5).map(p => p.tony).join(", ") + ". Zacznij od nich.";
+  let start = null; try { start = localStorage.getItem("kubus.wymowa.para"); } catch (e) {}
+  pokaz(start && mapa[start] ? start : (DATA.pary_tonow[0] ? DATA.pary_tonow[0].tony : "1-1"));
+})();
+// ---- minimalne pary tonów ----
+(function () {
+  const root = $("s-uszy");
+  const c = document.createElement("div"); c.className = "card";
+  for (const p of DATA.minimalne_pary_tonow) c.appendChild(para(p, "tony"));
+  root.appendChild(c);
+})();
+// ---- dźwięki ----
+(function () {
+  const root = $("s-dzwieki");
+  DATA.dzwieki.forEach((g, i) => {
+    const c = document.createElement("details"); c.className = "card grupa" + (g.trudnosc <= 1 ? " latwe" : ""); c.id = "dz-" + g.id;
+    if (i === 0) c.open = true;
+    c.innerHTML = `<summary><h3 style="margin:0">${esc(g.tytul)}</h3><span class="trud">${g.trudnosc >= 4 ? "trudne" : g.trudnosc >= 2 ? "średnie" : "masz za darmo"}</span></summary>
+      <div class="opis" style="margin-top:8px">${esc(g.opis)}</div>` + blokEsc("Po polsku", g.przyklad_pl) + blokEsc("Zrób tak", g.jak_cwiczyc) +
+      (g.blad_polakow ? `<div class="blad"><b>Na co uważać:</b> ${esc(g.blad_polakow)}</div>` : "") + `<div class="pary"></div><div class="slowa"></div>`;
+    const pr = c.querySelector(".pary"); for (const p of (g.pary || [])) pr.appendChild(para(p, g.id));
+    const sl = c.querySelector(".slowa"); for (const s of (g.slowa || [])) sl.appendChild(wiersz(s));
+    root.appendChild(c);
+  });
+})();
+
+// ---- ćwiczenia: "Który ton?", "Które słowo?", "Powiedz to" ----
+const KLUCZ_STAT = "kubus.wymowa.stat";   // { grupa: { ok, zle } }, grupa = "ton1".."ton4", "tony" (pary tonów), id grupy dźwięków, "mowa"
+function statTab() { try { return JSON.parse(localStorage.getItem(KLUCZ_STAT) || "{}"); } catch (e) { return {}; } }
+function zapiszStat(grupa, ok) {
+  const t = statTab(); t[grupa] = t[grupa] || { ok: 0, zle: 0 }; t[grupa][ok ? "ok" : "zle"]++;
+  try { localStorage.setItem(KLUCZ_STAT, JSON.stringify(t)); } catch (e) {}
+  rysujStaty();
+}
+const NAZWY = { ton1: "1. ton", ton2: "2. ton", ton3: "3. ton", ton4: "4. ton", ton5: "lekki ton", tony: "słowa różniące się tonem", mowa: "mówienie (mikrofon)" };
+for (const g of DATA.dzwieki) NAZWY[g.id] = g.tytul;
+const LINK = (k) => /^ton[1-5]$/.test(k) ? "#ton-" + k[3] : k === "tony" ? "#uszy" : k === "mowa" ? "#cwicz" : "#dz-" + k;
+function rysujStaty() {
+  const t = statTab(), rows = Object.keys(t).map(k => ({ k, ok: t[k].ok, zle: t[k].zle, n: t[k].ok + t[k].zle })).filter(r => r.n > 0)
+    .sort((a, b) => (b.zle / b.n) - (a.zle / a.n) || b.zle - a.zle);
+  const el = $("staty");
+  if (!rows.length) { el.innerHTML = `<span class="hint">Jeszcze nic. Zrób kilka rund wyżej.</span>`; return; }
+  el.innerHTML = rows.map(r => `<div class="row"><div style="flex:1"><a href="${LINK(r.k)}">${esc(NAZWY[r.k] || r.k)}</a><div class="bar"><i style="width:${Math.round(100 * r.zle / r.n)}%"></i></div></div><div>${r.zle} z ${r.n} źle</div></div>`).join("") +
+    `<div class="hint" style="margin-top:6px">Kolejność: od tego, co idzie najgorzej. Dotknij nazwy, żeby przejść do ćwiczenia.</div>`;
+}
+rysujStaty();
+
+// pule do ćwiczeń
+const JEDNO = [];   // słowa jednoznakowe z całej strony: [{znaki, pinyin, polski, znaczenie, ton}]
+const PARY = [];    // pary: [{a, b, grupa}]
+(function () {
+  const seen = new Set();
+  const dodaj = (s) => { if ([...s.znaki].length !== 1 || seen.has(s.znaki)) return; const t = tonZPinyin(s.pinyin); if (t === 5) return; seen.add(s.znaki); JEDNO.push(Object.assign({ ton: t }, s)); };
+  for (const t of DATA.tony) for (const s of t.slowa) dodaj(s);
+  for (const p of DATA.minimalne_pary_tonow) { dodaj(p.a); dodaj(p.b); PARY.push({ a: p.a, b: p.b, grupa: "tony" }); }
+  for (const g of DATA.dzwieki) for (const p of (g.pary || [])) { dodaj(p.a); dodaj(p.b); PARY.push({ a: p.a, b: p.b, grupa: g.id }); }
+})();
+const DLUZSZE = (function () { const seen = new Set(), out = []; const dodaj = s => { if ([...s.znaki].length < 2 || seen.has(s.znaki)) return; seen.add(s.znaki); out.push(s); };
+  for (const k of ["wstep", "tony", "zmiany_tonow", "zdania", "pary_tonow"]) for (const x of (DATA[k] || [])) for (const s of x.slowa) dodaj(s);
+  for (const p of PARY) { dodaj(p.a); dodaj(p.b); } for (const g of DATA.dzwieki) for (const s of (g.slowa || [])) dodaj(s); return out; })();
+const los = a => a[Math.floor(Math.random() * a.length)];
+let tryb = "ton", runda = { n: 0, ok: 0 }, biezace = null;
+$("tryby").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  tryb = b.dataset.t; for (const x of $("tryby").children) x.classList.toggle("on", x === b);
+  runda = { n: 0, ok: 0 }; $("q-body").innerHTML = ""; $("q-fb").textContent = ""; $("q-wynik").textContent = ""; $("q-start").hidden = false; $("q-dalej").innerHTML = "";
+  $("q-pyt").textContent = tryb === "ton" ? "Usłyszysz jedno słowo. Który to ton?" : tryb === "para" ? "Usłyszysz jedno z dwóch słów. Które?" : "Zobaczysz słowo. Powiedz je do mikrofonu.";
+});
+$("q-pyt").textContent = "Usłyszysz jedno słowo. Który to ton?";
+$("q-start").addEventListener("click", () => { $("q-start").hidden = true; nastepne(); });
+function wynikRundy() { $("q-wynik").textContent = runda.n ? `W tej rundzie: ${runda.ok} z ${runda.n} dobrze.` : ""; }
+function nastepne() {
+  $("q-fb").textContent = ""; $("q-fb").className = "fb"; $("q-dalej").innerHTML = "";
+  const body = $("q-body"); body.innerHTML = "";
+  if (tryb === "ton") {
+    const s = biezace = los(JEDNO);
+    body.innerHTML = `<button class="btn" id="q-play" type="button">🔊 posłuchaj jeszcze raz</button><div class="odp">` +
+      [1, 2, 3, 4].map(t => `<button type="button" data-t="${t}">${svgTon(t)}<span class="mn">${t}. ton</span></button>`).join("") + `</div>`;
+    graj(s.znaki); $("q-play").addEventListener("click", () => graj(s.znaki));
+    for (const b of body.querySelectorAll(".odp button")) b.addEventListener("click", () => {
+      const t = Number(b.dataset.t), ok = t === s.ton;
+      for (const x of body.querySelectorAll(".odp button")) { x.disabled = true; if (Number(x.dataset.t) === s.ton) x.classList.add("dobrze"); }
+      if (!ok) b.classList.add("zle");
+      runda.n++; if (ok) runda.ok++; zapiszStat("ton" + s.ton, ok); wynikRundy();
+      $("q-fb").className = "fb " + (ok ? "ok" : "bad");
+      $("q-fb").innerHTML = (ok ? "✓ Tak. " : `✗ To był ${s.ton}. ton. `) + `<b>${esc(s.znaki)}</b> ${esc(s.pinyin)} · ${esc(s.polski || "")} · ${esc(s.znaczenie)}`;
+      $("q-dalej").innerHTML = `<button class="btn" id="q-powt" type="button">🔊 posłuchaj</button> <button class="btn main" id="q-next" type="button">dalej ▶</button>`;
+      $("q-powt").addEventListener("click", () => graj(s.znaki)); $("q-next").addEventListener("click", nastepne);
+    });
+  } else if (tryb === "para") {
+    const p = biezace = los(PARY), cel = Math.random() < .5 ? p.a : p.b, kolej = Math.random() < .5 ? [p.a, p.b] : [p.b, p.a];
+    body.innerHTML = `<button class="btn" id="q-play" type="button">🔊 posłuchaj jeszcze raz</button><div class="odp dwa">` +
+      kolej.map((s, i) => `<button type="button" data-i="${i}"><span class="zn">${esc(s.znaki)}</span><span class="py">${esc(s.pinyin)}</span><span class="mn">${esc(s.znaczenie)}</span></button>`).join("") + `</div>`;
+    graj(cel.znaki); $("q-play").addEventListener("click", () => graj(cel.znaki));
+    for (const b of body.querySelectorAll(".odp button")) b.addEventListener("click", () => {
+      const s = kolej[Number(b.dataset.i)], ok = s === cel;
+      for (const x of body.querySelectorAll(".odp button")) { x.disabled = true; if (kolej[Number(x.dataset.i)] === cel) x.classList.add("dobrze"); }
+      if (!ok) b.classList.add("zle");
+      runda.n++; if (ok) runda.ok++; zapiszStat(p.grupa, ok); wynikRundy();
+      $("q-fb").className = "fb " + (ok ? "ok" : "bad");
+      $("q-fb").innerHTML = (ok ? "✓ Tak: " : "✗ To było: ") + `<b>${esc(cel.znaki)}</b> ${esc(cel.pinyin)} · ${esc(cel.polski || "")}` + (p.grupa !== "tony" ? ` <a href="#dz-${esc(p.grupa)}" style="color:var(--accent)">(${esc(NAZWY[p.grupa] || "")})</a>` : "");
+      body.insertAdjacentHTML("beforeend", `<div class="para" style="text-align:left"><div class="dwa"></div></div>`); $("q-dalej").innerHTML = `<button class="btn main" id="q-next" type="button">dalej ▶</button>`;
+      const dwa = body.querySelector(".para .dwa"); dwa.appendChild(wiersz(p.a, { para: p.b })); dwa.appendChild(wiersz(p.b, { para: p.a }));
+      $("q-next").addEventListener("click", nastepne);
+    });
+  } else {
+    // tylko słowa z dwóch i więcej części: pojedyncze telefon rozpoznaje losowo
+    const s = biezace = los(DLUZSZE);
+    body.innerHTML = `<div class="hint">Najpierw powiedz sam, potem sprawdź nagraniem.</div>`;
+    const w = wiersz(s); w.style.textAlign = "left"; body.appendChild(w);
+    $("q-dalej").innerHTML = `<button class="btn main" id="q-next" type="button">dalej ▶</button>`;
+    $("q-next").addEventListener("click", nastepne);
+  }
+}
+
+// nawigacja: podświetl sekcję na ekranie
+(function () {
+  const linki = [...document.querySelectorAll("nav a")];
+  const obs = new IntersectionObserver((es) => { for (const e of es) if (e.isIntersecting) for (const l of linki) l.classList.toggle("on", l.getAttribute("href") === "#" + e.target.id); }, { rootMargin: "-40% 0px -55% 0px" });
+  for (const s of document.querySelectorAll("main section")) obs.observe(s);
+})();
+</script>
+</body>
+</html>
