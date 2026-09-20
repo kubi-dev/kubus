@@ -235,7 +235,10 @@
     ostatniKoniecSR = Date.now();
     diag("kategoria audio przywrócona: playback (" + powod + ")" + (!AS ? " [brak API audioSession – zostaje sam odstęp]" : (!cfg().sesjaAudio ? " [sterowanie sesją wyłączone]" : "")));
   }
-  ustawSesje("playback");
+  // Start strony: pełne przełączenie (ambient -> playback), nie samo "playback". Po przejściu z innej podstrony proces GPU
+  // trzyma kategorię po poprzedniej stronie (np. PlayAndRecord po mikrofonie), a WebKit nie wysyła wartości, której "już wysłał";
+  // objaw: mp3 grało cicho (przez słuchawkę) po każdej zmianie podstrony.
+  przywrocPlayback("start strony");
 
   // ---- Web Audio: odtwarzanie mp3 (bez elementu <audio>, patrz komentarz na górze pliku) ----
   let ctx = null, zrodlo = null, nrGrania = 0;
@@ -247,6 +250,8 @@
       ctx = new AC();
       ctx.addEventListener("statechange", () => diag("AudioContext: " + ctx.state));
       diag("AudioContext utworzony: " + ctx.state + ", " + ctx.sampleRate + " Hz");
+      // pierwszy dźwięk na tej stronie: jeszcze raz przełącz kategorię (nigdy w trakcie nasłuchu)
+      if (!session && !nagranie) przywrocPlayback("nowy AudioContext");
     }
     if (ctx.state !== "running") ctx.resume().catch(e => diag("resume: " + e.message));
     return ctx;
