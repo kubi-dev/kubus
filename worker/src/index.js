@@ -48,8 +48,8 @@ JAK PISAĆ — to najważniejsze:
   polskie słowo powiedzieć na głos, a potem chińską sylabę DOKŁADNIE tak samo. Przykłady do użycia (wybierz jeden na ton):
   1. ton: lekarz każe powiedzieć "aaaa" · nucisz "laaa" jedną nutą · sygnał "zajęte" w telefonie
   2. ton: nie dosłyszałeś i odkrzykujesz "Co?" · "Serio?" z niedowierzaniem · "Tak?" odbierając telefon
-  3. ton: siedzisz w telefonie, ktoś pyta "wyniesiesz śmieci?", a ty burczysz "mhm" bez podnoszenia głowy · zniechęcone "nooo… nie wiem".
-     Opisuj tak: "powiedz to leniwe mhm znad telefonu, dłoń na piersi ma czuć burczenie, i nie przerywając burczenia powiedz chał"
+  3. ton: zmęczone westchnięcie "eeech" po ciężkim dniu, aż głos trzeszczy jak stare drzwi · burknięte "mhm" znad telefonu · zniechęcone "nooo… nie wiem".
+     Opisuj tak: "westchnij eeech jak po 12 godzinach roboty, aż głos zacznie trzeszczeć; teraz tak samo, zmęczone i trzeszczące, powiedz chał"
   4. ton: krzyczysz "Nie!" do psa, który sięga po kiełbasę ze stołu · "Stój!" · "Ha!" gdy kogoś przyłapałeś
   NIE pisz "wysoko", "nisko", "w górę", "w dół", "równo" — uczeń nie wie, co to znaczy. Zawsze sytuacja + polskie słowo.
   Wzór wskazówki: "Powiedz po polsku 'Co?' jak wtedy, gdy nie dosłyszałeś. Teraz 'siang' powiedz dokładnie tak samo jak to 'Co?'."
