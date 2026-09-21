@@ -138,7 +138,7 @@
   <section id="zdania" data-tryb="tony"><h2>W całym słowie i zdaniu · polskie nawyki</h2><div id="s-zdania"></div></section>
   <section id="pary" data-tryb="tony"><h2>Pary tonów · dwa słowa, jedna melodia</h2><p class="intro">Chiński mówi się parami. Wybierz parę, posłuchaj kilku słów z tą samą melodią, powtórz. <span id="pary-start"></span></p><div class="siatka" id="siatka"></div><div id="s-pary"></div></section>
   <section id="uszy" data-tryb="tony"><h2>Tylko ton się różni · ucho</h2><p class="intro">Te same litery, inna melodia, zupełnie inne słowo. Posłuchaj obu, potem powiedz każde.</p><div id="s-uszy"></div></section>
-  <section id="dzwieki" data-tryb="dzwieki"><h2>Dźwięki · od najtrudniejszego</h2><p class="intro">Jedna grupa naraz. Otwórz, przeczytaj, posłuchaj pary, powiedz oba słowa. Dopiero potem następna grupa.</p><div id="s-dzwieki"></div></section>
+  <section id="dzwieki" data-tryb="dzwieki"><h2>Dźwięki · od najtrudniejszego</h2><p class="intro">Jedna grupa naraz. Otwórz, zrób kroki z „Zrób tak”, powiedz oba słowa z pary. Quiz „Które słowo?” na dole bierze pary tylko z otwartej grupy. Dopiero potem następna grupa.</p><div id="s-dzwieki"></div></section>
   <section id="koniec" data-tryb="dzwieki"><h2>Na koniec · wszystko razem</h2><div id="s-koniec"></div></section>
 
   <section id="cwicz"><h2>Ćwicz · ucho i usta</h2>
@@ -379,7 +379,10 @@ function nastepne() {
       $("q-powt").addEventListener("click", () => graj(s.znaki)); $("q-next").addEventListener("click", nastepne);
     });
   } else if (tryb === "para") {
-    const p = biezace = los(PARY), cel = Math.random() < .5 ? p.a : p.b, kolej = Math.random() < .5 ? [p.a, p.b] : [p.b, p.a];
+    // "jedna grupa naraz": jeśli jakaś grupa dźwięków jest otwarta, pary tylko z niej
+    const otwarte = [...document.querySelectorAll("details.grupa[open]")].map(x => x.id.replace(/^dz-/, ""));
+    const pula = PARY.filter(x => otwarte.includes(x.grupa));
+    const p = biezace = los(pula.length ? pula : PARY), cel = Math.random() < .5 ? p.a : p.b, kolej = Math.random() < .5 ? [p.a, p.b] : [p.b, p.a];
     body.innerHTML = `<button class="btn" id="q-play" type="button">🔊 posłuchaj jeszcze raz</button><div class="odp dwa">` +
       kolej.map((s, i) => `<button type="button" data-i="${i}"><span class="zn">${esc(s.znaki)}</span><span class="py">${esc(s.pinyin)}</span><span class="mn">${esc(s.znaczenie)}</span></button>`).join("") + `</div>`;
     graj(cel.znaki); $("q-play").addEventListener("click", () => graj(cel.znaki));

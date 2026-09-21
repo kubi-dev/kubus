@@ -1449,10 +1449,10 @@
    "id": "wydech-ptk",
    "tytul": "p / b, t / d, k / g · dmuchnij albo nie",
    "trudnosc": 5,
-   "opis": "Chińskie p, t, k to mocne dmuchnięcie. Tak dmuchasz na gorącą zupę. Chińskie b, d, g to to samo, ale bez dmuchnięcia. Po polsku 'pa' i 'ba' różnią się czym innym. Dlatego Polak tej różnicy nie słyszy i mówi oba tak samo.",
-   "przyklad_pl": "Dmuchnij na gorącą zupę i powiedz 'pa'. To jest chińskie 怕 (bać się). Teraz powiedz zwykłe polskie 'ba'. To jest chińskie 爸 (tata).",
-   "jak_cwiczyc": "Trzymaj kartkę tuż przed ustami. Powiedz polskie 'ba' — kartka stoi. Teraz dmuchnij: 'pha' — kartka ma drgnąć. Zasada: chińskie b, d, g mów jak polskie p, t, k bez wydechu. Chińskie p, t, k mów z mocnym wydechem: ph, th, kh.",
-   "blad_polakow": "Mówisz 'pa' po polsku, bez dmuchnięcia. Chińczyk słyszy wtedy 'ba'. Zamiast 'boję się' mówisz 'tata'. To najczęstszy błąd, który zmienia słowo.",
+   "opis": "Chińskie p, t, k to polskie p, t, k plus mocne dmuchnięcie. Chińskie b, d, g to polskie p, t, k bez dmuchnięcia. W naszym zapisie „h” po literze znaczy dmuchnięcie: ph, th, kh. Tej różnicy uchem nie złapiesz. Nie musisz. Złapiesz ją kartką.",
+   "przyklad_pl": "Dmuchasz na gorącą zupę: „fuuu”. Teraz zrób to dmuchnięcie i w jego środku powiedz „a”: „phaaa”. To jest 怕 (bać się). Zwykłe polskie „pa”, jak w „pan”, bez dmuchania: to 爸 (tata).",
+   "jak_cwiczyc": "1. Weź kartkę papieru. Trzymaj ją 2 cm przed ustami.\n2. Powiedz zwykłe „pa”, jak w „pan”. Kartka stoi. To chińskie 爸 (tata).\n3. Dmuchnij jak na zupę i w środku dmuchnięcia powiedz „pa”: „phaaa”. Kartka ma wyraźnie drgnąć. To chińskie 怕 (bać się). Nie drgnęła? Za słabo. Dmuchnij tak, jakbyś gasił świeczkę.\n4. Tak samo z t: „tu” (肚, brzuch), kartka stoi. „thu” (兔, królik), kartka drga.\n5. Tak samo z k: „ky” (哥, brat), stoi. „khy” (科, nauka), drga.\n6. Zasada na całe życie: widzisz w zapisie „h” po p, t, k? Kartka ma drgnąć. Nie ma „h”? Kartka stoi.",
+   "blad_polakow": "Mówisz „pa” po polsku, bez dmuchnięcia, i kartka stoi. Chińczyk słyszy wtedy „b”. Zamiast „boję się” mówisz „tata”. Drugi błąd: dmuchasz dopiero po słowie, osobno. Dmuchnięcie ma być w środku, między „p” a „a”. To najczęstszy błąd Polaka, który zmienia słowo.",
    "pary": [
     {
      "a": {
@@ -1595,10 +1595,10 @@
    "id": "wydech-syczace",
    "tytul": "c / z, ch / zh, q / j · dmuchnij albo nie, teraz przy c, cz, ć",
    "trudnosc": 5,
-   "opis": "Ta sama zasada co przy p i b. Chińskie z, zh, j to polskie dz, cz, dzi bez dmuchnięcia. Chińskie c, ch, q to te same dźwięki plus mocny wydech: cch, czh, ćh.",
-   "przyklad_pl": "Powiedz polskie 'dzwon' — tak zaczyna się chińskie z. Powiedz 'cena' i dmuchnij — tak brzmi chińskie c. Uwaga: chińskie 'ch' to polskie 'cz' z dmuchnięciem, nigdy polskie 'ch'.",
-   "jak_cwiczyc": "Powiedz 'dzał' jak w 'dzwon' (早, wcześnie). Kartka przed ustami stoi. Teraz 'cchał' z dmuchnięciem (草, trawa). Kartka drga. Tak samo powiedz 'dzi' (鸡, kurczak) i 'ćhi' (七, siedem).",
-   "blad_polakow": "Czytasz chińskie 'ch' jak polskie 'ch'. Wtedy 吃 (jeść) wychodzi 'chy' zamiast 'czhy'. Drugi błąd: mówisz c, ch, q bez dmuchnięcia. Chińczyk słyszy wtedy z, zh, j: 七 'ćhi' (siedem) brzmi jak 鸡 'dzi' (kurczak).",
+   "opis": "Ta sama zasada, co przy p i b. Chińskie z, zh, j to polskie dz, cz, dź bez dmuchnięcia. Chińskie c, ch, q to te same polskie dźwięki plus dmuchnięcie: cch, czh, ćh. Uwaga: chińskie „ch” to polskie „cz” z dmuchnięciem, nigdy polskie „ch” jak w „chleb”.",
+   "przyklad_pl": "Powiedz „dzwon”. To „dz” to chińskie z: 早 „dzał” (wcześnie). Powiedz „cena”, ale między „c” a „e” wciśnij dmuchnięcie jak na zupę: „cchena”. To „cch” to chińskie c: 草 „cchał” (trawa).",
+   "jak_cwiczyc": "1. Kartka 2 cm przed ustami, jak przy p i b.\n2. Powiedz „dzał” jak w „dzwon” (早, wcześnie). Kartka stoi.\n3. Powiedz „c”, dmuchnij, dopiero potem „ał”: „cchał” (草, trawa). Kartka drga.\n4. Powiedz „czy” jak polskie słowo „czy” (只, sztuka). Stoi. Teraz „cz”, dmuchnięcie, „y”: „czhy” (吃, jeść). Drga.\n5. Powiedz „dzi” jak w „dziura” (鸡, kurczak). Stoi. Teraz „ćhi” z dmuchnięciem (七, siedem). Drga.",
+   "blad_polakow": "Czytasz chińskie „ch” jak polskie „ch” z „chleba”. Wtedy 吃 (jeść) wychodzi „chy” zamiast „czhy”. Drugi błąd: mówisz c, ch, q bez dmuchnięcia, kartka stoi. Chińczyk słyszy wtedy z, zh, j: 七 „ćhi” (siedem) brzmi jak 鸡 „dzi” (kurczak).",
    "pary": [
     {
      "a": {
@@ -1745,9 +1745,9 @@
    "id": "u-ue",
    "tytul": "ü / u · 'i' z ustami do 'u'",
    "trudnosc": 4,
-   "opis": "Polski nie ma tego dźwięku. Powiedz 'i' i nie ruszaj już językiem. Teraz ułóż usta jak do gwizdania. Pułapka: po j, q, x, y pisze się zwykłe 'u', a czyta się ü.",
-   "przyklad_pl": "Ułóż usta jak do dmuchania w butelkę. Teraz powiedz 'i'. Wyjdzie coś między 'i' a 'u'. To jest 女 nǚ, czyli kobieta.",
-   "jak_cwiczyc": "Powiedz polskie 'nu'. Teraz powiedz 'ni'. Teraz powiedz 'ni' z ustami jak do 'nu'. To jest 'nü'. Tak samo zrób 'lü' (绿, zielony), 'ćhü' (去, iść), 'ü' (鱼, ryba).",
+   "opis": "Polski nie ma tego dźwięku. Robisz go z dwóch rzeczy naraz: język jak do „i”, usta jak do „u”. Pułapka w pinyinie: po j, q, x, y pisze się zwykłe „u”, a czyta się ü.",
+   "przyklad_pl": "Ułóż usta w dzióbek, jak do dmuchania w butelkę. Nie ruszając ust, powiedz „i”. Wyjdzie coś między „i” a „u”. To jest 女 nǚ, czyli kobieta: „nü”.",
+   "jak_cwiczyc": "1. Stań przed lustrem. Powiedz „i” i patrz na usta: są rozciągnięte.\n2. Ułóż usta w dzióbek, jak do gwizdania. Trzymaj. Teraz powiedz „i”, nie ruszając ust. W lustrze usta cały czas w dzióbku. To jest ü.\n3. Z dzióbkiem powiedz „nü” (女, kobieta). Potem „lü” (绿, zielony). Potem „ćhü” (去, iść).\n4. Test: w lustrze usta rozjechały się na boki? To wyszło „i”, inne słowo. Wróć do kroku 2.",
    "blad_polakow": "Mówisz zwykłe 'u' i 女 (kobieta) brzmi jak 努 (wysiłek). A 去 (iść) brzmi jak 'ćhu'. Drugi błąd: widzisz 'qu', 'xu', 'yu' i czytasz przez 'u'. Po j, q, x, y zwykłego 'u' w ogóle nie ma. Tam zawsze czytaj ü.",
    "pary": [
     {
@@ -1864,7 +1864,7 @@
    "trudnosc": 4,
    "opis": "Po z, c, s, zh, ch, sh, r litera 'i' to polskie 'y'. Tak jak w słowach 'czy' i 'szyć'. Nigdy miękko, jak w 'siano'. Miękka wersja to zupełnie inne chińskie słowa.",
    "przyklad_pl": "Powiedz polskie 'czy' i 'szyć'. Tak brzmią chińskie chi i shi. Powiedz polskie 'syk'. Tak brzmi chińskie si.",
-   "jak_cwiczyc": "Powiedz polskie 'czy'. Teraz tak samo, z dmuchnięciem: 'czhy' (吃, jeść). Powiedz 'syk' bez k. Teraz 'sy' (四, cztery). Powiedz 'szyć' bez ć. Teraz 'szy' (是, być).",
+   "jak_cwiczyc": "1. Powiedz polskie słowo „czy”. Teraz to samo z dmuchnięciem: „czhy” (吃, jeść).\n2. Powiedz „syk” i utnij „k”: „sy” (四, cztery).\n3. Powiedz „szyć” i utnij „ć”: „szy” (是, być).\n4. Zasada: po z, c, s, zh, ch, sh, r litera „i” to zawsze polskie „y”. Nigdy „i” jak w „siano”.",
    "blad_polakow": "Widzisz 'si' i czytasz miękko, jak w 'siano'. Wtedy 四 sì (cztery) zamienia się w 细 xì (cienki). 'zi' przeczytane jak 'dzi' to też już inne słowo. Mów twardo, przez 'y'.",
    "pary": [
     {
@@ -1983,10 +1983,10 @@
    "id": "e-tylne",
    "tytul": "e · nie polskie 'e', bliżej 'y' z tyłu gardła",
    "trudnosc": 3,
-   "opis": "Chińskie 'e' samo, bez i albo u z przodu, nie brzmi jak polskie 'e'. Powiedz 'o' i rozciągnij usta na boki. Języka nie ruszaj. Wyjdzie coś między 'y' a 'o'. W 'ie', 'üe' i 'ei' czytasz zwykłe polskie 'e'.",
-   "przyklad_pl": "Powiedz zastanawiające 'yyy...' i cofnij język do tyłu. Tak brzmi 喝 hē, czyli 'pić': 'chy'.",
-   "jak_cwiczyc": "Powiedz 'okno'. Przy 'o' rozciągnij usta jak do uśmiechu. Z tego dźwięku zrób 'chy' (喝, pić). Teraz 'khy' (可, można). Teraz 'y' (饿, głodny).",
-   "blad_polakow": "Mówisz polskie 'e' i 喝 brzmi jak 'che'. A 可以 brzmi jak 'ke-i'. Rzadko zmienia to słowo, ale od razu słychać obcokrajowca.",
+   "opis": "Chińskie „e” samo, bez „i” ani „u” przed nim, nie brzmi jak polskie „e”. Brzmi jak zastanawiające „yyy…”, gdy szukasz słowa. Dlatego w naszym zapisie piszemy „y”: 喝 „chy”. W „ie”, „üe” i „ei” czytasz zwykłe polskie „e”.",
+   "przyklad_pl": "Ktoś pyta, jak miał na imię tamten aktor. Ty: „yyy… nie pamiętam”. To „yyy” to chińskie „e”. Dodaj z przodu „ch”: „chy” (喝, pić).",
+   "jak_cwiczyc": "1. Powiedz zastanawiające „yyy…” na dwie sekundy.\n2. W środku tego „yyy” dodaj z przodu „ch”: „chyyy” (喝, pić). Skróć: „chy”.\n3. Tak samo „khy” (可, można) i samo „y” (饿, głodny).\n4. Test: powiedz polskie „che” jak w „chemia”, a zaraz „chy”. Brzmią inaczej? Dobrze. Tak samo? Wróć do „yyy…”.",
+   "blad_polakow": "Mówisz polskie „e” i 喝 brzmi jak „che”. A 可以 brzmi jak „ke-i”. Rzadko zmienia to słowo, ale od razu słychać obcokrajowca. Trzymaj się „yyy…”.",
    "pary": [
     {
      "a": {
@@ -2092,7 +2092,7 @@
    "trudnosc": 3,
    "opis": "Na końcu słowa chiński ma dwa różne 'n'. Zwykłe -n: język dotyka za zębami, jak w 'ten'. A -ng: język z tyłu, jak w 'bank' tuż przed 'k'. Po polsku takie -ng słyszysz tylko przed k albo g. Nigdy na końcu słowa.",
    "przyklad_pl": "Powiedz 'bank' i zatrzymaj się tuż przed 'k'. To, co słyszysz, to chińskie -ng. Teraz powiedz powoli 'ten' i trzymaj język za zębami. To jest -n.",
-   "jak_cwiczyc": "Powiedz 'bank' bez k: 'bang'. Teraz tak samo 'fyng' (风, wiatr). Powiedz 'ten' i trzymaj język za zębami. Teraz 'fyn' (分, minuta). Nie mów przez nos, jak w 'ę'.",
+   "jak_cwiczyc": "1. Powiedz „bank” i utnij „k”: „bang”. Zauważ: na końcu czubek języka wisi w powietrzu, nie dotyka zębów.\n2. Tak samo „fyng” (风, wiatr). Język na końcu nie dotyka zębów.\n3. Powiedz „ten” i na końcu przytrzymaj: czubek języka dotyka za górnymi zębami. Tak samo „fyn” (分, minuta).\n4. Test bez ucha: na końcu słowa sprawdź język. Dotyka zębów: -n. Wisi w powietrzu: -ng. Nie mów przez nos jak w „ę”.",
    "blad_polakow": "Mówisz -ng jak zwykłe n i 风 (wiatr) brzmi jak 分 (minuta). Albo mówisz -n przez nos, jak polskie 'ę', i wychodzi 'fę'. To mniej groźne niż tony i dmuchnięcie. Sami Chińczycy z południa to mieszają.",
    "pary": [
     {
@@ -2229,9 +2229,9 @@
    "id": "r-poczatkowe",
    "tytul": "r na początku · to polskie „ż”, nie „r”",
    "trudnosc": 2,
-   "opis": "Chińskie r na początku wcale nie warczy. To zwykłe polskie „ż” z „żaby”. Cofnij tylko język odrobinę głębiej. Usta ułóż lekko w dzióbek.",
+   "opis": "Chińskie r na początku wcale nie warczy. To zwykłe polskie „ż” z „żaby”. Tyle.",
    "przyklad_pl": "Powiedz na głos „żaba”. Masz już 人 rén: „żyn” (człowiek).",
-   "jak_cwiczyc": "Powiedz „żaba”. Teraz samo „ż”, język trochę głębiej. Teraz „żyn” (人, człowiek). Teraz „żoł” (肉, mięso). Ani razu nie warcz jak w „rower”.",
+   "jak_cwiczyc": "1. Powiedz „żaba”.\n2. Teraz „żyn” (人, człowiek). Teraz „żoł” (肉, mięso).\n3. Test: powiedz „rower”, a zaraz „żyn”. Język w „żyn” ma NIE drgać jak w „rower”. Drga? Zacznij od „żaba” jeszcze raz.",
    "blad_polakow": "Widzisz literę r i mówisz „rower”. Chińczyk tego nie rozpozna. Zapamiętaj: chińskie r to polskie ż.",
    "pary": [
     {
@@ -2339,7 +2339,7 @@
    "id": "ukryte-litery",
    "tytul": "-ian, -iu, -ui, -un, -üan · pinyin ukrywa jedną literę",
    "trudnosc": 2,
-   "opis": "Kilka końcówek pisze się krócej, niż się mówi. „-ian” mówisz „ien”. „-iu” mówisz „ioł”. „-ui” mówisz „łej”. „-un” mówisz „łyn”. „yuan” i „xuan” to „jüen” i „süen”. Nasz polski zapis już to pokazuje. Czytaj polski zapis, nie pinyin.\nWyjątek: po j, q, x, y „un” to „ün”: 裙子 ćhün-dzy (spódnica). Wszędzie indziej „un” to „łyn”: 春 czhłyn, 对 tłej.\nJeszcze jedna ukryta litera: „ong” mówisz „ung”. 中国 czung-kło, 工作 kung-dzło. Nigdy „czong”. Za to „eng” zostaje „yng”: 朋友 phyng-joł.",
+   "opis": "Najważniejsze: czytaj polski zapis, nie pinyin. Pinyin kilka końcówek pisze krócej, niż się mówi, a nasz zapis pokazuje, jak jest naprawdę.\n„-ian” mówisz „ien”. „-iu” mówisz „ioł”. „-ui” mówisz „łej”. „-un” mówisz „łyn”. „yuan” i „xuan” to „jüen” i „süen”. „ong” mówisz „ung” (中国 czung-kło), „eng” mówisz „yng” (朋友 phyng-joł).\nWyjątek: po j, q, x, y „un” to „ün”: 裙子 ćhün-dzy (spódnica). Wszędzie indziej „un” to „łyn”: 春 czhłyn, 对 tłej.",
    "przyklad_pl": "Powiedz „cień”. Dodaj mocny wydech: „ćhien” (钱, pieniądze). Powiedz „klej”. Dołóż „sz”: „szłej” (水, woda). Nie mów „ćian” ani „szui”.",
    "jak_cwiczyc": "Powiedz „klej”. Teraz „szłej” (水, woda). Powiedz „pień”. Teraz „thien” z mocnym wydechem (天, dzień). Powiedz „lio” i dodaj „ł”: „lioł” (六, sześć).",
    "blad_polakow": "Czytasz literka po literce: „tian”, „dui”, „liu”, „xuan”. Brzmi obco. Do tego „ian” i „iang” zaczynają ci się mylić.",
@@ -2487,7 +2487,7 @@
    "trudnosc": 2,
    "opis": "To nie jest „e” plus polskie „r”. Mów „a” i zaginaj czubek języka do góry. Nie trzęś nim, tylko zagnij. Brzmi jak „sir” z amerykańskiego filmu. Takich słów jest mało, ale są bardzo częste.\nCzasem to samo „r” dokleja się na koniec innego słowa. Wtedy końcówka znika, a język zagina się do góry. 哪儿 „nar” (gdzie), 这儿 „czar” (tutaj). Nie mów „na-er”. To jeden kawałek.",
    "przyklad_pl": "Udawaj Amerykanina mówiącego „sir”. Sam koniec to 二 èr: „ar” (dwa).",
-   "jak_cwiczyc": "Powiedz „a”. Zagnij czubek języka do góry, nie trzęś nim. Teraz tak samo, ale jak „Nie!” do psa: „ar!” (二, dwa). Teraz „ar-dzy” (儿子, syn).",
+   "jak_cwiczyc": "1. Powiedz „a” i trzymaj.\n2. Nie przerywając, zagnij czubek języka do góry, do podniebienia. Nie trzęś nim. Dźwięk zrobi się „głębszy”, jakby z tyłu ust. To „ar” (二, dwa).\n3. Teraz „ar-dzy” (儿子, syn). „nar” (哪儿, gdzie) to jeden kawałek, nie „na-er”.\n4. Test: powiedz polskie „ser”. Język trzęsie się przy „r”? W „ar” nie ma się trząść, tylko stać zagięty.",
    "blad_polakow": "Mówisz twarde „er” jak w „ser”. Język ma się zagiąć, a nie trząść.",
    "pary": [
     {
@@ -2735,7 +2735,7 @@
    "trudnosc": 1,
    "opis": "Większość chińskich dźwięków to polskie dźwięki pod inną literą. h = polskie ch. w = ł. y = j. r = ż. ai = aj, ei = ej, ao = ał, ou = oł. m n l f mówisz dokładnie jak po polsku. b d g to polskie p t k bez wydechu (汉堡 to „chan-pał”, 中国 to „czung-kło”). Czytaj pinyin po polsku, nie po angielsku. Wtedy połowa roboty jest z głowy.\nJeszcze to: uo = ło (说 szło, 做 dzło), ua = ła, uai = łaj, ui = łej (水 szłej), iu = ioł (六 lioł). Litera u po spółgłosce to zwykle polskie ł, nie u.",
    "przyklad_pl": "好 hǎo to „chał” jak w „chałwa”. 我 wǒ to „ło” jak w „łoś”. 买 mǎi to „maj” jak miesiąc maj. 美 měi to „mej”.",
-   "jak_cwiczyc": "Powiedz „chałwa” bez „wa”. Teraz to samo jak burknięte „mhm” znad telefonu: „chał” (好, dobry). Powiedz „łoś” bez „ś”. Teraz to samo jak „mhm”: „ło” (我, ja). Od zera uczysz się tylko: tonów, mocnego wydechu, ü, e, -ng, twardego y i er.",
+   "jak_cwiczyc": "1. Powiedz „chałwa” i utnij „wa”: „chał” (好, dobry).\n2. Powiedz „łoś” i utnij „ś”: „ło” (我, ja).\n3. Powiedz miesiąc „maj”: to 买 (kupować). Powiedz „mej” jak w „mejl”: to 美 (piękny).\n4. Od zera uczysz się tylko: dmuchnięcia, ü, „yyy”, -ng, twardego „y” i „ar”. Reszta to polskie dźwięki pod inną literą. Tony ćwiczysz osobno, na stronie „Tony”.",
    "blad_polakow": "Jedyny błąd to pomylone literki. Pinyin „h” to polskie „ch”. Pinyin „ch” to polskie „cz” z mocnym wydechem. 好 to „chał”, 炒 to „czhał”. Nie pomyl tych dwóch.",
    "pary": [
     {
