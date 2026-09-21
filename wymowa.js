@@ -140,18 +140,92 @@
       if (cel[i - 1].baza === usl[j - 1].baza) { pary[i - 1] = usl[j - 1]; i--; j--; }
       else if (dp[i - 1][j] >= dp[i][j - 1]) i--; else j--;
     }
-    return cel.map((c, i) => ({ znak: c.znak, cel: c.py, celTon: c.ton, usl: pary[i] ? pary[i].py : null, uslTon: pary[i] ? pary[i].ton : null }));
+    return cel.map((c, i) => ({ znak: c.znak, cel: c.py, baza: c.baza, celTon: c.ton, usl: pary[i] ? pary[i].py : null, uslTon: pary[i] ? pary[i].ton : null }));
   }
   function zapiszTon(ton) { try { const t = JSON.parse(localStorage.getItem(KLUCZ_TONY) || "{}"); t[ton] = (t[ton] || 0) + 1; localStorage.setItem(KLUCZ_TONY, JSON.stringify(t)); } catch (e) {} }
   function slabyTon() { try { const t = JSON.parse(localStorage.getItem(KLUCZ_TONY) || "{}"); let b = null; for (const k in t) if (!b || t[k] > t[b]) b = k; return b && t[b] >= 3 ? { ton: b, razy: t[b] } : null; } catch (e) { return null; } }
+
+  // ---- podpowiedzi deterministyczne (bez LLM): pinyin -> polski zapis + esencja, jak zrobić dźwięk i ton ----
+  // Ten sam zapis co w wymowa.json i w prompcie trenera (p/t/k = bez dmuchnięcia, ph/th/kh/czh/cch/ćh = z dmuchnięciem).
+  const INICJALY = ["zh", "ch", "sh", "b", "p", "m", "f", "d", "t", "n", "l", "g", "k", "h", "j", "q", "x", "r", "z", "c", "s"];
+  const INI_PL = { b: "p", p: "ph", m: "m", f: "f", d: "t", t: "th", n: "n", l: "l", g: "k", k: "kh", h: "ch", j: "dz", q: "ćh", x: "s", zh: "cz", ch: "czh", sh: "sz", r: "ż", z: "dz", c: "cch", s: "s", "": "" };
+  const FIN_PL = { a: "a", o: "o", e: "y", i: "i", u: "u", "ü": "ü", ai: "aj", ei: "ej", ao: "ał", ou: "oł", an: "an", en: "yn", ang: "ang", eng: "yng", ong: "ung", er: "ar",
+    ia: "ia", ie: "ie", iao: "iał", iu: "ioł", ian: "ien", in: "in", iang: "iang", ing: "ing", iong: "iung",
+    ua: "ła", uo: "ło", uai: "łaj", ui: "łej", uan: "łan", un: "łyn", uang: "łang", ueng: "łyng", "üe": "üe", "üan": "üen", "ün": "ün" };
+  const ZERO_PL = { yi: "i", ya: "ja", ye: "je", yao: "jał", you: "joł", yan: "jen", yin: "in", yang: "jang", ying: "ing", yong: "jung", yu: "ü", yue: "üe", yuan: "jüen", yun: "ün",
+    wu: "łu", wa: "ła", wo: "ło", wai: "łaj", wei: "łej", wan: "łan", wen: "łyn", wang: "łang", weng: "łyng" };
+  // rozbiór sylaby pinyin (bez tonu): { ini, fin, pl }
+  function rozbierz(baza) {
+    const b = String(baza || "").toLowerCase().replace(/v/g, "ü").replace(/u:/g, "ü");
+    if (ZERO_PL[b]) return { ini: "", fin: b, pl: ZERO_PL[b], zero: true };
+    const ini = INICJALY.find(x => b.startsWith(x)) || "";
+    let fin = b.slice(ini.length);
+    if (["j", "q", "x"].includes(ini) && fin[0] === "u") fin = "ü" + fin.slice(1);
+    const twardeY = ["z", "c", "s", "zh", "ch", "sh", "r"].includes(ini) && fin === "i";
+    const pl = twardeY ? INI_PL[ini] + "y" : (FIN_PL[fin] != null ? INI_PL[ini] + FIN_PL[fin] : b);
+    return { ini, fin, pl, twardeY };
+  }
+  const pinyinPl = baza => rozbierz(baza).pl;
+  // esencja dźwięku: max 2 najważniejsze rzeczy dla tej sylaby (waga = trudność dla Polaka)
+  function podpowiedzDzwiek(baza) {
+    const r = rozbierz(baza), ini = r.ini, fin = r.fin, H = [];
+    const q = x => "„" + x + "”";
+    if (["p", "t", "k", "q", "ch", "c"].includes(ini)) H.push([5, `${q(INI_PL[ini])} z dmuchnięciem jak na zupę, w środku, między ${q(INI_PL[ini].replace(/h$/, ""))} a resztą. Kartka przed ustami ma drgnąć.`]);
+    if (["b", "d", "g", "j", "zh", "z"].includes(ini)) H.push([5, `${q(INI_PL[ini])} to zwykłe polskie ${q(INI_PL[ini])}, bez dmuchnięcia. Kartka przed ustami stoi.`]);
+    if (fin.includes("ü")) H.push([4, "ü: usta w dzióbek jak do gwizdania i tak powiedz „i”. W lustrze usta nie rozjeżdżają się."]);
+    if (r.twardeY) H.push([4, "„i” tu czytasz twardo, jako „y”, jak w „czy”, „szyć”."]);
+    if (["e", "en", "eng"].includes(fin)) H.push([3, "„e” to zastanawiające „yyy…”, gdy szukasz słowa. Nie polskie „e”."]);
+    if (fin === "er") H.push([3, "„a” z czubkiem języka zagiętym do góry. Nie trzęś nim jak w „rower”."]);
+    if (/ng$/.test(fin)) H.push([3, "Końcówka jak „bank” bez „k”: czubek języka wisi, nie dotyka zębów."]);
+    else if (/n$/.test(fin)) H.push([2, "Końcówka jak „ten”: czubek języka za górnymi zębami. Nie przez nos."]);
+    if (ini === "r") H.push([2, "„r” to polskie „ż” jak w „żaba”. Nie warcz."]);
+    if (ini === "h") H.push([2, "„h” to polskie „ch” jak w „chleb”."]);
+    if (ini === "x") H.push([1, "„x” to „ś” jak w „siano”."]);
+    if (ini === "sh") H.push([1, "„sh” to „sz” jak w „szal”."]);
+    if (fin === "ian") H.push([2, "„ian” mówisz „ien”, jak w „cień”."]);
+    if (fin === "iu") H.push([2, "„iu” mówisz „ioł”."]);
+    if (fin === "ui") H.push([2, "„ui” mówisz „łej”, jak w „klej”."]);
+    if (fin === "un") H.push([2, "„un” mówisz „łyn”."]);
+    if (fin === "ong" || fin === "iong") H.push([2, "„ong” mówisz „ung”."]);
+    if (fin === "uo") H.push([1, "„uo” to „ło”, jak w „łoś”."]);
+    if (fin === "ao" || fin === "iao") H.push([1, "„ao” to „ał”, jak w „chałwa”."]);
+    if (fin === "ou" || fin === "iu") H.push([1, "„ou” to „oł”."]);
+    if (r.zero && fin[0] === "w") H.push([1, "„w” to polskie „ł”."]);
+    if (r.zero && fin[0] === "y" && r.pl[0] === "j") H.push([1, "„y” to polskie „j”."]);
+    if (!H.length) H.push([0, "Czytaj po polsku, litera po literze."]);
+    return { pl: r.pl, rady: H.sort((a, b) => b[0] - a[0]).slice(0, 2).map(h => h[1]) };
+  }
+  // esencja tonu: polska sytuacja + słowo, potem sylaba tak samo
+  function podpowiedzTon(ton, pl) {
+    const X = "„" + pl + "”";
+    return {
+      1: `Jak „aaa” u lekarza: jedna nuta do końca. Powiedz „aaa”, potem ${X} dokładnie tak samo.`,
+      2: `Jak „Co?”, gdy nie dosłyszałeś. Powiedz „Co?”, potem ${X} tak samo, jak pytanie.`,
+      3: `Jak zmęczone westchnięcie „eeech”, aż głos trzeszczy. Westchnij, potem ${X} tak samo, trzeszcząc. Nie kończ ładnie.`,
+      4: `Jak „Nie!” do psa, który bierze kiełbasę. Krótko, ostro. Powiedz „Nie!”, potem ${X} tak samo.`,
+      5: `Jak ciche „-ma” z „mama”: krótko, bez siły, doklejone do poprzedniego kawałka.`,
+    }[ton] || "";
+  }
+  const KOTWICA_TONU = { 1: "„aaa” u lekarza", 2: "„Co?”", 3: "zmęczone „eeech”", 4: "„Nie!” do psa", 5: "ciche „-ma”" };
+  // ton do powiedzenia: dwa 3. tony pod rząd -> pierwszy mówisz jak 2. (你好); 不/一 liczy już pinyin-pro
+  function tonMowiony(sylaby, i) { const t = sylaby[i].celTon; return t === 3 && sylaby[i + 1] && sylaby[i + 1].celTon === 3 ? 2 : t; }
+  // podpowiedź dla jednej sylaby z wykresu: nie trafiony dźwięk -> jak zrobić dźwięk; dźwięk jest -> jak zrobić ton
+  function podpowiedzSylaby(sylaby, i) {
+    const s = sylaby[i], d = podpowiedzDzwiek(s.baza), ton = tonMowiony(sylaby, i);
+    const naglowek = `<b>${esc(s.znak)}</b> powiedz: <b class="tp-pl">${esc(d.pl)}</b>`;
+    if (!s.usl) return naglowek + `<div class="tp-lab">dźwięk</div>` + d.rady.map(r => `<div>${esc(r)}</div>`).join("");
+    const sandhi = ton !== s.celTon ? ` <span class="tp-lab">(dwa trzeszczące pod rząd: pierwszy mówisz jak „Co?”)</span>` : "";
+    const ok = s.uslTon === s.celTon;
+    return naglowek + `<div class="tp-lab">${ok ? "✓ dźwięk i ton dobrze · " : "dźwięk dobrze, teraz "}ton: ${KOTWICA_TONU[ton]}${sandhi}</div><div>${esc(podpowiedzTon(ton, d.pl))}</div>`;
+  }
   function trenerHtml(g) {
     const sylaby = dopasuj(sylabyZTonami(g.target), sylabyZTonami(g.best));
     if (!sylaby.length) return "";
     sylaby.forEach(s => { if (s.uslTon != null && s.uslTon !== s.celTon) zapiszTon(s.celTon); });
-    const wykres = `<div class="tony"><div class="tony-os"><span>cel</span><span>ty</span></div>` + sylaby.map(s => {
+    const wykres = `<div class="tony"><div class="tony-os"><span>cel</span><span>ty</span></div>` + sylaby.map((s, i) => {
       const zle = s.uslTon == null || s.uslTon !== s.celTon;
-      return `<div class="syl${zle ? " zle" : ""}"><div class="py">${esc(s.cel)}</div>${svgTon(s.celTon, "cel")}${svgTon(s.uslTon, "usl")}<div class="py usl">${s.usl ? esc(s.usl) : "—"}</div></div>`;
-    }).join("") + `</div>`;
+      return `<div class="syl${zle ? " zle" : ""}" data-i="${i}" role="button"><div class="py">${esc(s.cel)}</div>${svgTon(s.celTon, "cel")}${svgTon(s.uslTon, "usl")}<div class="py usl">${s.usl ? esc(s.usl) : "—"}</div></div>`;
+    }).join("") + `</div><div class="tony-pod" data-s="${encodeURIComponent(JSON.stringify(sylaby))}">dotknij kawałek słowa: jak go powiedzieć</div>`;
     const c = cfg();
     if (!c.url || !c.klucz) return wykres;
     const w = { cel: { znaki: g.target, pinyin: g.targetPy }, uslyszane: { znaki: g.best, pinyin: g.heardPy }, poziom: g.level, sylaby };
@@ -181,6 +255,19 @@
   }
   // request do Claude dopiero po dotknięciu "Spytaj trenera" (strony wstawiają html z render() same, stąd delegacja zdarzenia)
   document.addEventListener("click", (e) => {
+    const syl = e.target.closest(".tony .syl");
+    if (syl) {
+      e.preventDefault(); e.stopPropagation();
+      const wykres = syl.closest(".tony"), pod = wykres && wykres.nextElementSibling;
+      if (!pod || !pod.classList.contains("tony-pod")) return;
+      let sylaby = []; try { sylaby = JSON.parse(decodeURIComponent(pod.dataset.s)); } catch (err) {}
+      const i = Number(syl.dataset.i);
+      if (syl.classList.contains("wybr")) { syl.classList.remove("wybr"); pod.innerHTML = "dotknij kawałek słowa: jak go powiedzieć"; pod.classList.remove("otw"); return; }
+      for (const x of wykres.querySelectorAll(".syl.wybr")) x.classList.remove("wybr");
+      syl.classList.add("wybr"); pod.classList.add("otw");
+      pod.innerHTML = sylaby[i] ? podpowiedzSylaby(sylaby, i) : "";
+      return;
+    }
     const p = e.target.closest(".tr-play");
     if (p) { e.preventDefault(); e.stopPropagation(); const c = cfg(); graj(c.url + "/tts?k=" + encodeURIComponent(c.klucz) + "&slow=1&q=" + encodeURIComponent(p.dataset.q)); return; }
     const b = e.target.closest(".tr-pytaj"); if (!b) return;
@@ -194,6 +281,12 @@
 .tony-os { display: flex; flex-direction: column; justify-content: space-between; height: 62px; font-size: 10px; opacity: .6; padding: 12px 2px 0 0; }
 .tony .syl { display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 3px 4px; border-radius: 8px; background: rgba(0,0,0,.05); }
 .tony .syl.zle { background: rgba(220,60,60,.12); }
+.tony .syl { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.tony .syl.wybr { outline: 2px solid currentColor; outline-offset: 1px; }
+.tony-pod { margin-top: 6px; font-size: 12px; opacity: .6; line-height: 1.4; text-align: left; }
+.tony-pod.otw { opacity: 1; font-size: 14px; }
+.tony-pod .tp-pl { font-size: 18px; }
+.tony-pod .tp-lab { font-size: 12px; opacity: .7; margin: 3px 0 1px; }
 .tony .py { font-size: 12px; line-height: 1.2; }
 .tony .py.usl { opacity: .7; }
 .tony .ton { width: 40px; height: 26px; }
@@ -566,7 +659,7 @@
     btn.addEventListener("contextmenu", (e) => e.preventDefault());
   }
 
-  const W = { diag, supported: !!SR || GUM, iOS: !!IOS_VER, beforeStart: null, zapiszStan: null, bind, grade, render, strip, toPinyin, cfg, odbierzWynik,
+  const W = { diag, supported: !!SR || GUM, iOS: !!IOS_VER, beforeStart: null, zapiszStan: null, bind, grade, render, strip, toPinyin, cfg, odbierzWynik, pinyinPl, podpowiedzDzwiek, podpowiedzTon, podpowiedzSylaby,
               audioAktywne, graj, stopAudio, preload: dekoduj, kontekst, przywrocPlayback, LABEL_IDLE };
   window.Wymowa = W;
 })();
