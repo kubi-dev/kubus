@@ -214,7 +214,6 @@ function bindMic(btn, out, target, para) {
   Wymowa.bind(btn, {
     target: () => target,
     onStart: () => {},
-    onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
     onDone: (res) => {
       const r = Wymowa.render(res, target);
       out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;

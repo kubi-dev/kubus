@@ -16,7 +16,7 @@
 //
 // Użycie:
 //   Wymowa.beforeStart = () => { /* tylko UI, audio zatrzymuje moduł */ };
-//   Wymowa.bind(btn, { target: () => "朋友", onStart(), onInterim(text), onDone(result) });
+//   Wymowa.bind(btn, { target: () => "朋友", onStart(), onInterim(text), onDone(result) });  wynik wstępny moduł pokazuje w przycisku; strony nie ruszają układu w trakcie mówienia
 //   Wymowa.graj(url, { onEnd(przerwane) }) -> Promise<bool>;  Wymowa.stopAudio();  Wymowa.preload(url)
 //   result = { alts: [...], gotFinal, error, heldMs, started }
 //   Wymowa.render(result, target) -> { cls, html, grade }
@@ -107,8 +107,8 @@
         : "Nic nie usłyszałem. Przytrzymaj, poczekaj na „mów teraz”, powiedz i puść.";
       return { cls: "bad", html, grade: g };
     }
-    if (g.level === "exact") return { cls: "ok", html: `✓ Idealnie. Usłyszałem: <b>${t}</b> (${g.targetPy})${note}`, grade: g };
-    const trener = trenerHtml(g);
+    const trener = trenerHtml(g);   // wykres także przy „idealnie”: stała wysokość wyniku, podpowiedzi po dotknięciu sylaby
+    if (g.level === "exact") return { cls: "ok", html: `✓ Idealnie. Usłyszałem: <b>${t}</b> (${g.targetPy})${note}${trener}`, grade: g };
     if (g.level === "tones") return { cls: "ok", html: `✓ Sylaby OK, sprawdź tony. Usłyszałem: <b>${g.best}</b> (${g.heardPy}), cel: ${g.targetPy}${note}${trener}`, grade: g };
     if (g.level === "close") return { cls: "mid", html: `~ Blisko. Usłyszałem: <b>${g.best}</b> (${g.heardPy})<br>cel: ${t} (${g.targetPy})${note}${trener}`, grade: g };
     return { cls: "bad", html: `✗ Usłyszałem: <b>${g.best}</b> (${g.heardPy})<br>cel: ${t} (${g.targetPy})${note}${trener}`, grade: g };
@@ -249,8 +249,7 @@
         (slaby ? `<div class="tr-stat">Najczęściej ucieka ci ${slaby.ton}. ton (${slaby.razy}×).</div>` : "");
       const mic = el.querySelector(".tr-mic"), out = el.querySelector(".tr-wynik");
       if (mic) bind(mic, { target: () => cw.znaki,
-        onInterim: (t) => { out.hidden = false; out.className = "result tr-wynik"; out.textContent = "słyszę: " + t; },
-        onDone: (res) => { const x = render(res, cw.znaki); out.hidden = false; out.className = "result tr-wynik " + x.cls; out.innerHTML = x.html; } });
+          onDone: (res) => { const x = render(res, cw.znaki); out.hidden = false; out.className = "result tr-wynik " + x.cls; out.innerHTML = x.html; } });
     } catch (e) { diag("trener błąd: " + e.message); el.textContent = "Trener niedostępny: " + e.message; }
   }
   // request do Claude dopiero po dotknięciu "Spytaj trenera" (strony wstawiają html z render() same, stąd delegacja zdarzenia)
@@ -471,6 +470,8 @@
       const alts = Array.from(last).map(x => strip(prefix + x.transcript));
       diag("result final=" + last.isFinal + " " + alts[0]);
       if (last.isFinal) { s.finalAlts = alts; s.gotFinal = true; } else s.interim = alts[0];
+      // wynik wstępny pokazujemy w samym przycisku (stała szerokość): nic na stronie nie zmienia wysokości w trakcie mówienia
+      if (alts[0]) btn.textContent = "🎙 " + (alts[0].length > 9 ? "…" + alts[0].slice(-9) : alts[0]);
       if (opts.onInterim) { try { opts.onInterim(alts[0]); } catch (e) {} }
     };
     r.onerror = (ev) => {

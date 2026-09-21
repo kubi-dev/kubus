@@ -255,7 +255,6 @@ function bindMic(btn, target, card) {
   Wymowa.bind(btn, {
     target,
     onStart: () => {},
-    onInterim: (text) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + text; },
     onDone: (res) => { const r = Wymowa.render(res, target); out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html; }
   });
 }

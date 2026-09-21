@@ -209,7 +209,6 @@ function otworz(k) {
   Wymowa.bind(mic, {
     target: k.znaki,
     onStart: () => {},
-    onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
     onDone: (res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; }
   });
   card.appendChild(mic); card.appendChild(out);

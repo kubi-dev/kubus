@@ -53,6 +53,8 @@
   .link { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 14px; padding: 6px; }
   .result { font-size: 14px; padding: 10px 12px; border-radius: 10px; background: var(--bg); line-height: 1.4; width: 100%; box-sizing: border-box; min-height: 42px; }
   .result:empty { background: transparent; padding: 0; }
+  .revbox:empty { display: none; }
+  .revbox { width: 100%; }
   .result.ok { background: var(--ok-bg); color: var(--ok-ink); }
   .result.mid { background: var(--mid-bg); color: var(--mid-ink); }
   .result.bad { background: var(--accent-soft); color: var(--accent); }
@@ -330,7 +332,6 @@ function odslon(k, kontener, zMikrofonem, onWynik) {
     Wymowa.bind(mic, {
       target: k.znaki,
       onStart: () => {},
-      onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
       onDone: onWynik || ((res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; })
     });
     r.appendChild(mic); r.appendChild(out);
@@ -369,8 +370,8 @@ function kartaA(c, w) {
     else { hintBox.textContent = k.pinyin + (k.polski ? " · " + k.polski : ""); if (zDzwiekiem) graj(k); }
   };
   hint.addEventListener("click", () => { widok.podpowiedzi++; pokazPodpowiedz(widok.podpowiedzi, true); });
-  card.appendChild(mic); card.appendChild(out); card.appendChild(hintBox); card.appendChild(hint);
-  const rev = el("div"); card.appendChild(rev);
+  const rev = el("div", "revbox");   // odsłonięta wymowa: zawsze bezpośrednio pod przyciskiem, nad wynikiem
+  card.appendChild(mic); card.appendChild(rev); card.appendChild(out); card.appendChild(hintBox); card.appendChild(hint);
   let odslonieto = false;
   const pokazWynik = (r, sug) => {
     out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
@@ -389,7 +390,6 @@ function kartaA(c, w) {
   Wymowa.bind(mic, {
     target: k.znaki,
     onStart: () => {},
-    onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
     onDone: zastosujWynik
   });
   const skip = el("button", "link", "nie pamiętam, pokaż"); skip.type = "button";
