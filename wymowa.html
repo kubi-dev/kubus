@@ -321,6 +321,7 @@ function zapiszStat(grupa, ok) {
   try { localStorage.setItem(KLUCZ_STAT, JSON.stringify(t)); } catch (e) {}
   rysujStaty();
 }
+const KOTWICA = { 1: "„aaa”", 2: "„Co?”", 3: "„mhm”", 4: "„Nie!”", 5: "„-ma”" };  // polskie słowo, które brzmi jak dany ton
 const NAZWY = { ton1: "1. ton", ton2: "2. ton", ton3: "3. ton", ton4: "4. ton", ton5: "lekki ton", tony: "słowa różniące się tonem", mowa: "mówienie (mikrofon)" };
 for (const g of (DATA.dzwieki || [])) NAZWY[g.id] = g.tytul;
 const LINK = (k) => /^ton[1-5]$/.test(k) ? "#ton-" + k[3] : k === "tony" ? "#uszy" : k === "mowa" ? "#cwicz" : "#dz-" + k;
@@ -365,7 +366,7 @@ function nastepne() {
   if (tryb === "ton") {
     const s = biezace = los(JEDNO);
     body.innerHTML = `<button class="btn" id="q-play" type="button">🔊 posłuchaj jeszcze raz</button><div class="odp">` +
-      [1, 2, 3, 4].map(t => `<button type="button" data-t="${t}">${svgTon(t)}<span class="mn">${t}. ton</span></button>`).join("") + `</div>`;
+      [1, 2, 3, 4].map(t => `<button type="button" data-t="${t}">${svgTon(t)}<span class="mn">${t}. ton · ${KOTWICA[t]}</span></button>`).join("") + `</div>`;
     graj(s.znaki); $("q-play").addEventListener("click", () => graj(s.znaki));
     for (const b of body.querySelectorAll(".odp button")) b.addEventListener("click", () => {
       const t = Number(b.dataset.t), ok = t === s.ton;
@@ -373,7 +374,7 @@ function nastepne() {
       if (!ok) b.classList.add("zle");
       runda.n++; if (ok) runda.ok++; zapiszStat("ton" + s.ton, ok); wynikRundy();
       $("q-fb").className = "fb " + (ok ? "ok" : "bad");
-      $("q-fb").innerHTML = (ok ? "✓ Tak. " : `✗ To był ${s.ton}. ton. `) + `<b>${esc(s.znaki)}</b> ${esc(s.pinyin)} · ${esc(s.polski || "")} · ${esc(s.znaczenie)}`;
+      $("q-fb").innerHTML = (ok ? "✓ Tak. " : `✗ To był ${s.ton}. ton, jak ${KOTWICA[s.ton] || ""}. `) + `<b>${esc(s.znaki)}</b> ${esc(s.pinyin)} · ${esc(s.polski || "")} · ${esc(s.znaczenie)}`;
       $("q-dalej").innerHTML = `<button class="btn" id="q-powt" type="button">🔊 posłuchaj</button> <button class="btn main" id="q-next" type="button">dalej ▶</button>`;
       $("q-powt").addEventListener("click", () => graj(s.znaki)); $("q-next").addEventListener("click", nastepne);
     });

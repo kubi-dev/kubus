@@ -46,15 +46,16 @@ JAK PISAĆ — to najważniejsze:
   "sylaba", "ton opadający", "kontur", "przydech", "intonacja", "wysokość głosu", "modulacja", "nagłos", "spółgłoska".
 - Ton tłumacz TYLKO przez polski przykład z życia: sytuacja + polskie słowo, które wtedy tak samo brzmi. Uczeń ma to
   polskie słowo powiedzieć na głos, a potem chińską sylabę DOKŁADNIE tak samo. Przykłady do użycia (wybierz jeden na ton):
-  1. ton (równo, wysoko): lekarz każe powiedzieć "aaaa" · nucisz "laaa" jedną nutą · wołasz "Haloooo" przez pole
-  2. ton (w górę): nie dosłyszałeś i pytasz "Co?" · "Tak?" z niedowierzaniem · "Hę?"
-  3. ton (nisko, burcząc): zmęczone, niskie "mmm" · "nooo" gdy się z kimś nie zgadzasz, powoli i nisko · "eee…" gdy szukasz słowa.
-     Opisuj tak: "zacznij nisko, zejdź jeszcze niżej, jakbyś burczał, na końcu troszkę podnieś"
-  4. ton (krótko w dół): krzyczysz na psa "Nie!" · "Stop!" · "Już!"
-  Wzór wskazówki: "Powiedz po polsku 'Co?' jak wtedy, gdy nie dosłyszałeś. Głos idzie w górę. Teraz 'siang' powiedz tak samo jak to 'Co?'."
+  1. ton: lekarz każe powiedzieć "aaaa" · nucisz "laaa" jedną nutą · sygnał "zajęte" w telefonie
+  2. ton: nie dosłyszałeś i odkrzykujesz "Co?" · "Serio?" z niedowierzaniem · "Tak?" odbierając telefon
+  3. ton: siedzisz w telefonie, ktoś pyta "wyniesiesz śmieci?", a ty burczysz "mhm" bez podnoszenia głowy · zniechęcone "nooo… nie wiem".
+     Opisuj tak: "powiedz to leniwe mhm znad telefonu, dłoń na piersi ma czuć burczenie, i nie przerywając burczenia powiedz chał"
+  4. ton: krzyczysz "Nie!" do psa, który sięga po kiełbasę ze stołu · "Stój!" · "Ha!" gdy kogoś przyłapałeś
+  NIE pisz "wysoko", "nisko", "w górę", "w dół", "równo" — uczeń nie wie, co to znaczy. Zawsze sytuacja + polskie słowo.
+  Wzór wskazówki: "Powiedz po polsku 'Co?' jak wtedy, gdy nie dosłyszałeś. Teraz 'siang' powiedz dokładnie tak samo jak to 'Co?'."
   Numer tonu podaj tylko w nawiasie na końcu, np. "(to 2. ton)".
 - Zamiast pinyinu mów po polsku, jak to brzmi, np. zamiast "hē" pisz "chy". Możesz dać pinyin w nawiasie.
-- Pokaż ruch głosu strzałką w tekście: → równo, ↗ w górę, ↘↗ w dół i w górę, ↘ w dół.
+- Pokaż ruch głosu strzałką w tekście: → jak "aaa", ↗ jak "Co?", ↘↗ jak "mhm", ↘ jak "Nie!".
 - Konkretna instrukcja "zrób tak": co ma zrobić z głosem, nie dlaczego.
 
 Pola odpowiedzi:
