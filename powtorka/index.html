@@ -30,7 +30,8 @@
   .gear { background: none; border: none; font-size: 18px; cursor: pointer; padding: 2px 4px; }
   main { flex: 1; max-width: 620px; width: 100%; margin: 0 auto; padding: 10px 18px 24px; display: flex; flex-direction: column; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px 20px; flex: 1; position: relative;
-          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; min-height: 340px; }
+          display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 14px; text-align: center; min-height: 340px; }
+  /* nic nad mikrofonem ani sam mikrofon nie może się ruszać, gdy wynik się zmienia: karta od góry, stała szerokość przycisku, zarezerwowane miejsce na wynik */
   .star { position: absolute; top: 10px; right: 12px; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--muted); padding: 4px 6px; line-height: 1; }
   .star.on { color: var(--star); }
   .tag { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
@@ -44,13 +45,14 @@
   .kred a { color: inherit; }
   .big { font-size: 64px; background: none; border: none; cursor: pointer; line-height: 1; }
   .big:active { transform: scale(.94); }
-  .mic { display: inline-flex; align-items: center; gap: 8px; font-size: 17px; padding: 14px 22px; border-radius: 999px;
+  .mic { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 17px; padding: 14px 22px; border-radius: 999px; min-width: 250px; box-sizing: border-box;
          border: 2px solid var(--accent); background: transparent; color: var(--ink); cursor: pointer;
          touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
   .mic.rec { background: var(--accent); color: #fff; animation: pulse 1s infinite; }
   @keyframes pulse { 50% { opacity: .6; } }
   .link { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 14px; padding: 6px; }
-  .result { font-size: 14px; padding: 10px 12px; border-radius: 10px; background: var(--bg); line-height: 1.4; width: 100%; }
+  .result { font-size: 14px; padding: 10px 12px; border-radius: 10px; background: var(--bg); line-height: 1.4; width: 100%; box-sizing: border-box; min-height: 42px; }
+  .result:empty { background: transparent; padding: 0; }
   .result.ok { background: var(--ok-bg); color: var(--ok-ink); }
   .result.mid { background: var(--mid-bg); color: var(--mid-ink); }
   .result.bad { background: var(--accent-soft); color: var(--accent); }
@@ -324,10 +326,10 @@ function odslon(k, kontener, zMikrofonem, onWynik) {
   if (zMikrofonem) {
     // ćwiczenie wymowy po odsłonięciu (nie wpływa na ocenę karty)
     const mic = el("button", "mic"); mic.type = "button";
-    const out = el("div", "result"); out.hidden = true;
+    const out = el("div", "result");
     Wymowa.bind(mic, {
       target: k.znaki,
-      onStart: () => { out.hidden = true; },
+      onStart: () => {},
       onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
       onDone: onWynik || ((res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; })
     });
@@ -357,7 +359,7 @@ function kartaA(c, w) {
   card.appendChild(el("div", "tag", "powiedz po chińsku"));
   if (k.img) card.appendChild(obrazek(k));
   card.appendChild(el("div", "q", polskie(k) + (angielskie(k) ? `<small>${angielskie(k)}</small>` : "")));
-  const out = el("div", "result"); out.hidden = true;
+  const out = el("div", "result");
   const mic = el("button", "mic"); mic.type = "button";
   const hint = el("button", "link", "podpowiedź"); hint.type = "button";
   const hintBox = el("div", "pl"); hintBox.hidden = true;
@@ -386,7 +388,7 @@ function kartaA(c, w) {
   };
   Wymowa.bind(mic, {
     target: k.znaki,
-    onStart: () => { out.hidden = true; },
+    onStart: () => {},
     onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
     onDone: zastosujWynik
   });

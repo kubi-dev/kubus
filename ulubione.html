@@ -42,7 +42,7 @@
   .overlay header { flex: none; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px 20px; margin: 6px 18px 24px; flex: 1;
           max-width: 584px; width: calc(100% - 36px); align-self: center;
-          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; position: relative; }
+          display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 12px; text-align: center; position: relative; }
   .hanzi { font-size: 52px; line-height: 1.2; font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
   .pinyin { font-size: 24px; color: var(--accent); }
   .pl { font-size: 15px; color: var(--muted); }
@@ -54,12 +54,13 @@
   .row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
   .big { font-size: 18px; padding: 12px 20px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
   .big:active { transform: scale(.96); }
-  .mic { display: inline-flex; align-items: center; gap: 8px; font-size: 17px; padding: 14px 22px; border-radius: 999px;
+  .mic { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 17px; padding: 14px 22px; border-radius: 999px; min-width: 250px; box-sizing: border-box;
          border: 2px solid var(--accent); background: transparent; color: var(--ink); cursor: pointer;
          touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
   .mic.rec { background: var(--accent); color: #fff; animation: pulse 1s infinite; }
   @keyframes pulse { 50% { opacity: .6; } }
-  .result { font-size: 14px; padding: 10px 12px; border-radius: 10px; background: var(--bg); line-height: 1.4; width: 100%; }
+  .result { font-size: 14px; padding: 10px 12px; border-radius: 10px; background: var(--bg); line-height: 1.4; width: 100%; box-sizing: border-box; min-height: 42px; }
+  .result:empty { background: transparent; padding: 0; }
   .result.ok { background: var(--ok-bg); color: var(--ok-ink); }
   .result.mid { background: var(--mid-bg); color: var(--mid-ink); }
   .result.bad { background: var(--accent-soft); color: var(--accent); }
@@ -204,10 +205,10 @@ function otworz(k) {
   const b2 = el("button", "big", "🐢 wolniej"); b2.type = "button"; b2.addEventListener("click", () => graj(k, true)); row.appendChild(b2);
   card.appendChild(row);
   const mic = el("button", "mic"); mic.type = "button";
-  const out = el("div", "result"); out.hidden = true;
+  const out = el("div", "result");
   Wymowa.bind(mic, {
     target: k.znaki,
-    onStart: () => { out.hidden = true; },
+    onStart: () => {},
     onInterim: (t) => { out.hidden = false; out.className = "result"; out.textContent = "słyszę: " + t; },
     onDone: (res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; }
   });
