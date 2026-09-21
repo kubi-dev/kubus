@@ -53,8 +53,7 @@
   .link { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 14px; padding: 6px; }
   .result { font-size: 14px; padding: 10px 12px; border-radius: 10px; background: var(--bg); line-height: 1.4; width: 100%; box-sizing: border-box; min-height: 42px; }
   .result:empty { background: transparent; padding: 0; }
-  .revbox:empty { display: none; }
-  .revbox { width: 100%; }
+  .wym { min-height: 24px; line-height: 24px; }   /* miejsce zarezerwowane od początku: nic nie skacze, gdy wymowa się pojawi */
   .result.ok { background: var(--ok-bg); color: var(--ok-ink); }
   .result.mid { background: var(--mid-bg); color: var(--mid-ink); }
   .result.bad { background: var(--accent-soft); color: var(--accent); }
@@ -315,12 +314,14 @@ function odtworzPoPrzeladowaniu() {
 
 function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 
-function odslon(k, kontener, zMikrofonem, onWynik) {
+function odslon(k, kontener, zMikrofonem, onWynik, bezWymowy) {
   const r = el("div", "reveal");
   if (k.img && !card.querySelector(".obr")) r.appendChild(obrazek(k));
   r.appendChild(el("div", "hanzi", k.znaki));
-  r.appendChild(el("div", "pinyin", k.pinyin));
-  if (k.polski) r.appendChild(el("div", "pl", "po polsku: " + k.polski));
+  if (!bezWymowy) {   // karta A ma wymowę już pod guzikiem
+    r.appendChild(el("div", "pinyin", k.pinyin));
+    if (k.polski) r.appendChild(el("div", "pl", "po polsku: " + k.polski));
+  }
   r.appendChild(el("div", "", polskie(k) + (angielskie(k) ? ` <span class="pl">· ${angielskie(k)}</span>` : "")));
   const kr = kredyt(k); if (kr) r.appendChild(kr);
   const b = el("button", "link", "🔊 posłuchaj"); b.type = "button"; b.addEventListener("click", () => graj(k)); r.appendChild(b);
@@ -363,20 +364,20 @@ function kartaA(c, w) {
   const out = el("div", "result");
   const mic = el("button", "mic"); mic.type = "button";
   const hint = el("button", "link", "podpowiedź"); hint.type = "button";
-  const hintBox = el("div", "pl"); hintBox.hidden = true;
+  const wym = el("div", "wym");   // wymowa zawsze bezpośrednio pod guzikiem: pinyin · po polsku (po podpowiedzi albo po odsłonięciu)
+  const pokazWymowe = () => { wym.innerHTML = `<span class="pinyin">${k.pinyin}</span>` + (k.polski ? ` <span class="pl">· ${k.polski}</span>` : ""); };
   const pokazPodpowiedz = (n, zDzwiekiem) => {
-    hintBox.hidden = false;
-    if (n === 1) { hintBox.textContent = k.pinyin; hint.textContent = "posłuchaj"; }
-    else { hintBox.textContent = k.pinyin + (k.polski ? " · " + k.polski : ""); if (zDzwiekiem) graj(k); }
+    if (n === 1) { wym.innerHTML = `<span class="pinyin">${k.pinyin}</span>`; hint.textContent = "posłuchaj"; }
+    else { pokazWymowe(); if (zDzwiekiem) graj(k); }
   };
   hint.addEventListener("click", () => { widok.podpowiedzi++; pokazPodpowiedz(widok.podpowiedzi, true); });
-  const rev = el("div", "revbox");   // odsłonięta wymowa: zawsze bezpośrednio pod przyciskiem, nad wynikiem
-  card.appendChild(mic); card.appendChild(rev); card.appendChild(out); card.appendChild(hintBox); card.appendChild(hint);
+  card.appendChild(mic); card.appendChild(wym); card.appendChild(out); card.appendChild(hint);
+  const rev = el("div"); card.appendChild(rev);
   let odslonieto = false;
   const pokazWynik = (r, sug) => {
     out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
     if (sug === null) return;
-    if (!odslonieto) { odslonieto = true; odslon(k, rev); }
+    if (!odslonieto) { odslonieto = true; pokazWymowe(); odslon(k, rev, false, null, true); }
     pokazOcene(sug);
   };
   const zastosujWynik = (res) => {
@@ -393,7 +394,7 @@ function kartaA(c, w) {
     onDone: zastosujWynik
   });
   const skip = el("button", "link", "nie pamiętam, pokaż"); skip.type = "button";
-  const pokaz = (zDzwiekiem) => { skip.hidden = true; if (!odslonieto) { odslonieto = true; odslon(k, rev); } if (zDzwiekiem) graj(k); pokazOcene(0); };
+  const pokaz = (zDzwiekiem) => { skip.hidden = true; if (!odslonieto) { odslonieto = true; pokazWymowe(); odslon(k, rev, false, null, true); } if (zDzwiekiem) graj(k); pokazOcene(0); };
   skip.addEventListener("click", () => { widok.skip = true; pokaz(true); });
   card.appendChild(skip);
   aktualna = { zastosujWynik };
