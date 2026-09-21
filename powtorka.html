@@ -53,7 +53,7 @@
   .link { background: none; border: none; color: var(--accent); cursor: pointer; font-size: 14px; padding: 6px; }
   .result { font-size: 14px; padding: 10px 12px; border-radius: 10px; background: var(--bg); line-height: 1.4; width: 100%; box-sizing: border-box; min-height: 42px; }
   .result:empty { background: transparent; padding: 0; }
-  .wym { min-height: 24px; line-height: 24px; }   /* miejsce zarezerwowane od początku: nic nie skacze, gdy wymowa się pojawi */
+  .wym { min-height: 30px; line-height: 30px; font-size: 24px; font-weight: 600; color: var(--accent); }   /* polski zapis nad guzikiem; miejsce zarezerwowane od początku */
   .result.ok { background: var(--ok-bg); color: var(--ok-ink); }
   .result.mid { background: var(--mid-bg); color: var(--mid-ink); }
   .result.bad { background: var(--accent-soft); color: var(--accent); }
@@ -364,14 +364,16 @@ function kartaA(c, w) {
   const out = el("div", "result");
   const mic = el("button", "mic"); mic.type = "button";
   const hint = el("button", "link", "podpowiedź"); hint.type = "button";
-  const wym = el("div", "wym");   // wymowa zawsze bezpośrednio pod guzikiem: pinyin · po polsku (po podpowiedzi albo po odsłonięciu)
-  const pokazWymowe = () => { wym.innerHTML = `<span class="pinyin">${k.pinyin}</span>` + (k.polski ? ` <span class="pl">· ${k.polski}</span>` : ""); };
+  // wymowa: tylko polski zapis, NAD guzikiem (prawy kciuk na guziku nie zasłania), po podpowiedzi albo po odsłonięciu
+  const wym = el("div", "wym");
+  const polskiZapis = () => k.polski || (window.pinyinPro ? pinyinPro.pinyin(k.znaki, { toneType: "none", type: "array" }).map(Wymowa.pinyinPl).join("-") : k.pinyin);
+  const pokazWymowe = () => { wym.textContent = polskiZapis(); };
   const pokazPodpowiedz = (n, zDzwiekiem) => {
-    if (n === 1) { wym.innerHTML = `<span class="pinyin">${k.pinyin}</span>`; hint.textContent = "posłuchaj"; }
-    else { pokazWymowe(); if (zDzwiekiem) graj(k); }
+    if (n === 1) { pokazWymowe(); hint.textContent = "posłuchaj"; }
+    else if (zDzwiekiem) graj(k);
   };
   hint.addEventListener("click", () => { widok.podpowiedzi++; pokazPodpowiedz(widok.podpowiedzi, true); });
-  card.appendChild(mic); card.appendChild(wym); card.appendChild(out); card.appendChild(hint);
+  card.appendChild(wym); card.appendChild(mic); card.appendChild(out); card.appendChild(hint);
   const rev = el("div"); card.appendChild(rev);
   let odslonieto = false;
   const pokazWynik = (r, sug) => {
