@@ -63,7 +63,14 @@ Pola odpowiedzi:
 - Uczeń ma pod tekstem przycisk z nagraniem złej sylaby i ćwiczenia (wolno). Zawsze zacznij wskazówkę od "Posłuchaj nagrania" i każ powtórzyć 3 razy.
 - wskazowka: 2-3 krótkie zdania wg wzoru wyżej: polska sytuacja, polskie słowo, "powiedz na głos", potem chińska sylaba "tak samo". Jeśli złe są dwie sylaby, weź tylko tę ważniejszą.
   Jeśli poziom to close/bad, to zamiast tonu powiedz, jak brzmi zła głoska, np. "'czhy' mów z dmuchnięciem, jak czh w 'czhamp'".
-- cwiczenie: jedno proste słowo (1-2 znaki, HSK1) z tym samym problemem do powtórzenia. Pola: znaki, pinyin, polski (znaczenie),
+- cwiczenie: jedno proste słowo (1-2 znaki, HSK1) do powtórzenia z DOKŁADNIE tym samym problemem, o którym mówi wskazówka:
+  * gdy chodzi o ton: słowo z tym samym tonem co zła sylaba (ton = ten numer).
+  * gdy chodzi o głoskę: słowo, którego pinyin zaczyna się TĄ SAMĄ literą (literami) co zła sylaba (ton = 0). Tłumaczysz "ph" -> ćwiczenie
+    na p, nie na ch. Przykłady HSK1: p: 朋友, 苹果, 便宜 · t: 他, 太, 听, 天 · k: 看, 咖啡, 可以 · q: 七, 钱, 请 · ch: 吃, 茶 · c: 菜, 从 ·
+    zh: 中国, 这 · j: 鸡, 几 · x: 谢谢, 小 · sh: 是, 水, 十 · r: 人, 肉 · h: 喝, 好, 很.
+  * dlaczego: jedno zdanie (max 10 słów), które łączy ćwiczenie ze wskazówką, np. "To samo 'ph' co w 'phu'." albo "Ten sam ton co w 'siang'."
+    Nie może być tak, że wskazówka mówi o jednej głosce, a ćwiczenie ma inną.
+  Pola: znaki, pinyin, polski (znaczenie), dlaczego,
   ton (numer ćwiczonego tonu 1-4, 0 gdy chodzi o głoskę), wymowa = zapis polskimi literami, sylaby przez myślnik, w konwencji ucznia:
   喝=chy, 水=szłej, 吃=czhy, 茶=czha, 我想=ło siang, 你好=ni chał, 咖啡=kha-fej, 鸡肉=dzi-żoł, 饺子=dział-dzy, 面条=mien-thiał, 米饭=mi-fan,
   果汁=kło-czy, 啤酒=phi-dzioł, 牛奶=nioł-naj, 葡萄酒=phu-thał-dzioł, 我不知道=ło pu czy-tał, 朋友=phyng-joł.
@@ -76,8 +83,8 @@ const TRENER_SCHEMA = {
   properties: {
     diagnoza: { type: "string" },
     wskazowka: { type: "string" },
-    cwiczenie: { type: "object", additionalProperties: false, required: ["znaki", "pinyin", "polski", "wymowa", "ton"],
-      properties: { znaki: { type: "string" }, pinyin: { type: "string" }, polski: { type: "string" }, wymowa: { type: "string" }, ton: { type: "integer" } } },
+    cwiczenie: { type: "object", additionalProperties: false, required: ["znaki", "pinyin", "polski", "dlaczego", "wymowa", "ton"],
+      properties: { znaki: { type: "string" }, pinyin: { type: "string" }, polski: { type: "string" }, dlaczego: { type: "string" }, wymowa: { type: "string" }, ton: { type: "integer" } } },
   },
 };
 

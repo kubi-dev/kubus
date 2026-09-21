@@ -22,7 +22,7 @@
 //   Wymowa.render(result, target) -> { cls, html, grade }
 (function () {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const strip = s => s.replace(/[。？?！!，,、.\s]/g, "");
+  const strip = s => s.replace(/[\p{P}\p{S}\s]/gu, ""); // cała interpunkcja i symbole (też „……” w kartach typu 我想喝……)
   const toPinyin = s => (window.pinyinPro ? pinyinPro.pinyin(s) : "");
   const toPinyinNoTone = s => (window.pinyinPro ? pinyinPro.pinyin(s, { toneType: "none" }) : s);
 
@@ -171,7 +171,7 @@
       const play = (znaki, py) => `<button class="tr-play" type="button" data-q="${esc(znaki)}">▶ ${esc(znaki)} <span>${esc(py)}</span> wolno</button>`;
       const odsluch = zle.length ? `<div class="tr-odsluch">Posłuchaj: ${zle.map(s => play(s.znak, s.cel)).join(" ")} ${zle.length < (w.sylaby || []).length ? play(w.cel.znaki, "całość") : ""}</div>` : "";
       el.innerHTML = `<div class="tr-diag">${esc(j.diagnoza)}</div>${odsluch}<div class="tr-rada">${esc(j.wskazowka)}</div>` +
-        (cw.znaki ? `<div class="tr-cw"><div class="tr-cw-tyt">${cw.ton ? "Ćwiczenie na " + cw.ton + ". ton" : "Ćwiczenie"} · powtórz:</div><b class="tr-znaki">${esc(cw.znaki)}</b> <span>${esc(cw.pinyin)}</span> · ${esc(cw.polski)}<div class="tr-wym">po polsku: <b>${esc(cw.wymowa)}</b></div><div class="tr-odsluch">${play(cw.znaki, cw.pinyin)}</div><button class="mic tr-mic" type="button"></button><div class="result tr-wynik" hidden></div></div>` : "") +
+        (cw.znaki ? `<div class="tr-cw"><div class="tr-cw-tyt">${cw.ton ? "Ćwiczenie na " + cw.ton + ". ton" : "Ćwiczenie"} · powtórz:</div><b class="tr-znaki">${esc(cw.znaki)}</b> <span>${esc(cw.pinyin)}</span> · ${esc(cw.polski)}${cw.dlaczego ? `<div class="tr-cw-tyt">${esc(cw.dlaczego)}</div>` : ""}<div class="tr-wym">po polsku: <b>${esc(cw.wymowa)}</b></div><div class="tr-odsluch">${play(cw.znaki, cw.pinyin)}</div><button class="mic tr-mic" type="button"></button><div class="result tr-wynik" hidden></div></div>` : "") +
         (slaby ? `<div class="tr-stat">Najczęściej ucieka ci ${slaby.ton}. ton (${slaby.razy}×).</div>` : "");
       const mic = el.querySelector(".tr-mic"), out = el.querySelector(".tr-wynik");
       if (mic) bind(mic, { target: () => cw.znaki,
