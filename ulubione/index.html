@@ -150,6 +150,8 @@ function przelaczUlubiona(znaki) { stan.ulubione[znaki] = { on: !ulubiona(znaki)
 
 // ---------- pomocnicze ----------
 function polskie(k) { const m = k.znaczenie.split("·"); return (m.length > 1 ? m.slice(1).join("·") : m[0]).trim(); }
+// polski zapis wymowy (jak w powtórce): z karty albo z pinyin-pro przez Wymowa.pinyinPl
+function polskiZapis(k) { return k.polski || (window.pinyinPro ? pinyinPro.pinyin(k.znaki, { toneType: "none", type: "array" }).map(Wymowa.pinyinPl).join("-") : k.pinyin); }
 function angielskie(k) { const m = k.znaczenie.split("·"); return m.length > 1 ? m[0].trim() : ""; }
 function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 function graj(k, wolno) { if (!k.audio) return; Wymowa.graj("../" + k.audio + (wolno ? "-slow" : "") + ".mp3").catch(e => Wymowa.diag("mp3 błąd: " + e.message)); }
@@ -175,7 +177,7 @@ function rysujListe() {
     const b = el("button", "item"); b.type = "button";
     const txt = el("div", "txt");
     txt.appendChild(el("b", "", polskie(k)));
-    txt.appendChild(el("small", "", k.pinyin + (angielskie(k) ? " · " + angielskie(k) : "")));
+    txt.appendChild(el("small", "", polskiZapis(k) + " · " + k.pinyin + (angielskie(k) ? " · " + angielskie(k) : "")));
     b.appendChild(txt);
     b.appendChild(el("span", "hz", k.znaki));
     b.addEventListener("click", () => otworz(k));
