@@ -243,7 +243,15 @@ function zbudujKolejke(dodatkoweNowe) {
   if (stan.dzien.data !== d) stan.dzien = { data: d, nowe: 0 };
   const limit = Math.max(0, stan.ustawienia.nowe - stan.dzien.nowe) + (dodatkoweNowe || 0);
   for (let i = zalegle.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [zalegle[i], zalegle[j]] = [zalegle[j], zalegle[i]]; }
-  kolejka = zalegle.concat(nowe.slice(0, limit));
+  // nowe słówka rozłożone równomiernie między zaległe (nie na końcu); para B+A jednego słówka zostaje razem
+  const paczki = [];
+  for (const c of nowe.slice(0, limit)) { const p = paczki[paczki.length - 1]; if (p && p[0].k === c.k) p.push(c); else paczki.push([c]); }
+  const razemPoz = zalegle.length + paczki.length;
+  kolejka = [];
+  for (let i = 0, zi = 0, pi = 0; i < razemPoz; i++) {
+    if (pi < paczki.length && (zi >= zalegle.length || (i + 1) * paczki.length > pi * razemPoz)) kolejka.push(...paczki[pi++]);
+    else kolejka.push(zalegle[zi++]);
+  }
   zrobione = 0; razem = kolejka.length;
   pokazPostep();
 }
