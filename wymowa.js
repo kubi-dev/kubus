@@ -174,6 +174,9 @@
     ua: "ła", uo: "ło", uai: "łaj", ui: "łej", uan: "łan", un: "łyn", uang: "łang", ueng: "łyng", "üe": "üe", "üan": "üen", "ün": "ün" };
   const ZERO_PL = { yi: "i", ya: "ja", ye: "je", yao: "jał", you: "joł", yan: "jen", yin: "in", yang: "jang", ying: "ing", yong: "jung", yu: "ü", yue: "üe", yuan: "jüen", yun: "ün",
     wu: "łu", wa: "ła", wo: "ło", wai: "łaj", wei: "łej", wan: "łan", wen: "łyn", wang: "łang", weng: "łyng" };
+  // polska litera + polskie słowo, na którym Polak słyszy ten dźwięk (do podpowiedzi o dmuchnięciu)
+  const SLOWO_PL = { p: ["p", "pan"], t: ["t", "tak"], k: ["k", "kot"], q: ["ć", "ćma"], ch: ["cz", "czapka"], c: ["c", "cena"],
+    b: ["p", "pan"], d: ["t", "tak"], g: ["k", "kot"], j: ["dzi", "dziura"], zh: ["cz", "czy"], z: ["dz", "dzwon"] };
   // rozbiór sylaby pinyin (bez tonu): { ini, fin, pl }
   function rozbierz(baza) {
     const b = String(baza || "").toLowerCase().replace(/v/g, "ü").replace(/u:/g, "ü");
@@ -190,8 +193,8 @@
   function podpowiedzDzwiek(baza) {
     const r = rozbierz(baza), ini = r.ini, fin = r.fin, H = [];
     const q = x => "„" + x + "”";
-    if (["p", "t", "k", "q", "ch", "c"].includes(ini)) H.push([5, `${q(INI_PL[ini])} z dmuchnięciem jak na zupę, w środku, między ${q(INI_PL[ini].replace(/h$/, ""))} a resztą. Kartka przed ustami ma drgnąć.`]);
-    if (["b", "d", "g", "j", "zh", "z"].includes(ini)) H.push([5, `${q(INI_PL[ini])} to zwykłe polskie ${q(INI_PL[ini])}, bez dmuchnięcia. Kartka przed ustami stoi.`]);
+    if (["p", "t", "k", "q", "ch", "c"].includes(ini)) { const [lit, slowo] = SLOWO_PL[ini]; H.push([5, `${q(INI_PL[ini])} to polskie ${q(lit)} jak w ${q(slowo)}, a zaraz po nim mocne dmuchnięcie, jak na gorącą zupę. „h” w zapisie znaczy właśnie: dmuchnij. Kartka przed ustami ma drgnąć.`]); }
+    if (["b", "d", "g", "j", "zh", "z"].includes(ini)) { const [lit, slowo] = SLOWO_PL[ini]; H.push([5, `${q(INI_PL[ini])} to zwykłe polskie ${q(lit)} jak w ${q(slowo)}, bez dmuchnięcia. Kartka przed ustami stoi.`]); }
     if (fin.includes("ü")) H.push([4, "ü: usta w dzióbek jak do gwizdania i tak powiedz „i”. W lustrze usta nie rozjeżdżają się."]);
     if (r.twardeY) H.push([4, "„i” tu czytasz twardo, jako „y”, jak w „czy”, „szyć”."]);
     if (["e", "en", "eng"].includes(fin)) H.push([3, "„e” to zastanawiające „yyy…”, gdy szukasz słowa. Nie polskie „e”."]);
