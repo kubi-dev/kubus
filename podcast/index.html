@@ -42,7 +42,7 @@
   <div id="lista"></div>
 </main>
 <script>
-const ODCINKI = [{"id": "wszystko", "tytul": "Wszystko do tej pory", "src": "wszystko.mp3?v=1621", "sekund": 1621, "n": 86, "data": ""}, {"id": "03-poznajemy-sie", "tytul": "Lekcja 3 · Poznajemy się", "src": "../lekcje/03-poznajemy-sie/podcast.mp3?v=937", "sekund": 937, "n": 26, "data": "2026-09-19"}, {"id": "02-jedzenie-i-napoje", "tytul": "Lekcja 2 · Jedzenie i napoje", "src": "../lekcje/02-jedzenie-i-napoje/podcast.mp3?v=1029", "sekund": 1029, "n": 38, "data": "2026-09-09"}, {"id": "01-przyjaciele", "tytul": "Lekcja 1 · Przyjaciele", "src": "../lekcje/01-przyjaciele/podcast.mp3?v=657", "sekund": 657, "n": 24, "data": "2026-09-06"}];
+const ODCINKI = [{"id": "wszystko", "tytul": "Wszystko do tej pory", "src": "wszystko.mp3?v=1544", "sekund": 1544, "n": 86, "data": ""}, {"id": "03-poznajemy-sie", "tytul": "Lekcja 3 · Poznajemy się", "src": "../lekcje/03-poznajemy-sie/podcast.mp3?v=807", "sekund": 807, "n": 26, "data": "2026-09-19"}, {"id": "02-jedzenie-i-napoje", "tytul": "Lekcja 2 · Jedzenie i napoje", "src": "../lekcje/02-jedzenie-i-napoje/podcast.mp3?v=1029", "sekund": 1029, "n": 38, "data": "2026-09-09"}, {"id": "01-przyjaciele", "tytul": "Lekcja 1 · Przyjaciele", "src": "../lekcje/01-przyjaciele/podcast.mp3?v=657", "sekund": 657, "n": 24, "data": "2026-09-06"}];
 const $lista = document.getElementById("lista");
 const fmt = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 const ls = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
