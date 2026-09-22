@@ -34,10 +34,30 @@
       diagEl = document.getElementById("diag-log");
       // dziennik sprzed przeładowania (tryb system-reload)
       if (diagEl) { try { const stary = sessionStorage.getItem(KLUCZ_DIAG); if (stary) { diagEl.textContent = stary + "---------- przeładowanie strony ----------\n"; sessionStorage.removeItem(KLUCZ_DIAG); } } catch (e) {} }
+      if (diagEl) dodajKopiuj(diagEl);
     }
     const line = new Date().toISOString().slice(11, 23) + " " + msg;
     console.log("[wymowa] " + msg);
     if (diagEl) { diagEl.textContent += line + "\n"; diagEl.scrollTop = diagEl.scrollHeight; }
+  }
+  // Guzik „kopiuj dziennik” nad <pre id="diag-log"> (jeden klik = cały dziennik w schowku, do wklejenia w wiadomości).
+  function dodajKopiuj(pre) {
+    if (pre.parentNode.querySelector(".diag-kopiuj")) return;
+    const b = document.createElement("button"); b.type = "button"; b.className = "diag-kopiuj"; b.textContent = "kopiuj dziennik";
+    b.style.cssText = "font: inherit; font-size: 12px; margin: 4px 0 6px; padding: 4px 10px; border-radius: 8px; border: 1px solid currentColor; background: transparent; color: inherit; cursor: pointer;";
+    const komunikat = (t) => { b.textContent = t; setTimeout(() => { b.textContent = "kopiuj dziennik"; }, 1500); };
+    b.addEventListener("click", async () => {
+      const tekst = pre.textContent;
+      try { await navigator.clipboard.writeText(tekst); komunikat("skopiowano ✓"); return; } catch (e) {}
+      // starsze WebKit / brak uprawnień: zaznacz i skopiuj przez execCommand
+      try {
+        const ta = document.createElement("textarea"); ta.value = tekst; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;left:-9999px;top:0;";
+        document.body.appendChild(ta); ta.focus(); ta.select(); ta.setSelectionRange(0, tekst.length);
+        const ok = document.execCommand("copy"); document.body.removeChild(ta);
+        komunikat(ok ? "skopiowano ✓" : "nie udało się – zaznacz ręcznie");
+      } catch (e) { komunikat("nie udało się – zaznacz ręcznie"); }
+    });
+    pre.parentNode.insertBefore(b, pre);
   }
   const IOS_VER = (navigator.userAgent.match(/OS (\d+)_(\d+)/) || [])[1];
   const GUM = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
