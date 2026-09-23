@@ -95,8 +95,11 @@
         {"znaki": "我不明白。", "pinyin": "Wǒ bù míngbai.", "polski": "ło pu ming-paj", "notatki": "ŁO PU MING PAJ", "znaczenie": "I don't understand. · Nie rozumiem."},
         {"znaki": "我不知道。", "pinyin": "Wǒ bù zhīdào.", "polski": "ło pu czy-tał", "notatki": "ŁO PU CZY TO", "znaczenie": "I don't know. · Nie wiem."},
         {"znaki": "你会说英语吗？", "pinyin": "Nǐ huì shuō Yīngyǔ ma?", "polski": "ni chłej szło ing-ü ma", "notatki": "NI-HŁEJ-SŁO-ING-JU-MA", "znaczenie": "Do you speak English? · Czy mówisz po angielsku?"},
+        {"znaki": "用英语说。", "pinyin": "Yòng Yīngyǔ shuō.", "polski": "jung ing-ü szło", "notatki": "", "znaczenie": "Say it in English. · Powiedz to po angielsku."},
         {"znaki": "你想喝什么？", "pinyin": "Nǐ xiǎng hē shénme?", "polski": "ni siang chy szyn-my", "notatki": "NI-SIA-HYA-SZA-MA", "znaczenie": "What do you want to drink? · Czego się napijesz?"},
-        {"znaki": "你想吃什么？", "pinyin": "Nǐ xiǎng chī shénme?", "polski": "ni siang czhy szyn-my", "notatki": "NI-SIA-CZY-SZA-MA", "znaczenie": "What do you want to eat? · Co chcesz zjeść?"}
+        {"znaki": "你想吃什么？", "pinyin": "Nǐ xiǎng chī shénme?", "polski": "ni siang czhy szyn-my", "notatki": "NI-SIA-CZY-SZA-MA", "znaczenie": "What do you want to eat? · Co chcesz zjeść?"},
+        {"znaki": "你吃什么？", "pinyin": "Nǐ chī shénme?", "polski": "ni czhy szyn-my", "notatki": "", "znaczenie": "What are you eating? · Co jesz?"},
+        {"znaki": "你喝什么？", "pinyin": "Nǐ hē shénme?", "polski": "ni chy szyn-my", "notatki": "", "znaczenie": "What are you drinking? · Co pijesz?"}
       ]
     },
     {

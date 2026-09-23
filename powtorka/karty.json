@@ -256,6 +256,18 @@
   }
  },
  {
+  "id": "好吃吗？",
+  "znaki": "好吃吗？",
+  "pinyin": "Hǎochī ma?",
+  "polski": "chał czhy ma",
+  "znaczenie": "Is it tasty? · Smaczne?",
+  "lekcja": 1,
+  "lekcjaTytul": "Lekcja 1 · Przyjaciele",
+  "audio": "lekcje/01-przyjaciele/audio/5cbc32fb0d",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "是",
   "znaki": "是",
   "pinyin": "shì",
@@ -824,6 +836,18 @@
   "obrazek": null
  },
  {
+  "id": "用英语说。",
+  "znaki": "用英语说。",
+  "pinyin": "Yòng Yīngyǔ shuō.",
+  "polski": "jung ing-ü szło",
+  "znaczenie": "Say it in English. · Powiedz to po angielsku.",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/400a9b76da",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "你想喝什么？",
   "znaki": "你想喝什么？",
   "pinyin": "Nǐ xiǎng hē shénme?",
@@ -844,6 +868,30 @@
   "lekcja": 2,
   "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
   "audio": "lekcje/02-jedzenie-i-napoje/audio/3a30b55fcc",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你吃什么？",
+  "znaki": "你吃什么？",
+  "pinyin": "Nǐ chī shénme?",
+  "polski": "ni czhy szyn-my",
+  "znaczenie": "What are you eating? · Co jesz?",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/7c8b95465e",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你喝什么？",
+  "znaki": "你喝什么？",
+  "pinyin": "Nǐ hē shénme?",
+  "polski": "ni chy szyn-my",
+  "znaczenie": "What are you drinking? · Co pijesz?",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/e70c5cc3df",
   "img": "",
   "obrazek": null
  },

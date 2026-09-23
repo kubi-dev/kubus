@@ -29,6 +29,7 @@ Data: 2026-09-06
 | 你叫什么名字？ | Nǐ jiào shénme míngzi? | ni dziao szyn-my ming-dzy |  | What's your name? · Jak masz na imię? |
 | 我叫Kubi。 | Wǒ jiào Kubi. | ło dziao Kubi |  | My name is Kubi. · Jestem / nazywam się Kubi. |
 | 我喜欢你。 | Wǒ xǐhuan nǐ. | ło si-chłan ni |  | I like you. · Lubię Cię. |
+| 好吃吗？ | Hǎochī ma? | chał czhy ma |  | Is it tasty? · Smaczne? |
 
 ## Tak / nie
 
