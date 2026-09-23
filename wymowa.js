@@ -62,6 +62,7 @@
   const IOS_VER = (navigator.userAgent.match(/OS (\d+)_(\d+)/) || [])[1];
   const GUM = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
   const AC = window.AudioContext || window.webkitAudioContext;
+  const OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
   const AS = ("audioSession" in navigator) ? navigator.audioSession : null;
   const ODSTEP_PO_SR = 0;      // odstęp po końcu nasłuchu; 0 potwierdzone na iPhonie (iOS 26, Chrome), ?odstep=N nadpisuje
   const ODSTEP_PO_TTS = 3500;    // tylko po speechSynthesis (głos systemowy)
@@ -359,15 +360,23 @@
   let ctx = null, zrodlo = null, nrGrania = 0;
   const bufory = new Map(); // url -> Promise<AudioBuffer>
   const MAX_BUFOROW = 30;
-  function kontekst() {                       // wołać w geście użytkownika; nigdy nie close()/suspend()
+  function nowyKontekst(powod) {
+    const stary = ctx;
+    ctx = new AC();
+    const c = ctx;
+    c.addEventListener("statechange", () => diag("AudioContext: " + c.state));
+    diag("AudioContext utworzony (" + powod + "): " + c.state + ", " + c.sampleRate + " Hz");
+    if (stary) zrodlo = null;               // starego nie zamykamy (close() pisze do sesji audio, patrz nagłówek); zostaje porzucony
+    // pierwszy dźwięk na tej stronie: jeszcze raz przełącz kategorię (nigdy w trakcie nasłuchu)
+    if (!session && !nagranie) przywrocPlayback("nowy AudioContext");
+    return c;
+  }
+  function kontekst() {                       // wołać w geście użytkownika
     if (!AC) return null;
-    if (!ctx) {
-      ctx = new AC();
-      ctx.addEventListener("statechange", () => diag("AudioContext: " + ctx.state));
-      diag("AudioContext utworzony: " + ctx.state + ", " + ctx.sampleRate + " Hz");
-      // pierwszy dźwięk na tej stronie: jeszcze raz przełącz kategorię (nigdy w trakcie nasłuchu)
-      if (!session && !nagranie) przywrocPlayback("nowy AudioContext");
-    }
+    if (!ctx) return nowyKontekst("pierwszy gest");
+    // iOS: po blokadzie ekranu, telefonie, Siri, innej apce z dźwiękiem kontekst ląduje w "interrupted"/"closed"
+    // i resume() go nie budzi; jedyne co działa, to nowy kontekst w geście użytkownika
+    if ((ctx.state === "closed" || ctx.state === "interrupted") && !session && !nagranie) return nowyKontekst("był " + ctx.state);
     if (ctx.state !== "running") ctx.resume().catch(e => diag("resume: " + e.message));
     return ctx;
   }
@@ -391,8 +400,14 @@
   function dekoduj(url) {                     // preload: nie tworzy kontekstu poza gestem
     if (bufory.has(url)) return bufory.get(url);
     const c = ctx; if (!c) return Promise.reject(new Error("brak AudioContext (potrzebny gest)"));
+    // dekodowanie osobnym OfflineAudioContext: nie zależy od stanu kontekstu grającego (zawieszony/interrupted też dekoduje),
+    // a AudioBuffer można grać w każdym kontekście (także nowym po wymianie)
+    const dek = (ab) => new Promise((res, rej) => {
+      let d = null; try { d = OAC ? new OAC(1, 1, c.sampleRate) : null; } catch (e) {}
+      (d || c).decodeAudioData(ab, res, e => rej(e || new Error("decodeAudioData")));
+    });
     const p = fetch(url).then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.arrayBuffer(); })
-      .then(ab => new Promise((res, rej) => c.decodeAudioData(ab, res, e => rej(e || new Error("decodeAudioData")))))
+      .then(dek)
       .catch(e => { bufory.delete(url); throw e; });
     bufory.set(url, p);
     if (bufory.size > MAX_BUFOROW) bufory.delete(bufory.keys().next().value);
@@ -407,13 +422,20 @@
     const t0 = Date.now();
     const buf = await dekoduj(url);
     if (nr !== nrGrania) return false;
-    if (c.state !== "running") { await czekajNaRunning(c, 400); if (nr !== nrGrania) return false; }
-    if (c.state !== "running") { diag("AudioContext " + c.state + " – nie gram (potrzebny gest)"); return false; }
-    const z = c.createBufferSource(); z.buffer = buf; z.connect(c.destination);
+    let c2 = c;
+    if (c2.state !== "running") { await czekajNaRunning(c2, 400); if (nr !== nrGrania) return false; }
+    if (c2.state !== "running" && !session && !nagranie) {
+      // kontekst nie wstał po geście: wymiana na nowy (strona już miała gest, więc nowy startuje jako running)
+      diag("AudioContext " + c2.state + " po geście – wymieniam na nowy");
+      c2 = nowyKontekst("wymiana, stary " + c.state);
+      if (c2.state !== "running") { await czekajNaRunning(c2, 400); if (nr !== nrGrania) return false; }
+    }
+    if (c2.state !== "running") throw new Error("AudioContext " + c2.state + " – dźwięk zablokowany, dotknij jeszcze raz");
+    const z = c2.createBufferSource(); z.buffer = buf; z.connect(c2.destination);
     const g = { z, opts }; zrodlo = g;
     z.onended = () => { if (zrodlo === g) { zrodlo = null; if (opts.onEnd) { try { opts.onEnd(false); } catch (e) {} } } };
     z.start();
-    diag("gram " + url.split("/").pop() + " " + buf.duration.toFixed(2) + " s (po " + (Date.now() - t0) + " ms, ctx " + c.state + ", sesja " + (AS ? AS.type : "-") + ")");
+    diag("gram " + url.split("/").pop() + " " + buf.duration.toFixed(2) + " s (po " + (Date.now() - t0) + " ms, ctx " + c2.state + ", sesja " + (AS ? AS.type : "-") + ")");
     return true;
   }
 
@@ -552,9 +574,9 @@
 
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) { if (session) forceFinish(session, "strona ukryta"); if (nagranie) chmuraStop(nagranie, true); stopAudio(); }
-    else { kontekst(); przywrocPlayback("powrót na stronę"); }
+    else { if (ctx) kontekst(); przywrocPlayback("powrót na stronę"); }   // bez gestu nie tworzymy kontekstu (na iOS wstałby zawieszony)
   });
-  window.addEventListener("pageshow", (e) => { if (e.persisted) { session = null; nagranie = null; zrodlo = null; kontekst(); przywrocPlayback("bfcache"); } });
+  window.addEventListener("pageshow", (e) => { if (e.persisted) { session = null; nagranie = null; zrodlo = null; if (ctx) kontekst(); przywrocPlayback("bfcache"); } });
 
   // ---- silnik "chmura": nagranie WAV -> worker /wymowa (Whisper) ----
   let nagranie = null; // { btn, opts, ctx, stream, src, proc, cisza, chunks, rate, startedAt, released, done }
