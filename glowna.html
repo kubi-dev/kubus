@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Notatki z chińskiego</title>
+<link rel="stylesheet" href="lista.css?v={{WERSJA}}">
+<style>
+  :root { --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62; --accent: #b8362d; --line: #e6dccd; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #171412; --card: #221e1a; --ink: #f1e9dd; --muted: #a2968a; --accent: #e0574c; --line: #332c26; } }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  main { max-width: 700px; margin: 0 auto; padding: 32px 20px 60px; }
+  h1 { margin: 0 0 20px; font-size: 28px; }
+  .szukaj { margin-bottom: 12px; }
+  .card-link { display: block; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin-bottom: 12px; text-decoration: none; color: inherit; }
+  .card-link:hover { border-color: var(--accent); }
+  .t { font-size: 18px; font-weight: 600; }
+  .m { color: var(--muted); font-size: 13px; margin-top: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Notatki z chińskiego</h1>
+  <input class="szukaj" id="szukaj" type="search" placeholder="szukaj po polsku we wszystkich zwrotach…" autocomplete="off" autocapitalize="off">
+  <div id="wyniki" hidden>
+    <div class="lista" id="lista"></div>
+    <div class="sync" id="sync"></div>
+    <details class="diag"><summary>diagnostyka mikrofonu</summary><pre id="diag-log"></pre></details>
+  </div>
+  <nav id="nav">
+    <a class="card-link" href="powtorka/"><div class="t">🔁 Powtórka</div><div class="m">codzienne powtórki: wymowa i rozumienie ze słuchu</div></a>
+    <a class="card-link" href="ulubione/"><div class="t">★ Ulubione</div><div class="m">zwroty oznaczone gwiazdką w powtórce · ściąga na rozmowę</div></a>
+    <a class="card-link" href="podcast/"><div class="t">🎧 Podcast</div><div class="m">polski → chiński → pauza na powtórzenie · odcinek do każdej lekcji i do wszystkiego</div></a>
+    <a class="card-link" href="scenki/"><div class="t">🎭 Scenki</div><div class="m">krótkie rozmowy z poznanych słów · słuchasz, powtarzasz, grasz swoją rolę</div></a>
+    <a class="card-link" href="tony/"><div class="t">🎵 Tony</div><div class="m">melodia słowa · na słowach z dźwiękami, które Polak ma z natury · ucho i mikrofon</div></a>
+    <a class="card-link" href="dzwieki/"><div class="t">🗣 Dźwięki</div><div class="m">dźwięki, których polski nie ma · jedna grupa naraz, pary słów, mikrofon</div></a>
+{{LEKCJE}}
+  </nav>
+</main>
+
+<div class="overlay" id="overlay" hidden>
+  <header>
+    <a href="#" id="wroc">← lista</a>
+    <span class="ttl" id="o-ttl"></span>
+    <span style="width:60px"></span>
+  </header>
+  <div class="card" id="card"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
+<script>window.SYNC_URL = "{{SYNC_URL}}";</script>
+<script src="wymowa.js?v={{WERSJA}}"></script>
+<script src="lista.js?v={{WERSJA}}"></script>
+<script>
+const $ = id => document.getElementById(id);
+Lista.start({
+  karty: {{KARTY_JSON}}, baza: "", syncUrl: "{{SYNC_URL}}",
+  bezZapytania: false,
+  naZmiane: q => { $("wyniki").hidden = !q; $("nav").hidden = !!q; }
+});
+</script>
+</body>
+</html>

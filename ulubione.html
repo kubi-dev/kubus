@@ -5,71 +5,14 @@
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ulubione · Notatki z chińskiego</title>
+<link rel="stylesheet" href="../lista.css?v={{WERSJA}}">
 <style>
-  :root {
-    --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62;
-    --accent: #b8362d; --accent-soft: #f3d9d5; --line: #e6dccd; --star: #d99a1c;
-    --ok-bg: #dff3e3; --ok-ink: #14532d; --mid-bg: #fdf0d5; --mid-ink: #7c4a03;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg: #171412; --card: #221e1a; --ink: #f1e9dd; --muted: #a2968a;
-            --accent: #e0574c; --accent-soft: #3a2320; --line: #332c26; --star: #f0c04a;
-            --ok-bg: #14351f; --ok-ink: #9be2b0; --mid-bg: #3a2c10; --mid-ink: #f0c674; }
-  }
-  * { box-sizing: border-box; }
+  :root { --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62; --accent: #b8362d; --line: #e6dccd; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #171412; --card: #221e1a; --ink: #f1e9dd; --muted: #a2968a; --accent: #e0574c; --line: #332c26; } }
   html, body { height: 100%; }
   body { margin: 0; background: var(--bg); color: var(--ink);
          font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; display: flex; flex-direction: column; }
-  header { padding: 14px 18px 8px; max-width: 620px; width: 100%; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
-  header a { color: var(--accent); text-decoration: none; font-size: 14px; }
-  .ttl { flex: 1; text-align: center; font-size: 16px; font-weight: 600; }
   main { flex: 1; max-width: 620px; width: 100%; margin: 0 auto; padding: 6px 18px 24px; display: flex; flex-direction: column; gap: 10px; }
-  input, button { font: inherit; }
-  .szukaj { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 16px; }
-  .lista { display: flex; flex-direction: column; gap: 8px; }
-  .item { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px;
-          border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
-  .item:active { transform: scale(.985); }
-  .item .txt { flex: 1; min-width: 0; }
-  .item b { display: block; font-size: 19px; font-weight: 600; line-height: 1.25; }
-  .item small { display: block; color: var(--muted); font-size: 13px; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .item .hz { font-size: 22px; color: var(--muted); font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-  .pusto { text-align: center; color: var(--muted); font-size: 15px; line-height: 1.6; padding: 40px 10px; }
-  .sync { font-size: 12px; color: var(--muted); text-align: center; padding: 6px 0 0; }
-  .sync.err { color: var(--accent); }
-  /* karta na cały ekran */
-  .overlay { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; z-index: 10; overflow: auto; }
-  .overlay header { flex: none; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px 20px; margin: 6px 18px 24px; flex: 1;
-          max-width: 584px; width: calc(100% - 36px); align-self: center;
-          display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 12px; text-align: center; position: relative; }
-  .hanzi { font-size: 52px; line-height: 1.2; font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
-  .pinyin { font-size: 24px; color: var(--accent); }
-  .pl { font-size: 15px; color: var(--muted); }
-  .znacz { font-size: 20px; font-weight: 600; }
-  .znacz small { display: block; font-size: 14px; font-weight: 400; color: var(--muted); margin-top: 4px; }
-  .obr { display: block; width: 100%; max-width: 300px; height: 170px; object-fit: cover; border-radius: 12px; background: var(--line); }
-  .kred { font-size: 11px; color: var(--muted); }
-  .kred a { color: inherit; }
-  .row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-  .big { font-size: 18px; padding: 12px 20px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
-  .big:active { transform: scale(.96); }
-  .mic { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 17px; padding: 14px 22px; border-radius: 999px; min-width: 250px; box-sizing: border-box;
-         border: 2px solid var(--accent); background: transparent; color: var(--ink); cursor: pointer;
-         touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
-  .mic.rec { background: var(--accent); color: #fff; animation: pulse 1s infinite; }
-  @keyframes pulse { 50% { opacity: .6; } }
-  .result { font-size: 14px; padding: 10px 12px; border-radius: 10px; background: var(--bg); line-height: 1.4; width: 100%; box-sizing: border-box; min-height: 42px; }
-  .result:empty { background: transparent; padding: 0; }
-  .result.ok { background: var(--ok-bg); color: var(--ok-ink); }
-  .result.mid { background: var(--mid-bg); color: var(--mid-ink); }
-  .result.bad { background: var(--accent-soft); color: var(--accent); }
-  .star { position: absolute; top: 10px; right: 12px; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--muted); padding: 4px 6px; line-height: 1; }
-  .star.on { color: var(--star); }
-  .hint { color: var(--muted); font-size: 13px; }
-  .diag { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
-  .diag pre { max-height: 200px; overflow: auto; font-size: 11px; white-space: pre-wrap; word-break: break-all; background: var(--card); padding: 8px; border-radius: 8px; }
-  [hidden] { display: none !important; }
 </style>
 </head>
 <body>
@@ -98,144 +41,13 @@
 <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
 <script>window.SYNC_URL = "{{SYNC_URL}}";</script>
 <script src="../wymowa.js?v={{WERSJA}}"></script>
+<script src="../lista.js?v={{WERSJA}}"></script>
 <script>
-const KARTY = {{KARTY_JSON}};
-const SYNC_URL_DOMYSLNY = "{{SYNC_URL}}";
-const $ = id => document.getElementById(id);
-const KARTY_MAP = {}; for (const k of KARTY) KARTY_MAP[k.id] = k;
-
-// ---------- stan: ten sam blob co powtórka (localStorage "kubus.powtorka" + worker), tu używamy tylko pola "ulubione" ----------
-const KLUCZ_LS = "kubus.powtorka";
-let stan = { karty: {}, ustawienia: { nowe: 10, z: 0 }, dzien: { data: "", nowe: 0 }, ulubione: {} };
-try { const s = JSON.parse(localStorage.getItem(KLUCZ_LS) || "null"); if (s && s.karty) stan = scal(stan, s); } catch (e) {}
-const cfg = { url: "", klucz: "" };
-try { Object.assign(cfg, JSON.parse(localStorage.getItem(KLUCZ_LS + ".sync") || "{}")); } catch (e) {}
-if (!cfg.url && SYNC_URL_DOMYSLNY) cfg.url = SYNC_URL_DOMYSLNY;
-
-function scal(a, b) {
-  // nowsza wersja wygrywa (pole z = czas zmiany); to samo w powtórce i w workerze
-  const out = { karty: Object.assign({}, a.karty), ustawienia: a.ustawienia, dzien: a.dzien, ulubione: Object.assign({}, a.ulubione || {}) };
-  for (const k in (b.karty || {})) { const x = out.karty[k], y = b.karty[k]; if (!x || (y.z || 0) > (x.z || 0)) out.karty[k] = y; }
-  for (const k in (b.ulubione || {})) { const x = out.ulubione[k], y = b.ulubione[k]; if (!x || (y.z || 0) > (x.z || 0)) out.ulubione[k] = y; }
-  if (b.ustawienia && (b.ustawienia.z || 0) > (a.ustawienia.z || 0)) out.ustawienia = b.ustawienia;
-  if (b.dzien && (b.dzien.data > (a.dzien.data || "") || (b.dzien.data === a.dzien.data && (b.dzien.nowe || 0) > (a.dzien.nowe || 0)))) out.dzien = b.dzien;
-  return out;
-}
-function zapiszLokalnie() { try { localStorage.setItem(KLUCZ_LS, JSON.stringify(stan)); } catch (e) {} }
-
-let syncTimer = null, syncBusy = false, syncDirty = false;
-function pokazSync(msg, err) { const el = $("sync"); el.textContent = msg; el.className = "sync" + (err ? " err" : ""); }
-async function syncTeraz(pobierzTylko) {
-  if (!cfg.url || !cfg.klucz) { pokazSync("bez synchronizacji (klucz ustawisz w powtórce, ⚙)"); return; }
-  if (syncBusy) { syncDirty = true; return; }
-  syncBusy = true;
-  try {
-    const r = await fetch(cfg.url.replace(/\/$/, "") + "/stan", {
-      method: pobierzTylko ? "GET" : "PUT",
-      headers: { "Authorization": "Bearer " + cfg.klucz, "Content-Type": "application/json" },
-      body: pobierzTylko ? undefined : JSON.stringify(stan)
-    });
-    if (!r.ok) throw new Error("HTTP " + r.status);
-    stan = scal(stan, await r.json()); zapiszLokalnie();
-    pokazSync("zsynchronizowano " + new Date().toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" }));
-    if ($("overlay").hidden) rysujListe();
-  } catch (e) { pokazSync("synchronizacja nie działa: " + e.message, true); }
-  finally { syncBusy = false; if (syncDirty) { syncDirty = false; zaplanujSync(); } }
-}
-function zaplanujSync() { clearTimeout(syncTimer); syncTimer = setTimeout(() => syncTeraz(false), 3000); }
-document.addEventListener("visibilitychange", () => { if (document.hidden && syncTimer) { clearTimeout(syncTimer); syncTeraz(false); } });
-
-function ulubiona(znaki) { const u = stan.ulubione[znaki]; return !!(u && u.on); }
-function przelaczUlubiona(znaki) { stan.ulubione[znaki] = { on: !ulubiona(znaki), z: Date.now() }; zapiszLokalnie(); zaplanujSync(); }
-
-// ---------- pomocnicze ----------
-function polskie(k) { const m = k.znaczenie.split("·"); return (m.length > 1 ? m.slice(1).join("·") : m[0]).trim(); }
-// polski zapis wymowy (jak w powtórce): z karty albo z pinyin-pro przez Wymowa.pinyinPl
-function polskiZapis(k) { return k.polski || (window.pinyinPro ? pinyinPro.pinyin(k.znaki, { toneType: "none", type: "array" }).map(Wymowa.pinyinPl).join("-") : k.pinyin); }
-function angielskie(k) { const m = k.znaczenie.split("·"); return m.length > 1 ? m[0].trim() : ""; }
-function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
-function graj(k, wolno) { if (!k.audio) return; Wymowa.graj("../" + k.audio + (wolno ? "-slow" : "") + ".mp3").catch(e => Wymowa.diag("mp3 błąd: " + e.message)); }
-function kredyt(k) {
-  const o = k.obrazek; if (!o || o.licencja !== "by") return null;
-  const a = o.autor || "autor nieznany";
-  return el("div", "kred", "fot. " + (o.zrodlo ? `<a href="${o.zrodlo}" target="_blank" rel="noopener">${a}</a>` : a) + " · CC BY");
-}
-function norm(s) { return (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/ł/g, "l"); }
-
-// ---------- lista ----------
-function ulubioneKarty() {
-  return KARTY.filter(k => ulubiona(k.id)).sort((a, b) => polskie(a).localeCompare(polskie(b), "pl"));
-}
-function rysujListe() {
-  const lista = $("lista"); lista.innerHTML = "";
-  const q = norm($("szukaj").value.trim());
-  const wszystkie = ulubioneKarty();
-  const karty = q ? wszystkie.filter(k => norm(polskie(k) + " " + angielskie(k) + " " + k.pinyin + " " + k.polski + " " + k.znaki).includes(q)) : wszystkie;
-  if (!wszystkie.length) { lista.appendChild(el("div", "pusto", "Nic tu jeszcze nie ma.<br>W <a href=\"../powtorka/\" style=\"color:var(--accent)\">powtórce</a> dotknij ☆ na karcie, żeby dodać zwrot do ulubionych.")); return; }
-  if (!karty.length) { lista.appendChild(el("div", "pusto", "Nic nie pasuje do „" + $("szukaj").value.trim() + "”.")); return; }
-  for (const k of karty) {
-    const b = el("button", "item"); b.type = "button";
-    const txt = el("div", "txt");
-    txt.appendChild(el("b", "", polskie(k)));
-    txt.appendChild(el("small", "", polskiZapis(k) + " · " + k.pinyin + (angielskie(k) ? " · " + angielskie(k) : "")));
-    b.appendChild(txt);
-    b.appendChild(el("span", "hz", k.znaki));
-    b.addEventListener("click", () => otworz(k));
-    lista.appendChild(b);
-  }
-}
-$("szukaj").addEventListener("input", rysujListe);
-
-// ---------- karta ----------
-let otwarta = null;
-function otworz(k) {
-  otwarta = k;
-  const card = $("card"); card.innerHTML = "";
-  $("o-ttl").textContent = k.lekcjaTytul || "";
-  const star = el("button", "star"); star.type = "button";
-  const odswiez = () => { const on = ulubiona(k.id); star.textContent = on ? "★" : "☆"; star.classList.toggle("on", on); star.title = on ? "usuń z ulubionych" : "dodaj do ulubionych"; };
-  odswiez(); star.addEventListener("click", () => { przelaczUlubiona(k.id); odswiez(); });
-  card.appendChild(star);
-  if (k.img) { const i = el("img", "obr"); i.src = "../" + k.img; i.alt = ""; card.appendChild(i); }
-  card.appendChild(el("div", "znacz", polskie(k) + (angielskie(k) ? `<small>${angielskie(k)}</small>` : "")));
-  card.appendChild(el("div", "hanzi", k.znaki));
-  card.appendChild(el("div", "pinyin", k.pinyin));
-  if (k.polski) card.appendChild(el("div", "pl", "po polsku: " + k.polski));
-  const kr = kredyt(k); if (kr) card.appendChild(kr);
-  const row = el("div", "row");
-  const b1 = el("button", "big", "🔊 posłuchaj"); b1.type = "button"; b1.addEventListener("click", () => graj(k)); row.appendChild(b1);
-  const b2 = el("button", "big", "🐢 wolniej"); b2.type = "button"; b2.addEventListener("click", () => graj(k, true)); row.appendChild(b2);
-  card.appendChild(row);
-  const mic = el("button", "mic"); mic.type = "button";
-  const out = el("div", "result");
-  Wymowa.bind(mic, {
-    target: k.znaki,
-    onStart: () => {},
-    onDone: (res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; }
-  });
-  card.appendChild(mic); card.appendChild(out);
-  $("overlay").hidden = false;
-  window.scrollTo(0, 0);
-  graj(k);
-}
-function zamknij() { Wymowa.stopAudio(); otwarta = null; $("overlay").hidden = true; rysujListe(); }
-$("wroc").addEventListener("click", (e) => { e.preventDefault(); zamknij(); });
-
-// tryb "system-reload": po przeładowaniu wróć do otwartej karty i pokaż wynik
-Wymowa.zapiszStan = () => ({ otwarta: otwarta ? otwarta.id : null, szukaj: $("szukaj").value });
-(function () {
-  const w = Wymowa.odbierzWynik();
-  if (!w || !w.strona) return;
-  $("szukaj").value = w.strona.szukaj || "";
-  const k = w.strona.otwarta && KARTY_MAP[w.strona.otwarta];
-  if (k) {
-    otworz(k); Wymowa.stopAudio();
-    if (w.res) { const out = $("card").querySelector(".result"), x = Wymowa.render(w.res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; }
-  }
-})();
-
-rysujListe();
-syncTeraz(true);
+Lista.start({
+  karty: {{KARTY_JSON}}, baza: "../", syncUrl: "{{SYNC_URL}}",
+  filtr: k => Lista.ulubiona(k.id), bezZapytania: true,
+  pusto: "Nic tu jeszcze nie ma.<br>W <a href=\"../powtorka/\" style=\"color:var(--accent)\">powtórce</a> dotknij ☆ na karcie, żeby dodać zwrot do ulubionych."
+});
 </script>
 </body>
 </html>

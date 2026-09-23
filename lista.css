@@ -1,0 +1,56 @@
+/* lista.css: wspólne style listy zwrotów z wyszukiwarką i karty zwrotu (strona główna i ulubione/). Zmienne bazowe (--bg, --card, --ink,
+   --muted, --accent, --line) daje strona; tu dochodzą kolory gwiazdki i wyników mikrofonu. */
+:root { --accent-soft: #f3d9d5; --star: #d99a1c; --ok-bg: #dff3e3; --ok-ink: #14532d; --mid-bg: #fdf0d5; --mid-ink: #7c4a03; }
+@media (prefers-color-scheme: dark) {
+  :root { --accent-soft: #3a2320; --star: #f0c04a; --ok-bg: #14351f; --ok-ink: #9be2b0; --mid-bg: #3a2c10; --mid-ink: #f0c674; }
+}
+* { box-sizing: border-box; }
+input, button { font: inherit; }
+header { padding: 14px 18px 8px; max-width: 620px; width: 100%; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
+header a { color: var(--accent); text-decoration: none; font-size: 14px; }
+.ttl { flex: 1; text-align: center; font-size: 16px; font-weight: 600; }
+.szukaj { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 16px; }
+.lista { display: flex; flex-direction: column; gap: 8px; }
+.item { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px;
+        border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+.item:active { transform: scale(.985); }
+.item .txt { flex: 1; min-width: 0; }
+.item b { display: block; font-size: 19px; font-weight: 600; line-height: 1.25; }
+.item small { display: block; color: var(--muted); font-size: 13px; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item .hz { font-size: 22px; color: var(--muted); font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+.pusto { text-align: center; color: var(--muted); font-size: 15px; line-height: 1.6; padding: 40px 10px; }
+.sync { font-size: 12px; color: var(--muted); text-align: center; padding: 6px 0 0; }
+.sync.err { color: var(--accent); }
+/* karta na cały ekran */
+.overlay { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; z-index: 10; overflow: auto; }
+.overlay header { flex: none; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px 20px; margin: 6px 18px 24px; flex: 1;
+        max-width: 584px; width: calc(100% - 36px); align-self: center;
+        display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 12px; text-align: center; position: relative; }
+.hanzi { font-size: 52px; line-height: 1.2; font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+.pinyin { font-size: 24px; color: var(--accent); }
+.pl { font-size: 15px; color: var(--muted); }
+.znacz { font-size: 20px; font-weight: 600; }
+.znacz small { display: block; font-size: 14px; font-weight: 400; color: var(--muted); margin-top: 4px; }
+.obr { display: block; width: 100%; max-width: 300px; height: 170px; object-fit: cover; border-radius: 12px; background: var(--line); }
+.kred { font-size: 11px; color: var(--muted); }
+.kred a { color: inherit; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.big { font-size: 18px; padding: 12px 20px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+.big:active { transform: scale(.96); }
+.mic { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 17px; padding: 14px 22px; border-radius: 999px; min-width: 250px; box-sizing: border-box;
+       border: 2px solid var(--accent); background: transparent; color: var(--ink); cursor: pointer;
+       touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.mic.rec { background: var(--accent); color: #fff; animation: pulse 1s infinite; }
+@keyframes pulse { 50% { opacity: .6; } }
+.result { font-size: 14px; padding: 10px 12px; border-radius: 10px; background: var(--bg); line-height: 1.4; width: 100%; box-sizing: border-box; min-height: 42px; }
+.result:empty { background: transparent; padding: 0; }
+.result.ok { background: var(--ok-bg); color: var(--ok-ink); }
+.result.mid { background: var(--mid-bg); color: var(--mid-ink); }
+.result.bad { background: var(--accent-soft); color: var(--accent); }
+.star { position: absolute; top: 10px; right: 12px; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--muted); padding: 4px 6px; line-height: 1; }
+.star.on { color: var(--star); }
+.hint { color: var(--muted); font-size: 13px; }
+.diag { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+.diag pre { max-height: 200px; overflow: auto; font-size: 11px; white-space: pre-wrap; word-break: break-all; background: var(--card); padding: 8px; border-radius: 8px; }
+[hidden] { display: none !important; }

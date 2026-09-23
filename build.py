@@ -16,8 +16,9 @@ ULUBIONE = (ROOT / "ulubione.html").read_text(encoding="utf-8")
 PODCAST = (ROOT / "podcast.html").read_text(encoding="utf-8")
 SCENKI = (ROOT / "scenki.html").read_text(encoding="utf-8")
 WYMOWA = (ROOT / "wymowa.html").read_text(encoding="utf-8")
-# Wersja do cache-bustingu wymowa.js (hash pliku)
-WERSJA = hashlib.md5((ROOT / "wymowa.js").read_bytes()).hexdigest()[:8]
+GLOWNA = (ROOT / "glowna.html").read_text(encoding="utf-8")
+# Wersja do cache-bustingu wspólnych plików (hash wymowa.js + lista.js + lista.css)
+WERSJA = hashlib.md5(b"".join((ROOT / f).read_bytes() for f in ("wymowa.js", "lista.js", "lista.css"))).hexdigest()[:8]
 # Adres workera synchronizacji (plik sync.url, jedna linia); pusty = tylko localStorage
 SYNC_URL = (ROOT / "sync.url").read_text().strip() if (ROOT / "sync.url").exists() else ""
 TTS = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=zh-CN&q={q}{slow}"
@@ -164,6 +165,7 @@ def build_powtorka(lessons):
     out = ROOT / "ulubione"; out.mkdir(exist_ok=True)
     html = ULUBIONE.replace("{{KARTY_JSON}}", json.dumps(karty, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
     (out / "index.html").write_text(html, encoding="utf-8")
+    return karty
 
 STRONY_WYMOWY = {
     # katalog: (klucze z wymowa.json, tytuł, nagłówek, wstęp, link w nagłówku)
@@ -208,50 +210,20 @@ def build_wymowa(lessons):
         (out / "index.html").write_text(html, encoding="utf-8")
         print(f"{tryb}: {n} słów, {len(audio)} nagrań")
 
-def build_index(lessons):
+def build_index(lessons, karty):
+    """Strona główna (glowna.html): linki + wyszukiwarka po polsku we wszystkich zwrotach (ta sama talia i karta co ulubione/)."""
     items = "\n".join(
-        f'    <a class="card" href="lekcje/{l["dir"]}/"><div class="t">{l["tytul"]}</div><div class="m">{l["data"]} · {l["n"]} pozycji</div></a>'
+        f'    <a class="card-link" href="lekcje/{l["dir"]}/"><div class="t">{l["tytul"]}</div><div class="m">{l["data"]} · {l["n"]} pozycji</div></a>'
         for l in sorted(lessons, key=lambda l: l["numer"]))
-    (ROOT / "index.html").write_text(INDEX.replace("{{LEKCJE}}", items), encoding="utf-8")
-
-INDEX = """<!DOCTYPE html>
-<html lang="pl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Notatki z chińskiego</title>
-<style>
-  :root { --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62; --accent: #b8362d; --line: #e6dccd; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #171412; --card: #221e1a; --ink: #f1e9dd; --muted: #a2968a; --accent: #e0574c; --line: #332c26; } }
-  body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
-  main { max-width: 700px; margin: 0 auto; padding: 32px 20px 60px; }
-  h1 { margin: 0 0 20px; font-size: 28px; }
-  .card { display: block; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin-bottom: 12px; text-decoration: none; color: inherit; }
-  .card:hover { border-color: var(--accent); }
-  .t { font-size: 18px; font-weight: 600; }
-  .m { color: var(--muted); font-size: 13px; margin-top: 4px; }
-</style>
-</head>
-<body>
-<main>
-  <h1>Notatki z chińskiego</h1>
-    <a class="card" href="powtorka/"><div class="t">🔁 Powtórka</div><div class="m">codzienne powtórki: wymowa i rozumienie ze słuchu</div></a>
-    <a class="card" href="ulubione/"><div class="t">★ Ulubione</div><div class="m">zwroty oznaczone gwiazdką w powtórce · ściąga na rozmowę</div></a>
-    <a class="card" href="podcast/"><div class="t">🎧 Podcast</div><div class="m">polski → chiński → pauza na powtórzenie · odcinek do każdej lekcji i do wszystkiego</div></a>
-    <a class="card" href="scenki/"><div class="t">🎭 Scenki</div><div class="m">krótkie rozmowy z poznanych słów · słuchasz, powtarzasz, grasz swoją rolę</div></a>
-    <a class="card" href="tony/"><div class="t">🎵 Tony</div><div class="m">melodia słowa · na słowach z dźwiękami, które Polak ma z natury · ucho i mikrofon</div></a>
-    <a class="card" href="dzwieki/"><div class="t">🗣 Dźwięki</div><div class="m">dźwięki, których polski nie ma · jedna grupa naraz, pary słów, mikrofon</div></a>
-{{LEKCJE}}
-</main>
-</body>
-</html>
-"""
+    html = (GLOWNA.replace("{{LEKCJE}}", items).replace("{{KARTY_JSON}}", json.dumps(karty, ensure_ascii=False))
+            .replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL))
+    (ROOT / "index.html").write_text(html, encoding="utf-8")
 
 if __name__ == "__main__":
     dirs = sorted(p for p in (ROOT / "lekcje").iterdir() if (p / "lekcja.json").exists())
     lessons = [build_lesson(d) for d in dirs]
-    build_index(lessons)
-    build_powtorka(lessons)
+    karty = build_powtorka(lessons)
+    build_index(lessons, karty)
     build_podcast(lessons)
     build_wymowa(lessons)
     print("index.html OK")

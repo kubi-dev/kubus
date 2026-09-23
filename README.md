@@ -67,7 +67,8 @@ Treść powstała z badania (tony i dźwięki trudne dla Polaków, metody ćwicz
 
 ## Powtórki
 - Strona `powtorka/` (SM-2 jak w Anki). Karta A: obrazek + polskie znaczenie, mówisz po chińsku (mikrofon). Karta B: audio po chińsku, wybierasz znaczenie, po dojrzeniu karty wpisujesz; obrazek pokazuje się po odsłonięciu.
-- Gwiazdka ☆ na karcie (w powtórce i na stronie lekcji) dodaje zwrot do ulubionych. Strona `ulubione/` to ściąga na rozmowę: lista po polsku (z wyszukiwarką), dotknięcie otwiera kartę ze znakami, pinyin, zapisem polskim, nagraniem i mikrofonem. Ulubione są w tym samym stanie co postęp (pole `ulubione`), więc synchronizują się między urządzeniami.
+- Gwiazdka ☆ na karcie (w powtórce, na stronie lekcji, na karcie z wyszukiwarki) dodaje zwrot do ulubionych. Strona `ulubione/` to ściąga na rozmowę: lista po polsku (z wyszukiwarką), dotknięcie otwiera kartę ze znakami, pinyin, zapisem polskim, nagraniem i mikrofonem. Ulubione są w tym samym stanie co postęp (pole `ulubione`), więc synchronizują się między urządzeniami.
+- Strona główna ma tę samą wyszukiwarkę po wszystkich zwrotach z lekcji (ta sama talia co powtórka): wpisanie tekstu chowa linki i pokazuje pasujące zwroty, dotknięcie otwiera tę samą kartę co w ulubionych. Lista i karta to wspólny moduł `lista.js` + `lista.css` (`Lista.start({karty, baza, filtr, bezZapytania, …})`), używany przez `glowna.html` i `ulubione.html`.
 - Postęp w `localStorage` + synchronizacja przez Cloudflare Worker (`worker/`, opis w `worker/README.md`). Adres workera w pliku `sync.url`, klucz podajesz stronie linkiem `powtorka/?k=<klucz>`.
 
 ## Struktura
@@ -82,6 +83,8 @@ wymowa.json              treść obu stron (źródło prawdy)
 podcast.py               składanie odcinków mp3 (polski → chiński → pauza)
 scenki.py                sprawdzanie i wpisywanie scenek (dialogów) do lekcji
 ulubione.html            szablon strony ulubionych zwrotów
+glowna.html              szablon strony głównej (linki + wyszukiwarka po wszystkich zwrotach)
+lista.js, lista.css      wspólny moduł listy zwrotów z wyszukiwarką i karty zwrotu (strona główna, ulubione)
 wymowa.js                wspólny moduł: odtwarzanie mp3 (Web Audio) + sprawdzanie wymowy (mikrofon)
 worker/                  Cloudflare Worker synchronizacji postępu
 build.py                 generator
@@ -98,5 +101,5 @@ podcast/                 wygenerowana strona podcastu + wszystko.mp3
 scenki/                  wygenerowana strona scenek
 tony/, dzwieki/          wygenerowane strony tonów i dźwięków + audio/
 ulubione/                wygenerowana strona ulubionych
-index.html               wygenerowany indeks lekcji
+index.html               wygenerowana strona główna
 ```

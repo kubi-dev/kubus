@@ -389,7 +389,23 @@
     if (ctx.state !== "running") ctx.resume().catch(e => diag("resume: " + e.message));
     return ctx;
   }
-  for (const ev of ["pointerup", "touchend", "click", "keydown"]) document.addEventListener(ev, () => { kontekst(); }, { capture: true, passive: true });
+  // w trakcie nasłuchu systemowego żadnego budzenia/tworzenia kontekstu (zapis do sesji audio = głuchy mikrofon)
+  for (const ev of ["pointerup", "touchend", "click", "keydown"]) document.addEventListener(ev, () => { if (!session) kontekst(); }, { capture: true, passive: true });
+  // Stan sprawdzany przy KAŻDYM naciśnięciu mikrofonu. Po pobycie w tle (inna karta / apka / blokada) albo po głuchej sesji:
+  // kontekst audio zamykany (nowy powstanie dopiero przy następnym graniu), kategoria sesji przełączana od nowa
+  // i 1 s odstępu, żeby proces GPU zdążył to przyjąć, zanim ruszy mikrofon.
+  let bylaWTle = false, gluchaSesja = false, naprawionoOd = 0;
+  function naprawPrzedMikrofonem() {
+    let powod = bylaWTle ? "po powrocie do karty" : gluchaSesja ? "po głuchej sesji" : "";
+    if (!powod && ctx && (ctx.state === "closed" || ctxMartwy)) powod = "kontekst audio martwy";
+    if (!powod) return;
+    bylaWTle = false; gluchaSesja = false;
+    diag("naprawa przed mikrofonem (" + powod + "): ctx " + (ctx ? ctx.state : "brak") + ", sesja " + (AS ? AS.type : "-"));
+    stopAudio();
+    if (ctx) { const c = ctx; ctx = null; zrodlo = null; try { c.close().catch(() => {}); } catch (e) {} }
+    przywrocPlayback("naprawa przed mikrofonem");
+    naprawionoOd = Date.now();
+  }
   // Po powrocie na stronę: czy kontekst naprawdę gra? "running" z zegarem w miejscu = martwy (wymiana przy następnym geście).
   function sprawdzZycie(powod) {
     const c = ctx; if (!c || session || nagranie) return;
@@ -505,6 +521,8 @@
     const heldMs = s.startedAt ? Date.now() - s.startedAt : 0;
     diag("koniec (" + why + "): final=" + s.gotFinal + " interim=" + JSON.stringify(s.interim || "") + " trzymane " + heldMs + " ms");
     przywrocPlayback("koniec nasłuchu");           // ZAWSZE po sesji, nigdy w jej trakcie
+    // trzymane >1,5 s, a mikrofon nie złapał żadnego dźwięku: następne naciśnięcie najpierw naprawia sesję audio
+    if (s.startedAt && heldMs > 1500 && !s.dzwiek && !alts.length) { gluchaSesja = true; diag("głucha sesja – następne naciśnięcie naprawi audio"); }
     const res = { alts, gotFinal: s.gotFinal, error: s.error, heldMs, started: !!s.startedAt };
     if (s.opts.onDone) { try { s.opts.onDone(res); } catch (e) { diag("onDone błąd: " + e.message); } }
     if (cfg().reload && s.startedAt) przeladuj(s.opts, res); // przeładowanie tylko po realnej sesji nasłuchu
@@ -523,7 +541,7 @@
     const s = session = { btn, opts, rec: null, faza: "starting", startedAt: 0, interim: "", finalAlts: null, gotFinal: false, error: null, released: false };
     s.hardLimit = setTimeout(() => forceFinish(s, "limit 30 s"), 30000);
     btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
-    kontekst();
+    if (ctx) kontekst();                        // nigdy nie tworzy kontekstu tuż przed mikrofonem
     stopAudio();
     if (W.beforeStart) { try { W.beforeStart(); } catch (e) {} }
     if ("speechSynthesis" in window) { if (speechSynthesis.speaking || speechSynthesis.pending) audioAktywne(); speechSynthesis.cancel(); }
@@ -531,7 +549,7 @@
     if (opts.onStart) { try { opts.onStart(); } catch (e) {} }
     // Odstęp: po poprzednim nasłuchu (stara jednostka mikrofonu w GPU), po głosie systemowym, po świeżym AudioContext
     // (jego aktywacja sesji właśnie poszła do GPU; ma dojść przed startem mikrofonu) – 700 ms od utworzenia, także po wymianie.
-    const potrzeba = () => Math.max(cfg().odstep - (Date.now() - ostatniKoniecSR), ODSTEP_PO_TTS - (Date.now() - ostatnieAudio), 700 - (Date.now() - ctxOd));
+    const potrzeba = () => Math.max(cfg().odstep - (Date.now() - ostatniKoniecSR), ODSTEP_PO_TTS - (Date.now() - ostatnieAudio), 700 - (Date.now() - ctxOd), 1000 - (Date.now() - naprawionoOd));
     let czekaj = potrzeba();
     const odKiedy = (t) => t ? (Date.now() - t) + " ms" : "nigdy";
     if (czekaj > 0) diag("czekam " + czekaj + " ms (po nasłuchu " + odKiedy(ostatniKoniecSR) + ", po głosie systemowym " + odKiedy(ostatnieAudio) + ")");
@@ -555,8 +573,8 @@
       if (s.released) { diag("puszczony przed onstart, kończę"); stopNow(s); }
     };
     r.onaudiostart = () => diag("onaudiostart (nie dowodzi, że mikrofon nagrywa)");
-    r.onsoundstart = () => diag("onsoundstart");
-    r.onspeechstart = () => diag("onspeechstart");
+    r.onsoundstart = () => { s.dzwiek = true; diag("onsoundstart"); };
+    r.onspeechstart = () => { s.dzwiek = true; diag("onspeechstart"); };
     r.onspeechend = () => diag("onspeechend");
     r.onnomatch = () => diag("onnomatch");
     r.onresult = (ev) => {
@@ -624,10 +642,10 @@
   }
 
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) { if (session) forceFinish(session, "strona ukryta"); if (nagranie) chmuraStop(nagranie, true); stopAudio(); }
+    if (document.hidden) { bylaWTle = true; if (session) forceFinish(session, "strona ukryta"); if (nagranie) chmuraStop(nagranie, true); stopAudio(); }
     else { kontekst(); przywrocPlayback("powrót na stronę"); sprawdzZycie("powrót na stronę"); }
   });
-  window.addEventListener("pageshow", (e) => { if (e.persisted) { session = null; nagranie = null; zrodlo = null; kontekst(); przywrocPlayback("bfcache"); sprawdzZycie("bfcache"); } });
+  window.addEventListener("pageshow", (e) => { if (e.persisted) { bylaWTle = true; session = null; nagranie = null; zrodlo = null; kontekst(); przywrocPlayback("bfcache"); sprawdzZycie("bfcache"); } });
 
   // ---- silnik "chmura": nagranie WAV -> worker /wymowa (Whisper) ----
   let nagranie = null; // { btn, opts, ctx, stream, src, proc, cisza, chunks, rate, startedAt, released, done }
@@ -741,7 +759,7 @@
       if (e.isPrimary === false || (e.button && e.button > 0)) return;
       e.preventDefault(); e.stopPropagation(); try { btn.setPointerCapture(e.pointerId); } catch (err) {}
       if ((session && session.btn === btn) || (nagranie && nagranie.btn === btn)) return; // powtórny pointerdown (multi-touch)
-      if (cfg().uzyj === "chmura") chmuraStart(btn, opts); else startListening(btn, opts);
+      if (cfg().uzyj === "chmura") chmuraStart(btn, opts); else { if (!session) naprawPrzedMikrofonem(); startListening(btn, opts); }
     };
     const up = (e) => {
       e.preventDefault(); e.stopPropagation();
