@@ -62,7 +62,6 @@
   const IOS_VER = (navigator.userAgent.match(/OS (\d+)_(\d+)/) || [])[1];
   const GUM = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
   const AC = window.AudioContext || window.webkitAudioContext;
-  const OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
   const AS = ("audioSession" in navigator) ? navigator.audioSession : null;
   const ODSTEP_PO_SR = 0;      // odstęp po końcu nasłuchu; 0 potwierdzone na iPhonie (iOS 26, Chrome), ?odstep=N nadpisuje
   const ODSTEP_PO_TTS = 3500;    // tylko po speechSynthesis (głos systemowy)
@@ -333,6 +332,9 @@
 .trener .tr-mic { margin-top: 6px; }
 .trener .tr-wynik { margin-top: 6px; }
 .trener .tr-stat { margin-top: 6px; font-size: 12px; opacity: .7; }
+.wym-kom { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); max-width: min(92vw, 420px); padding: 10px 14px; border-radius: 12px; background: rgba(30,30,30,.94); color: #fff; font-size: 14px; line-height: 1.35; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,.25); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 9999; }
+.wym-kom.on { opacity: 1; transform: translate(-50%, 0); }
+@media (prefers-color-scheme: dark) { .wym-kom { background: rgba(245,245,245,.96); color: #111; } }
 @media (prefers-color-scheme: dark) { .tony .syl { background: rgba(255,255,255,.08); } .tony .syl.zle { background: rgba(255,90,90,.18); } .tony .ton.cel { color: #9be2b0; } .tony .syl.zle .ton.cel { color: #f0c674; } .tony .ton.usl { color: #aaa; } .tony .syl.zle .ton.usl { color: #ff7b7b; } .trener { border-top-color: rgba(255,255,255,.2); } }`;
     document.head.appendChild(st);
   })();
@@ -360,23 +362,15 @@
   let ctx = null, zrodlo = null, nrGrania = 0;
   const bufory = new Map(); // url -> Promise<AudioBuffer>
   const MAX_BUFOROW = 30;
-  function nowyKontekst(powod) {
-    const stary = ctx;
-    ctx = new AC();
-    const c = ctx;
-    c.addEventListener("statechange", () => diag("AudioContext: " + c.state));
-    diag("AudioContext utworzony (" + powod + "): " + c.state + ", " + c.sampleRate + " Hz");
-    if (stary) zrodlo = null;               // starego nie zamykamy (close() pisze do sesji audio, patrz nagłówek); zostaje porzucony
-    // pierwszy dźwięk na tej stronie: jeszcze raz przełącz kategorię (nigdy w trakcie nasłuchu)
-    if (!session && !nagranie) przywrocPlayback("nowy AudioContext");
-    return c;
-  }
-  function kontekst() {                       // wołać w geście użytkownika
+  function kontekst() {                       // wołać w geście użytkownika; nigdy nie close()/suspend()
     if (!AC) return null;
-    if (!ctx) return nowyKontekst("pierwszy gest");
-    // iOS: po blokadzie ekranu, telefonie, Siri, innej apce z dźwiękiem kontekst ląduje w "interrupted"/"closed"
-    // i resume() go nie budzi; jedyne co działa, to nowy kontekst w geście użytkownika
-    if ((ctx.state === "closed" || ctx.state === "interrupted") && !session && !nagranie) return nowyKontekst("był " + ctx.state);
+    if (!ctx) {
+      ctx = new AC();
+      ctx.addEventListener("statechange", () => diag("AudioContext: " + ctx.state));
+      diag("AudioContext utworzony: " + ctx.state + ", " + ctx.sampleRate + " Hz");
+      // pierwszy dźwięk na tej stronie: jeszcze raz przełącz kategorię (nigdy w trakcie nasłuchu)
+      if (!session && !nagranie) przywrocPlayback("nowy AudioContext");
+    }
     if (ctx.state !== "running") ctx.resume().catch(e => diag("resume: " + e.message));
     return ctx;
   }
@@ -400,42 +394,58 @@
   function dekoduj(url) {                     // preload: nie tworzy kontekstu poza gestem
     if (bufory.has(url)) return bufory.get(url);
     const c = ctx; if (!c) return Promise.reject(new Error("brak AudioContext (potrzebny gest)"));
-    // dekodowanie osobnym OfflineAudioContext: nie zależy od stanu kontekstu grającego (zawieszony/interrupted też dekoduje),
-    // a AudioBuffer można grać w każdym kontekście (także nowym po wymianie)
-    const dek = (ab) => new Promise((res, rej) => {
-      let d = null; try { d = OAC ? new OAC(1, 1, c.sampleRate) : null; } catch (e) {}
-      (d || c).decodeAudioData(ab, res, e => rej(e || new Error("decodeAudioData")));
-    });
     const p = fetch(url).then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.arrayBuffer(); })
-      .then(dek)
+      .then(ab => new Promise((res, rej) => c.decodeAudioData(ab, res, e => rej(e || new Error("decodeAudioData")))))
       .catch(e => { bufory.delete(url); throw e; });
     bufory.set(url, p);
     if (bufory.size > MAX_BUFOROW) bufory.delete(bufory.keys().next().value);
     return p;
   }
-  // Zwraca true po uruchomieniu odtwarzania, false gdy przerwane/pominięte; rzuca przy błędzie pobrania/dekodowania.
+  // Komunikat na ekranie (ten sam na każdej stronie): gdy dźwięk nie zagrał, użytkownik ma widzieć dlaczego, nie ciszę.
+  let komEl = null, komTimer = 0;
+  function komunikat(msg) {
+    if (!komEl) { komEl = document.createElement("div"); komEl.className = "wym-kom"; komEl.setAttribute("role", "status"); document.body.appendChild(komEl); }
+    komEl.textContent = msg; komEl.classList.add("on");
+    clearTimeout(komTimer); komTimer = setTimeout(() => komEl.classList.remove("on"), 5000);
+  }
+  // Czeka aż kontekst gra: resume() ponawiany co 250 ms (po przerwaniu przez system iOS kończy przerwanie z opóźnieniem).
+  async function obudz(c, ms) {
+    const t0 = Date.now();
+    while (c.state !== "running" && Date.now() - t0 < ms) {
+      try { await c.resume(); } catch (e) { diag("resume: " + e.message); }
+      if (c.state !== "running") await czekajNaRunning(c, 250);
+    }
+    return c.state === "running";
+  }
+  // Zwraca true po uruchomieniu odtwarzania, false gdy przerwane przez następne graj()/stopAudio();
+  // rzuca (i pokazuje komunikat) gdy nie da się zagrać: brak pliku, błąd dekodowania, kontekst nie gra.
+  // Jeden AudioContext na stronę, nigdy nie wymieniany ani nie zamykany: każdy nowy kontekst to zapis do sesji audio iOS,
+  // po którym mikrofon (Web Speech w procesie GPU) nagrywa ciszę.
   async function graj(url, opts) {
     opts = opts || {};
     stopAudio();
     const nr = nrGrania;
-    const c = kontekst(); if (!c) throw new Error("brak Web Audio");
+    const c = kontekst(); if (!c) { komunikat("Ta przeglądarka nie odtwarza dźwięku (brak Web Audio)."); throw new Error("brak Web Audio"); }
     const t0 = Date.now();
-    const buf = await dekoduj(url);
+    let buf;
+    try { buf = await dekoduj(url); }
+    catch (e) { if (nr === nrGrania) komunikat("Nie mogę pobrać nagrania (" + e.message + "). Sprawdź internet."); throw e; }
     if (nr !== nrGrania) return false;
-    let c2 = c;
-    if (c2.state !== "running") { await czekajNaRunning(c2, 400); if (nr !== nrGrania) return false; }
-    if (c2.state !== "running" && !session && !nagranie) {
-      // kontekst nie wstał po geście: wymiana na nowy (strona już miała gest, więc nowy startuje jako running)
-      diag("AudioContext " + c2.state + " po geście – wymieniam na nowy");
-      c2 = nowyKontekst("wymiana, stary " + c.state);
-      if (c2.state !== "running") { await czekajNaRunning(c2, 400); if (nr !== nrGrania) return false; }
+    if (c.state !== "running") {
+      diag("AudioContext " + c.state + " przed graniem – budzę");
+      const ok = await obudz(c, 1500);
+      if (nr !== nrGrania) return false;
+      if (!ok) {
+        diag("AudioContext " + c.state + " – nie gram (sesja " + (AS ? AS.type : "-") + ")");
+        komunikat("Dźwięk nie zagrał: system zablokował audio (" + c.state + "). Dotknij jeszcze raz.");
+        throw new Error("AudioContext " + c.state);
+      }
     }
-    if (c2.state !== "running") throw new Error("AudioContext " + c2.state + " – dźwięk zablokowany, dotknij jeszcze raz");
-    const z = c2.createBufferSource(); z.buffer = buf; z.connect(c2.destination);
+    const z = c.createBufferSource(); z.buffer = buf; z.connect(c.destination);
     const g = { z, opts }; zrodlo = g;
     z.onended = () => { if (zrodlo === g) { zrodlo = null; if (opts.onEnd) { try { opts.onEnd(false); } catch (e) {} } } };
     z.start();
-    diag("gram " + url.split("/").pop() + " " + buf.duration.toFixed(2) + " s (po " + (Date.now() - t0) + " ms, ctx " + c2.state + ", sesja " + (AS ? AS.type : "-") + ")");
+    diag("gram " + url.split("/").pop() + " " + buf.duration.toFixed(2) + " s (po " + (Date.now() - t0) + " ms, ctx " + c.state + ", sesja " + (AS ? AS.type : "-") + ")");
     return true;
   }
 
@@ -574,9 +584,9 @@
 
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) { if (session) forceFinish(session, "strona ukryta"); if (nagranie) chmuraStop(nagranie, true); stopAudio(); }
-    else { if (ctx) kontekst(); przywrocPlayback("powrót na stronę"); }   // bez gestu nie tworzymy kontekstu (na iOS wstałby zawieszony)
+    else { kontekst(); przywrocPlayback("powrót na stronę"); }
   });
-  window.addEventListener("pageshow", (e) => { if (e.persisted) { session = null; nagranie = null; zrodlo = null; if (ctx) kontekst(); przywrocPlayback("bfcache"); } });
+  window.addEventListener("pageshow", (e) => { if (e.persisted) { session = null; nagranie = null; zrodlo = null; kontekst(); przywrocPlayback("bfcache"); } });
 
   // ---- silnik "chmura": nagranie WAV -> worker /wymowa (Whisper) ----
   let nagranie = null; // { btn, opts, ctx, stream, src, proc, cisza, chunks, rate, startedAt, released, done }
