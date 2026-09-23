@@ -2,8 +2,9 @@
 // iOS 26 WebKit (Safari i Chrome na iPhonie): mikrofon Web Speech nagrywa proces GPU na wspólnej sesji AVAudioSession,
 // a element <audio> grający mp3 zapisuje do tej samej sesji (dezaktywacja po "ended", zmiana kategorii na Ambient po 2 s
 // / po GC) — trafia to w start rozpoznawania i daje ciszę bez błędu (WebKit bug 317741/321436, poprawka nie w iOS 26.x).
-// Zasady: 1. mp3 gramy przez Web Audio (jeden AudioContext na stronę, nigdy nie zamykany) — brak zapisów do sesji
-// przy odtwarzaniu; 2. navigator.audioSession.type = "playback" na stałe (głośne mp3 przez głośnik, ignoruje przełącznik
+// Zasady: 1. mp3 gramy przez Web Audio (jeden AudioContext na stronę; wymiana tylko gdy stary jest martwy: iOS po uśpieniu
+// karty zostawia "running" z zegarem w miejscu; nigdy przy mikrofonie, a nasłuch czeka 700 ms po każdym nowym kontekście)
+// — brak zapisów do sesji przy odtwarzaniu; 2. navigator.audioSession.type = "playback" na stałe (głośne mp3 przez głośnik, ignoruje przełącznik
 // wyciszenia), a po KAŻDYM zakończeniu nasłuchu "ambient" -> "playback", żeby cofnąć PlayAndRecord/VideoChat ustawione
 // przez proces GPU (inaczej mp3 grałoby cicho); 3. żadnego getUserMedia przed start() (strumień trzymany przy starcie =
 // głuche sesje); 4. między końcem nasłuchu a następnym start() odstęp (localStorage kubus.wymowa.odstep, domyślnie 4500 ms),
@@ -360,21 +361,46 @@
 
   // ---- Web Audio: odtwarzanie mp3 (bez elementu <audio>, patrz komentarz na górze pliku) ----
   let ctx = null, zrodlo = null, nrGrania = 0;
+  let ctxOd = 0;            // kiedy powstał bieżący kontekst (mikrofon czeka 700 ms od tej chwili: aktywacja sesji ma dojść do GPU)
+  let ctxMartwy = false;    // iOS: po uśpieniu karty kontekst zgłasza "running", ale jednostka audio nie żyje (currentTime stoi, cisza)
+  let ostatniCzas = -1, ostatniStartMs = 0;  // currentTime i czas ostatniego start(): przy następnym graniu sprawdzamy, czy zegar szedł
   const bufory = new Map(); // url -> Promise<AudioBuffer>
   const MAX_BUFOROW = 30;
-  function kontekst() {                       // wołać w geście użytkownika; nigdy nie close()/suspend()
+  // Jedyne miejsce tworzenia kontekstu. Wymiana TYLKO gdy stary jest martwy (closed / zegar stoi) i nigdy przy mikrofonie:
+  // każdy nowy kontekst to zapis do sesji audio iOS, po którym nasłuch startujący zaraz potem nagrywa ciszę.
+  function nowyKontekst(powod) {
+    const stary = ctx;
+    if (stary) { zrodlo = null; try { stary.close().catch(() => {}); } catch (e) {} }
+    const c = ctx = new AC();
+    ctxOd = Date.now(); ctxMartwy = false; ostatniCzas = -1; ostatniStartMs = 0;
+    c.addEventListener("statechange", () => { if (ctx === c) diag("AudioContext: " + c.state); });
+    diag("AudioContext utworzony (" + powod + "): " + c.state + ", " + c.sampleRate + " Hz");
+    // pierwszy dźwięk na tej stronie: jeszcze raz przełącz kategorię (nigdy w trakcie nasłuchu)
+    if (!session && !nagranie) przywrocPlayback("nowy AudioContext");
+    return c;
+  }
+  function kontekst() {                       // wołać w geście użytkownika
     if (!AC) return null;
-    if (!ctx) {
-      ctx = new AC();
-      ctx.addEventListener("statechange", () => diag("AudioContext: " + ctx.state));
-      diag("AudioContext utworzony: " + ctx.state + ", " + ctx.sampleRate + " Hz");
-      // pierwszy dźwięk na tej stronie: jeszcze raz przełącz kategorię (nigdy w trakcie nasłuchu)
-      if (!session && !nagranie) przywrocPlayback("nowy AudioContext");
+    if (!ctx) return nowyKontekst("pierwszy gest");
+    if (!session && !nagranie) {
+      if (ctx.state === "running" && ostatniCzas >= 0 && Date.now() - ostatniStartMs > 300 && ctx.currentTime === ostatniCzas) { diag("zegar kontekstu stoi od ostatniego grania"); ctxMartwy = true; }
+      if (ctx.state === "closed" || ctxMartwy) return nowyKontekst(ctx.state === "closed" ? "stary zamknięty" : "stary martwy");
     }
     if (ctx.state !== "running") ctx.resume().catch(e => diag("resume: " + e.message));
     return ctx;
   }
   for (const ev of ["pointerup", "touchend", "click", "keydown"]) document.addEventListener(ev, () => { kontekst(); }, { capture: true, passive: true });
+  // Po powrocie na stronę: czy kontekst naprawdę gra? "running" z zegarem w miejscu = martwy (wymiana przy następnym geście).
+  function sprawdzZycie(powod) {
+    const c = ctx; if (!c || session || nagranie) return;
+    if (c.state !== "running") { c.resume().catch(() => {}); }
+    const t = c.currentTime;
+    setTimeout(() => {
+      if (ctx !== c || session || nagranie) return;
+      if (c.state === "running" && c.currentTime === t) { ctxMartwy = true; diag("kontekst martwy (" + powod + "): running, zegar stoi na " + t.toFixed(3)); }
+      else diag("kontekst po powrocie (" + powod + "): " + c.state + ", zegar " + (c.currentTime > t ? "idzie" : "stoi"));
+    }, 500);
+  }
   function czekajNaRunning(c, ms) {
     return new Promise(res => {
       if (c.state === "running") return res(true);
@@ -437,6 +463,7 @@
       if (nr !== nrGrania) return false;
       if (!ok) {
         diag("AudioContext " + c.state + " – nie gram (sesja " + (AS ? AS.type : "-") + ")");
+        if (!session && !nagranie) ctxMartwy = true;   // nie wstał mimo gestu: następne dotknięcie tworzy nowy kontekst w geście
         komunikat("Dźwięk nie zagrał: system zablokował audio (" + c.state + "). Dotknij jeszcze raz.");
         throw new Error("AudioContext " + c.state);
       }
@@ -445,7 +472,22 @@
     const g = { z, opts }; zrodlo = g;
     z.onended = () => { if (zrodlo === g) { zrodlo = null; if (opts.onEnd) { try { opts.onEnd(false); } catch (e) {} } } };
     z.start();
-    diag("gram " + url.split("/").pop() + " " + buf.duration.toFixed(2) + " s (po " + (Date.now() - t0) + " ms, ctx " + c.state + ", sesja " + (AS ? AS.type : "-") + ")");
+    const czasStartu = c.currentTime; ostatniCzas = czasStartu; ostatniStartMs = Date.now();
+    diag("gram " + url.split("/").pop() + " " + buf.duration.toFixed(2) + " s (po " + (Date.now() - t0) + " ms, ctx " + c.state + ", zegar " + czasStartu.toFixed(3) + ", sesja " + (AS ? AS.type : "-") + ")");
+    // Kontrola po 400 ms: zegar stoi = kontekst martwy (iOS po uśpieniu karty). Wtedy nowy kontekst i jeszcze raz;
+    // bez gestu nowy może wstać zawieszony – wtedy komunikat, następne dotknięcie tworzy go już w geście.
+    setTimeout(async () => {
+      if (nr !== nrGrania || ctx !== c || c.state !== "running" || c.currentTime > czasStartu || session || nagranie) return;
+      diag("zegar kontekstu stoi po start() – kontekst martwy, wymieniam");
+      stopAudio(); const nr2 = nrGrania;
+      const c2 = nowyKontekst("martwy po powrocie");
+      if (!(await obudz(c2, 800)) || nr2 !== nrGrania) { if (nr2 === nrGrania) komunikat("Dźwięk nie zagrał: system uciął audio po powrocie do karty. Dotknij jeszcze raz."); return; }
+      const z2 = c2.createBufferSource(); z2.buffer = buf; z2.connect(c2.destination);
+      const g2 = { z: z2, opts }; zrodlo = g2;
+      z2.onended = () => { if (zrodlo === g2) { zrodlo = null; if (opts.onEnd) { try { opts.onEnd(false); } catch (e) {} } } };
+      z2.start(); ostatniCzas = c2.currentTime; ostatniStartMs = Date.now();
+      diag("gram ponownie " + url.split("/").pop() + " (nowy ctx " + c2.state + ")");
+    }, 400);
     return true;
   }
 
@@ -481,16 +523,15 @@
     const s = session = { btn, opts, rec: null, faza: "starting", startedAt: 0, interim: "", finalAlts: null, gotFinal: false, error: null, released: false };
     s.hardLimit = setTimeout(() => forceFinish(s, "limit 30 s"), 30000);
     btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
-    const nowyCtx = !ctx; kontekst();
+    kontekst();
     stopAudio();
     if (W.beforeStart) { try { W.beforeStart(); } catch (e) {} }
     if ("speechSynthesis" in window) { if (speechSynthesis.speaking || speechSynthesis.pending) audioAktywne(); speechSynthesis.cancel(); }
     let target = ""; try { target = typeof opts.target === "function" ? opts.target() : opts.target; } catch (e) {}
     if (opts.onStart) { try { opts.onStart(); } catch (e) {} }
     // Odstęp: po poprzednim nasłuchu (stara jednostka mikrofonu w GPU), po głosie systemowym, po świeżym AudioContext
-    // (jego aktywacja sesji właśnie poszła do GPU; ma dojść przed startem mikrofonu).
-    const minCtx = nowyCtx ? 700 : 0;
-    const potrzeba = () => Math.max(cfg().odstep - (Date.now() - ostatniKoniecSR), ODSTEP_PO_TTS - (Date.now() - ostatnieAudio), minCtx - (Date.now() - t0));
+    // (jego aktywacja sesji właśnie poszła do GPU; ma dojść przed startem mikrofonu) – 700 ms od utworzenia, także po wymianie.
+    const potrzeba = () => Math.max(cfg().odstep - (Date.now() - ostatniKoniecSR), ODSTEP_PO_TTS - (Date.now() - ostatnieAudio), 700 - (Date.now() - ctxOd));
     let czekaj = potrzeba();
     const odKiedy = (t) => t ? (Date.now() - t) + " ms" : "nigdy";
     if (czekaj > 0) diag("czekam " + czekaj + " ms (po nasłuchu " + odKiedy(ostatniKoniecSR) + ", po głosie systemowym " + odKiedy(ostatnieAudio) + ")");
@@ -584,9 +625,9 @@
 
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) { if (session) forceFinish(session, "strona ukryta"); if (nagranie) chmuraStop(nagranie, true); stopAudio(); }
-    else { kontekst(); przywrocPlayback("powrót na stronę"); }
+    else { kontekst(); przywrocPlayback("powrót na stronę"); sprawdzZycie("powrót na stronę"); }
   });
-  window.addEventListener("pageshow", (e) => { if (e.persisted) { session = null; nagranie = null; zrodlo = null; kontekst(); przywrocPlayback("bfcache"); } });
+  window.addEventListener("pageshow", (e) => { if (e.persisted) { session = null; nagranie = null; zrodlo = null; kontekst(); przywrocPlayback("bfcache"); sprawdzZycie("bfcache"); } });
 
   // ---- silnik "chmura": nagranie WAV -> worker /wymowa (Whisper) ----
   let nagranie = null; // { btn, opts, ctx, stream, src, proc, cisza, chunks, rate, startedAt, released, done }
