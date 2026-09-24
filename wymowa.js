@@ -184,33 +184,27 @@
     return { ini, fin, pl, twardeY };
   }
   const pinyinPl = baza => rozbierz(baza).pl;
-  // esencja dźwięku: max 2 najważniejsze rzeczy dla tej sylaby (waga = trudność dla Polaka)
+  // esencja dźwięku: max 2 rzeczy (waga = trudność dla Polaka). Polski zapis stoi w nagłówku, więc tu tylko to,
+  // czego zapis nie pokaże: usta, język, wydech. Nigdy „x to y”.
   function podpowiedzDzwiek(baza) {
     const r = rozbierz(baza), ini = r.ini, fin = r.fin, H = [];
     const q = x => "„" + x + "”";
-    if (["p", "t", "k", "q", "ch", "c"].includes(ini)) { const [lit, slowo] = SLOWO_PL[ini]; H.push([5, `${q(INI_PL[ini])} to polskie ${q(lit)} jak w ${q(slowo)}, a zaraz po nim mocne dmuchnięcie, jak na gorącą zupę. „h” w zapisie znaczy właśnie: dmuchnij. Kartka przed ustami ma drgnąć.`]); }
-    if (["b", "d", "g", "j", "zh", "z"].includes(ini)) { const [lit, slowo] = SLOWO_PL[ini]; H.push([5, `${q(INI_PL[ini])} to zwykłe polskie ${q(lit)} jak w ${q(slowo)}, bez dmuchnięcia. Kartka przed ustami stoi.`]); }
-    if (fin.includes("ü")) H.push([4, "ü: usta w dzióbek jak do gwizdania i tak powiedz „i”. W lustrze usta nie rozjeżdżają się."]);
-    if (r.twardeY) H.push([4, "„i” tu czytasz twardo, jako „y”, jak w „czy”, „szyć”."]);
-    if (["e", "en", "eng"].includes(fin)) H.push([3, "„e” to zastanawiające „yyy…”, gdy szukasz słowa. Nie polskie „e”."]);
-    if (fin === "er") H.push([3, "„a” z czubkiem języka zagiętym do góry. Nie trzęś nim jak w „rower”."]);
-    if (/ng$/.test(fin)) H.push([3, "Końcówka jak „bank” bez „k”: czubek języka wisi, nie dotyka zębów."]);
-    else if (/n$/.test(fin)) H.push([2, "Końcówka jak „ten”: czubek języka za górnymi zębami. Nie przez nos."]);
-    if (ini === "r") H.push([2, "„r” to polskie „ż” jak w „żaba”. Nie warcz."]);
-    if (ini === "h") H.push([2, "„h” to polskie „ch” jak w „chleb”."]);
-    if (ini === "x") H.push([1, "„x” to „ś” jak w „siano”."]);
-    if (ini === "sh") H.push([1, "„sh” to „sz” jak w „szal”."]);
-    if (fin === "ian") H.push([2, "„ian” mówisz „ien”, jak w „cień”."]);
-    if (fin === "iu") H.push([2, "„iu” mówisz „ioł”."]);
-    if (fin === "ui") H.push([2, "„ui” mówisz „łej”, jak w „klej”."]);
-    if (fin === "un") H.push([2, "„un” mówisz „łyn”."]);
-    if (fin === "ong" || fin === "iong") H.push([2, "„ong” mówisz „ung”."]);
-    if (fin === "uo") H.push([1, "„uo” to „ło”, jak w „łoś”."]);
-    if (fin === "ao" || fin === "iao") H.push([1, "„ao” to „ał”, jak w „chałwa”."]);
-    if (fin === "ou" || fin === "iu") H.push([1, "„ou” to „oł”."]);
-    if (r.zero && fin[0] === "w") H.push([1, "„w” to polskie „ł”."]);
-    if (r.zero && fin[0] === "y" && r.pl[0] === "j") H.push([1, "„y” to polskie „j”."]);
-    if (!H.length) H.push([0, "Czytaj po polsku, litera po literze."]);
+    if (["p", "t", "k", "q", "ch", "c"].includes(ini)) H.push([5, `Zaraz po ${q(SLOWO_PL[ini][0])} mocne dmuchnięcie, jak na gorącą zupę. Kartka przed ustami ma drgnąć.`]);
+    if (["b", "d", "g", "j", "zh", "z"].includes(ini)) H.push([5, "Zero dmuchnięcia, miękko. Kartka przed ustami stoi."]);
+    if (ini === "zh" || ini === "ch") H.push([3, "Usta płasko, nie w dzióbek jak w polskim „cz”. Czubek języka cofnij trochę dalej po podniebieniu."]);
+    if (ini === "sh") H.push([3, "Usta płasko, nie wysuwaj warg jak w polskim „sz”. Czubek języka cofnij trochę dalej po podniebieniu."]);
+    if (ini === "r") H.push([3, "Miękko, prawie bez brzęczenia: czubek języka zagięty do góry, nie dotyka podniebienia. Usta płasko."]);
+    if (["j", "q", "x"].includes(ini)) H.push([1, "Usta w lekki uśmiech, czubek języka oparty o dolne zęby."]);
+    if (r.twardeY && ["z", "c", "s"].includes(ini)) H.push([4, `Po ${q({ z: "dz", c: "c", s: "s" }[ini])} język zostaje na miejscu, zęby prawie zamknięte, i tylko przeciągasz ten sam szum. Żadnego osobnego „y”.`]);
+    else if (r.twardeY) H.push([4, "Język zostaje zagięty jak przy spółgłosce i przeciągasz ten sam szum. Nie otwieraj ust na osobne „y”."]);
+    if (fin.includes("ü")) H.push([4, "Usta w dzióbek jak do gwizdania, a język jak do „i”. Dzióbek trzymaj do końca, w lustrze usta się nie rozjeżdżają."]);
+    if (["e", "en", "eng"].includes(fin)) H.push([3, "„y” z tyłu gardła, jak zastanawiające „yyy…”. Usta płasko, szczęka lekko w dół."]);
+    if (fin === "er") H.push([3, "Mówiąc „a”, zawiń czubek języka do góry i do tyłu, bez dotykania podniebienia. Nic nie drga."]);
+    if (/ng$/.test(fin)) H.push([3, "Na końcu żadnego „g”: tył języka zamyka gardło jak w „bank” tuż przed „k”. Czubek języka leży na dole."]);
+    else if (/n$/.test(fin)) H.push([2, "Samogłoska czysta, nie „ą”/„ę”. Dopiero na końcu czubek języka dotyka dziąseł za górnymi zębami."]);
+    if (fin === "ao" || fin === "iao") H.push([1, "„a” szeroko, potem usta lekko się zaokrąglają. „ł” słabe, prawie znika."]);
+    if (fin === "un") H.push([1, "„y” krótkie, ledwo słyszalne."]);
+    if (!H.length) H.push([0, "Nic chińskiego tu nie ma: mów dokładnie jak zapisane."]);
     return { pl: r.pl, rady: H.sort((a, b) => b[0] - a[0]).slice(0, 2).map(h => h[1]) };
   }
   // esencja tonu: polska sytuacja + słowo, potem sylaba tak samo
