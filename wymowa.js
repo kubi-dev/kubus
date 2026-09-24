@@ -1,18 +1,17 @@
 // Wspólny moduł sprawdzania wymowy (Web Speech API) dla stron lekcji i powtórek.
-// iOS 26 WebKit (Safari i Chrome na iPhonie): mikrofon Web Speech nagrywa proces GPU na wspólnej sesji AVAudioSession,
-// a element <audio> grający mp3 zapisuje do tej samej sesji (dezaktywacja po "ended", zmiana kategorii na Ambient po 2 s
-// / po GC) — trafia to w start rozpoznawania i daje ciszę bez błędu (WebKit bug 317741/321436, poprawka nie w iOS 26.x).
-// Zasady: 1. mp3 gramy przez Web Audio (jeden AudioContext na stronę; wymiana tylko gdy stary jest martwy: iOS po uśpieniu
-// karty zostawia "running" z zegarem w miejscu; nigdy przy mikrofonie, a nasłuch czeka 700 ms po każdym nowym kontekście)
-// — brak zapisów do sesji przy odtwarzaniu; 2. navigator.audioSession.type = "playback" na stałe (głośne mp3 przez głośnik, ignoruje przełącznik
-// wyciszenia), a po KAŻDYM zakończeniu nasłuchu "ambient" -> "playback", żeby cofnąć PlayAndRecord/VideoChat ustawione
-// przez proces GPU (inaczej mp3 grałoby cicho); 3. żadnego getUserMedia przed start() (strumień trzymany przy starcie =
-// głuche sesje); 4. między końcem nasłuchu a następnym start() odstęp (localStorage kubus.wymowa.odstep, domyślnie 4500 ms),
-// żeby proces GPU zdążył zwinąć starą jednostkę mikrofonu; 5. nowa instancja SpeechRecognition na sesję, zdarzenia
-// starych instancji ignorowane; 6. użytkownik sam kończy nasłuch puszczając przycisk.
+// Audio i mikrofon na iOS 27 (Safari i Chrome = WebKit):
+//  1. mp3 gra przez Web Audio (jeden AudioContext; martwy po uśpieniu karty = zegar stoi, wymieniany w geście), nigdy <audio>,
+//     bo element <audio> dezaktywuje wspólną sesję audio po "ended" (WebKit bug 317741).
+//  2. navigator.audioSession: "playback" bezczynnie (głośno, mimo przełącznika wyciszenia), "play-and-record" od naciśnięcia
+//     mikrofonu do końca nasłuchu, ustawiane PRZED recognition.start(). Web Speech nagrywa w procesie GPU, a strona o tym nie
+//     wie: przy "playback" jednostka nagrywająca dostaje ciszę (onstart/onaudiostart przychodzą i tak, nie dowodzą niczego).
+//  3. Po onstart (nigdy przed start(): głuche sesje) getUserMedia nagrywa równolegle: widać, czy mikrofon coś słyszy,
+//     a gdy Web Speech nic nie zwróci mimo głosu w nagraniu, tekst daje Whisper (worker /wymowa).
+//  4. Nowa instancja SpeechRecognition na sesję, zdarzenia starych ignorowane; użytkownik kończy, puszczając przycisk;
+//     strona ukryta = sesja porzucona.
 //
-// Silniki: "chmura" (getUserMedia + WAV 16 kHz -> worker Whisper) i "system" (Web Speech, na iOS Apple na urządzeniu).
-// localStorage "kubus.wymowa.silnik" = auto | chmura | system | system-reload. Parametry testowe w URL: ?odstep=0 ?sesja=0 ?silnik=system
+// Silniki: "system" (domyślny: Web Speech + nagranie awaryjne) i "chmura" (tylko nagranie + Whisper).
+// localStorage "kubus.wymowa.silnik" = auto | system | chmura; w URL: ?silnik=chmura
 // Adres workera: window.SYNC_URL (wstawia build.py); klucz: localStorage "kubus.powtorka.sync" (jak sync powtórek).
 //
 // Użycie:
@@ -64,7 +63,6 @@
   const GUM = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
   const AC = window.AudioContext || window.webkitAudioContext;
   const AS = ("audioSession" in navigator) ? navigator.audioSession : null;
-  const ODSTEP_PO_SR = 0;      // odstęp po końcu nasłuchu; 0 potwierdzone na iPhonie (iOS 26, Chrome), ?odstep=N nadpisuje
   const ODSTEP_PO_TTS = 3500;    // tylko po speechSynthesis (głos systemowy)
   const sleep = ms => new Promise(r => setTimeout(r, ms));
 
@@ -72,7 +70,7 @@
   (function () {
     try {
       const q = new URLSearchParams(location.search);
-      for (const [p, k] of [["odstep", "kubus.wymowa.odstep"], ["sesja", "kubus.wymowa.sesja"], ["silnik", "kubus.wymowa.silnik"]])
+      for (const [p, k] of [["silnik", "kubus.wymowa.silnik"]])
         if (q.has(p)) localStorage.setItem(k, q.get(p));
     } catch (e) {}
   })();
@@ -83,16 +81,12 @@
     const silnik = ls("kubus.wymowa.silnik") || "auto";
     const url = (sync.url || window.SYNC_URL || "").replace(/\/$/, ""), klucz = sync.klucz || "";
     const chmuraOk = !!(url && klucz && GUM && AC);
-    // system-reload: silnik systemowy + przeładowanie strony po każdym użyciu (zostaje jako awaryjny, tylko z wyboru)
-    // auto = system (Apple na iOS, Google w Chrome); chmura (Whisper) tylko na wyraźne życzenie
-    const uzyj = silnik === "system" ? "system" : silnik === "system-reload" ? "system-reload" : silnik === "chmura" ? (chmuraOk ? "chmura" : "system") : "system";
-    const o = ls("kubus.wymowa.odstep");
-    const odstep = (o === null || o === "" || isNaN(Number(o))) ? ODSTEP_PO_SR : Math.max(0, Number(o));
-    return { url, klucz, silnik, uzyj, chmuraOk, reload: uzyj === "system-reload", odstep, sesjaAudio: ls("kubus.wymowa.sesja") !== "0" };
+    const uzyj = silnik === "chmura" && chmuraOk ? "chmura" : "system";
+    return { url, klucz, silnik, uzyj, chmuraOk };
   }
   diag("UA: " + navigator.userAgent);
   diag("iOS: " + (IOS_VER || "nie") + ", SpeechRecognition: " + (SR ? "jest" : "BRAK") + ", getUserMedia: " + (GUM ? "jest" : "BRAK") + ", AudioContext: " + (AC ? "jest" : "BRAK") + ", audioSession: " + (AS ? "jest (" + AS.type + ")" : "BRAK"));
-  diag("silnik: " + cfg().uzyj + " (ustawienie " + cfg().silnik + ", chmura " + (cfg().chmuraOk ? "dostępna" : "niedostępna: brak adresu/klucza") + "), odstęp po nasłuchu " + cfg().odstep + " ms, sterowanie sesją audio: " + (cfg().sesjaAudio ? "tak" : "NIE"));
+  diag("silnik: " + cfg().uzyj + " (ustawienie " + cfg().silnik + ", chmura " + (cfg().chmuraOk ? "dostępna" : "niedostępna: brak adresu/klucza") + ")");
 
   function similarity(a, b) {
     // LCS na sylabach pinyin bez tonów (odporne na homofony), fallback na znaki
@@ -340,80 +334,48 @@
     document.head.appendChild(st);
   })();
 
-  // ---- sesja audio (kategoria AVAudioSession po stronie WebContent) ----
-  let ostatniKoniecSR = 0;  // czas ostatniego przywrócenia kategorii; od niego liczymy odstęp do następnego start()
-  function ustawSesje(typ) {
-    if (!AS || !cfg().sesjaAudio) return false;
-    try { AS.type = typ; const odczyt = AS.type; diag("audioSession := " + typ + (odczyt !== typ ? " (odczyt: " + odczyt + ")" : "")); return odczyt === typ; }
-    catch (e) { diag("audioSession błąd: " + e.message); return false; }
+  // ---- sesja audio iOS: dwa stany, przełączane tylko przy mikrofonie ----
+  // bezczynnie: "playback" (mp3 głośno przez głośnik, mimo przełącznika wyciszenia)
+  // nasłuch:    "play-and-record", ustawiane PRZED recognition.start(). Web Speech nagrywa w procesie GPU i strona o tym
+  //             nie wie; bez tego WebContent dalej wysyła kategorię Playback i mikrofon dostaje ciszę (dziennik z iOS 27:
+  //             świeża strona, mp3, potem 2,6 s nasłuchu bez jednego dźwięku).
+  function ustawSesje(typ, powod) {
+    if (!AS) return;
+    try { if (AS.type !== typ) AS.type = typ; diag("audioSession = " + AS.type + " (" + powod + ")"); }
+    catch (e) { diag("audioSession błąd: " + e.message); }
   }
-  // WebKit wysyła kategorię do procesu GPU tylko, gdy różni się od ostatnio WYSŁANEJ (nie od stanu systemu),
-  // więc żeby cofnąć PlayAndRecord ustawione przez GPU, trzeba przejść przez inną wartość. NIGDY w trakcie nasłuchu.
-  function przywrocPlayback(powod) {
-    ustawSesje("ambient"); ustawSesje("playback");
-    ostatniKoniecSR = Date.now();
-    diag("kategoria audio przywrócona: playback (" + powod + ")" + (!AS ? " [brak API audioSession – zostaje sam odstęp]" : (!cfg().sesjaAudio ? " [sterowanie sesją wyłączone]" : "")));
-  }
-  // Start strony: pełne przełączenie (ambient -> playback), nie samo "playback". Po przejściu z innej podstrony proces GPU
-  // trzyma kategorię po poprzedniej stronie (np. PlayAndRecord po mikrofonie), a WebKit nie wysyła wartości, której "już wysłał";
-  // objaw: mp3 grało cicho (przez słuchawkę) po każdej zmianie podstrony.
-  przywrocPlayback("start strony");
+  ustawSesje("playback", "start strony");
 
-  // ---- Web Audio: odtwarzanie mp3 (bez elementu <audio>, patrz komentarz na górze pliku) ----
+  // ---- Web Audio: odtwarzanie mp3 (bez elementu <audio>: ten dezaktywuje sesję audio po "ended") ----
   let ctx = null, zrodlo = null, nrGrania = 0;
-  let ctxOd = 0;            // kiedy powstał bieżący kontekst (mikrofon czeka 700 ms od tej chwili: aktywacja sesji ma dojść do GPU)
-  let ctxMartwy = false;    // iOS: po uśpieniu karty kontekst zgłasza "running", ale jednostka audio nie żyje (currentTime stoi, cisza)
-  let ostatniCzas = -1, ostatniStartMs = 0;  // currentTime i czas ostatniego start(): przy następnym graniu sprawdzamy, czy zegar szedł
-  const bufory = new Map(); // url -> Promise<AudioBuffer>
+  let ctxMartwy = false;    // iOS po uśpieniu karty: kontekst mówi "running", ale zegar stoi i nic nie gra
+  const bufory = new Map(); // url -> Promise<AudioBuffer> (AudioBuffer działa w każdym kontekście)
   const MAX_BUFOROW = 30;
-  // Jedyne miejsce tworzenia kontekstu. Wymiana TYLKO gdy stary jest martwy (closed / zegar stoi) i nigdy przy mikrofonie:
-  // każdy nowy kontekst to zapis do sesji audio iOS, po którym nasłuch startujący zaraz potem nagrywa ciszę.
   function nowyKontekst(powod) {
-    const stary = ctx;
-    if (stary) { zrodlo = null; try { stary.close().catch(() => {}); } catch (e) {} }
+    if (ctx) { const stary = ctx; zrodlo = null; try { stary.close().catch(() => {}); } catch (e) {} }
     const c = ctx = new AC();
-    ctxOd = Date.now(); ctxMartwy = false; ostatniCzas = -1; ostatniStartMs = 0;
+    ctxMartwy = false;
     c.addEventListener("statechange", () => { if (ctx === c) diag("AudioContext: " + c.state); });
     diag("AudioContext utworzony (" + powod + "): " + c.state + ", " + c.sampleRate + " Hz");
-    // pierwszy dźwięk na tej stronie: jeszcze raz przełącz kategorię (nigdy w trakcie nasłuchu)
-    if (!session && !nagranie) przywrocPlayback("nowy AudioContext");
     return c;
   }
-  function kontekst() {                       // wołać w geście użytkownika
+  // Wołać w geście użytkownika: tworzy, wymienia martwy albo budzi kontekst.
+  function kontekst() {
     if (!AC) return null;
     if (!ctx) return nowyKontekst("pierwszy gest");
-    if (!session && !nagranie) {
-      if (ctx.state === "running" && ostatniCzas >= 0 && Date.now() - ostatniStartMs > 300 && ctx.currentTime === ostatniCzas) { diag("zegar kontekstu stoi od ostatniego grania"); ctxMartwy = true; }
-      if (ctx.state === "closed" || ctxMartwy) return nowyKontekst(ctx.state === "closed" ? "stary zamknięty" : "stary martwy");
-    }
+    if (ctx.state === "closed" || ctxMartwy) return nowyKontekst(ctx.state === "closed" ? "stary zamknięty" : "stary martwy");
     if (ctx.state !== "running") ctx.resume().catch(e => diag("resume: " + e.message));
     return ctx;
   }
-  // w trakcie nasłuchu systemowego żadnego budzenia/tworzenia kontekstu (zapis do sesji audio = głuchy mikrofon)
-  for (const ev of ["pointerup", "touchend", "click", "keydown"]) document.addEventListener(ev, () => { if (!session) kontekst(); }, { capture: true, passive: true });
-  // Stan sprawdzany przy KAŻDYM naciśnięciu mikrofonu. Po pobycie w tle (inna karta / apka / blokada) albo po głuchej sesji:
-  // kontekst audio zamykany (nowy powstanie dopiero przy następnym graniu), kategoria sesji przełączana od nowa
-  // i 1 s odstępu, żeby proces GPU zdążył to przyjąć, zanim ruszy mikrofon.
-  let bylaWTle = false, gluchaSesja = false, naprawionoOd = 0;
-  function naprawPrzedMikrofonem() {
-    let powod = bylaWTle ? "po powrocie do karty" : gluchaSesja ? "po głuchej sesji" : "";
-    if (!powod && ctx && (ctx.state === "closed" || ctxMartwy)) powod = "kontekst audio martwy";
-    if (!powod) return;
-    bylaWTle = false; gluchaSesja = false;
-    diag("naprawa przed mikrofonem (" + powod + "): ctx " + (ctx ? ctx.state : "brak") + ", sesja " + (AS ? AS.type : "-"));
-    stopAudio();
-    if (ctx) { const c = ctx; ctx = null; zrodlo = null; try { c.close().catch(() => {}); } catch (e) {} }
-    przywrocPlayback("naprawa przed mikrofonem");
-    naprawionoOd = Date.now();
-  }
-  // Po powrocie na stronę: czy kontekst naprawdę gra? "running" z zegarem w miejscu = martwy (wymiana przy następnym geście).
+  for (const ev of ["pointerup", "touchend", "click", "keydown"]) document.addEventListener(ev, () => { if (!session && !nagranie) kontekst(); }, { capture: true, passive: true });
+  // Po powrocie na stronę: czy zegar kontekstu idzie? Stoi = martwy, następny gest tworzy nowy.
   function sprawdzZycie(powod) {
-    const c = ctx; if (!c || session || nagranie) return;
-    if (c.state !== "running") { c.resume().catch(() => {}); }
+    const c = ctx; if (!c) return;
+    if (c.state !== "running") c.resume().catch(() => {});
     const t = c.currentTime;
     setTimeout(() => {
-      if (ctx !== c || session || nagranie) return;
-      if (c.state === "running" && c.currentTime === t) { ctxMartwy = true; diag("kontekst martwy (" + powod + "): running, zegar stoi na " + t.toFixed(3)); }
+      if (ctx !== c) return;
+      if (c.state === "running" && c.currentTime === t) { ctxMartwy = true; diag("kontekst martwy (" + powod + "): zegar stoi"); }
       else diag("kontekst po powrocie (" + powod + "): " + c.state + ", zegar " + (c.currentTime > t ? "idzie" : "stoi"));
     }, 500);
   }
@@ -424,6 +386,15 @@
       const t = setTimeout(() => { c.removeEventListener("statechange", h); res(c.state === "running"); }, ms);
       c.addEventListener("statechange", h);
     });
+  }
+  // resume() ponawiany co 250 ms (po przerwaniu przez system iOS kończy przerwanie z opóźnieniem)
+  async function obudz(c, ms) {
+    const t0 = Date.now();
+    while (c.state !== "running" && Date.now() - t0 < ms) {
+      try { await c.resume(); } catch (e) { diag("resume: " + e.message); }
+      if (c.state !== "running") await czekajNaRunning(c, 250);
+    }
+    return c.state === "running";
   }
   function stopAudio() {
     nrGrania++;                               // unieważnia trwające fetch/decode
@@ -450,213 +421,87 @@
     komEl.textContent = msg; komEl.classList.add("on");
     clearTimeout(komTimer); komTimer = setTimeout(() => komEl.classList.remove("on"), 5000);
   }
-  // Czeka aż kontekst gra: resume() ponawiany co 250 ms (po przerwaniu przez system iOS kończy przerwanie z opóźnieniem).
-  async function obudz(c, ms) {
-    const t0 = Date.now();
-    while (c.state !== "running" && Date.now() - t0 < ms) {
-      try { await c.resume(); } catch (e) { diag("resume: " + e.message); }
-      if (c.state !== "running") await czekajNaRunning(c, 250);
-    }
-    return c.state === "running";
+  function zagraj(c, buf, opts) {
+    const z = c.createBufferSource(); z.buffer = buf; z.connect(c.destination);
+    const g = { z, opts }; zrodlo = g;
+    z.onended = () => { if (zrodlo === g) { zrodlo = null; if (opts.onEnd) { try { opts.onEnd(false); } catch (e) {} } } };
+    z.start();
+    return c.currentTime;
   }
-  // Zwraca true po uruchomieniu odtwarzania, false gdy przerwane przez następne graj()/stopAudio();
-  // rzuca (i pokazuje komunikat) gdy nie da się zagrać: brak pliku, błąd dekodowania, kontekst nie gra.
-  // Jeden AudioContext na stronę, nigdy nie wymieniany ani nie zamykany: każdy nowy kontekst to zapis do sesji audio iOS,
-  // po którym mikrofon (Web Speech w procesie GPU) nagrywa ciszę.
+  // true po uruchomieniu odtwarzania, false gdy przerwane przez następne graj()/stopAudio()/mikrofon;
+  // rzuca (i pokazuje komunikat) gdy nie da się zagrać.
   async function graj(url, opts) {
     opts = opts || {};
     stopAudio();
+    if (session || nagranie || przetwarzanie) return false;   // mikrofon ma pierwszeństwo
     const nr = nrGrania;
+    ustawSesje("playback", "granie");
     const c = kontekst(); if (!c) { komunikat("Ta przeglądarka nie odtwarza dźwięku (brak Web Audio)."); throw new Error("brak Web Audio"); }
     const t0 = Date.now();
     let buf;
     try { buf = await dekoduj(url); }
     catch (e) { if (nr === nrGrania) komunikat("Nie mogę pobrać nagrania (" + e.message + "). Sprawdź internet."); throw e; }
     if (nr !== nrGrania) return false;
-    if (c.state !== "running") {
-      diag("AudioContext " + c.state + " przed graniem – budzę");
-      const ok = await obudz(c, 1500);
+    if (c.state !== "running" && !(await obudz(c, 1500))) {
       if (nr !== nrGrania) return false;
-      if (!ok) {
-        diag("AudioContext " + c.state + " – nie gram (sesja " + (AS ? AS.type : "-") + ")");
-        if (!session && !nagranie) ctxMartwy = true;   // nie wstał mimo gestu: następne dotknięcie tworzy nowy kontekst w geście
-        komunikat("Dźwięk nie zagrał: system zablokował audio (" + c.state + "). Dotknij jeszcze raz.");
-        throw new Error("AudioContext " + c.state);
-      }
+      diag("AudioContext " + c.state + " – nie gram");
+      ctxMartwy = true;                       // następne dotknięcie tworzy nowy kontekst w geście
+      komunikat("Dźwięk nie zagrał: system zablokował audio. Dotknij jeszcze raz.");
+      throw new Error("AudioContext " + c.state);
     }
-    const z = c.createBufferSource(); z.buffer = buf; z.connect(c.destination);
-    const g = { z, opts }; zrodlo = g;
-    z.onended = () => { if (zrodlo === g) { zrodlo = null; if (opts.onEnd) { try { opts.onEnd(false); } catch (e) {} } } };
-    z.start();
-    const czasStartu = c.currentTime; ostatniCzas = czasStartu; ostatniStartMs = Date.now();
-    diag("gram " + url.split("/").pop() + " " + buf.duration.toFixed(2) + " s (po " + (Date.now() - t0) + " ms, ctx " + c.state + ", zegar " + czasStartu.toFixed(3) + ", sesja " + (AS ? AS.type : "-") + ")");
-    // Kontrola po 400 ms: zegar stoi = kontekst martwy (iOS po uśpieniu karty). Wtedy nowy kontekst i jeszcze raz;
-    // bez gestu nowy może wstać zawieszony – wtedy komunikat, następne dotknięcie tworzy go już w geście.
+    if (nr !== nrGrania) return false;
+    const czasStartu = zagraj(c, buf, opts);
+    diag("gram " + url.split("/").pop() + " " + buf.duration.toFixed(2) + " s (po " + (Date.now() - t0) + " ms, zegar " + czasStartu.toFixed(3) + ", sesja " + (AS ? AS.type : "-") + ")");
+    // po 400 ms zegar stoi = kontekst martwy (iOS po uśpieniu karty): nowy kontekst i jeszcze raz
     setTimeout(async () => {
-      if (nr !== nrGrania || ctx !== c || c.state !== "running" || c.currentTime > czasStartu || session || nagranie) return;
-      diag("zegar kontekstu stoi po start() – kontekst martwy, wymieniam");
+      if (nr !== nrGrania || ctx !== c || c.currentTime > czasStartu || session || nagranie) return;
+      diag("zegar stoi po start() – kontekst martwy, wymieniam");
       stopAudio(); const nr2 = nrGrania;
       const c2 = nowyKontekst("martwy po powrocie");
-      if (!(await obudz(c2, 800)) || nr2 !== nrGrania) { if (nr2 === nrGrania) komunikat("Dźwięk nie zagrał: system uciął audio po powrocie do karty. Dotknij jeszcze raz."); return; }
-      const z2 = c2.createBufferSource(); z2.buffer = buf; z2.connect(c2.destination);
-      const g2 = { z: z2, opts }; zrodlo = g2;
-      z2.onended = () => { if (zrodlo === g2) { zrodlo = null; if (opts.onEnd) { try { opts.onEnd(false); } catch (e) {} } } };
-      z2.start(); ostatniCzas = c2.currentTime; ostatniStartMs = Date.now();
-      diag("gram ponownie " + url.split("/").pop() + " (nowy ctx " + c2.state + ")");
+      if (!(await obudz(c2, 800)) || nr2 !== nrGrania) { if (nr2 === nrGrania) komunikat("Dźwięk nie zagrał po powrocie do karty. Dotknij jeszcze raz."); return; }
+      zagraj(c2, buf, opts);
+      diag("gram ponownie " + url.split("/").pop() + " (nowy kontekst)");
     }, 400);
     return true;
   }
 
-  // ---- głos systemowy: strony zgłaszają go tu (po nim odstęp jak dawniej) ----
+  // ---- głos systemowy: strony zgłaszają go tu (po nim odstęp przed mikrofonem) ----
   let ostatnieAudio = 0;
   function audioAktywne() { ostatnieAudio = Date.now(); }
 
-  // ---- rozpoznawanie: nowa instancja na sesję, start() w zadaniu pointerdown, bez getUserMedia ----
-  let session = null; // { btn, opts, rec, faza: starting|listening|stopping, startedAt, interim, finalAlts, gotFinal, error, released, timery }
-
-  function finish(s, why) {
-    clearTimeout(s.watchdog); clearTimeout(s.endGuard); clearTimeout(s.hardLimit); clearTimeout(s.noStart);
-    s.btn.classList.remove("rec"); s.btn.textContent = LABEL_IDLE;
-    const alts = (s.gotFinal ? s.finalAlts : (s.interim ? [s.interim] : [])).filter(a => a);
-    const heldMs = s.startedAt ? Date.now() - s.startedAt : 0;
-    diag("koniec (" + why + "): final=" + s.gotFinal + " interim=" + JSON.stringify(s.interim || "") + " trzymane " + heldMs + " ms");
-    przywrocPlayback("koniec nasłuchu");           // ZAWSZE po sesji, nigdy w jej trakcie
-    // trzymane >1,5 s, a mikrofon nie złapał żadnego dźwięku: następne naciśnięcie najpierw naprawia sesję audio
-    if (s.startedAt && heldMs > 1500 && !s.dzwiek && !alts.length) { gluchaSesja = true; diag("głucha sesja – następne naciśnięcie naprawi audio"); }
-    const res = { alts, gotFinal: s.gotFinal, error: s.error, heldMs, started: !!s.startedAt };
-    if (s.opts.onDone) { try { s.opts.onDone(res); } catch (e) { diag("onDone błąd: " + e.message); } }
-    if (cfg().reload && s.startedAt) przeladuj(s.opts, res); // przeładowanie tylko po realnej sesji nasłuchu
+  // ---- nagranie getUserMedia: pomiar, czy mikrofon naprawdę coś słyszy, i WAV dla Whispera ----
+  async function otworzNagranie(c) {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+    const n = { stream, chunks: [], rate: c.sampleRate, stop: false };
+    try {
+      n.src = c.createMediaStreamSource(stream);
+      n.proc = c.createScriptProcessor(4096, 1, 1);
+      n.proc.onaudioprocess = (e) => { if (!n.stop) n.chunks.push(new Float32Array(e.inputBuffer.getChannelData(0))); };
+      n.cisza = c.createGain(); n.cisza.gain.value = 0;   // ScriptProcessor musi być podpięty do wyjścia
+      n.src.connect(n.proc); n.proc.connect(n.cisza); n.cisza.connect(c.destination);
+    } catch (e) { zamknijNagranie(n); throw e; }
+    return n;
   }
-  function forceFinish(s, why) {
-    if (session !== s) return;
-    diag("kończę na siłę: " + why);
-    try { if (s.rec) s.rec.abort(); } catch (e) {}
-    session = null; finish(s, why);
+  function zamknijNagranie(n) {
+    if (!n || n.zamkniete) return; n.zamkniete = true; n.stop = true;
+    try { if (n.proc) { n.proc.disconnect(); n.proc.onaudioprocess = null; } } catch (e) {}
+    try { if (n.src) n.src.disconnect(); } catch (e) {}
+    try { if (n.cisza) n.cisza.disconnect(); } catch (e) {}
+    try { n.stream.getTracks().forEach(t => t.stop()); } catch (e) {}
   }
-
-  async function startListening(btn, opts) {
-    if (!SR) { if (opts.onDone) opts.onDone({ alts: [], gotFinal: false, error: "Rozpoznawanie mowy działa tylko w Chrome, Edge lub Safari.", heldMs: 0, started: false }); return; }
-    if (session) { diag("sesja trwa (" + session.faza + "), ignoruję naciśnięcie"); return; }   // brak kolejki `pending`
-    const t0 = Date.now();
-    const s = session = { btn, opts, rec: null, faza: "starting", startedAt: 0, interim: "", finalAlts: null, gotFinal: false, error: null, released: false };
-    s.hardLimit = setTimeout(() => forceFinish(s, "limit 30 s"), 30000);
-    btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
-    if (ctx) kontekst();                        // nigdy nie tworzy kontekstu tuż przed mikrofonem
-    stopAudio();
-    if (W.beforeStart) { try { W.beforeStart(); } catch (e) {} }
-    if ("speechSynthesis" in window) { if (speechSynthesis.speaking || speechSynthesis.pending) audioAktywne(); speechSynthesis.cancel(); }
-    let target = ""; try { target = typeof opts.target === "function" ? opts.target() : opts.target; } catch (e) {}
-    if (opts.onStart) { try { opts.onStart(); } catch (e) {} }
-    // Odstęp: po poprzednim nasłuchu (stara jednostka mikrofonu w GPU), po głosie systemowym, po świeżym AudioContext
-    // (jego aktywacja sesji właśnie poszła do GPU; ma dojść przed startem mikrofonu) – 700 ms od utworzenia, także po wymianie.
-    const potrzeba = () => Math.max(cfg().odstep - (Date.now() - ostatniKoniecSR), ODSTEP_PO_TTS - (Date.now() - ostatnieAudio), 700 - (Date.now() - ctxOd), 1000 - (Date.now() - naprawionoOd));
-    let czekaj = potrzeba();
-    const odKiedy = (t) => t ? (Date.now() - t) + " ms" : "nigdy";
-    if (czekaj > 0) diag("czekam " + czekaj + " ms (po nasłuchu " + odKiedy(ostatniKoniecSR) + ", po głosie systemowym " + odKiedy(ostatnieAudio) + ")");
-    while ((czekaj = potrzeba()) > 0) {
-      btn.textContent = "⏳ chwila… " + Math.ceil(czekaj / 1000);
-      await sleep(Math.min(czekaj, 200));
-      if (session !== s) return;
-      if (s.released) { diag("puszczony w trakcie odliczania"); session = null; finish(s, "puszczony przed startem"); return; }
-    }
-    if (ctx && ctx.state !== "running") { kontekst(); await czekajNaRunning(ctx, 500); if (session !== s) return; if (s.released) { session = null; finish(s, "puszczony przed startem"); return; } }
-    if ("speechSynthesis" in window) speechSynthesis.cancel();
-    btn.textContent = "⏳ uruchamiam…";
-    const r = s.rec = new SR();
-    r.lang = "zh-CN"; r.interimResults = true; r.maxAlternatives = 5; r.continuous = true;
-    const moja = () => session === s;
-    r.onstart = () => {
-      if (!moja()) return;
-      diag("onstart po " + (Date.now() - t0) + " ms od naciśnięcia");
-      s.faza = "listening"; s.startedAt = Date.now(); clearTimeout(s.noStart);
-      btn.textContent = "🎙 mów teraz…";
-      if (s.released) { diag("puszczony przed onstart, kończę"); stopNow(s); }
-    };
-    r.onaudiostart = () => diag("onaudiostart (nie dowodzi, że mikrofon nagrywa)");
-    r.onsoundstart = () => { s.dzwiek = true; diag("onsoundstart"); };
-    r.onspeechstart = () => { s.dzwiek = true; diag("onspeechstart"); };
-    r.onspeechend = () => diag("onspeechend");
-    r.onnomatch = () => diag("onnomatch");
-    r.onresult = (ev) => {
-      if (!moja()) return;
-      const last = ev.results[ev.results.length - 1]; let prefix = "";
-      for (let i = 0; i < ev.results.length - 1; i++) prefix += ev.results[i][0].transcript;
-      const alts = Array.from(last).map(x => strip(prefix + x.transcript));
-      diag("result final=" + last.isFinal + " " + alts[0]);
-      if (last.isFinal) { s.finalAlts = alts; s.gotFinal = true; } else s.interim = alts[0];
-      // wynik wstępny pokazujemy w samym przycisku (stała szerokość): nic na stronie nie zmienia wysokości w trakcie mówienia
-      if (alts[0]) btn.textContent = "🎙 " + (alts[0].length > 9 ? "…" + alts[0].slice(-9) : alts[0]);
-      if (opts.onInterim) { try { opts.onInterim(alts[0]); } catch (e) {} }
-    };
-    r.onerror = (ev) => {
-      diag("error " + ev.error + (ev.message ? " " + ev.message : "") + (s.startedAt ? " po " + (Date.now() - s.startedAt) + " ms" : " przed onstart") + (moja() ? "" : " (stara sesja)"));
-      if (!moja() || ev.error === "aborted" || ev.error === "no-speech") return;
-      s.error = ev.error === "not-allowed" || ev.error === "service-not-allowed" ? "Brak zgody na mikrofon. Zezwól w ustawieniach strony / przeglądarki."
-        : ev.error === "network" ? "Błąd sieci przy rozpoznawaniu (sprawdź internet)."
-        : ev.error === "audio-capture" ? "Mikrofon nie nagrywa (inna aplikacja go używa?)." : "Błąd rozpoznawania: " + ev.error;
-    };
-    r.onend = () => { if (!moja()) { diag("onend starej sesji, ignoruję"); return; } diag("onend"); session = null; finish(s, "onend"); };
-    diag("start cel=" + target + " ctx=" + (ctx ? ctx.state : "brak") + " sesja=" + (AS ? AS.type : "-"));
-    try { r.start(); }
-    catch (e) { diag("start() wyjątek: " + e.name + " " + e.message); session = null; s.error = "Nie mogę uruchomić: " + e.message; finish(s, "wyjątek start()"); return; }
-    s.noStart = setTimeout(() => { if (moja() && !s.startedAt) forceFinish(s, "brak onstart po 5 s"); }, 5000);
-    s.watchdog = setTimeout(() => { if (moja() && s.faza === "listening") { diag("watchdog 15 s"); stopNow(s); } }, 15000);
+  // szum w cichym pokoju: szczyt ~0.05, rms ~0.007; mowa z AGC: szczyt > 0.2, rms > 0.02
+  function poziom(n) {
+    let probek = 0, szczyt = 0, suma = 0;
+    for (const c of n.chunks) { probek += c.length; for (let i = 0; i < c.length; i++) { const v = Math.abs(c[i]); if (v > szczyt) szczyt = v; suma += v * v; } }
+    const rms = probek ? Math.sqrt(suma / probek) : 0;
+    return { probek, szczyt, rms, sekund: n.rate ? probek / n.rate : 0, glos: probek > n.rate * 0.3 && szczyt >= 0.08 && rms >= 0.01 };
   }
-
-  function stopNow(s) {
-    if (session !== s || s.faza !== "listening") return;
-    s.faza = "stopping"; s.btn.textContent = "⏳ przetwarzam…";
-    diag("stop() po " + (Date.now() - s.startedAt) + " ms nasłuchu");
-    try { s.rec.stop(); } catch (e) { diag("stop() wyjątek: " + e.message); }
-    s.endGuard = setTimeout(() => {
-      if (session !== s) return;
-      diag("brak onend po stop(), abort()"); try { s.rec.abort(); } catch (e) {}
-      setTimeout(() => forceFinish(s, "brak onend po abort()"), 1500);
-    }, 2500);
-  }
-  function stopListening() {
-    const s = session; if (!s || s.released) return;
-    s.released = true;
-    if (s.faza === "starting") { diag("puszczony przed onstart" + (s.rec ? ", dokończę po onstart" : ", nie uruchomię")); return; }
-    stopNow(s);
-  }
-
-  // ---- tryb "system-reload": po użyciu mikrofonu strona ładuje się od nowa, wynik i pozycję odtwarzamy po starcie ----
-  const KLUCZ_WYNIK = "kubus.wymowa.wynik";
-  function przeladuj(opts, res) {
-    let target = ""; try { target = typeof opts.target === "function" ? opts.target() : opts.target; } catch (e) {}
-    let stanStrony = null;
-    if (W.zapiszStan) { try { stanStrony = W.zapiszStan(); } catch (e) { diag("zapiszStan błąd: " + e.message); } }
-    try { sessionStorage.setItem(KLUCZ_WYNIK, JSON.stringify({ href: location.href, ts: Date.now(), target, res, scrollY: window.scrollY, strona: stanStrony })); } catch (e) {}
-    diag("przeładowanie strony (tryb system-reload)");
-    try { if (diagEl) sessionStorage.setItem(KLUCZ_DIAG, diagEl.textContent.split("\n").slice(-40).join("\n") + "\n"); } catch (e) {}
-    setTimeout(() => location.reload(), 150);
-  }
-  // Zwraca zapisany wynik z poprzedniego załadowania (albo null) i kasuje go.
-  function odbierzWynik() {
-    let w = null;
-    try { w = JSON.parse(sessionStorage.getItem(KLUCZ_WYNIK) || "null"); sessionStorage.removeItem(KLUCZ_WYNIK); } catch (e) {}
-    if (!w || w.href !== location.href || Date.now() - w.ts > 60000) return null;
-    diag("wynik odtworzony po przeładowaniu: " + JSON.stringify(w.res.alts));
-    return w;
-  }
-
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) { bylaWTle = true; if (session) forceFinish(session, "strona ukryta"); if (nagranie) chmuraStop(nagranie, true); stopAudio(); }
-    else { kontekst(); przywrocPlayback("powrót na stronę"); sprawdzZycie("powrót na stronę"); }
-  });
-  window.addEventListener("pageshow", (e) => { if (e.persisted) { bylaWTle = true; session = null; nagranie = null; zrodlo = null; kontekst(); przywrocPlayback("bfcache"); sprawdzZycie("bfcache"); } });
-
-  // ---- silnik "chmura": nagranie WAV -> worker /wymowa (Whisper) ----
-  let nagranie = null; // { btn, opts, ctx, stream, src, proc, cisza, chunks, rate, startedAt, released, done }
-
   function wav16k(chunks, rate) {
     let n = 0; for (const c of chunks) n += c.length;
     const all = new Float32Array(n); let o = 0; for (const c of chunks) { all.set(c, o); o += c.length; }
     const ratio = rate / 16000, outLen = Math.floor(all.length / ratio);
     const pcm = new Int16Array(outLen);
     for (let i = 0; i < outLen; i++) {
-      // średnia z okna (proste filtrowanie przy decymacji)
       const a = Math.floor(i * ratio), b = Math.min(all.length, Math.floor((i + 1) * ratio)); let sum = 0;
       for (let j = a; j < b; j++) sum += all[j];
       const v = Math.max(-1, Math.min(1, sum / Math.max(1, b - a)));
@@ -670,87 +515,208 @@
     new Int16Array(buf, 44).set(pcm);
     return buf;
   }
+  async function whisper(n) {
+    const c = cfg(), t0 = Date.now();
+    const r = await fetch(c.url + "/wymowa", { method: "POST", headers: { "Authorization": "Bearer " + c.klucz, "Content-Type": "audio/wav" }, body: wav16k(n.chunks, n.rate) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || ("HTTP " + r.status));
+    diag("whisper: " + JSON.stringify(j.text) + " po " + (Date.now() - t0) + " ms");
+    return j.text || "";
+  }
 
-  async function chmuraStart(btn, opts) {
-    if (nagranie) { diag("chmura: poprzednie nagranie trwa, przerywam"); chmuraStop(nagranie, true); }
+  // ---- silnik "system": Web Speech + równoległe nagranie getUserMedia ----
+  // Kolejność (sprawdzona na iPhone'ach przez innych, WebAudio/web-speech-api#96): getUserMedia dopiero PO onstart;
+  // otwarte przed start() daje głuche sesje. Nagranie: 1) WebContent wie o mikrofonie i trzyma PlayAndRecord,
+  // 2) mierzymy, czy mikrofon coś słyszy, 3) gdy Web Speech nic nie zwróci, a w nagraniu jest głos, rozpoznaje Whisper.
+  let session = null;       // { btn, opts, rec, faza: starting|listening|stopping, startedAt, interim, finalAlts, gotFinal, error, released, nagr }
+  let przetwarzanie = false; // wynik w drodze (Whisper): nowe naciśnięcie czeka
+  const MOW = "🎙 mów teraz…";
+
+  async function finish(s, why) {
+    clearTimeout(s.watchdog); clearTimeout(s.endGuard); clearTimeout(s.hardLimit); clearTimeout(s.noStart);
+    let alts = (s.gotFinal ? s.finalAlts : (s.interim ? [s.interim] : [])).filter(a => a);
+    let gotFinal = s.gotFinal, error = s.error;
+    const heldMs = s.startedAt ? Date.now() - s.startedAt : 0;
+    const n = s.nagr; s.nagr = null; zamknijNagranie(n);
+    ustawSesje("playback", "koniec nasłuchu");
+    const lv = n ? poziom(n) : null;
+    diag("koniec (" + why + "): final=" + gotFinal + " interim=" + JSON.stringify(s.interim || "") + " trzymane " + heldMs + " ms" +
+      (lv ? ", nagranie " + lv.sekund.toFixed(1) + " s szczyt=" + lv.szczyt.toFixed(3) + " rms=" + lv.rms.toFixed(4) : ", bez nagrania"));
+    if (!alts.length && !error && !s.porzuc && lv && lv.glos && cfg().chmuraOk) {
+      diag("Web Speech nic nie zwrócił, a mikrofon nagrał głos: rozpoznaje Whisper");
+      przetwarzanie = true; s.btn.textContent = "⏳ rozpoznaję…";
+      try { const t = await whisper(n); if (t) { alts = [t]; gotFinal = true; } }
+      catch (e) { diag("whisper błąd: " + e.message); }
+      przetwarzanie = false;
+    } else if (!alts.length && !error && lv && heldMs > 1500 && !lv.glos) diag("mikrofon nie nagrał głosu (cisza albo za cicho)");
+    s.btn.classList.remove("rec"); s.btn.textContent = LABEL_IDLE;
+    const res = { alts, gotFinal, error, heldMs, started: !!s.startedAt };
+    if (s.opts.onDone && !s.porzuc) { try { s.opts.onDone(res); } catch (e) { diag("onDone błąd: " + e.message); } }
+  }
+  function forceFinish(s, why, porzuc) {
+    if (session !== s) return;
+    diag("kończę na siłę: " + why);
+    s.porzuc = !!porzuc;
+    try { if (s.rec) s.rec.abort(); } catch (e) {}
+    session = null; finish(s, why);
+  }
+
+  async function startListening(btn, opts) {
+    if (!SR) { if (opts.onDone) opts.onDone({ alts: [], gotFinal: false, error: "Rozpoznawanie mowy działa tylko w Chrome, Edge lub Safari.", heldMs: 0, started: false }); return; }
+    if (session || przetwarzanie) { diag("mikrofon zajęty, ignoruję naciśnięcie"); return; }
+    const t0 = Date.now();
+    const s = session = { btn, opts, rec: null, faza: "starting", startedAt: 0, interim: "", finalAlts: null, gotFinal: false, error: null, released: false, nagr: null };
+    s.hardLimit = setTimeout(() => forceFinish(s, "limit 30 s"), 30000);
+    btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
     stopAudio();
+    const c = kontekst();                       // w geście: potrzebny do nagrania
+    ustawSesje("play-and-record", "nasłuch");   // PRZED start(), patrz góra sekcji
+    if (W.beforeStart) { try { W.beforeStart(); } catch (e) {} }
+    if ("speechSynthesis" in window) { if (speechSynthesis.speaking || speechSynthesis.pending) audioAktywne(); speechSynthesis.cancel(); }
+    let target = ""; try { target = typeof opts.target === "function" ? opts.target() : opts.target; } catch (e) {}
+    if (opts.onStart) { try { opts.onStart(); } catch (e) {} }
+    // chwila, żeby kategoria doszła do procesu GPU przed startem jednostki mikrofonu; dłużej po głosie systemowym
+    const czekaj = Math.max(150, ODSTEP_PO_TTS - (Date.now() - ostatnieAudio));
+    const koniecCzekania = Date.now() + czekaj;
+    while (Date.now() < koniecCzekania) {
+      if (czekaj > 1000) btn.textContent = "⏳ chwila… " + Math.ceil((koniecCzekania - Date.now()) / 1000);
+      await sleep(Math.min(200, koniecCzekania - Date.now()));
+      if (session !== s) return;
+      if (s.released) { session = null; finish(s, "puszczony przed startem"); return; }
+    }
+    btn.textContent = "⏳ uruchamiam…";
+    const r = s.rec = new SR();
+    r.lang = "zh-CN"; r.interimResults = true; r.maxAlternatives = 5; r.continuous = true;
+    const moja = () => session === s;
+    r.onstart = async () => {
+      if (!moja()) return;
+      diag("onstart po " + (Date.now() - t0) + " ms od naciśnięcia");
+      s.faza = "listening"; s.startedAt = Date.now(); clearTimeout(s.noStart);
+      if (s.released) { diag("puszczony przed onstart, kończę"); stopNow(s); return; }
+      // równoległe nagranie; "mów teraz" dopiero gdy oba słuchają (najdłużej 1,5 s)
+      if (GUM && c) {
+        s.otwieram = true;
+        const p = (async () => { if (c.state !== "running") await obudz(c, 800); return otworzNagranie(c); })();
+        const n = await Promise.race([p.catch(e => { diag("getUserMedia błąd: " + e.name + " " + e.message); return null; }), sleep(1500).then(() => null)]);
+        if (!n) p.then(zamknijNagranie, () => {});
+        else if (!moja() || s.faza !== "listening") zamknijNagranie(n);
+        else { s.nagr = n; diag("nagranie równoległe działa (" + n.rate + " Hz)"); }
+        s.otwieram = false;
+      }
+      if (moja() && s.faza === "listening") {
+        if (!s.interim && !s.gotFinal) btn.textContent = MOW;
+        if (s.released) stopNow(s);
+      }
+    };
+    r.onaudiostart = () => diag("onaudiostart (nie dowodzi, że mikrofon nagrywa)");
+    r.onsoundstart = () => diag("onsoundstart");
+    r.onspeechstart = () => diag("onspeechstart");
+    r.onspeechend = () => diag("onspeechend");
+    r.onnomatch = () => diag("onnomatch");
+    r.onresult = (ev) => {
+      if (!moja()) return;
+      const last = ev.results[ev.results.length - 1]; let prefix = "";
+      for (let i = 0; i < ev.results.length - 1; i++) prefix += ev.results[i][0].transcript;
+      const alts = Array.from(last).map(x => strip(prefix + x.transcript));
+      diag("result final=" + last.isFinal + " " + alts[0]);
+      if (last.isFinal) { s.finalAlts = alts; s.gotFinal = true; } else s.interim = alts[0];
+      // wynik wstępny w samym przycisku (stała szerokość): nic na stronie nie skacze w trakcie mówienia
+      if (alts[0] && s.faza === "listening") btn.textContent = "🎙 " + (alts[0].length > 9 ? "…" + alts[0].slice(-9) : alts[0]);
+      if (opts.onInterim) { try { opts.onInterim(alts[0]); } catch (e) {} }
+    };
+    r.onerror = (ev) => {
+      diag("error " + ev.error + (ev.message ? " " + ev.message : "") + (s.startedAt ? " po " + (Date.now() - s.startedAt) + " ms" : " przed onstart") + (moja() ? "" : " (stara sesja)"));
+      if (!moja() || ev.error === "aborted" || ev.error === "no-speech") return;
+      s.error = ev.error === "not-allowed" || ev.error === "service-not-allowed" ? "Brak zgody na mikrofon. Zezwól w ustawieniach strony / przeglądarki."
+        : ev.error === "network" ? "Błąd sieci przy rozpoznawaniu (sprawdź internet)."
+        : ev.error === "audio-capture" ? "Mikrofon nie nagrywa (inna aplikacja go używa?)." : "Błąd rozpoznawania: " + ev.error;
+    };
+    r.onend = () => { if (!moja()) { diag("onend starej sesji, ignoruję"); return; } diag("onend"); session = null; finish(s, "onend"); };
+    diag("start cel=" + target + " ctx=" + (c ? c.state : "brak") + " sesja=" + (AS ? AS.type : "-"));
+    try { r.start(); }
+    catch (e) { diag("start() wyjątek: " + e.name + " " + e.message); session = null; s.error = "Nie mogę uruchomić: " + e.message; finish(s, "wyjątek start()"); return; }
+    s.noStart = setTimeout(() => { if (moja() && !s.startedAt) forceFinish(s, "brak onstart po 5 s"); }, 5000);
+    s.watchdog = setTimeout(() => { if (moja() && s.faza === "listening") { diag("watchdog 15 s"); stopNow(s); } }, 15000);
+  }
+
+  function stopNow(s) {
+    if (session !== s || s.faza !== "listening") return;
+    s.faza = "stopping"; s.btn.textContent = "⏳ przetwarzam…";
+    if (s.nagr) s.nagr.stop = true;             // nagranie kończy się razem z puszczeniem przycisku
+    diag("stop() po " + (Date.now() - s.startedAt) + " ms nasłuchu");
+    try { s.rec.stop(); } catch (e) { diag("stop() wyjątek: " + e.message); }
+    s.endGuard = setTimeout(() => {
+      if (session !== s) return;
+      diag("brak onend po stop(), abort()"); try { s.rec.abort(); } catch (e) {}
+      setTimeout(() => forceFinish(s, "brak onend po abort()"), 1500);
+    }, 2500);
+  }
+  function stopListening() {
+    const s = session; if (!s || s.released) return;
+    s.released = true;
+    if (s.faza === "starting") { diag("puszczony przed onstart" + (s.rec ? ", dokończę po onstart" : ", nie uruchomię")); return; }
+    if (s.otwieram) return;                     // onstart jeszcze otwiera nagranie, potem sam zatrzyma
+    stopNow(s);
+  }
+
+  // tryb "system-reload" usunięty; strony nadal wołają odbierzWynik() po starcie
+  function odbierzWynik() { return null; }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) { if (session) forceFinish(session, "strona ukryta", true); if (nagranie) chmuraStop(nagranie, true); stopAudio(); }
+    else { ustawSesje("playback", "powrót na stronę"); sprawdzZycie("powrót na stronę"); }
+  });
+  window.addEventListener("pageshow", (e) => { if (e.persisted) { session = null; nagranie = null; zrodlo = null; przetwarzanie = false; ustawSesje("playback", "bfcache"); sprawdzZycie("bfcache"); } });
+
+  // ---- silnik "chmura" (tylko z wyboru): nagranie getUserMedia -> Whisper ----
+  let nagranie = null; // { btn, opts, n, startedAt, released, done }
+  async function chmuraStart(btn, opts) {
+    if (nagranie || przetwarzanie) return;
+    stopAudio();
+    const c = kontekst();
+    ustawSesje("play-and-record", "nagranie (chmura)");
     if (W.beforeStart) { try { W.beforeStart(); } catch (e) {} }
     if ("speechSynthesis" in window) speechSynthesis.cancel();
-    let target = ""; try { target = typeof opts.target === "function" ? opts.target() : opts.target; } catch (e) {}
-    const n = { btn, opts, ctx: null, stream: null, src: null, proc: null, cisza: null, chunks: [], rate: 0, startedAt: 0, released: false, done: false };
-    nagranie = n;
+    const g = { btn, opts, n: null, startedAt: 0, released: false, done: false };
+    nagranie = g;
     btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
     if (opts.onStart) { try { opts.onStart(); } catch (e) {} }
-    diag("chmura start cel=" + target);
     try {
-      // wspólny AudioContext strony (nigdy nie zamykany); tworzony synchronicznie w geście użytkownika
-      n.ctx = kontekst(); if (!n.ctx) throw new Error("brak AudioContext");
-      const t0 = Date.now();
-      n.stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
-      diag("getUserMedia OK po " + (Date.now() - t0) + "ms, sampleRate=" + n.ctx.sampleRate);
-      if (nagranie !== n) { n.stream.getTracks().forEach(t => t.stop()); return; }
-      n.rate = n.ctx.sampleRate;
-      n.src = n.ctx.createMediaStreamSource(n.stream);
-      n.proc = n.ctx.createScriptProcessor(4096, 1, 1);
-      n.proc.onaudioprocess = (e) => { if (!n.released) n.chunks.push(new Float32Array(e.inputBuffer.getChannelData(0))); };
-      n.cisza = n.ctx.createGain(); n.cisza.gain.value = 0; // ScriptProcessor musi być podpięty do wyjścia, ale nic nie gramy
-      n.src.connect(n.proc); n.proc.connect(n.cisza); n.cisza.connect(n.ctx.destination);
-      n.startedAt = Date.now();
-      btn.textContent = "🎙 mów teraz…";
-      n.watchdog = setTimeout(() => { if (nagranie === n && !n.released) { diag("chmura watchdog 15s"); chmuraStop(n); } }, 15000);
-      if (n.released) chmuraStop(n);
+      if (!c) throw new Error("brak AudioContext");
+      if (c.state !== "running") await obudz(c, 800);
+      const n = await otworzNagranie(c);
+      if (nagranie !== g) { zamknijNagranie(n); return; }
+      g.n = n; g.startedAt = Date.now();
+      diag("chmura: nagrywam (" + n.rate + " Hz)");
+      btn.textContent = MOW;
+      g.watchdog = setTimeout(() => { if (nagranie === g) { diag("chmura watchdog 15 s"); chmuraStop(g); } }, 15000);
+      if (g.released) chmuraStop(g);
     } catch (e) {
       diag("chmura start błąd: " + e.name + " " + e.message);
-      chmuraSprzataj(n);
-      if (nagranie === n) nagranie = null;
+      if (nagranie === g) nagranie = null;
+      ustawSesje("playback", "błąd nagrania");
       btn.classList.remove("rec"); btn.textContent = LABEL_IDLE;
       const msg = e.name === "NotAllowedError" ? "Brak zgody na mikrofon. Zezwól w ustawieniach strony / przeglądarki." : "Nie mogę uruchomić mikrofonu: " + e.message;
       if (opts.onDone) opts.onDone({ alts: [], gotFinal: false, error: msg, heldMs: 0, started: false });
     }
   }
-
-  function chmuraSprzataj(n) {
-    clearTimeout(n.watchdog);
-    try { if (n.proc) { n.proc.disconnect(); n.proc.onaudioprocess = null; } } catch (e) {}
-    try { if (n.src) n.src.disconnect(); } catch (e) {}
-    try { if (n.cisza) n.cisza.disconnect(); } catch (e) {}
-    try { if (n.stream) n.stream.getTracks().forEach(t => t.stop()); } catch (e) {}   // bez ctx.close(): kontekst żyje ze stroną
-    diag("mikrofon zwolniony");
-    przywrocPlayback("koniec nagrania (chmura)");
-  }
-
-  async function chmuraStop(n, porzuc) {
-    if (n.done) return;
-    n.released = true;
-    if (!n.startedAt && !porzuc) { diag("chmura: puszczony przed startem"); return; } // dokończy chmuraStart
-    n.done = true;
-    const heldMs = n.startedAt ? Date.now() - n.startedAt : 0;
-    chmuraSprzataj(n);
-    if (nagranie === n) nagranie = null;
-    const fin = (res) => { n.btn.classList.remove("rec"); n.btn.textContent = LABEL_IDLE; if (!porzuc && n.opts.onDone) n.opts.onDone(res); };
-    if (porzuc) { fin(null); return; }
-    let probek = 0, szczyt = 0, suma = 0;
-    for (const c of n.chunks) { probek += c.length; for (let i = 0; i < c.length; i++) { const v = Math.abs(c[i]); if (v > szczyt) szczyt = v; suma += v * v; } }
-    const rms = probek ? Math.sqrt(suma / probek) : 0;
-    diag("chmura stop: " + heldMs + "ms, " + probek + " próbek, szczyt=" + szczyt.toFixed(3) + " rms=" + rms.toFixed(4));
-    if (heldMs < 400 || probek < n.rate * 0.3) { fin({ alts: [], gotFinal: false, error: null, heldMs, started: !!n.startedAt }); return; }
-    // cisza: nie wysyłamy (Whisper na ciszy zmyśla), traktujemy jak "nic nie usłyszałem"
-    // szum tła w cichym pokoju: szczyt ~0.05, rms ~0.007; mowa z AGC: szczyt > 0.2, rms > 0.02
-    if (szczyt < 0.08 || rms < 0.01) { diag("chmura: za cicho, nie wysyłam"); fin({ alts: [], gotFinal: false, error: null, heldMs, started: true }); return; }
-    n.btn.textContent = "⏳ rozpoznaję…";
-    const c = cfg();
-    try {
-      const wav = wav16k(n.chunks, n.rate);
-      const t0 = Date.now();
-      const r = await fetch(c.url + "/wymowa", { method: "POST", headers: { "Authorization": "Bearer " + c.klucz, "Content-Type": "audio/wav" }, body: wav });
-      const j = await r.json().catch(() => ({}));
-      if (!r.ok) throw new Error(j.error || ("HTTP " + r.status));
-      diag("whisper: " + JSON.stringify(j.text) + " po " + (Date.now() - t0) + "ms");
-      fin({ alts: j.text ? [j.text] : [], gotFinal: true, error: null, heldMs, started: true });
-    } catch (e) {
-      diag("chmura błąd: " + e.message);
-      fin({ alts: [], gotFinal: false, error: "Rozpoznawanie w chmurze nie działa: " + e.message, heldMs, started: true });
-    }
+  async function chmuraStop(g, porzuc) {
+    if (g.done) return;
+    g.released = true;
+    if (!g.startedAt && !porzuc) return;        // dokończy chmuraStart
+    g.done = true; clearTimeout(g.watchdog);
+    const heldMs = g.startedAt ? Date.now() - g.startedAt : 0;
+    zamknijNagranie(g.n);
+    if (nagranie === g) nagranie = null;
+    ustawSesje("playback", "koniec nagrania (chmura)");
+    const fin = (res) => { przetwarzanie = false; g.btn.classList.remove("rec"); g.btn.textContent = LABEL_IDLE; if (!porzuc && g.opts.onDone) g.opts.onDone(res); };
+    if (porzuc || !g.n) { fin(null); return; }
+    const lv = poziom(g.n);
+    diag("chmura stop: " + heldMs + " ms, szczyt=" + lv.szczyt.toFixed(3) + " rms=" + lv.rms.toFixed(4));
+    if (!lv.glos) { fin({ alts: [], gotFinal: false, error: null, heldMs, started: true }); return; }   // Whisper na ciszy zmyśla
+    przetwarzanie = true; g.btn.textContent = "⏳ rozpoznaję…";
+    try { const t = await whisper(g.n); fin({ alts: t ? [t] : [], gotFinal: true, error: null, heldMs, started: true }); }
+    catch (e) { diag("chmura błąd: " + e.message); fin({ alts: [], gotFinal: false, error: "Rozpoznawanie w chmurze nie działa: " + e.message, heldMs, started: true }); }
   }
 
   function bind(btn, opts) {
@@ -759,11 +725,10 @@
       if (e.isPrimary === false || (e.button && e.button > 0)) return;
       e.preventDefault(); e.stopPropagation(); try { btn.setPointerCapture(e.pointerId); } catch (err) {}
       if ((session && session.btn === btn) || (nagranie && nagranie.btn === btn)) return; // powtórny pointerdown (multi-touch)
-      if (cfg().uzyj === "chmura") chmuraStart(btn, opts); else { if (!session) naprawPrzedMikrofonem(); startListening(btn, opts); }
+      if (cfg().uzyj === "chmura") chmuraStart(btn, opts); else startListening(btn, opts);
     };
     const up = (e) => {
       e.preventDefault(); e.stopPropagation();
-      kontekst();                                 // pointerup jest na pewno gestem aktywującym
       if (nagranie && nagranie.btn === btn) { chmuraStop(nagranie); return; }
       if (session && session.btn === btn) stopListening();
     };
@@ -775,6 +740,6 @@
   }
 
   const W = { diag, supported: !!SR || GUM, iOS: !!IOS_VER, beforeStart: null, zapiszStan: null, bind, grade, render, strip, toPinyin, cfg, odbierzWynik, pinyinPl, podpowiedzDzwiek, podpowiedzTon, podpowiedzSylaby,
-              audioAktywne, graj, stopAudio, preload: dekoduj, kontekst, przywrocPlayback, LABEL_IDLE };
+              audioAktywne, graj, stopAudio, preload: dekoduj, kontekst, LABEL_IDLE };
   window.Wymowa = W;
 })();

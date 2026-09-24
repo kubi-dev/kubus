@@ -15,12 +15,11 @@ Strona: https://kubi-dev.github.io/kubus/
 
 ## Dźwięk i mikrofon
 Strony nie używają elementu `<audio>`: mp3 gra `wymowa.js` przez jeden `AudioContext` na stronę (`Wymowa.graj(url)`,
-bufory cache'owane per plik, `Wymowa.preload(url)`), bo na iOS `<audio>` zapisuje do wspólnej sesji AVAudioSession
-i zabija rozpoznawanie mowy. Moduł ustawia `navigator.audioSession.type = "playback"` przy starcie i po każdym
-nasłuchu robi `ambient` → `playback`, żeby cofnąć kategorię ustawioną przez proces GPU (inaczej mp3 gra cicho).
-Między końcem nasłuchu a następnym startem jest odstęp (domyślnie 4,5 s; `localStorage kubus.wymowa.odstep`).
-Parametry testowe w URL: `?odstep=0`, `?sesja=0`, `?silnik=system|chmura|system-reload`.
-Szczegóły i plan testu na telefonie: `docs/plan-mikrofon-ios-spec.md`.
+`Wymowa.preload(url)`); martwy kontekst po uśpieniu karty (zegar stoi) jest wymieniany przy następnym dotknięciu.
+Sesja audio (`navigator.audioSession.type`): `playback` bezczynnie, `play-and-record` od naciśnięcia mikrofonu do końca
+nasłuchu (ustawiane przed `recognition.start()`, inaczej na iOS mikrofon Web Speech nagrywa ciszę). Po `onstart`
+`getUserMedia` nagrywa równolegle: w dzienniku widać poziom nagrania, a gdy Web Speech nic nie zwróci mimo głosu,
+tekst rozpoznaje Whisper (worker `/wymowa`). Silnik tylko-Whisper: `?silnik=chmura`, powrót: `?silnik=auto`.
 
 ## Trener tonów
 Po każdym wyniku mikrofonu (poza idealnym) strona rysuje wykres tonów sylaba po sylabie: kontur celu na górze, usłyszany na dole,
