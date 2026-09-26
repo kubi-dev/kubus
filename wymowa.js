@@ -207,18 +207,18 @@
     if (!H.length) H.push([0, "Nic chińskiego tu nie ma: mów dokładnie jak zapisane."]);
     return { pl: r.pl, rady: H.sort((a, b) => b[0] - a[0]).slice(0, 2).map(h => h[1]) };
   }
-  // esencja tonu: polska sytuacja + słowo, potem sylaba tak samo
+  // esencja tonu: polska sytuacja + słowo, potem sylaba tak samo (te same opisy co na stronie tony/)
   function podpowiedzTon(ton, pl) {
     const X = "„" + pl + "”";
     return {
-      1: `Jak „aaa” u lekarza: jedna nuta do końca. Powiedz „aaa”, potem ${X} dokładnie tak samo.`,
-      2: `Jak „Co?”, gdy nie dosłyszałeś. Powiedz „Co?”, potem ${X} tak samo, jak pytanie.`,
-      3: `Jak zmęczone westchnięcie „eeech”, aż głos trzeszczy. Westchnij, potem ${X} tak samo, trzeszcząc. Nie kończ ładnie.`,
-      4: `Jak „Nie!” do psa, który bierze kiełbasę. Krótko, ostro. Powiedz „Nie!”, potem ${X} tak samo.`,
-      5: `Jak ciche „-ma” z „mama”: krótko, bez siły, doklejone do poprzedniego kawałka.`,
+      1: `Jak u lekarza, który każe otworzyć usta: równe, długie, wysokie „Aaaa”. Głos nie skacze. Powiedz „Aaaa”, potem ${X} dokładnie tak samo.`,
+      2: `Jak zdziwione „Cooo?”, gdy ktoś mówi ci coś szokującego. Głos wędruje z dołu do góry. Powiedz „Cooo?”, potem ${X} tak samo.`,
+      3: `Jak przeciągłe zastanowienie „Noooo…”. Zaczynasz normalnie, schodzisz bardzo nisko (jakbyś dusił dźwięk w gardle), na koniec lekko odbijasz w górę. Powiedz „Noooo…”, potem ${X} tak samo.`,
+      4: `Jak stanowczy rozkaz „Nie!” albo „Zostaw!”: krótko, ostro, spada w dół. Powiedz „Nie!”, potem ${X} tak samo.`,
+      5: `Bardzo krótko, lekko, bez nacisku, jak końcówka polskiego wyrazu (drugie „ma” w „mama”). Doklej do poprzedniego kawałka.`,
     }[ton] || "";
   }
-  const KOTWICA_TONU = { 1: "„aaa” u lekarza", 2: "„Co?”", 3: "zmęczone „eeech”", 4: "„Nie!” do psa", 5: "ciche „-ma”" };
+  const KOTWICA_TONU = { 1: "„Aaaa” u lekarza", 2: "zdziwione „Cooo?”", 3: "przeciągłe „Noooo…”", 4: "stanowcze „Nie!”", 5: "lekka końcówka" };
   // ton do powiedzenia: dwa 3. tony pod rząd -> pierwszy mówisz jak 2. (你好); 不/一 liczy już pinyin-pro
   function tonMowiony(sylaby, i) { const t = sylaby[i].celTon; return t === 3 && sylaby[i + 1] && sylaby[i + 1].celTon === 3 ? 2 : t; }
   // podpowiedź dla jednej sylaby z wykresu: nie trafiony dźwięk -> jak zrobić dźwięk; dźwięk jest -> jak zrobić ton
@@ -226,7 +226,7 @@
     const s = sylaby[i], d = podpowiedzDzwiek(s.baza), ton = tonMowiony(sylaby, i);
     const naglowek = `<b>${esc(s.znak)}</b> powiedz: <b class="tp-pl">${esc(d.pl)}</b>`;
     if (!s.usl) return naglowek + `<div class="tp-lab">dźwięk</div>` + d.rady.map(r => `<div>${esc(r)}</div>`).join("");
-    const sandhi = ton !== s.celTon ? ` <span class="tp-lab">(dwa trzeszczące pod rząd: pierwszy mówisz jak „Co?”)</span>` : "";
+    const sandhi = ton !== s.celTon ? ` <span class="tp-lab">(dwa „Noooo…” pod rząd: pierwsze mówisz jak „Cooo?”)</span>` : "";
     const ok = s.uslTon === s.celTon;
     return naglowek + `<div class="tp-lab">${ok ? "✓ dźwięk i ton dobrze · " : "dźwięk dobrze, teraz "}ton: ${KOTWICA_TONU[ton]}${sandhi}</div><div>${esc(podpowiedzTon(ton, d.pl))}</div>`;
   }

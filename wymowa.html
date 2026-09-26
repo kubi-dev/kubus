@@ -320,7 +320,7 @@ function zapiszStat(grupa, ok) {
   try { localStorage.setItem(KLUCZ_STAT, JSON.stringify(t)); } catch (e) {}
   rysujStaty();
 }
-const KOTWICA = { 1: "„aaa”", 2: "„Co?”", 3: "„mhm”", 4: "„Nie!”", 5: "„-ma”" };  // polskie słowo, które brzmi jak dany ton
+const KOTWICA = { 1: "„Aaaa”", 2: "„Cooo?”", 3: "„Noooo…”", 4: "„Nie!”", 5: "„-ma”" };  // polskie słowo, które brzmi jak dany ton
 const NAZWY = { ton1: "1. ton", ton2: "2. ton", ton3: "3. ton", ton4: "4. ton", ton5: "lekki ton", tony: "słowa różniące się tonem", mowa: "mówienie (mikrofon)" };
 for (const g of (DATA.dzwieki || [])) NAZWY[g.id] = g.tytul;
 const LINK = (k) => /^ton[1-5]$/.test(k) ? "#ton-" + k[3] : k === "tony" ? "#uszy" : k === "mowa" ? "#cwicz" : "#dz-" + k;

@@ -3,13 +3,13 @@
   {
    "id": "zasada",
    "tytul": "Jedna zasada na cały kurs",
-   "opis": "Nigdy nie ucz się słowa bez tonu. Ton to część słowa, tak jak litery. „chał” powiedziane jak burknięte „mhm” to jedno słowo (dobry). „chał” powiedziane jak „Nie!” do psa to już inne słowo (numer). Gdy powtarzasz słówko, mów je na głos. W głowie tony nie działają.",
+   "opis": "Nigdy nie ucz się słowa bez tonu. Ton to część słowa, tak jak litery. „chał” powiedziane jak przeciągłe „Noooo…” to jedno słowo (dobry). „chał” powiedziane jak stanowcze „Nie!” to już inne słowo (numer). Gdy powtarzasz słówko, mów je na głos. W głowie tony nie działają.",
    "slowa": [
     {
      "znaki": "好",
      "pinyin": "hǎo",
      "polski": "chał",
-     "znaczenie": "dobry (jak „mhm”)"
+     "znaczenie": "dobry (jak „Noooo…”)"
     },
     {
      "znaki": "号",
@@ -22,7 +22,7 @@
   {
    "id": "znaczki",
    "tytul": "Znaczki nad literami",
-   "opis": "Nad literą stoi kreska albo daszek. To instrukcja dla głosu: które polskie słowo z życia skopiować.\nmā: prosta kreska. „aaa” u lekarza.\nmá: kreska w prawo do góry. „Co?”, gdy nie dosłyszałeś.\nmǎ: daszek. „mhm” burknięte znad telefonu.\nmà: kreska w prawo na dół. „Nie!” do psa.\nma: bez znaczka. Ciche „-ma” z „mama”.\nDaszek zawsze znaczy „mhm”. Kreska na dół zawsze znaczy „Nie!”. Tyle wystarczy.",
+   "opis": "Nad literą stoi kreska albo haczyk. To instrukcja dla głosu: które polskie słowo z życia skopiować.\nmā: pozioma kreska. Równe, długie, wysokie „Aaaa” u lekarza.\nmá: kreska wznosząca się w prawo. Zdziwione „Cooo?”: głos z dołu do góry.\nmǎ: haczyk, jak litera V. Przeciągłe „Noooo…”: bardzo nisko, na koniec lekko w górę.\nmà: kreska opadająca w prawo. Stanowcze „Nie!”: krótko, ostro, w dół.\nma: bez znaczka. Krótko i lekko, jak końcówka polskiego wyrazu.\nHaczyk zawsze znaczy „Noooo…”. Kreska w dół zawsze znaczy „Nie!”. Tyle wystarczy.",
    "slowa": [
     {
      "znaki": "妈",
@@ -61,11 +61,11 @@
   {
    "id": "ton1",
    "ton": 1,
-   "nazwa": "1. ton · „aaa” u lekarza",
-   "opis": "Ten ton to „aaaa” u lekarza. Jedna nuta, trzymana do końca słowa. Nic więcej.",
-   "przyklad_pl": "Lekarz zagląda ci do gardła i mówi: „Powiedz aaa”. Mówisz „aaaa” i trzymasz, aż lekarz skończy. Jedna nuta, nic się w niej nie zmienia. Drugi przykład: sygnał „zajęte” w telefonie, „tuuu”.",
-   "jak_cwiczyc": "Wyobraź sobie lekarza. Powiedz „aaaa” na trzy sekundy. Nie przerywaj, tylko w środku tego „aaaa” zmień usta i powiedz „ma” (妈). Ma brzmieć, jakby lekarz dalej patrzył ci w gardło. Potem tak samo „san” (三). Potem „pa” (八). Każde jak kawałek tego samego „aaaa”.",
-   "blad_polakow": "Poznasz błąd tak: powiedz „ma, ma, ma” trzy razy. Jeśli brzmi jak polskie zdanie z kropką na końcu (ostatnie „ma” ciszej, jakby zmęczone), to źle. Wszystkie trzy mają brzmieć jak jedno „aaaa” u lekarza, pocięte na kawałki. Drugi błąd: piszczysz, jakbyś się bał. Lekarzowi mówisz „aaa” zwykłym głosem. Tak samo tu.",
+   "nazwa": "1. ton (płaski i wysoki) · „Aaaa” u lekarza",
+   "opis": "Znak: pozioma kreska (mā). Wyobraź sobie, że jesteś u lekarza. Prosi, żebyś otworzył usta i powiedział równe, długie, wysokie „Aaaa”. Głos nie skacze, trzyma się na jednym, wysokim poziomie.",
+   "przyklad_pl": "Lekarz zagląda ci do gardła i mówi: „Powiedz aaa”. Mówisz „Aaaa” i trzymasz, aż lekarz skończy. Głos nie skacze, nic się w nim nie zmienia. Drugi przykład: sygnał „zajęte” w telefonie, „tuuu”.",
+   "jak_cwiczyc": "Wyobraź sobie lekarza. Powiedz „Aaaa” na trzy sekundy. Nie przerywaj, tylko w środku tego „Aaaa” zmień usta i powiedz „ma” (妈). Ma brzmieć, jakby lekarz dalej patrzył ci w gardło. Potem tak samo „san” (三). Potem „pa” (八). Każde jak kawałek tego samego „Aaaa”.",
+   "blad_polakow": "Poznasz błąd tak: powiedz „ma, ma, ma” trzy razy. Jeśli brzmi jak polskie zdanie z kropką na końcu (ostatnie „ma” ciszej, jakby zmęczone), to źle. Wszystkie trzy mają brzmieć jak jedno „Aaaa” u lekarza, pocięte na kawałki. Drugi błąd: piszczysz, jakbyś się bał. Wysoko, ale wygodnie, jak u lekarza.",
    "slowa": [
     {
      "znaki": "妈",
@@ -120,11 +120,11 @@
   {
    "id": "ton2",
    "ton": 2,
-   "nazwa": "2. ton · „Co?”, gdy nie dosłyszałeś",
-   "opis": "Ten ton to „Co?”, gdy nie dosłyszałeś. Całe słowo brzmi jak to jedno „Co?”.",
-   "przyklad_pl": "Ktoś mówi coś do ciebie z drugiego pokoju. Nie dosłyszałeś. Odkrzykujesz: „Co?”. Albo kolega mówi, że wygrał w totka, a ty: „Serio?”. Albo odbierasz telefon z nieznanego numeru: „Tak?”.",
-   "jak_cwiczyc": "Powiedz „Co?”, jakbyś nie dosłyszał. Teraz to samo „Co?”, tylko z innymi literami: „laj?” (来). Ma brzmieć jak pytanie odkrzyknięte do drugiego pokoju. Teraz „mej?” (没). Teraz „paj?” (白). Za każdym razem to samo zdziwione „Co?”, tylko inne litery.",
-   "blad_polakow": "Poznasz błąd tak: powiedz „laj” i zaraz po nim „Co?”. Jeśli „laj” brzmi jak stwierdzenie, a dopiero „Co?” jak pytanie, to „laj” było jak „aaa” u lekarza. Za mało zdziwienia. Ma być „laj?!” z takim samym niedowierzaniem jak „Serio?!”. Jak nie wychodzi, przesadź: „laaaj?!”.",
+   "nazwa": "2. ton (wznoszący) · zdziwione „Cooo?”",
+   "opis": "Znak: kreska wznosząca się w prawo (má). Brzmi dokładnie jak polskie zdziwienie, gdy o coś dopytujesz. Głos wędruje z dołu do góry. Całe słowo brzmi jak to jedno „Cooo?”.",
+   "przyklad_pl": "Ktoś mówi ci coś szokującego. Odpowiadasz z niedowierzaniem: „Cooo?”. Twój głos sam wędruje z dołu do góry. Tak samo, gdy kolega mówi, że wygrał w totka, a ty: „Serio?”.",
+   "jak_cwiczyc": "Powiedz „Cooo?”, jakbyś nie wierzył w to, co słyszysz. Teraz to samo „Cooo?”, tylko z innymi literami: „laj?” (来). Teraz „mej?” (没). Teraz „paj?” (白). Za każdym razem to samo niedowierzanie, tylko inne litery.",
+   "blad_polakow": "Poznasz błąd tak: powiedz „laj” i zaraz po nim „Cooo?”. Jeśli „laj” brzmi jak stwierdzenie, a dopiero „Cooo?” jak pytanie, to „laj” było jak „Aaaa” u lekarza. Za mało zdziwienia. Ma być „laj?!” z takim samym niedowierzaniem jak „Cooo?!”. Jak nie wychodzi, przesadź: „laaaj?!”.",
    "slowa": [
     {
      "znaki": "来",
@@ -179,11 +179,11 @@
   {
    "id": "ton3",
    "ton": 3,
-   "nazwa": "3. ton · zmęczone „mhm”, głos trzeszczy",
-   "opis": "Ten ton to zmęczone „mhm”. Poznasz je po jednym: głos trzeszczy, jak stare drzwi albo jak rano przed kawą. Nie brzmi ładnie i nie ma brzmieć. Trwa dłużej niż inne tony.",
-   "przyklad_pl": "Wracasz po ciężkim dniu, opadasz na kanapę i wypuszczasz powietrze: „eeech”. Na końcu głos trzeszczy. Tak samo brzmi „mhm”, gdy ktoś pyta „Wyniesiesz śmieci?”, a ty siedzisz z nosem w telefonie i nie masz siły odpowiedzieć. Albo przeciągnięte „nooo… nie wiem”. Wszędzie to samo: zmęczony głos, który trzeszczy.",
-   "jak_cwiczyc": "1. Usiądź ciężko i westchnij „eeech”, jakbyś wracał z 12 godzin roboty. Ciągnij to „eeech”, aż głos zacznie trzeszczeć jak stare drzwi. To trzeszczenie to cały sekret. Powtórz, aż złapiesz je 3 razy z rzędu.\n2. Westchnij tak samo, ale zamiast „eeech” powiedz „chaaał” (好). Tak samo zmęczone, tak samo trzeszczy. Nie mów wyraźnie. Nie kończ ładnie.\n3. Puść nagranie 好 niżej. Chińczyk też trzeszczy. Masz to samo? Dobrze.\n4. Tak samo „ło” (我) i „ni” (你). Każde jak zmęczone westchnięcie.\n5. Test: palce na gardle, tuż nad obojczykiem. Przy trzeszczeniu czujesz tam drganie. Głos gładki, czysty, nic nie drga? To „aaa” u lekarza, inne słowo. Wróć do kroku 1.",
-   "blad_polakow": "To najtrudniejszy ton dla Polaka, bo Polak chce powiedzieć „chał” ładnie i wyraźnie, jak w szkole. Wtedy wychodzi „aaa” u lekarza (gładki głos) albo „Co?” (pytanie). Test 1: powiedz „chał” (好) i zaraz „Co?”. Brzmią podobnie, jakby oba były pytaniem? Źle. „chał” ma trzeszczeć, nie pytać. Test 2: powiedz „chał” i zaraz „aaa” u lekarza. Oba gładkie i czyste? Źle. „chał” ma trzeszczeć. Ma się skończyć byle jak, zmęczone.",
+   "nazwa": "3. ton (opadająco-wznoszący) · przeciągłe „Noooo…”",
+   "opis": "Znak: haczyk, jak litera V (mǎ). Zaczynasz normalnie, schodzisz głosem bardzo nisko, jakbyś „dusił” dźwięk w gardle. Na sam koniec lekko odbijasz w górę. Trwa dłużej niż inne tony.",
+   "przyklad_pl": "Ktoś pyta cię o coś, a ty musisz się zastanowić. Mówisz przeciągle: „Noooo… nie wiem”. To „Noooo…” zaczyna się normalnie, schodzi nisko, aż dźwięk dusi się w gardle, a na sam koniec lekko odbija w górę.",
+   "jak_cwiczyc": "1. Wyobraź sobie, że ktoś pyta cię o coś trudnego. Powiedz przeciągle „Noooo…”, jakbyś się zastanawiał. Schodź nisko, aż dźwięk zacznie się dusić w gardle. Na końcu lekko odbij w górę. Powtórz 3 razy.\n2. Teraz tak samo, ale zamiast „Noooo…” powiedz „chaaał” (好). Tak samo przeciągle, tak samo duszone w gardle.\n3. Puść nagranie 好 niżej. Brzmi tak samo? Dobrze.\n4. Tak samo „ło” (我) i „ni” (你). Każde jak to zastanowienie.\n5. Test: palce na gardle, tuż nad obojczykiem. Gdy dźwięk się dusi, czujesz tam drganie. Nic nie drga, głos gładki i czysty? To „Aaaa” u lekarza, inne słowo. Wróć do kroku 1.",
+   "blad_polakow": "To najtrudniejszy ton dla Polaka, bo Polak chce powiedzieć „chał” ładnie i wyraźnie, jak w szkole. Wtedy wychodzi „Aaaa” u lekarza albo „Cooo?”. Test 1: powiedz „chał” (好) i zaraz „Cooo?”. Brzmią podobnie, jakby oba były zdziwieniem? Źle. „chał” ma najpierw zejść nisko, jak „Noooo…”. Test 2: powiedz „chał” i zaraz „Aaaa” u lekarza. Oba równe i wysokie? Źle. „chał” ma być jak przeciągłe zastanowienie.",
    "slowa": [
     {
      "znaki": "好",
@@ -250,11 +250,11 @@
   {
    "id": "ton4",
    "ton": 4,
-   "nazwa": "4. ton · „Nie!” do psa",
-   "opis": "Ten ton to „Nie!” do psa, który sięga po kiełbasę ze stołu. Krótko, jednym cięciem. Całe słowo brzmi jak to jedno „Nie!”.",
-   "przyklad_pl": "Pies ma już łapy na stole i sięga po kiełbasę. Krzyczysz: „Nie!”. Krótko, ostro, bez dyskusji. Albo dziecko biegnie na ulicę: „Stój!”. Albo przyłapałeś kogoś na gorącym uczynku: „Ha!”.",
-   "jak_cwiczyc": "Wyobraź sobie tego psa. Powiedz „Nie!”. Teraz to samo „Nie!” do psa, tylko z innymi literami: „pu!” (不). Teraz „ta!” (大). Teraz „aj!” (爱). Każde tak krótkie i ostre, jakby pies właśnie sięgał po kiełbasę.",
-   "blad_polakow": "Poznasz błąd tak: powiedz „pu” (不) i zaraz „Nie!” do psa. Jeśli „Nie!” było krótsze i ostrzejsze niż „pu”, to „pu” było za miękkie. Polak mówi „pu” jak koniec spokojnego zdania: „Idę spać.”. Za łagodnie. Ma być jak do psa. Drugi błąd: robisz „Nie!” na końcu każdego zdania, bo po polsku tak kończysz zdanie. Sprawdź na „ni chał” (你好, cześć): „chał” ma brzmieć jak leniwe „mhm”, nie jak „Nie!” do psa.",
+   "nazwa": "4. ton (opadający, krótki) · stanowcze „Nie!”",
+   "opis": "Znak: kreska opadająca w prawo (mà). Krótki, ostry i zdecydowany dźwięk, który spada w dół. Brzmi jak stanowczy polski rozkaz: „Nie!” albo „Zostaw!”. Całe słowo brzmi jak to jedno „Nie!”.",
+   "przyklad_pl": "Pies ma już łapy na stole i sięga po kiełbasę. Mówisz stanowczo: „Nie!” albo „Zostaw!”. Krótko, ostro, bez dyskusji. Albo dziecko biegnie na ulicę: „Stój!”.",
+   "jak_cwiczyc": "Wyobraź sobie, że wydajesz rozkaz. Powiedz „Nie!”. Teraz to samo „Nie!”, tylko z innymi literami: „pu!” (不). Teraz „ta!” (大). Teraz „aj!” (爱). Każde tak krótkie i stanowcze jak „Zostaw!”.",
+   "blad_polakow": "Poznasz błąd tak: powiedz „pu” (不) i zaraz „Nie!”. Jeśli „Nie!” było krótsze i ostrzejsze niż „pu”, to „pu” było za miękkie. Polak mówi „pu” jak koniec spokojnego zdania: „Idę spać.”. Za łagodnie. Ma być jak rozkaz. Drugi błąd: robisz „Nie!” na końcu każdego zdania, bo po polsku tak kończysz zdanie. Sprawdź na „ni chał” (你好, cześć): „chał” ma brzmieć jak przeciągłe „Noooo…”, nie jak „Nie!”.",
    "slowa": [
     {
      "znaki": "不",
@@ -321,8 +321,8 @@
   {
    "id": "ton5",
    "ton": 5,
-   "nazwa": "lekki ton · ciche „-ma” z „mama”",
-   "opis": "Ten ton to drugie „ma” w „mama”, gdy mówisz do dziecka. Krótkie, ciche, doklejone do pierwszej części. Samo nie ma żadnej melodii.",
+   "nazwa": "ton neutralny · krótko i lekko, jak końcówka wyrazu",
+   "opis": "Znak: brak znaczka nad literą (ma). Mówisz go bardzo krótko, lekko i bez nacisku, jakby to była końcówka polskiego wyrazu. Jak drugie „ma” w „mama”. Sam nie ma żadnej melodii.",
    "przyklad_pl": "Mówisz do małego dziecka: „Gdzie jest mama?”. Pierwsze „MA” mocne, drugie „ma” krótkie i ciche, jakby doklejone. Tak samo „TA-ta”, „BA-bcia”.",
    "jak_cwiczyc": "Powiedz „mama” jak do dziecka. Posłuchaj, jakie krótkie i ciche jest drugie „ma”. Teraz „ma-ma” (妈妈) dokładnie tak samo. Teraz „sie-sie” (谢谢): pierwsze „SIE” mocno, drugie jak to ciche „ma”. Teraz „ło-myn” (我们): „myn” jak to ciche „ma”.",
    "blad_polakow": "Poznasz błąd tak: powiedz „sie-sie” (谢谢). Jeśli oba „sie” brzmią jednakowo, jak dwa osobne słowa, to źle. Ma być „SIE-sie”, jak „MA-ma”. Polak daje drugiej części pełną siłę, bo po polsku obie części słowa są równe. Uwaga: ten cichy ogonek brzmi trochę inaczej po różnych pierwszych częściach, ale nie musisz tego kontrolować. Powiedz dobrze pierwszą część i doklej cichy ogonek. Sam się ustawi.",
@@ -381,8 +381,8 @@
  "zmiany_tonow": [
   {
    "id": "z33",
-   "tytul": "Dwa „mhm” pod rząd: pierwsze zmienia się w „Co?”",
-   "opis": "Niektóre słowa mówisz jak burknięte „mhm”. Gdy dwa takie słowa stoją obok siebie, pierwsze zmienia się w „Co?”. Drugie zostaje „mhm”. Powiedz na głos: „Co? mhm”. Teraz tak samo: ni chał (cześć). „ni” jak „Co?”, „chał” jak „mhm”. W zapisie nic się nie zmienia, zmienia się tylko głos. Błąd Polaka: mówi oba jak „mhm” albo oba jak „Co?”.",
+   "tytul": "Dwa „Noooo…” pod rząd: pierwsze zmienia się w „Cooo?”",
+   "opis": "Niektóre słowa mówisz jak przeciągłe „Noooo…”. Gdy dwa takie słowa stoją obok siebie, pierwsze zmienia się w „Cooo?”. Drugie zostaje „Noooo…”. Powiedz na głos: „Cooo? Noooo…”. Teraz tak samo: ni chał (cześć). „ni” jak „Cooo?”, „chał” jak „Noooo…”. W zapisie nic się nie zmienia, zmienia się tylko głos. Błąd Polaka: mówi oba jak „Noooo…” albo oba jak „Cooo?”.",
    "slowa": [
     {
      "znaki": "你好",
@@ -418,8 +418,8 @@
   },
   {
    "id": "z333",
-   "tytul": "Trzy „mhm” pod rząd",
-   "opis": "Czasem trzy takie słowa stoją obok siebie. Wtedy wszystkie oprócz ostatniego zmieniają się w „Co?”. Ostatnie zostaje „mhm”.\nPowiedz na głos: „Co? Co? mhm”. Teraz tak samo: ło chyn chał. „ło” i „chyn” jak „Co?”, „chał” jak „mhm”.",
+   "tytul": "Trzy „Noooo…” pod rząd",
+   "opis": "Czasem trzy takie słowa stoją obok siebie. Wtedy wszystkie oprócz ostatniego zmieniają się w „Cooo?”. Ostatnie zostaje „Noooo…”.\nPowiedz na głos: „Cooo? Cooo? Noooo…”. Teraz tak samo: ło chyn chał. „ło” i „chyn” jak „Cooo?”, „chał” jak „Noooo…”.",
    "slowa": [
     {
      "znaki": "我很好",
@@ -443,8 +443,8 @@
   },
   {
    "id": "zbu",
-   "tytul": "不 (nie): czasem brzmi jak „Co?” zamiast „Nie!”",
-   "opis": "不 znaczy „nie”. Normalnie mówisz je jak „Nie!” do psa. Ale gdy następne słowo też jest jak „Nie!”, 不 zmienia się w „Co?”. Powiedz na głos: „Co? Nie!”. Teraz tak samo: pu jał (不要, nie chcę). Gdy następne słowo nie jest jak „Nie!”, 不 zostaje jak było: pu chał (不好) to „Nie! mhm”.",
+   "tytul": "不 (nie): czasem brzmi jak „Cooo?” zamiast „Nie!”",
+   "opis": "不 znaczy „nie”. Normalnie mówisz je jak „Nie!”. Ale gdy następne słowo też jest jak „Nie!”, 不 zmienia się w „Cooo?”. Powiedz na głos: „Cooo? Nie!”. Teraz tak samo: pu jał (不要, nie chcę). Gdy następne słowo nie jest jak „Nie!”, 不 zostaje jak było: pu chał (不好) to „Nie! Noooo…”.",
    "slowa": [
     {
      "znaki": "不要",
@@ -481,7 +481,7 @@
   {
    "id": "zyi",
    "tytul": "一 (jeden): głos zależy od następnego słowa",
-   "opis": "一 znaczy „jeden”. Samo mówisz je jak „aaa” u lekarza. Gdy następne słowo jest jak „Nie!” do psa, 一 zmienia się w „Co?”. Powiedz na głos: „Co? Nie!”. Teraz tak samo: i pan (一半, połowa). Przed innymi słowami 一 mówisz jak „Nie!”: i paj (一百, sto) to „Nie! mhm”. W liczbach zostaje jak „aaa”: ti-i (第一, pierwszy).",
+   "opis": "一 znaczy „jeden”. Samo mówisz je jak „Aaaa” u lekarza. Gdy następne słowo jest jak „Nie!”, 一 zmienia się w „Cooo?”. Powiedz na głos: „Cooo? Nie!”. Teraz tak samo: i pan (一半, połowa). Przed innymi słowami 一 mówisz jak „Nie!”: i paj (一百, sto) to „Nie! Noooo…”. W liczbach zostaje jak „Aaaa”: ti-i (第一, pierwszy).",
    "slowa": [
     {
      "znaki": "一半",
@@ -511,8 +511,8 @@
   },
   {
    "id": "zlekki",
-   "tytul": "Lekka końcówka: krótko i cicho",
-   "opis": "Niektóre słowa mają końcówkę bez własnego głosu. Mówisz ją jak drugie „ma” w „mama”: krótko, cicho, doklejone do przodu. Powiedz na głos „mama” jak do dziecka. Teraz tak samo: ma-ma (妈妈), sie-sie (谢谢).",
+   "tytul": "Lekka końcówka: krótko i lekko",
+   "opis": "Niektóre słowa mają końcówkę bez własnego głosu. Mówisz ją jak drugie „ma” w „mama”: bardzo krótko, lekko, bez nacisku, doklejone do przodu. Powiedz na głos „mama” jak do dziecka. Teraz tak samo: ma-ma (妈妈), sie-sie (谢谢).",
    "slowa": [
     {
      "znaki": "谢谢",
@@ -543,7 +543,7 @@
   {
    "id": "zkoncowki",
    "tytul": "Małe słówka na końcu zdania też są bez tonu",
-   "opis": "Mów je jak drugie „ma” w „mama”: krótko, cicho, doklejone do poprzedniego słowa. Nie mów „ma” osobno i mocno. Ma ledwo być słychać.",
+   "opis": "Mów je jak drugie „ma” w „mama”: bardzo krótko, lekko, bez nacisku, doklejone do poprzedniego słowa. Nie mów „ma” osobno i mocno. Ma ledwo być słychać.",
    "slowa": [
     {
      "znaki": "你好吗",
@@ -576,7 +576,7 @@
   {
    "id": "nacisk",
    "tytul": "Nie naciskaj po polsku",
-   "opis": "Po polsku mocniej mówisz przedostatnią część słowa: po-mi-DO-ry, ko-le-ŻAN-ka. Po chińsku tak nie wolno. Każda część ma swoje własne polskie słowo do skopiowania i swoją długość.\nPowiedz powoli, trzy równe kawałki: „ło” jak „mhm”, „aj” jak „Nie!” do psa, „ni” jak „mhm”. Nie „ło-AJ-ni”. Trzy kawałki, każdy tak samo mocny.",
+   "opis": "Po polsku mocniej mówisz przedostatnią część słowa: po-mi-DO-ry, ko-le-ŻAN-ka. Po chińsku tak nie wolno. Każda część ma swoje własne polskie słowo do skopiowania i swoją długość.\nPowiedz powoli, trzy równe kawałki: „ło” jak „Noooo…”, „aj” jak „Nie!”, „ni” jak „Noooo…”. Nie „ło-AJ-ni”. Trzy kawałki, każdy tak samo mocny.",
    "slowa": [
     {
      "znaki": "我爱你",
@@ -607,7 +607,7 @@
   {
    "id": "pytanie",
    "tytul": "Pytanie nie brzmi jak polskie pytanie",
-   "opis": "Po polsku pytanie robisz głosem na końcu: „Jesteś głodny?” brzmi inaczej niż „Jesteś głodny.”. Po chińsku nie. Pytanie robi małe słówko na końcu albo samo słowo pytające. Każde słowo brzmi tak, jak ma brzmieć w słowniku.\n你好吗: „chał” jak „mhm”, „ma” jak ciche „-ma” z „mama”. Na końcu nie rób „Co?”.\n你来吗: „laj” brzmi jak „Co?”, bo tak brzmi to słowo. Nie dlatego, że to pytanie.\nJak zrobisz na końcu polskie pytanie, zmienisz ostatnie słowo w inne.",
+   "opis": "Po polsku pytanie robisz głosem na końcu: „Jesteś głodny?” brzmi inaczej niż „Jesteś głodny.”. Po chińsku nie. Pytanie robi małe słówko na końcu albo samo słowo pytające. Każde słowo brzmi tak, jak ma brzmieć w słowniku.\n你好吗: „chał” jak „Noooo…”, „ma” krótko i lekko, jak „-ma” w „mama”. Na końcu nie rób „Cooo?”.\n你来吗: „laj” brzmi jak „Cooo?”, bo tak brzmi to słowo. Nie dlatego, że to pytanie.\nJak zrobisz na końcu polskie pytanie, zmienisz ostatnie słowo w inne.",
    "slowa": [
     {
      "znaki": "你好吗",
@@ -638,7 +638,7 @@
   {
    "id": "reka",
    "tytul": "Rysuj głos ręką",
-   "opis": "Mów i jednocześnie prowadź rękę w powietrzu.\n„aaa” u lekarza: ręka płasko na wysokości oczu, nie rusza się.\n„Co?”: ręka od pasa do oczu.\n„mhm”: ręka przy pasie i tam zostaje.\n„Nie!” do psa: ręka ostro od oczu do pasa.\nJak ręka stoi w miejscu, a mówisz „Co?”, to znaczy, że mówisz jak „aaa”.\nSprawdź „mhm” tak: powiedz „chał” (好) i połóż palce na gardle, tuż nad obojczykiem. Przy dobrym „mhm” czujesz tam drganie. Jak czujesz je wyżej, pod brodą, mówisz jak „aaa” u lekarza.",
+   "opis": "Mów i jednocześnie prowadź rękę w powietrzu.\n„Aaaa” u lekarza: ręka płasko na wysokości oczu, nie rusza się.\n„Cooo?”: ręka od pasa do oczu.\n„Noooo…”: ręka schodzi nisko, pod pas, a na koniec lekko podskakuje.\n„Nie!”: ręka ostro od oczu do pasa.\nJak ręka stoi w miejscu, a mówisz „Cooo?”, to znaczy, że mówisz jak „Aaaa”.\nSprawdź „Noooo…” tak: powiedz „chał” (好) i połóż palce na gardle, tuż nad obojczykiem. Gdy dźwięk się dusi, czujesz tam drganie. Jak czujesz je wyżej, pod brodą, mówisz jak „Aaaa” u lekarza.",
    "slowa": [
     {
      "znaki": "妈",
@@ -671,7 +671,7 @@
   {
    "id": "t3-2",
    "tony": "3-2",
-   "opis": "Najtrudniejsza para. Pierwsze słowo jak burknięte „mhm”, drugie jak „Co?”. Powiedz na głos: „mhm… Co?”. Potem tak samo mej-kło. Polakowi łatwo wychodzi odwrotnie: „Co? mhm”. A tak brzmi 你好 (ní hǎo), czyli co innego.",
+   "opis": "Najtrudniejsza para. Pierwsze słowo jak przeciągłe „Noooo…”, drugie jak „Cooo?”. Powiedz na głos: „Noooo… Cooo?”. Potem tak samo mej-kło. Polakowi łatwo wychodzi odwrotnie: „Cooo? Noooo…”. A tak brzmi 你好 (ní hǎo), czyli co innego.",
    "slowa": [
     {
      "znaki": "美国",
@@ -696,7 +696,7 @@
   {
    "id": "t2-1",
    "tony": "2-1",
-   "opis": "Pierwsze jak „Co?”, drugie jak „aaa” u lekarza. Powiedz na głos: „Co? aaa”. Potem tak samo paj-mał. Pułapka: „Co?” mówisz bez zdziwienia i wychodzi jak „aaa aaa”. Zrób z „Co?” prawdziwe pytanie. Porównaj 白猫 paj-mał („Co? aaa”) z 小猫 siał-mał („mhm aaa”). Drugie słowo takie samo.",
+   "opis": "Pierwsze jak „Cooo?”, drugie jak „Aaaa” u lekarza. Powiedz na głos: „Cooo? Aaaa”. Potem tak samo paj-mał. Pułapka: „Cooo?” mówisz bez zdziwienia i wychodzi jak „Aaaa Aaaa”. Zrób z „Cooo?” prawdziwe zdziwienie. Porównaj 白猫 paj-mał („Cooo? Aaaa”) z 小猫 siał-mał („Noooo… Aaaa”). Drugie słowo takie samo.",
    "slowa": [
     {
      "znaki": "白猫",
@@ -721,7 +721,7 @@
   {
    "id": "t2-4",
    "tony": "2-4",
-   "opis": "„Co?”, a zaraz po nim „Nie!” do psa. Powiedz na głos: „Co? Nie!”. Potem tak samo słowa poniżej. „Co?” ma być prawdziwym pytaniem, ze zdziwieniem.",
+   "opis": "„Cooo?”, a zaraz po nim „Nie!”. Powiedz na głos: „Cooo? Nie!”. Potem tak samo słowa poniżej. „Cooo?” ma być prawdziwym zdziwieniem.",
    "slowa": [
     {
      "znaki": "难过",
@@ -746,7 +746,7 @@
   {
    "id": "t3-3",
    "tony": "3-3",
-   "opis": "Dwa słowa jak „mhm” pod rząd. Wtedy pierwsze samo zmienia się w „Co?”. Drugie zostaje „mhm”. Dlatego 你好 mówi się „ní hǎo”: „Co? mhm”. Zapis się nie zmienia, tylko wymowa.",
+   "opis": "Dwa słowa jak „Noooo…” pod rząd. Wtedy pierwsze samo zmienia się w „Cooo?”. Drugie zostaje „Noooo…”. Dlatego 你好 mówi się „ní hǎo”: „Cooo? Noooo…”. Zapis się nie zmienia, tylko wymowa.",
    "slowa": [
     {
      "znaki": "你好",
@@ -771,7 +771,7 @@
   {
    "id": "t2-3",
    "tony": "2-3",
-   "opis": "„Co?”, potem „mhm”. Powiedz na głos: „Co? mhm…”. Ta para wychodzi Polakom dobrze. Ćwicz ją przed parami 2-1 i 2-4.",
+   "opis": "„Cooo?”, potem „Noooo…”. Powiedz na głos: „Cooo? Noooo…”. Ta para wychodzi Polakom dobrze. Ćwicz ją przed parami 2-1 i 2-4.",
    "slowa": [
     {
      "znaki": "没有",
@@ -796,7 +796,7 @@
   {
    "id": "t4-4",
    "tony": "4-4",
-   "opis": "Dwa razy „Nie!”, ale jednym ruchem. Nie rób dwóch osobnych „Nie! Nie!”. Bardziej jak szybkie „Nie ma!” do psa. Pierwsze krótsze, dopiero drugie jest tym prawdziwym „Nie!”.",
+   "opis": "Dwa razy „Nie!”, ale jednym ruchem. Nie rób dwóch osobnych „Nie! Nie!”. Bardziej jak szybkie stanowcze „Nie ma!”. Pierwsze krótsze, dopiero drugie jest tym prawdziwym „Nie!”.",
    "slowa": [
     {
      "znaki": "做饭",
@@ -821,7 +821,7 @@
   {
    "id": "t3-4",
    "tony": "3-4",
-   "opis": "„mhm”, potem „Nie!” do psa. Powiedz na głos: „mhm… Nie!”. Pierwsze leniwe, drugie ostre.",
+   "opis": "„Noooo…”, potem „Nie!”. Powiedz na głos: „Noooo… Nie!”. Pierwsze przeciągłe, drugie ostre.",
    "slowa": [
     {
      "znaki": "米饭",
@@ -846,7 +846,7 @@
   {
    "id": "t3-1",
    "tony": "3-1",
-   "opis": "„mhm”, potem „aaa” u lekarza. Powiedz na głos: „mhm… aaa”. Najlepsza para na naukę „aaa”: po leniwym „mhm” „aaa” samo wychodzi jak trzeba.",
+   "opis": "„Noooo…”, potem „Aaaa” u lekarza. Powiedz na głos: „Noooo… Aaaa”. Najlepsza para na naukę „Aaaa”: po przeciągłym „Noooo…” „Aaaa” samo wychodzi jak trzeba.",
    "slowa": [
     {
      "znaki": "手机",
@@ -871,7 +871,7 @@
   {
    "id": "t1-3",
    "tony": "1-3",
-   "opis": "„aaa” u lekarza, potem „mhm”. Powiedz na głos: „aaa… mhm”. Drugie słowo nie może brzmieć jak „Co?”. Ma być leniwe, z telefonu.",
+   "opis": "„Aaaa” u lekarza, potem „Noooo…”. Powiedz na głos: „Aaaa… Noooo…”. Drugie słowo nie może brzmieć jak „Cooo?”. Ma być przeciągłe, jak zastanowienie.",
    "slowa": [
     {
      "znaki": "家里",
@@ -896,7 +896,7 @@
   {
    "id": "t1-2",
    "tony": "1-2",
-   "opis": "„aaa” u lekarza, potem „Co?”. Powiedz na głos: „aaa… Co?”. Trudne: zaraz po spokojnym „aaa” trzeba zrobić prawdziwe zdziwienie.",
+   "opis": "„Aaaa” u lekarza, potem „Cooo?”. Powiedz na głos: „Aaaa… Cooo?”. Trudne: zaraz po spokojnym „Aaaa” trzeba zrobić prawdziwe zdziwienie.",
    "slowa": [
     {
      "znaki": "阿姨",
@@ -921,7 +921,7 @@
   {
    "id": "t2-2",
    "tony": "2-2",
-   "opis": "Dwa razy „Co?”. Powiedz na głos: „Co? Co?”. Każde ma być osobnym pytaniem, ze zdziwieniem. Nie „Co? co”.",
+   "opis": "Dwa razy „Cooo?”. Powiedz na głos: „Cooo? Cooo?”. Każde ma być osobnym zdziwieniem. Nie „Cooo? cooo”.",
    "slowa": [
     {
      "znaki": "男孩",
@@ -946,7 +946,7 @@
   {
    "id": "t4-3",
    "tony": "4-3",
-   "opis": "„Nie!” do psa, potem „mhm”. Powiedz na głos: „Nie! mhm…”. Po ostrym „Nie!” drugie leniwe, jakbyś od razu stracił siły.",
+   "opis": "„Nie!”, potem „Noooo…”. Powiedz na głos: „Nie! Noooo…”. Po ostrym „Nie!” drugie przeciągłe, jakbyś musiał się zastanowić.",
    "slowa": [
     {
      "znaki": "汉堡",
@@ -971,7 +971,7 @@
   {
    "id": "t4-2",
    "tony": "4-2",
-   "opis": "„Nie!” do psa, potem „Co?”. Powiedz na głos: „Nie! Co?”. Potem tak samo słowa poniżej.",
+   "opis": "„Nie!”, potem „Cooo?”. Powiedz na głos: „Nie! Cooo?”. Potem tak samo słowa poniżej.",
    "slowa": [
     {
      "znaki": "大楼",
@@ -996,7 +996,7 @@
   {
    "id": "t4-1",
    "tony": "4-1",
-   "opis": "„Nie!” do psa, potem „aaa” u lekarza. Powiedz na głos: „Nie! aaa”. Po „Nie!” drugie spokojne, jedna nuta, bez emocji.",
+   "opis": "„Nie!”, potem „Aaaa” u lekarza. Powiedz na głos: „Nie! Aaaa”. Po „Nie!” drugie spokojne, jedna nuta, bez emocji.",
    "slowa": [
     {
      "znaki": "蛋糕",
@@ -1021,7 +1021,7 @@
   {
    "id": "t1-4",
    "tony": "1-4",
-   "opis": "„aaa” u lekarza, potem „Nie!” do psa. Powiedz na głos: „aaa… Nie!”. Łatwa para.",
+   "opis": "„Aaaa” u lekarza, potem „Nie!”. Powiedz na głos: „Aaaa… Nie!”. Łatwa para.",
    "slowa": [
     {
      "znaki": "说话",
@@ -1046,7 +1046,7 @@
   {
    "id": "t1-1",
    "tony": "1-1",
-   "opis": "Najłatwiejsza para. Dwa razy „aaa” u lekarza, jakby lekarz cały czas patrzył w gardło. Jedna nuta, pocięta na dwa słowa.",
+   "opis": "Najłatwiejsza para. Dwa razy „Aaaa” u lekarza, jakby lekarz cały czas patrzył w gardło. Jedna nuta, pocięta na dwa słowa.",
    "slowa": [
     {
      "znaki": "飞机",
@@ -1071,7 +1071,7 @@
   {
    "id": "t3-5",
    "tony": "3-5",
-   "opis": "„mhm”, potem ciche „-ma” z „mama”. Powiedz leniwe „ło”, a zaraz po nim szybko i cicho „myn”. Ogonek sam się ustawi.",
+   "opis": "„Noooo…”, potem lekka końcówka, jak „-ma” w „mama”. Powiedz przeciągłe „ło”, a zaraz po nim szybko i lekko „myn”. Ogonek sam się ustawi.",
    "slowa": [
     {
      "znaki": "我们",
@@ -1096,7 +1096,7 @@
   {
    "id": "t2-5",
    "tony": "2-5",
-   "opis": "„Co?”, potem ciche „-ma” z „mama”. Powiedz „Co?” i dorzuć ciche „ma”. Jak polskie „MA-ma”, tylko pierwsze „MA” to pytanie „Co?”.",
+   "opis": "„Cooo?”, potem lekka końcówka, jak „-ma” w „mama”. Powiedz „Cooo?” i dorzuć krótkie, lekkie „ma”. Jak polskie „MA-ma”, tylko pierwsze „MA” to zdziwione „Cooo?”.",
    "slowa": [
     {
      "znaki": "爷爷",
@@ -1115,7 +1115,7 @@
   {
    "id": "t4-5",
    "tony": "4-5",
-   "opis": "„Nie!” do psa, potem ciche „-ma” z „mama”. 谢谢 to „SIE-sie”: pierwszy kawałek jak „Nie!”, drugi cichy. Nie dwa razy równe „sie-sie”.",
+   "opis": "„Nie!”, potem lekka końcówka, jak „-ma” w „mama”. 谢谢 to „SIE-sie”: pierwszy kawałek jak „Nie!”, drugi krótki i lekki. Nie dwa razy równe „sie-sie”.",
    "slowa": [
     {
      "znaki": "谢谢",
@@ -1140,7 +1140,7 @@
   {
    "id": "t1-5",
    "tony": "1-5",
-   "opis": "„aaa” u lekarza, potem ciche „-ma” z „mama”. Dokładnie jak polskie „MA-ma”. Powiedz na głos „MA-ma”, a potem tak samo ma-ma.",
+   "opis": "„Aaaa” u lekarza, potem lekka końcówka, jak „-ma” w „mama”. Dokładnie jak polskie „MA-ma”. Powiedz na głos „MA-ma”, a potem tak samo ma-ma.",
    "slowa": [
     {
      "znaki": "妈妈",
@@ -1171,7 +1171,7 @@
     "polski": "maj",
     "znaczenie": "sprzedawać"
    },
-   "roznica": "Kupować: jak „mhm”. Sprzedawać: jak „Nie!” do psa. To samo słowo, odwrotne znaczenie."
+   "roznica": "Kupować: jak „Noooo…”. Sprzedawać: jak „Nie!”. To samo słowo, odwrotne znaczenie."
   },
   {
    "a": {
@@ -1186,7 +1186,7 @@
     "polski": "ma",
     "znaczenie": "koń"
    },
-   "roznica": "Mama: jak „aaa” u lekarza. Koń: jak „mhm”. Pomylisz i nazwiesz mamę koniem."
+   "roznica": "Mama: jak „Aaaa” u lekarza. Koń: jak „Noooo…”. Pomylisz i nazwiesz mamę koniem."
   },
   {
    "a": {
@@ -1201,7 +1201,7 @@
     "polski": "ma",
     "znaczenie": "koń"
    },
-   "roznica": "Konopie; drętwieć: jak „Co?”. Koń: jak „mhm”. Ta para idzie Polakom najgorzej."
+   "roznica": "Konopie; drętwieć: jak „Cooo?”. Koń: jak „Noooo…”. Ta para idzie Polakom najgorzej."
   },
   {
    "a": {
@@ -1216,7 +1216,7 @@
     "polski": "ma",
     "znaczenie": "nakrzyczeć"
    },
-   "roznica": "Koń: jak „mhm”. Nakrzyczeć: jak „Nie!” do psa."
+   "roznica": "Koń: jak „Noooo…”. Nakrzyczeć: jak „Nie!”."
   },
   {
    "a": {
@@ -1231,7 +1231,7 @@
     "polski": "joł",
     "znaczenie": "mieć"
    },
-   "roznica": "Olej: jak „Co?”. Mieć: jak „mhm”."
+   "roznica": "Olej: jak „Cooo?”. Mieć: jak „Noooo…”."
   },
   {
    "a": {
@@ -1246,7 +1246,7 @@
     "polski": "mał",
     "znaczenie": "sierść, futro"
    },
-   "roznica": "Kot: jak „aaa” u lekarza. Sierść, futro: jak „Co?”."
+   "roznica": "Kot: jak „Aaaa” u lekarza. Sierść, futro: jak „Cooo?”."
   },
   {
    "a": {
@@ -1261,7 +1261,7 @@
     "polski": "ja",
     "znaczenie": "ząb"
    },
-   "roznica": "Kaczka: jak „aaa” u lekarza. Ząb: jak „Co?”."
+   "roznica": "Kaczka: jak „Aaaa” u lekarza. Ząb: jak „Cooo?”."
   },
   {
    "a": {
@@ -1276,7 +1276,7 @@
     "polski": "fej",
     "znaczenie": "tłusty"
    },
-   "roznica": "Latać: jak „aaa” u lekarza. Tłusty: jak „Co?”."
+   "roznica": "Latać: jak „Aaaa” u lekarza. Tłusty: jak „Cooo?”."
   },
   {
    "a": {
@@ -1291,7 +1291,7 @@
     "polski": "pa",
     "znaczenie": "tata"
    },
-   "roznica": "Osiem: jak „aaa” u lekarza. Tata: jak „Nie!” do psa."
+   "roznica": "Osiem: jak „Aaaa” u lekarza. Tata: jak „Nie!”."
   },
   {
    "a": {
@@ -1306,7 +1306,7 @@
     "polski": "i",
     "znaczenie": "krzesło"
    },
-   "roznica": "Jeden: jak „aaa” u lekarza. Krzesło: jak „mhm”."
+   "roznica": "Jeden: jak „Aaaa” u lekarza. Krzesło: jak „Noooo…”."
   },
   {
    "a": {
@@ -1321,7 +1321,7 @@
     "polski": "koł",
     "znaczenie": "wystarczy"
    },
-   "roznica": "Pies: jak „mhm”. Wystarczy: jak „Nie!” do psa."
+   "roznica": "Pies: jak „Noooo…”. Wystarczy: jak „Nie!”."
   },
   {
    "a": {
@@ -1336,7 +1336,7 @@
     "polski": "ta",
     "znaczenie": "duży"
    },
-   "roznica": "Bić, uderzać: jak „mhm”. Duży: jak „Nie!” do psa."
+   "roznica": "Bić, uderzać: jak „Noooo…”. Duży: jak „Nie!”."
   },
   {
    "a": {
@@ -1351,7 +1351,7 @@
     "polski": "chał",
     "znaczenie": "numer"
    },
-   "roznica": "Dobry: jak „mhm”. Numer: jak „Nie!” do psa."
+   "roznica": "Dobry: jak „Noooo…”. Numer: jak „Nie!”."
   },
   {
    "a": {
@@ -1366,7 +1366,7 @@
     "polski": "mej",
     "znaczenie": "młodsza siostra"
    },
-   "roznica": "Piękny: jak „mhm”. Młodsza siostra: jak „Nie!” do psa."
+   "roznica": "Piękny: jak „Noooo…”. Młodsza siostra: jak „Nie!”."
   },
   {
    "a": {
@@ -1381,7 +1381,7 @@
     "polski": "siał",
     "znaczenie": "śmiać się"
    },
-   "roznica": "Mały: jak „mhm”. Śmiać się: jak „Nie!” do psa."
+   "roznica": "Mały: jak „Noooo…”. Śmiać się: jak „Nie!”."
   },
   {
    "a": {
@@ -1396,7 +1396,7 @@
     "polski": "na",
     "znaczenie": "tamten, tamto"
    },
-   "roznica": "Brać: jak „Co?”. Tamten, tamto: jak „Nie!” do psa."
+   "roznica": "Brać: jak „Cooo?”. Tamten, tamto: jak „Nie!”."
   },
   {
    "a": {
@@ -1411,7 +1411,7 @@
     "polski": "paj",
     "znaczenie": "sto"
    },
-   "roznica": "Biały: jak „Co?”. Sto: jak „mhm”. Przy liczeniu pieniędzy słychać od razu."
+   "roznica": "Biały: jak „Cooo?”. Sto: jak „Noooo…”. Przy liczeniu pieniędzy słychać od razu."
   },
   {
    "a": {
@@ -1426,7 +1426,7 @@
     "polski": "san",
     "znaczenie": "parasol"
    },
-   "roznica": "Trzy: jak „aaa” u lekarza. Parasol: jak „mhm”."
+   "roznica": "Trzy: jak „Aaaa” u lekarza. Parasol: jak „Noooo…”."
   },
   {
    "a": {
@@ -1441,7 +1441,7 @@
     "polski": "łyn",
     "znaczenie": "pytać"
    },
-   "roznica": "Pocałunek: jak „mhm”. Pytać: jak „Nie!” do psa. Pomylisz i zamiast zapytać, pocałujesz."
+   "roznica": "Pocałunek: jak „Noooo…”. Pytać: jak „Nie!”. Pomylisz i zamiast zapytać, pocałujesz."
   }
  ],
  "dzwieki": [
@@ -2855,7 +2855,7 @@
   {
    "id": "liczby",
    "tytul": "Na koniec: policz od 1 do 10",
-   "opis": "Tu jest wszystko naraz: tony i trudne dźwięki (sy, szy, ćhi, ar, lioł). Jak to wychodzi, reszta też wyjdzie.\nPara do ucha: 四 „sy” (cztery) to twarde s, jak „Nie!” do psa. 十 „szy” (dziesięć) to sz, jak „Co?”. Przy cenach mylą się najczęściej.",
+   "opis": "Tu jest wszystko naraz: tony i trudne dźwięki (sy, szy, ćhi, ar, lioł). Jak to wychodzi, reszta też wyjdzie.\nPara do ucha: 四 „sy” (cztery) to twarde s, jak „Nie!”. 十 „szy” (dziesięć) to sz, jak „Cooo?”. Przy cenach mylą się najczęściej.",
    "slowa": [
     {
      "znaki": "一",

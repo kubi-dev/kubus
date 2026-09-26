@@ -46,20 +46,20 @@ JAK PISAĆ — to najważniejsze:
   "sylaba", "ton opadający", "kontur", "przydech", "intonacja", "wysokość głosu", "modulacja", "nagłos", "spółgłoska".
 - Ton tłumacz TYLKO przez polski przykład z życia: sytuacja + polskie słowo, które wtedy tak samo brzmi. Uczeń ma to
   polskie słowo powiedzieć na głos, a potem chińską sylabę DOKŁADNIE tak samo. Przykłady do użycia (wybierz jeden na ton):
-  1. ton: lekarz każe powiedzieć "aaaa" · nucisz "laaa" jedną nutą · sygnał "zajęte" w telefonie
-  2. ton: nie dosłyszałeś i odkrzykujesz "Co?" · "Serio?" z niedowierzaniem · "Tak?" odbierając telefon
-  3. ton: zmęczone westchnięcie "eeech" po ciężkim dniu, aż głos trzeszczy jak stare drzwi · burknięte "mhm" znad telefonu · zniechęcone "nooo… nie wiem".
-     Opisuj tak: "westchnij eeech jak po 12 godzinach roboty, aż głos zacznie trzeszczeć; teraz tak samo, zmęczone i trzeszczące, powiedz chał"
-  4. ton: krzyczysz "Nie!" do psa, który sięga po kiełbasę ze stołu · "Stój!" · "Ha!" gdy kogoś przyłapałeś
-  NIE pisz "wysoko", "nisko", "w górę", "w dół", "równo" — uczeń nie wie, co to znaczy. Zawsze sytuacja + polskie słowo.
-  Wzór wskazówki: "Powiedz po polsku 'Co?' jak wtedy, gdy nie dosłyszałeś. Teraz 'siang' powiedz dokładnie tak samo jak to 'Co?'."
+  1. ton: lekarz prosi, żebyś otworzył usta i powiedział równe, długie, wysokie "Aaaa". Głos nie skacze, trzyma się na jednym, wysokim poziomie.
+  2. ton: polskie zdziwienie, gdy o coś dopytujesz. Ktoś mówi ci coś szokującego, a ty z niedowierzaniem: "Cooo?". Głos wędruje z dołu do góry.
+  3. ton: przeciągłe zastanowienie "Noooo…". Zaczynasz normalnie, schodzisz głosem bardzo nisko (jakbyś "dusił" dźwięk w gardle), a na sam koniec lekko odbijasz w górę.
+  4. ton: stanowczy polski rozkaz "Nie!" albo "Zostaw!". Krótki, ostry, zdecydowany dźwięk spadający w dół.
+  neutralny: bardzo krótko, lekko i bez nacisku, jak końcówka polskiego wyrazu (drugie "ma" w "mama").
+  Słowa "wysoko", "nisko", "z dołu do góry", "w dół" wolno TYLKO razem z tym polskim słowem, nigdy same.
+  Wzór wskazówki: "Powiedz po polsku 'Cooo?', jakby ktoś powiedział ci coś szokującego. Teraz 'siang' powiedz dokładnie tak samo jak to 'Cooo?'."
   Numer tonu podaj tylko w nawiasie na końcu, np. "(to 2. ton)".
 - Zamiast pinyinu mów po polsku, jak to brzmi, np. zamiast "hē" pisz "chy". Możesz dać pinyin w nawiasie.
-- Pokaż ruch głosu strzałką w tekście: → jak "aaa", ↗ jak "Co?", ↘↗ jak "mhm", ↘ jak "Nie!".
+- Pokaż ruch głosu strzałką w tekście: → jak "Aaaa", ↗ jak "Cooo?", ↘↗ jak "Noooo…", ↘ jak "Nie!".
 - Konkretna instrukcja "zrób tak": co ma zrobić z głosem, nie dlaczego.
 
 Pola odpowiedzi:
-- diagnoza: 1-2 krótkie zdania. Które słowo i co zrobił głos, też przez polski przykład. Wzór: "W 'siang' głos poszedł ci w dół, jak w 'Nie!'. Ma być jak 'No-o…': w dół i z powrotem."
+- diagnoza: 1-2 krótkie zdania. Które słowo i co zrobił głos, też przez polski przykład. Wzór: "W 'siang' głos poszedł ci w dół, jak w 'Nie!'. Ma być jak 'Noooo…': bardzo nisko i na koniec lekko w górę."
 - Uczeń ma pod tekstem przycisk z nagraniem złej sylaby i ćwiczenia (wolno). Zawsze zacznij wskazówkę od "Posłuchaj nagrania" i każ powtórzyć 3 razy.
 - wskazowka: 2-3 krótkie zdania wg wzoru wyżej: polska sytuacja, polskie słowo, "powiedz na głos", potem chińska sylaba "tak samo". Jeśli złe są dwie sylaby, weź tylko tę ważniejszą.
   Jeśli poziom to close/bad, to zamiast tonu powiedz, jak brzmi zła głoska, np. "'czhy' mów z dmuchnięciem, jak czh w 'czhamp'".
