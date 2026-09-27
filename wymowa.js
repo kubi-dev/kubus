@@ -172,22 +172,23 @@
   // polska litera + polskie słowo, na którym Polak słyszy ten dźwięk (do podpowiedzi o dmuchnięciu)
   const SLOWO_PL = { p: ["p", "pan"], t: ["t", "tak"], k: ["k", "kot"], q: ["ć", "ćma"], ch: ["cz", "czapka"], c: ["c", "cena"],
     b: ["p", "pan"], d: ["t", "tak"], g: ["k", "kot"], j: ["dzi", "dziura"], zh: ["cz", "czy"], z: ["dz", "dzwon"] };
-  // rozbiór sylaby pinyin (bez tonu): { ini, fin, pl }
-  function rozbierz(baza) {
+  // rozbiór sylaby pinyin: { ini, fin, pl }; ton 5 (bez tonu) + samo "e" (的, 了, 呢, 么, 个) = luźne "a", jak w nagraniach
+  function rozbierz(baza, ton) {
     const b = String(baza || "").toLowerCase().replace(/v/g, "ü").replace(/u:/g, "ü");
     if (ZERO_PL[b]) return { ini: "", fin: b, pl: ZERO_PL[b], zero: true };
     const ini = INICJALY.find(x => b.startsWith(x)) || "";
     let fin = b.slice(ini.length);
     if (["j", "q", "x"].includes(ini) && fin[0] === "u") fin = "ü" + fin.slice(1);
     const twardeY = ["z", "c", "s", "zh", "ch", "sh", "r"].includes(ini) && fin === "i";
-    const pl = twardeY ? INI_PL[ini] + "y" : (FIN_PL[fin] != null ? INI_PL[ini] + FIN_PL[fin] : b);
-    return { ini, fin, pl, twardeY };
+    const lekkieE = ton === 5 && fin === "e" && ini !== "";
+    const pl = twardeY ? INI_PL[ini] + "y" : lekkieE ? INI_PL[ini] + "a" : (FIN_PL[fin] != null ? INI_PL[ini] + FIN_PL[fin] : b);
+    return { ini, fin, pl, twardeY, lekkieE };
   }
   const pinyinPl = baza => rozbierz(baza).pl;
   // esencja dźwięku: max 2 rzeczy (waga = trudność dla Polaka). Polski zapis stoi w nagłówku, więc tu tylko to,
   // czego zapis nie pokaże: usta, język, wydech. Nigdy „x to y”.
-  function podpowiedzDzwiek(baza) {
-    const r = rozbierz(baza), ini = r.ini, fin = r.fin, H = [];
+  function podpowiedzDzwiek(baza, ton) {
+    const r = rozbierz(baza, ton), ini = r.ini, fin = r.fin, H = [];
     const q = x => "„" + x + "”";
     if (["p", "t", "k", "q", "ch", "c"].includes(ini)) H.push([5, `Zaraz po ${q(SLOWO_PL[ini][0])} mocne dmuchnięcie, jak na gorącą zupę. Kartka przed ustami ma drgnąć.`]);
     if (["b", "d", "g", "j", "zh", "z"].includes(ini)) H.push([5, "Zero dmuchnięcia, miękko. Kartka przed ustami stoi."]);
@@ -198,7 +199,7 @@
     if (r.twardeY && ["z", "c", "s"].includes(ini)) H.push([4, `Po ${q({ z: "dz", c: "c", s: "s" }[ini])} język zostaje na miejscu, zęby prawie zamknięte, i tylko przeciągasz ten sam szum. Żadnego osobnego „y”.`]);
     else if (r.twardeY) H.push([4, "Język zostaje zagięty jak przy spółgłosce i przeciągasz ten sam szum. Nie otwieraj ust na osobne „y”."]);
     if (fin.includes("ü")) H.push([4, "Usta w dzióbek jak do gwizdania, a język jak do „i”. Dzióbek trzymaj do końca, w lustrze usta się nie rozjeżdżają."]);
-    if (["e", "en", "eng"].includes(fin)) H.push([3, "„y” z tyłu gardła, jak zastanawiające „yyy…”. Usta płasko, szczęka lekko w dół."]);
+    if (["e", "en", "eng"].includes(fin) && !r.lekkieE) H.push([3, "„y” z tyłu gardła, jak zastanawiające „yyy…”. Usta płasko, szczęka lekko w dół."]);
     if (fin === "er") H.push([3, "Mówiąc „a”, zawiń czubek języka do góry i do tyłu, bez dotykania podniebienia. Nic nie drga."]);
     if (/ng$/.test(fin)) H.push([3, "Na końcu żadnego „g”: tył języka zamyka gardło jak w „bank” tuż przed „k”. Czubek języka leży na dole."]);
     else if (/n$/.test(fin)) H.push([2, "Samogłoska czysta, nie „ą”/„ę”. Dopiero na końcu czubek języka dotyka dziąseł za górnymi zębami."]);
@@ -223,7 +224,7 @@
   function tonMowiony(sylaby, i) { const t = sylaby[i].celTon; return t === 3 && sylaby[i + 1] && sylaby[i + 1].celTon === 3 ? 2 : t; }
   // podpowiedź dla jednej sylaby z wykresu: nie trafiony dźwięk -> jak zrobić dźwięk; dźwięk jest -> jak zrobić ton
   function podpowiedzSylaby(sylaby, i) {
-    const s = sylaby[i], d = podpowiedzDzwiek(s.baza), ton = tonMowiony(sylaby, i);
+    const s = sylaby[i], d = podpowiedzDzwiek(s.baza, s.celTon), ton = tonMowiony(sylaby, i);
     const naglowek = `<b>${esc(s.znak)}</b> powiedz: <b class="tp-pl">${esc(d.pl)}</b>`;
     if (!s.usl) return naglowek + `<div class="tp-lab">dźwięk</div>` + d.rady.map(r => `<div>${esc(r)}</div>`).join("");
     const sandhi = ton !== s.celTon ? ` <span class="tp-lab">(dwa „Noooo…” pod rząd: pierwsze mówisz jak „Cooo?”)</span>` : "";

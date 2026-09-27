@@ -9,9 +9,9 @@ Data: 2026-09-19
 | 你待多久？ | Nǐ dāi duōjiǔ? | ni taj tło-dzioł | krótko zamiast: 你在清迈多久时间？ (Nǐ zài Qīngmài duōjiǔ shíjiān?) | How long are you staying? · Jak długo zostajesz? |
 | 来旅游吗？ | Lái lǚyóu ma? | laj lü-joł ma | krótko zamiast: 你是来旅游的吗？ (Nǐ shì lái lǚyóu de ma?) | Here as a tourist? · Jesteś tu jako turystka? |
 | 做朋友吧！ | Zuò péngyou ba! | dzło phyng-joł pa | krótko zamiast: 你是否愿意做我的朋友？ (Nǐ shìfǒu yuànyì zuò wǒ de péngyou?) | Let's be friends! · Zostańmy przyjaciółmi! |
-| 加个微信吧！ | Jiā ge Wēixìn ba! | dzia ky łej-sin pa | krótko zamiast: 可以给我你的微信吗？ (Kěyǐ gěi wǒ nǐ de Wēixìn ma?) | Let's add each other on WeChat! · Dodajmy się na WeChacie! |
+| 加个微信吧！ | Jiā ge Wēixìn ba! | dzia ka łej-sin pa | krótko zamiast: 可以给我你的微信吗？ (Kěyǐ gěi wǒ nǐ de Wēixìn ma?) | Let's add each other on WeChat! · Dodajmy się na WeChacie! |
 | 教我中文吧！ | Jiāo wǒ Zhōngwén ba! | dział ło czung-łyn pa | krótko zamiast: 你可以教我中文吗？ (Nǐ kěyǐ jiāo wǒ Zhōngwén ma?) | Teach me Chinese! · Naucz mnie chińskiego! |
-| 你做什么的？ | Nǐ zuò shénme de? | ni dzło szyn-my ty | krótko zamiast: 你是做什么工作的？ (Nǐ shì zuò shénme gōngzuò de?) | What do you do? · Czym się zajmujesz? |
+| 你做什么的？ | Nǐ zuò shénme de? | ni dzło szen-ma ta | krótko zamiast: 你是做什么工作的？ (Nǐ shì zuò shénme gōngzuò de?) | What do you do? · Czym się zajmujesz? |
 | 中国哪里？ | Zhōngguó nǎlǐ? | czung-kło na-li | krótko zamiast: 你来自中国哪里？ (Nǐ láizì Zhōngguó nǎlǐ?) | Where in China? · Skąd w Chinach? |
 | 然后去哪？ | Ránhòu qù nǎ? | żan-choł ćhü na | krótko zamiast: 你后面会去哪里？ (Nǐ hòumiàn huì qù nǎlǐ?) | Where next? · Gdzie dalej? |
 

@@ -15,7 +15,7 @@ Repo: strony lekcji chińskiego. Każda lekcja = katalog `lekcje/NN-slug/` z `le
 4. **Uzupełnienie.** Dla każdej pozycji:
    - `znaki` — poprawne znaki uproszczone, ze znakami interpunkcyjnymi chińskimi w zdaniach (。？)
    - `pinyin` — z tonami (diakrytyki), poprawny, nawet jeśli w notatkach brak
-   - `polski` — zapis wymowy po polsku wg konwencji z `lekcje/01-przyjaciele/lekcja.json` (ch = polskie ch, y = polskie y, ł, ü, kh/ph/czh = z przydechem, dz/p = bez przydechu)
+   - `polski` — zapis wymowy po polsku wg konwencji z `lekcje/01-przyjaciele/lekcja.json` (ch = polskie ch, y = polskie y, ł, ü, kh/ph/czh = z przydechem, dz/p = bez przydechu; „e” bez tonu = „a”: 的 ta, 了 la, 呢 na, 个 ka, 什么 szen-ma)
    - `notatki` — jak user zapisał (puste, jeśli nie zapisał)
    - `znaczenie` — format `english · polski`
 5. **Sekcje.** Grupuj wg tego, co jest w notatkach (Słówka, Zdania, Gramatyka, Liczby…). Zachowaj kolejność ze zdjęć.

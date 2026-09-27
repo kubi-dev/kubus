@@ -42,7 +42,7 @@
         },
         {"znaki": "你很可爱。", "pinyin": "Nǐ hěn kě'ài.", "polski": "ni chyn khy-aj", "notatki": "NI HAN KY AJ", "znaczenie": "You are cute. · Jesteś słodki/a."},
         {"znaki": "我们明天见。", "pinyin": "Wǒmen míngtiān jiàn.", "polski": "ło-myn ming-thien dzien", "notatki": "", "znaczenie": "See you tomorrow. · Spotkajmy się jutro."},
-        {"znaki": "你叫什么名字？", "pinyin": "Nǐ jiào shénme míngzi?", "polski": "ni dziao szyn-my ming-dzy", "notatki": "", "znaczenie": "What's your name? · Jak masz na imię?", "obrazek": {
+        {"znaki": "你叫什么名字？", "pinyin": "Nǐ jiào shénme míngzi?", "polski": "ni dziao szen-ma ming-dzy", "notatki": "", "znaczenie": "What's your name? · Jak masz na imię?", "obrazek": {
             "id": "66e94c7a-636e-4ec0-9840-c842ac90a74c", "url": "https://pd.w.org/2025/01/507677c56423162d0.55668569-2048x1365.jpg", "autor": "Nilo Velez", "licencja": "cc0", "zrodlo": "https://wordpress.org/photos/photo/507677c564/"}
         },
         {"znaki": "我叫Kubi。", "pinyin": "Wǒ jiào Kubi.", "polski": "ło dziao Kubi", "notatki": "", "znaczenie": "My name is Kubi. · Jestem / nazywam się Kubi."},
@@ -67,7 +67,7 @@
       "nazwa": "Ze scenek",
       "pozycje": [
         {"znaki": "谢谢", "pinyin": "xièxie", "polski": "sie-sie", "notatki": "", "znaczenie": "thank you · dziękuję", "auto": "scenka"},
-        {"znaki": "你呢？", "pinyin": "Nǐ ne?", "polski": "ni ny", "notatki": "", "znaczenie": "And you? · A ty?", "auto": "scenka"},
+        {"znaki": "你呢？", "pinyin": "Nǐ ne?", "polski": "ni na", "notatki": "", "znaczenie": "And you? · A ty?", "auto": "scenka"},
         {"znaki": "北京", "pinyin": "Běijīng", "polski": "pej-dzing", "notatki": "", "znaczenie": "Beijing · Pekin", "auto": "scenka"},
         {"znaki": "李美", "pinyin": "Lǐ Měi", "polski": "li mej", "notatki": "", "znaczenie": "Li Mei (name) · Li Mei (imię)", "auto": "scenka"}
       ]

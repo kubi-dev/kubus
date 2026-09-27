@@ -26,7 +26,7 @@ Data: 2026-09-06
 | 我来自波兰。 | Wǒ láizì Bōlán. | ło laj-dzy po-lan | ŁO LAJ CY POLAN | I'm from Poland. · Jestem z Polski. |
 | 你很可爱。 | Nǐ hěn kě'ài. | ni chyn khy-aj | NI HAN KY AJ | You are cute. · Jesteś słodki/a. |
 | 我们明天见。 | Wǒmen míngtiān jiàn. | ło-myn ming-thien dzien |  | See you tomorrow. · Spotkajmy się jutro. |
-| 你叫什么名字？ | Nǐ jiào shénme míngzi? | ni dziao szyn-my ming-dzy |  | What's your name? · Jak masz na imię? |
+| 你叫什么名字？ | Nǐ jiào shénme míngzi? | ni dziao szen-ma ming-dzy |  | What's your name? · Jak masz na imię? |
 | 我叫Kubi。 | Wǒ jiào Kubi. | ło dziao Kubi |  | My name is Kubi. · Jestem / nazywam się Kubi. |
 | 我喜欢你。 | Wǒ xǐhuan nǐ. | ło si-chłan ni |  | I like you. · Lubię Cię. |
 | 好吃吗？ | Hǎochī ma? | chał czhy ma |  | Is it tasty? · Smaczne? |
@@ -43,6 +43,6 @@ Data: 2026-09-06
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
 | 谢谢 | xièxie | sie-sie |  | thank you · dziękuję |
-| 你呢？ | Nǐ ne? | ni ny |  | And you? · A ty? |
+| 你呢？ | Nǐ ne? | ni na |  | And you? · A ty? |
 | 北京 | Běijīng | pej-dzing |  | Beijing · Pekin |
 | 李美 | Lǐ Měi | li mej |  | Li Mei (name) · Li Mei (imię) |

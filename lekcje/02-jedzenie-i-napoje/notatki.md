@@ -50,15 +50,15 @@ Data: 2026-09-09
 | 我不知道。 | Wǒ bù zhīdào. | ło pu czy-tał | ŁO PU CZY TO | I don't know. · Nie wiem. |
 | 你会说英语吗？ | Nǐ huì shuō Yīngyǔ ma? | ni chłej szło ing-ü ma | NI-HŁEJ-SŁO-ING-JU-MA | Do you speak English? · Czy mówisz po angielsku? |
 | 用英语说。 | Yòng Yīngyǔ shuō. | jung ing-ü szło |  | Say it in English. · Powiedz to po angielsku. |
-| 你想喝什么？ | Nǐ xiǎng hē shénme? | ni siang chy szyn-my | NI-SIA-HYA-SZA-MA | What do you want to drink? · Czego się napijesz? |
-| 你想吃什么？ | Nǐ xiǎng chī shénme? | ni siang czhy szyn-my | NI-SIA-CZY-SZA-MA | What do you want to eat? · Co chcesz zjeść? |
-| 你吃什么？ | Nǐ chī shénme? | ni czhy szyn-my |  | What are you eating? · Co jesz? |
-| 你喝什么？ | Nǐ hē shénme? | ni chy szyn-my |  | What are you drinking? · Co pijesz? |
+| 你想喝什么？ | Nǐ xiǎng hē shénme? | ni siang chy szen-ma | NI-SIA-HYA-SZA-MA | What do you want to drink? · Czego się napijesz? |
+| 你想吃什么？ | Nǐ xiǎng chī shénme? | ni siang czhy szen-ma | NI-SIA-CZY-SZA-MA | What do you want to eat? · Co chcesz zjeść? |
+| 你吃什么？ | Nǐ chī shénme? | ni czhy szen-ma |  | What are you eating? · Co jesz? |
+| 你喝什么？ | Nǐ hē shénme? | ni chy szen-ma |  | What are you drinking? · Co pijesz? |
 
 ## Ze scenek
 
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
 | 请 | qǐng | ćhing |  | please · proszę |
-| 太好了！ | Tài hǎo le! | thaj chał ly |  | Great! · Świetnie! |
+| 太好了！ | Tài hǎo le! | thaj chał la |  | Great! · Świetnie! |
 | 多少钱？ | Duōshao qián? | tło-szał ćhien |  | How much? · Ile to kosztuje? |

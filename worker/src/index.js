@@ -75,7 +75,7 @@ Pola odpowiedzi:
   喝=chy, 水=szłej, 吃=czhy, 茶=czha, 我想=ło siang, 你好=ni chał, 咖啡=kha-fej, 鸡肉=dzi-żoł, 饺子=dział-dzy, 面条=mien-thiał, 米饭=mi-fan,
   果汁=kło-czy, 啤酒=phi-dzioł, 牛奶=nioł-naj, 葡萄酒=phu-thał-dzioł, 我不知道=ło pu czy-tał, 朋友=phyng-joł.
   Zasady: p/t/k/q/ch/c z "h" (ph, th, kh, czh, ćh, cch); b/d/g/zh/j/z jako p, t, k, cz, dź/dzi, dz; x=si, sh=sz, r=ż, ü=ü,
-  -ao=ał, -ou=oł, -ei=ej, -ai=aj, -uo=ło, -ui=łej, -e=y (po spółgłosce), -eng=yng, -ong=ung, -ian=ien.
+  -ao=ał, -ou=oł, -ei=ej, -ai=aj, -uo=ło, -ui=łej, -e=y (po spółgłosce, z tonem), -e bez tonu=a (的=ta, 了=la, 呢=na, 么=ma, 个=ka, 什么=szen-ma), -eng=yng, -ong=ung, -ian=ien.
 Bez emoji. Bez pochwał. Bez wstępów.`;
 
 const TRENER_SCHEMA = {
