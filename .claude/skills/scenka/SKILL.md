@@ -7,7 +7,7 @@ description: Tworzy scenki rodzajowe (mini dialogi) do lekcji chińskiego z pozn
 
 Scenka = krótki dialog (6–10 kwestii, dwie osoby) w sytuacji z życia, zbudowany z tego, co user już zna. Zapis w `lekcje/NN-slug/scenki.json`
 (format w nagłówku `scenki.py`). `build.py` robi z niej odcinek (`lekcje/NN-slug/scenka-<id>.mp3`) i pokazuje na stronie `scenki/` (pogrupowane lekcjami,
-z dialogiem). Odcinek to sama scenka: opis, cała rozmowa, po kolei, potem user gra swoją rolę. Nowe słowa NIE są uczone w odcinku,
+z dialogiem). Odcinek to sama scenka: cała rozmowa, po kolei, potem user gra swoją rolę. Nowe słowa NIE są uczone w odcinku,
 tylko dopisane do lekcji (pole `auto`, znaczek „✦ ze scenki” na karcie). Jedna z osób to zawsze **Kubi** (user); pole `ty` wskazuje jego rolę, w odcinku user odpowiada za tę osobę.
 
 ## Kroki
@@ -18,7 +18,7 @@ tylko dopisane do lekcji (pole `auto`, znaczek „✦ ze scenki” na karcie). J
    - Co najmniej 75% znaków w dialogu ze znanego słownictwa. Nowe słowa (max 25% znaków, zwykle 3–6 słów) tylko wtedy, gdy bez nich dialog byłby sztuczny (谢谢, 请, 你呢, 多少钱). Wypisz je w `nowe` z `pinyin`, `polski` (zapis wymowy wg konwencji z `lekcje/01-przyjaciele/lekcja.json`), `znaczenie` (`english · polski`).
    - Zdania krótkie, naturalne, ze znaną gramatyką. Powtarzaj zwroty z lekcji dosłownie (jeśli lekcja ma 我想吃饺子, użyj tego, nie wariantu).
    - Każda kwestia: `kto` (A/B), `znaki` (interpunkcja chińska 。？！，), `pinyin` z tonami, `polski` (naturalne tłumaczenie, nie dosłowne).
-   - `opis`: 1–2 zdania po polsku, o czym jest scenka; lektor czyta to na początku odcinka.
+   - `opis`: 1–2 zdania po polsku, o czym jest scenka; tylko tekst na stronie scenek, w odcinku go nie ma.
 4. **Sprawdzenie.** `python3 scenki.py sprawdz lekcje/NN-slug`. Musi być `OK` dla każdej scenki. Jeśli `BŁĄD`: znaki spoza słownictwa dopisz do `nowe` albo przeredaguj dialog, aż pokrycie ≥ 75%.
 5. **Nowe słowa do lekcji.** `python3 scenki.py wpisz lekcje/NN-slug` — dopisuje `nowe` do `lekcja.json` (sekcja „Ze scenek”), dzięki czemu trafiają do kart, powtórek i następnych scenek.
 6. **Build.** `python3 build.py` (nagrania kwestii i nowych słów, odcinki mp3, strona podcastu). Linie z `!` = błąd, uruchom ponownie.

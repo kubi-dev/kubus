@@ -43,6 +43,32 @@
         {"kto": "A", "znaki": "晚安，Kubi。", "pinyin": "Wǎn'ān, Kubi.", "polski": "Dobranoc, Kubi."}
       ],
       "nowe": []
+    },
+    {
+      "id": "lili",
+      "tytul": "Lili w kawiarni",
+      "opis": "Kubi zagaduje w kawiarni Lili, turystkę z Chin. Okazuje się, że jest nauczycielką, więc Kubi prosi o lekcje chińskiego i o WeChata.",
+      "role": {"A": "Lili", "B": "Kubi"},
+      "ty": "B",
+      "kwestie": [
+        {"kto": "B", "znaki": "你好！你喝什么？", "pinyin": "Nǐ hǎo! Nǐ hē shénme?", "polski": "Cześć! Co pijesz?"},
+        {"kto": "A", "znaki": "抹茶。你呢？", "pinyin": "Mǒchá. Nǐ ne?", "polski": "Matchę. A ty?"},
+        {"kto": "B", "znaki": "咖啡。我叫Kubi。你叫什么名字？", "pinyin": "Kāfēi. Wǒ jiào Kubi. Nǐ jiào shénme míngzi?", "polski": "Kawę. Jestem Kubi. Jak masz na imię?"},
+        {"kto": "A", "znaki": "我叫丽丽。你来自哪里？", "pinyin": "Wǒ jiào Lìlì. Nǐ láizì nǎlǐ?", "polski": "Lili. Skąd jesteś?"},
+        {"kto": "B", "znaki": "我来自波兰。你呢？来旅游吗？", "pinyin": "Wǒ láizì Bōlán. Nǐ ne? Lái lǚyóu ma?", "polski": "Z Polski. A ty? Jesteś tu na wakacjach?"},
+        {"kto": "A", "znaki": "是，我来旅游。", "pinyin": "Shì, wǒ lái lǚyóu.", "polski": "Tak, zwiedzam."},
+        {"kto": "B", "znaki": "你待多久？你做什么的？", "pinyin": "Nǐ dāi duōjiǔ? Nǐ zuò shénme de?", "polski": "Jak długo zostajesz? Czym się zajmujesz?"},
+        {"kto": "A", "znaki": "很久。我是老师。", "pinyin": "Hěn jiǔ. Wǒ shì lǎoshī.", "polski": "Długo. Jestem nauczycielką."},
+        {"kto": "B", "znaki": "我不明白。你会说英语吗？", "pinyin": "Wǒ bù míngbai. Nǐ huì shuō Yīngyǔ ma?", "polski": "Nie rozumiem. Mówisz po angielsku?"},
+        {"kto": "A", "znaki": "会。Teacher！", "pinyin": "Huì. Teacher!", "polski": "Tak. Teacher!"},
+        {"kto": "B", "znaki": "太好了！教我中文吧！", "pinyin": "Tài hǎo le! Jiāo wǒ Zhōngwén ba!", "polski": "Świetnie! Naucz mnie chińskiego!"},
+        {"kto": "A", "znaki": "当然啦！", "pinyin": "Dāngrán la!", "polski": "Jasne!"},
+        {"kto": "B", "znaki": "你很可爱。我喜欢你。加个微信吧！", "pinyin": "Nǐ hěn kě'ài. Wǒ xǐhuan nǐ. Jiā ge Wēixìn ba!", "polski": "Jesteś słodka. Podobasz mi się. Dodajmy się na WeChacie!"},
+        {"kto": "A", "znaki": "好！我们明天见。", "pinyin": "Hǎo! Wǒmen míngtiān jiàn.", "polski": "Dobra! Widzimy się jutro."}
+      ],
+      "nowe": [
+        {"znaki": "老师", "pinyin": "lǎoshī", "polski": "lał-szy", "notatki": "", "znaczenie": "teacher · nauczyciel / nauczycielka"}
+      ]
     }
   ]
 }

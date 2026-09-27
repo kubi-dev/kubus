@@ -1294,5 +1294,17 @@
    "licencja": "cc0",
    "zrodlo": "https://www.rawpixel.com/image/10165782/vector-face-hand-person"
   }
+ },
+ {
+  "id": "老师",
+  "znaki": "老师",
+  "pinyin": "lǎoshī",
+  "polski": "lał-szy",
+  "znaczenie": "teacher · nauczyciel / nauczycielka",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/295af37e05",
+  "img": "",
+  "obrazek": null
  }
 ]

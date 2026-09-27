@@ -57,3 +57,9 @@ Data: 2026-09-19
 | 成交！ | Chéngjiāo! | czhyng-dział | CZA DZIAŁ | Deal! · Umowa stoi! |
 | 很多吻。 | Hěn duō wěn. | chyn tło łyn | HAN DO WEN · A LOT OF KISSES | Lots of kisses. · Dużo całusów. |
 | 晚安。 | Wǎn'ān. | łan-an | ŁAN-A · GOOD NIGHT | Good night. · Dobranoc. |
+
+## Ze scenek
+
+| Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
+|---|---|---|---|---|
+| 老师 | lǎoshī | lał-szy |  | teacher · nauczyciel / nauczycielka |

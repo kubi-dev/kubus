@@ -141,11 +141,14 @@ def build_all_podcast(lessons):
 
 def build_scene_podcast(lesson_dir, sc, nowe_pozycje=None):
     """Odcinek scenki (lekcje/NN/scenka-<id>.mp3). sc = scenka z scenki.json z polem "audio" (klucz mp3) w każdej kwestii.
-    Struktura: tytuł i opis po polsku, cała rozmowa, po kolei (PL, ZH wolno, pauza, ZH, pauza), potem user gra swoją rolę
+    Struktura: cała rozmowa, po kolei (PL, ZH wolno, pauza, ZH, pauza), potem user gra swoją rolę
     (słyszy kwestie drugiej osoby, po polskiej podpowiedzi mówi swoją, słyszy odpowiedź). Nowe słowa są w lekcji, nie tutaj."""
     dest = lesson_dir / f"scenka-{sc['id']}.mp3"; man = lesson_dir / f"scenka-{sc['id']}.json"
-    opis = {"wersja": 2, "opis": sc["opis"], "kwestie": [(k["kto"], k["znaki"], k["polski"]) for k in sc["kwestie"]], "ty": sc.get("ty", "B"), "pauzy": [PAUZA_POWTORZ, PAUZA_PRZYPOMNIJ]}
-    if _manifest_ok(dest, man, opis):
+    opis = {"wersja": 3, "kwestie": [(k["kto"], k["znaki"], k["polski"]) for k in sc["kwestie"]], "ty": sc.get("ty", "B"), "pauzy": [PAUZA_POWTORZ, PAUZA_PRZYPOMNIJ]}
+    # stare odcinki (wersja 2, z czytanym opisem na początku) zostają, dopóki scenka się nie zmieni
+    stary = {"wersja": 2, "opis": sc["opis"], **{k: v for k, v in opis.items() if k != "wersja"}}
+    jak_json = lambda o: json.loads(json.dumps(o, ensure_ascii=False))  # krotki -> listy, jak w zapisanym pliku
+    if _manifest_ok(dest, man, jak_json(opis)) or _manifest_ok(dest, man, jak_json(stary)):
         return json.loads(man.read_text(encoding="utf-8"))["wynik"]
     kw = []
     for k in sc["kwestie"]:
@@ -154,7 +157,7 @@ def build_scene_podcast(lesson_dir, sc, nowe_pozycje=None):
     if not kw: return None
     ty = sc.get("ty", "B"); role = sc.get("role", {})
     mow = lambda t: [pcm(ensure_pl(lesson_dir, t)), cisza(1.0)]
-    seg = mow(f"{sc['tytul']}. {sc['opis']}")
+    seg = []
     for k in kw: seg += [k["zh"], cisza(0.7)]
     seg += [cisza(0.5)] + mow("Po kolei.")
     for k in kw: nowy(seg, k)
