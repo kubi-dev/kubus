@@ -16,6 +16,11 @@ tylko dopisane do lekcji (pole `auto`, znaczek „✦ ze scenki” na karcie). J
 2. **Słownictwo.** `python3 scenki.py slownictwo lekcje/NN-slug` — lista wszystkiego, co user zna do tej lekcji włącznie. Tylko z tego budujesz dialog.
 3. **Scenki.** Napisz 1–2 scenki (2, gdy lekcja ma > 20 pozycji). Każda w innej sytuacji, pasującej do tematu lekcji (lekcja o jedzeniu → restauracja, kawa z kolegą).
    - Co najmniej 75% znaków w dialogu ze znanego słownictwa. Nowe słowa (max 25% znaków, zwykle 3–6 słów) tylko wtedy, gdy bez nich dialog byłby sztuczny (谢谢, 请, 你呢, 多少钱). Wypisz je w `nowe` z `pinyin`, `polski` (zapis wymowy wg konwencji z `lekcje/01-przyjaciele/lekcja.json`), `znaczenie` (`english · polski`).
+   - Jedna kwestia = jedna myśl: jedno zdanie albo jedno pytanie (user uczy się od zera). Wolno dokleić krótki dodatek: powitanie,
+     jednowyrazową odpowiedź, „A ty?”, „Tak”, „Świetnie!” (你好！你喝什么？ · 抹茶。你呢？ · 咖啡。我叫Kubi。 · 太好了！教我中文吧！).
+     Nigdy dwa pełne zdania ani dwa pytania w jednej kwestii (źle: 你待多久？你做什么的？). Takie rozbij na osobne kwestie, także gdy
+     ta sama osoba mówi dwa razy z rzędu; dwa pytania rozbij na pary pytanie → odpowiedź (你待多久？ → 很久。 → 你做什么的？ → 我是老师。).
+     Rozbijanie nie usuwa zwrotów: scenka ma zawierać wszystkie zaplanowane zwroty.
    - Zdania krótkie, naturalne, ze znaną gramatyką. Powtarzaj zwroty z lekcji dosłownie (jeśli lekcja ma 我想吃饺子, użyj tego, nie wariantu).
    - Każda kwestia: `kto` (A/B), `znaki` (interpunkcja chińska 。？！，), `pinyin` z tonami, `polski` (naturalne tłumaczenie, nie dosłowne).
    - `opis`: 1–2 zdania po polsku, o czym jest scenka; tylko tekst na stronie scenek, w odcinku go nie ma.
@@ -26,6 +31,7 @@ tylko dopisane do lekcji (pole `auto`, znaczek „✦ ze scenki” na karcie). J
 8. **Deploy.** Po potwierdzeniu `./deploy.sh "Scenka: tytuł (lekcja N)"`. Link: `https://kubi-dev.github.io/kubus/scenki/`.
 
 ## Zasady
+- **Akcept przed wszystkim.** Zanim zapiszesz `scenki.json` i cokolwiek zbudujesz, pokaż userowi cały dialog tekstem: po polsku, obok znaki i zapis wymowy. Dalej dopiero po jego „tak”.
 - Sceny towarzyskie (impreza, kawa, poznawanie kogoś) zawsze z **koleżanką / dziewczyną** (np. 李美 Lǐ Měi), nie z kolegą. Kubi jest uprzejmy i lekko flirtuje (你很美丽, 你很可爱, 我们明天见？). Role usługowe (kelnerka, sprzedawczyni) też kobiece.
 - Nie zmieniaj `build.py`, `podcast.py`, `scenki.py`. Jeśli scenka wymaga innej struktury, powiedz userowi.
 - Nie deployuj przed potwierdzeniem, chyba że user każe „od razu wrzuć”.
