@@ -114,6 +114,7 @@
 
   function render(result, target) {
     if (result.error) return { cls: "bad", html: result.error, grade: null };
+    if (result.zaciete) return { cls: "mid", html: "Rozpoznawanie się zacięło i nic sensownego nie wyszło. To nie twoja wina. Powiedz jeszcze raz.", grade: null };
     const g = grade(target, result.alts);
     const note = result.gotFinal ? "" : " <i>(wynik wstępny)</i>";
     const t = g.target;
@@ -514,9 +515,14 @@
     new Int16Array(buf, 44).set(pcm);
     return buf;
   }
-  async function whisper(n) {
+  // cel i strona idą do workera razem z nagraniem: worker trzyma ostatnie próby 7 dni (KV „nagranie:”), żeby dało się je odsłuchać
+  const celZ = opts => { try { return (typeof opts.target === "function" ? opts.target() : opts.target) || ""; } catch (e) { return ""; } };
+  // Whisper czasem zapętla się na krótkim nagraniu (徐徐徐徐徐徐): kawałek 1–3 znaków 4+ razy pod rząd, a w celu tego nie ma
+  const zapetla = /(.{1,3})\1{3,}/u;
+  const zaciete = (t, cel) => zapetla.test(strip(t)) && !zapetla.test(strip(cel || ""));
+  async function whisper(n, cel) {
     const c = cfg(), t0 = Date.now();
-    const r = await fetch(c.url + "/wymowa", { method: "POST", headers: { "Authorization": "Bearer " + c.klucz, "Content-Type": "audio/wav" }, body: wav16k(n.chunks, n.rate) });
+    const r = await fetch(c.url + "/wymowa?cel=" + encodeURIComponent(cel || "") + "&strona=" + encodeURIComponent(location.pathname), { method: "POST", headers: { "Authorization": "Bearer " + c.klucz, "Content-Type": "audio/wav" }, body: wav16k(n.chunks, n.rate) });
     const j = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(j.error || ("HTTP " + r.status));
     diag("whisper: " + JSON.stringify(j.text) + " po " + (Date.now() - t0) + " ms");
@@ -544,12 +550,12 @@
     if (!alts.length && !error && !s.porzuc && lv && lv.glos && cfg().chmuraOk) {
       diag("Web Speech nic nie zwrócił, a mikrofon nagrał głos: rozpoznaje Whisper");
       przetwarzanie = true; s.btn.textContent = "⏳ rozpoznaję…";
-      try { const t = await whisper(n); if (t) { alts = [t]; gotFinal = true; } }
+      try { const cel = celZ(s.opts), t = await whisper(n, cel); if (t && zaciete(t, cel)) { diag("whisper się zaciął, wynik odrzucony"); s.zaciete = true; } else if (t) { alts = [t]; gotFinal = true; } }
       catch (e) { diag("whisper błąd: " + e.message); }
       przetwarzanie = false;
     } else if (!alts.length && !error && lv && heldMs > 1500 && !lv.glos) diag("mikrofon nie nagrał głosu (cisza albo za cicho)");
     s.btn.classList.remove("rec"); s.btn.textContent = LABEL_IDLE;
-    const res = { alts, gotFinal, error, heldMs, started: !!s.startedAt };
+    const res = { alts, gotFinal, error, heldMs, started: !!s.startedAt, zaciete: !!s.zaciete && !alts.length };
     if (s.opts.onDone && !s.porzuc) { try { s.opts.onDone(res); } catch (e) { diag("onDone błąd: " + e.message); } }
   }
   function forceFinish(s, why, porzuc) {
@@ -714,7 +720,11 @@
     diag("chmura stop: " + heldMs + " ms, szczyt=" + lv.szczyt.toFixed(3) + " rms=" + lv.rms.toFixed(4));
     if (!lv.glos) { fin({ alts: [], gotFinal: false, error: null, heldMs, started: true }); return; }   // Whisper na ciszy zmyśla
     przetwarzanie = true; g.btn.textContent = "⏳ rozpoznaję…";
-    try { const t = await whisper(g.n); fin({ alts: t ? [t] : [], gotFinal: true, error: null, heldMs, started: true }); }
+    try {
+      const cel = celZ(g.opts), t = await whisper(g.n, cel);
+      if (t && zaciete(t, cel)) { diag("whisper się zaciął, wynik odrzucony"); fin({ alts: [], gotFinal: false, error: null, zaciete: true, heldMs, started: true }); }
+      else fin({ alts: t ? [t] : [], gotFinal: true, error: null, heldMs, started: true });
+    }
     catch (e) { diag("chmura błąd: " + e.message); fin({ alts: [], gotFinal: false, error: "Rozpoznawanie w chmurze nie działa: " + e.message, heldMs, started: true }); }
   }
 

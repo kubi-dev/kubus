@@ -1,7 +1,7 @@
 // Synchronizacja postępu powtórek: jeden blob JSON w Workers KV.
 // GET /stan  -> aktualny stan
 // PUT /stan  -> scalenie przysłanego stanu z zapisanym (nowsza wersja karty wygrywa), zapis, zwrot scalonego
-// POST /wymowa -> rozpoznanie mowy (Whisper, Workers AI); body = plik audio (WAV), odpowiedź {text}
+// POST /wymowa?cel=&strona= -> rozpoznanie mowy (Whisper, Workers AI); body = plik audio (WAV), odpowiedź {text}; próba zostaje 7 dni w KV „nagranie:<czas>”
 // POST /trener -> trener wymowy (Claude): body = JSON z celem, tym co usłyszano i sylabami z tonami, odpowiedź JSON po polsku
 // Autoryzacja: nagłówek "Authorization: Bearer <TOKEN>" (sekret workera). Klucz Anthropic: sekret ANTHROPIC_API_KEY.
 
@@ -111,7 +111,7 @@ async function trener(body, env) {
 }
 
 export default {
-  async fetch(req, env) {
+  async fetch(req, env, ctx) {
     if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
     const url = new URL(req.url);
     if (!["/stan", "/wymowa", "/trener", "/tts"].includes(url.pathname)) return json({ error: "not found" }, 404);
@@ -151,7 +151,11 @@ export default {
           audio: btoa(bin), task: "transcribe", language: "zh",
           initial_prompt: "以下是普通话的句子。", // podpowiedź: uproszczone znaki
         });
-        return json({ text: (out && out.text || "").trim(), ms: Date.now() - t0 });
+        const text = (out && out.text || "").trim(), ms = Date.now() - t0;
+        // ostatnie próby do odsłuchu przy szukaniu błędów rozpoznawania: WAV + cel + wynik, 7 dni (wrangler kv key list --prefix nagranie:)
+        const cel = (url.searchParams.get("cel") || "").slice(0, 100), strona = (url.searchParams.get("strona") || "").slice(0, 100);
+        ctx.waitUntil(env.STAN.put("nagranie:" + new Date().toISOString(), buf, { expirationTtl: 7 * 86400, metadata: { cel, text: text.slice(0, 100), strona, ms } }).catch(() => {}));
+        return json({ text, ms });
       } catch (e) { return json({ error: "whisper: " + (e.message || e) }, 502); }
     }
 
