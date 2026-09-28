@@ -43,7 +43,7 @@ Data: 2026-09-19
 
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
-| 我叫Kubi。 | Wǒ jiào Kubi. | ło dział Kubi | ŁO DZIAŁ KUBI | My name is Kubi. · Mam na imię Kubi. |
+| 我叫Kubi。 | Wǒ jiào Kubi. | ło dziao Kubi | ŁO DZIAŁ KUBI | My name is Kubi. · Mam na imię Kubi. |
 | 我来自波兰。 | Wǒ láizì Bōlán. | ło laj-dzy po-lan | ŁO LAJ DZY PO-LAND | I'm from Poland. · Jestem z Polski. |
 | 我住在清迈。 | Wǒ zhù zài Qīngmài. | ło czu dzaj ćhing-maj | krótko zamiast: 我一个人在清迈旅居。 (Wǒ yí ge rén zài Qīngmài lǚjū.) | I live in Chiang Mai. · Mieszkam w Chiang Mai. |
 

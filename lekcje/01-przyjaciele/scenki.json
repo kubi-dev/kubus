@@ -12,9 +12,9 @@
       "kwestie": [
         {"kto": "A", "znaki": "你好吗？", "pinyin": "Nǐ hǎo ma?", "wymowa": "ni chał ma", "polski": "Jak się masz?"},
         {"kto": "B", "znaki": "很好，谢谢。", "pinyin": "Hěn hǎo, xièxie.", "wymowa": "chyn chał, sie-sie", "polski": "Dobrze, dziękuję."},
-        {"kto": "B", "znaki": "你叫什么名字？", "pinyin": "Nǐ jiào shénme míngzi?", "wymowa": "ni dział szen-ma ming-dzy", "polski": "Jak masz na imię?"},
-        {"kto": "A", "znaki": "我叫李美。你呢？", "pinyin": "Wǒ jiào Lǐ Měi. Nǐ ne?", "wymowa": "ło dział li mej. ni na", "polski": "Mam na imię Li Mei. A ty?"},
-        {"kto": "B", "znaki": "我叫Kubi。", "pinyin": "Wǒ jiào Kubi.", "wymowa": "ło dział Kubi", "polski": "Jestem Kubi."},
+        {"kto": "B", "znaki": "你叫什么名字？", "pinyin": "Nǐ jiào shénme míngzi?", "wymowa": "ni dziao szen-ma ming-dzy", "polski": "Jak masz na imię?"},
+        {"kto": "A", "znaki": "我叫李美。你呢？", "pinyin": "Wǒ jiào Lǐ Měi. Nǐ ne?", "wymowa": "ło dziao li mej. ni na", "polski": "Mam na imię Li Mei. A ty?"},
+        {"kto": "B", "znaki": "我叫Kubi。", "pinyin": "Wǒ jiào Kubi.", "wymowa": "ło dziao Kubi", "polski": "Jestem Kubi."},
         {"kto": "B", "znaki": "你来自哪里？", "pinyin": "Nǐ láizì nǎlǐ?", "wymowa": "ni laj-dzy na-li", "polski": "Skąd jesteś?"},
         {"kto": "A", "znaki": "我来自北京。你呢？", "pinyin": "Wǒ láizì Běijīng. Nǐ ne?", "wymowa": "ło laj-dzy pej-dzing. ni na", "polski": "Jestem z Pekinu. A ty?"},
         {"kto": "B", "znaki": "我来自波兰。", "pinyin": "Wǒ láizì Bōlán.", "wymowa": "ło laj-dzy po-lan", "polski": "Jestem z Polski."},

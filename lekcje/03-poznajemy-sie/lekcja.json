@@ -69,7 +69,7 @@
     {
       "nazwa": "O sobie",
       "pozycje": [
-        {"znaki": "我叫Kubi。", "pinyin": "Wǒ jiào Kubi.", "polski": "ło dział Kubi", "notatki": "ŁO DZIAŁ KUBI", "znaczenie": "My name is Kubi. · Mam na imię Kubi."},
+        {"znaki": "我叫Kubi。", "pinyin": "Wǒ jiào Kubi.", "polski": "ło dziao Kubi", "notatki": "ŁO DZIAŁ KUBI", "znaczenie": "My name is Kubi. · Mam na imię Kubi."},
         {"znaki": "我来自波兰。", "pinyin": "Wǒ láizì Bōlán.", "polski": "ło laj-dzy po-lan", "notatki": "ŁO LAJ DZY PO-LAND", "znaczenie": "I'm from Poland. · Jestem z Polski.", "obrazek": {
             "id": "178a22b1-a8ff-4b82-a998-ebbea50b6b85", "url": "https://live.staticflickr.com/4473/36948107704_22b4908def_b.jpg", "autor": "andjohmoe", "licencja": "pdm", "zrodlo": "https://www.flickr.com/photos/63962238@N08/36948107704"}
         },
