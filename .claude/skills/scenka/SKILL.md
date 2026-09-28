@@ -22,16 +22,17 @@ tylko dopisane do lekcji (pole `auto`, znaczek „✦ ze scenki” na karcie). J
      ta sama osoba mówi dwa razy z rzędu; dwa pytania rozbij na pary pytanie → odpowiedź (你待多久？ → 很久。 → 你做什么的？ → 我是老师。).
      Rozbijanie nie usuwa zwrotów: scenka ma zawierać wszystkie zaplanowane zwroty.
    - Zdania krótkie, naturalne, ze znaną gramatyką. Powtarzaj zwroty z lekcji dosłownie (jeśli lekcja ma 我想吃饺子, użyj tego, nie wariantu).
-   - Każda kwestia: `kto` (A/B), `znaki` (interpunkcja chińska 。？！，), `pinyin` z tonami, `polski` (naturalne tłumaczenie, nie dosłowne).
+   - Każda kwestia: `kto` (A/B), `znaki` (interpunkcja chińska 。？！，), `pinyin` z tonami, `wymowa` (zapis wymowy po polsku, ta sama konwencja co `polski` w `lekcja.json`: sylaby słowa przez myślnik, słowa spacją, między zdaniami . ! ? , bez znaku na końcu, np. `ni chał! ni chy szen-ma`, `ło dział Kubi`), `polski` (naturalne tłumaczenie, nie dosłowne).
+     `wymowa` to baza dla usera: na stronie scenek stoi zamiast pinyin (pinyin zostaje tylko w pliku). Zapis tych samych słów bierz z `lekcja.json`.
    - `opis`: 1–2 zdania po polsku, o czym jest scenka; tylko tekst na stronie scenek, w odcinku go nie ma.
-4. **Sprawdzenie.** `python3 scenki.py sprawdz lekcje/NN-slug`. Musi być `OK` dla każdej scenki. Jeśli `BŁĄD`: znaki spoza słownictwa dopisz do `nowe` albo przeredaguj dialog, aż pokrycie ≥ 75%.
+4. **Sprawdzenie.** `python3 scenki.py sprawdz lekcje/NN-slug`. Musi być `OK` dla każdej scenki (sprawdza też, czy każda kwestia ma `wymowa`). Jeśli `BŁĄD`: znaki spoza słownictwa dopisz do `nowe` albo przeredaguj dialog, aż pokrycie ≥ 75%.
 5. **Nowe słowa do lekcji.** `python3 scenki.py wpisz lekcje/NN-slug` — dopisuje `nowe` do `lekcja.json` (sekcja „Ze scenek”), dzięki czemu trafiają do kart, powtórek i następnych scenek.
 6. **Build.** `python3 build.py` (nagrania kwestii i nowych słów, odcinki mp3, strona podcastu). Linie z `!` = błąd, uruchom ponownie.
-7. **Weryfikacja.** Pokaż userowi dialog (kto, znaki, pinyin, polski) i listę nowych słów. Popraw wg uwag, przebuduj.
+7. **Weryfikacja.** Pokaż userowi dialog (kto, polski, znaki, wymowa) i listę nowych słów. Popraw wg uwag, przebuduj.
 8. **Deploy.** Po potwierdzeniu `./deploy.sh "Scenka: tytuł (lekcja N)"`. Link: `https://kubi-dev.github.io/kubus/scenki/`.
 
 ## Zasady
-- **Akcept przed wszystkim.** Zanim zapiszesz `scenki.json` i cokolwiek zbudujesz, pokaż userowi cały dialog tekstem: po polsku, obok znaki i zapis wymowy. Dalej dopiero po jego „tak”.
+- **Akcept przed wszystkim.** Zanim zapiszesz `scenki.json` i cokolwiek zbudujesz, pokaż userowi cały dialog tekstem: po polsku, obok znaki i zapis wymowy po polsku (nie pinyin). Dalej dopiero po jego „tak”.
 - Sceny towarzyskie (impreza, kawa, poznawanie kogoś) zawsze z **koleżanką / dziewczyną** (np. 李美 Lǐ Měi), nie z kolegą. Kubi jest uprzejmy i lekko flirtuje (你很美丽, 你很可爱, 我们明天见？). Role usługowe (kelnerka, sprzedawczyni) też kobiece.
 - Nie zmieniaj `build.py`, `podcast.py`, `scenki.py`. Jeśli scenka wymaga innej struktury, powiedz userowi.
 - Nie deployuj przed potwierdzeniem, chyba że user każe „od razu wrzuć”.

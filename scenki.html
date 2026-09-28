@@ -60,8 +60,8 @@ for (const l of LEKCJE) {
       <div class="row"><span style="font-size:12px;color:var(--muted)">tempo</span>
         ${[0.8, 1, 1.2].map(t => `<button data-tempo="${t}" class="${t === tempo ? "on" : ""}">${t}×</button>`).join("")}
         <button class="dlg">dialog</button></div>
-      <div class="dialog">${sc.kwestie.map(k => `<div class="kw${k.kto === sc.ty ? " ty" : ""}"><div class="kto">${sc.role[k.kto] || k.kto}</div><div><div class="hz">${k.znaki}</div><div class="py">${k.pinyin}</div><div>${k.polski}</div></div></div>`).join("")}
-        ${sc.nowe.length ? `<div class="nowe">Słowa dodane do lekcji przez tę scenkę: ${sc.nowe.map(n => `<b>${n.znaki}</b> ${n.pinyin} · ${n.znaczenie.split("·").pop().trim()}`).join(" · ")}</div>` : ""}</div>`;
+      <div class="dialog">${sc.kwestie.map(k => `<div class="kw${k.kto === sc.ty ? " ty" : ""}"><div class="kto">${sc.role[k.kto] || k.kto}</div><div><div class="hz">${k.znaki}</div><div class="py">${k.wymowa}</div><div>${k.polski}</div></div></div>`).join("")}
+        ${sc.nowe.length ? `<div class="nowe">Słowa dodane do lekcji przez tę scenkę: ${sc.nowe.map(n => `<b>${n.znaki}</b> ${n.polski} · ${n.znaczenie.split("·").pop().trim()}`).join(" · ")}</div>` : ""}</div>`;
     el.querySelector(".dlg").addEventListener("click", () => el.classList.toggle("otwarty"));
     const a = el.querySelector("audio");
     if (a) {

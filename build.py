@@ -124,7 +124,7 @@ def build_scenki(lesson_dir, data):
             try: pod = podcast.build_scene_podcast(lesson_dir, sc, nowe)
             except Exception as e: print(f"  ! scenka {sc['id']}: {e}", file=sys.stderr)
         out.append({"id": sc["id"], "tytul": sc["tytul"], "opis": sc["opis"], "role": sc.get("role", {}), "ty": sc.get("ty", "B"),
-                    "kwestie": [{"kto": k["kto"], "znaki": k["znaki"], "pinyin": k["pinyin"], "polski": k["polski"]} for k in sc["kwestie"]],
+                    "kwestie": [{"kto": k["kto"], "znaki": k["znaki"], "pinyin": k["pinyin"], "wymowa": k.get("wymowa", ""), "polski": k["polski"]} for k in sc["kwestie"]],
                     "nowe": [{"znaki": n["znaki"], "pinyin": n["pinyin"], "polski": n.get("polski", ""), "znaczenie": n["znaczenie"]} for n in sc.get("nowe", [])],
                     "podcast": pod})
     return out

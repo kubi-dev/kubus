@@ -10,15 +10,15 @@
       },
       "ty": "B",
       "kwestie": [
-        {"kto": "A", "znaki": "你好！你想吃什么？", "pinyin": "Nǐ hǎo! Nǐ xiǎng chī shénme?", "polski": "Dzień dobry! Co chcesz zjeść?"},
-        {"kto": "B", "znaki": "我想吃饺子和鸡肉。", "pinyin": "Wǒ xiǎng chī jiǎozi hé jīròu.", "polski": "Chcę zjeść pierogi i kurczaka."},
-        {"kto": "A", "znaki": "好。你想喝什么？", "pinyin": "Hǎo. Nǐ xiǎng hē shénme?", "polski": "Dobrze. Czego się napijesz?"},
-        {"kto": "B", "znaki": "我想喝茶，谢谢。", "pinyin": "Wǒ xiǎng hē chá, xièxie.", "polski": "Napiję się herbaty, dziękuję."},
-        {"kto": "A", "znaki": "请。饺子好吃吗？", "pinyin": "Qǐng. Jiǎozi hǎochī ma?", "polski": "Proszę. Czy pierogi są smaczne?"},
-        {"kto": "B", "znaki": "很好吃！", "pinyin": "Hěn hǎochī!", "polski": "Bardzo smaczne!"},
-        {"kto": "B", "znaki": "我喜欢饺子。", "pinyin": "Wǒ xǐhuan jiǎozi.", "polski": "Lubię pierogi."},
-        {"kto": "A", "znaki": "太好了！", "pinyin": "Tài hǎo le!", "polski": "Świetnie!"},
-        {"kto": "B", "znaki": "多少钱？", "pinyin": "Duōshao qián?", "polski": "Ile płacę?"}
+        {"kto": "A", "znaki": "你好！你想吃什么？", "pinyin": "Nǐ hǎo! Nǐ xiǎng chī shénme?", "wymowa": "ni chał! ni siang czhy szen-ma", "polski": "Dzień dobry! Co chcesz zjeść?"},
+        {"kto": "B", "znaki": "我想吃饺子和鸡肉。", "pinyin": "Wǒ xiǎng chī jiǎozi hé jīròu.", "wymowa": "ło siang czhy dział-dzy chy dzi-żoł", "polski": "Chcę zjeść pierogi i kurczaka."},
+        {"kto": "A", "znaki": "好。你想喝什么？", "pinyin": "Hǎo. Nǐ xiǎng hē shénme?", "wymowa": "chał. ni siang chy szen-ma", "polski": "Dobrze. Czego się napijesz?"},
+        {"kto": "B", "znaki": "我想喝茶，谢谢。", "pinyin": "Wǒ xiǎng hē chá, xièxie.", "wymowa": "ło siang chy czha, sie-sie", "polski": "Napiję się herbaty, dziękuję."},
+        {"kto": "A", "znaki": "请。饺子好吃吗？", "pinyin": "Qǐng. Jiǎozi hǎochī ma?", "wymowa": "ćhing. dział-dzy chał czhy ma", "polski": "Proszę. Czy pierogi są smaczne?"},
+        {"kto": "B", "znaki": "很好吃！", "pinyin": "Hěn hǎochī!", "wymowa": "chyn chał czhy", "polski": "Bardzo smaczne!"},
+        {"kto": "B", "znaki": "我喜欢饺子。", "pinyin": "Wǒ xǐhuan jiǎozi.", "wymowa": "ło si-chłan dział-dzy", "polski": "Lubię pierogi."},
+        {"kto": "A", "znaki": "太好了！", "pinyin": "Tài hǎo le!", "wymowa": "thaj chał la", "polski": "Świetnie!"},
+        {"kto": "B", "znaki": "多少钱？", "pinyin": "Duōshao qián?", "wymowa": "tło-szał ćhien", "polski": "Ile płacę?"}
       ],
       "nowe": [
         {"znaki": "请", "pinyin": "qǐng", "polski": "ćhing", "notatki": "", "znaczenie": "please · proszę"},
@@ -36,19 +36,19 @@
       },
       "ty": "B",
       "kwestie": [
-        {"kto": "A", "znaki": "你想喝咖啡吗？", "pinyin": "Nǐ xiǎng hē kāfēi ma?", "polski": "Chcesz się napić kawy?"},
-        {"kto": "B", "znaki": "不，我想喝啤酒。你呢？", "pinyin": "Bù, wǒ xiǎng hē píjiǔ. Nǐ ne?", "polski": "Nie, chcę się napić piwa. A ty?"},
-        {"kto": "A", "znaki": "我想喝抹茶。", "pinyin": "Wǒ xiǎng hē mǒchá.", "polski": "Ja napiję się matchy."},
-        {"kto": "A", "znaki": "你想吃什么？", "pinyin": "Nǐ xiǎng chī shénme?", "polski": "Co chcesz zjeść?"},
-        {"kto": "B", "znaki": "我喜欢披萨和汉堡。", "pinyin": "Wǒ xǐhuan pīsà hé hànbǎo.", "polski": "Lubię pizzę i hamburgery."},
-        {"kto": "A", "znaki": "披萨好吃。", "pinyin": "Pīsà hǎochī.", "polski": "Pizza jest smaczna."},
-        {"kto": "A", "znaki": "汉堡难吃。", "pinyin": "Hànbǎo nánchī.", "polski": "Hamburger jest niedobry."},
-        {"kto": "B", "znaki": "我不明白。", "pinyin": "Wǒ bù míngbai.", "polski": "Nie rozumiem."},
-        {"kto": "B", "znaki": "汉堡很好吃！", "pinyin": "Hànbǎo hěn hǎochī!", "polski": "Hamburger jest bardzo smaczny!"},
-        {"kto": "A", "znaki": "好，好。", "pinyin": "Hǎo, hǎo.", "polski": "Dobrze, dobrze."},
-        {"kto": "B", "znaki": "你很可爱。", "pinyin": "Nǐ hěn kě'ài.", "polski": "Jesteś słodka."},
-        {"kto": "B", "znaki": "我们明天见？", "pinyin": "Wǒmen míngtiān jiàn?", "polski": "Spotkamy się jutro?"},
-        {"kto": "A", "znaki": "好，明天见！", "pinyin": "Hǎo, míngtiān jiàn!", "polski": "Dobrze, do jutra!"}
+        {"kto": "A", "znaki": "你想喝咖啡吗？", "pinyin": "Nǐ xiǎng hē kāfēi ma?", "wymowa": "ni siang chy kha-fej ma", "polski": "Chcesz się napić kawy?"},
+        {"kto": "B", "znaki": "不，我想喝啤酒。你呢？", "pinyin": "Bù, wǒ xiǎng hē píjiǔ. Nǐ ne?", "wymowa": "pu, ło siang chy phi-dzioł. ni na", "polski": "Nie, chcę się napić piwa. A ty?"},
+        {"kto": "A", "znaki": "我想喝抹茶。", "pinyin": "Wǒ xiǎng hē mǒchá.", "wymowa": "ło siang chy mo-czha", "polski": "Ja napiję się matchy."},
+        {"kto": "A", "znaki": "你想吃什么？", "pinyin": "Nǐ xiǎng chī shénme?", "wymowa": "ni siang czhy szen-ma", "polski": "Co chcesz zjeść?"},
+        {"kto": "B", "znaki": "我喜欢披萨和汉堡。", "pinyin": "Wǒ xǐhuan pīsà hé hànbǎo.", "wymowa": "ło si-chłan phi-sa chy chan-pał", "polski": "Lubię pizzę i hamburgery."},
+        {"kto": "A", "znaki": "披萨好吃。", "pinyin": "Pīsà hǎochī.", "wymowa": "phi-sa chał czhy", "polski": "Pizza jest smaczna."},
+        {"kto": "A", "znaki": "汉堡难吃。", "pinyin": "Hànbǎo nánchī.", "wymowa": "chan-pał nan czhy", "polski": "Hamburger jest niedobry."},
+        {"kto": "B", "znaki": "我不明白。", "pinyin": "Wǒ bù míngbai.", "wymowa": "ło pu ming-paj", "polski": "Nie rozumiem."},
+        {"kto": "B", "znaki": "汉堡很好吃！", "pinyin": "Hànbǎo hěn hǎochī!", "wymowa": "chan-pał chyn chał czhy", "polski": "Hamburger jest bardzo smaczny!"},
+        {"kto": "A", "znaki": "好，好。", "pinyin": "Hǎo, hǎo.", "wymowa": "chał, chał", "polski": "Dobrze, dobrze."},
+        {"kto": "B", "znaki": "你很可爱。", "pinyin": "Nǐ hěn kě'ài.", "wymowa": "ni chyn khy-aj", "polski": "Jesteś słodka."},
+        {"kto": "B", "znaki": "我们明天见？", "pinyin": "Wǒmen míngtiān jiàn?", "wymowa": "ło-myn ming-thien dzien", "polski": "Spotkamy się jutro?"},
+        {"kto": "A", "znaki": "好，明天见！", "pinyin": "Hǎo, míngtiān jiàn!", "wymowa": "chał, ming-thien dzien", "polski": "Dobrze, do jutra!"}
       ],
       "nowe": []
     }
