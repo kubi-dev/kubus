@@ -1,7 +1,7 @@
 // lista.js: wspólna lista zwrotów z wyszukiwarką po polsku i karta zwrotu (obrazek, znaki, pinyin, zapis polski, nagranie, mikrofon, gwiazdka).
 // Używa jej strona główna (wszystkie zwroty) i ulubione/ (tylko z gwiazdką). Gwiazdki to pole "ulubione" w tym samym stanie co powtórka
 // (localStorage "kubus.powtorka" + worker), więc synchronizują się między urządzeniami.
-// Strona daje elementy #szukaj #lista #sync #overlay #wroc #o-ttl #card (i opcjonalnie #diag-log) oraz woła Lista.start(opcje):
+// Strona daje elementy #szukaj #lista #sync #overlay #wroc #o-ttl #card (i opcjonalnie details.diag z #diag-log: przy otwartej karcie stoi pod nią) oraz woła Lista.start(opcje):
 //   karty        talia (jak powtorka/karty.json)
 //   baza         przedrostek ścieżek do mp3 i obrazków ("" na stronie głównej, "../" w podkatalogu)
 //   syncUrl      adres workera (gdy w localStorage nie ma własnego)
@@ -95,6 +95,8 @@ window.Lista = (function () {
 
   // ---------- karta ----------
   let otwarta = null;
+  // dziennik mikrofonu (details.diag strony) na czas otwartej karty stoi pod nią, jak w powtórce i na lekcji; potem wraca na miejsce
+  let diagNode = null, diagRodzic = null, diagNast = null;
   function otworz(k) {
     otwarta = k;
     const card = $("card"); card.innerHTML = "";
@@ -121,15 +123,18 @@ window.Lista = (function () {
       onDone: (res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; }
     });
     card.appendChild(mic); card.appendChild(out);
+    if (diagNode) card.appendChild(diagNode);
     $("overlay").hidden = false;
     window.scrollTo(0, 0);
     graj(k);
   }
-  function zamknij() { Wymowa.stopAudio(); otwarta = null; $("overlay").hidden = true; rysujListe(); }
+  function zamknij() { Wymowa.stopAudio(); otwarta = null; if (diagNode) diagRodzic.insertBefore(diagNode, diagNast); $("overlay").hidden = true; rysujListe(); }
 
   function start(o) {
     Object.assign(opcje, o);
     for (const k of opcje.karty) KARTY_MAP[k.id] = k;
+    diagNode = document.querySelector("details.diag");
+    if (diagNode) { diagRodzic = diagNode.parentNode; diagNast = diagNode.nextSibling; }
     if (!cfg.url && opcje.syncUrl) cfg.url = opcje.syncUrl;
     $("szukaj").addEventListener("input", rysujListe);
     $("wroc").addEventListener("click", (e) => { e.preventDefault(); zamknij(); });
