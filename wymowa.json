@@ -1845,7 +1845,7 @@
     {
      "znaki": "愿意",
      "pinyin": "yuànyì",
-     "polski": "jüen-i",
+     "polski": "jüan-i",
      "znaczenie": "chcieć",
      "lekcja": 3
     },
@@ -2332,7 +2332,7 @@
    "id": "ukryte-litery",
    "tytul": "-ian, -iu, -ui, -un, -üan · pinyin ukrywa jedną literę",
    "trudnosc": 2,
-   "opis": "Najważniejsze: czytaj polski zapis, nie pinyin. Pinyin kilka końcówek pisze krócej, niż się mówi, a nasz zapis pokazuje, jak jest naprawdę.\n„-ian” mówisz „ien”. „-iu” mówisz „ioł”. „-ui” mówisz „łej”. „-un” mówisz „łyn”. „yuan” i „xuan” to „jüen” i „süen”. „ong” mówisz „ung” (中国 czung-kło), „eng” mówisz „yng” (朋友 phyng-joł).\nWyjątek: po j, q, x, y „un” to „ün”: 裙子 ćhün-dzy (spódnica). Wszędzie indziej „un” to „łyn”: 春 czhłyn, 对 tłej.",
+   "opis": "Najważniejsze: czytaj polski zapis, nie pinyin. Pinyin kilka końcówek pisze krócej, niż się mówi, a nasz zapis pokazuje, jak jest naprawdę.\n„-ian” mówisz „ien”. „-iu” mówisz „ioł”. „-ui” mówisz „łej”. „-un” mówisz „łyn”. „yuan” i „xuan” to „jüan” i „süan”. „ong” mówisz „ung” (中国 czung-kło), „eng” mówisz „yng” (朋友 phyng-joł).\nWyjątek: po j, q, x, y „un” to „ün”: 裙子 ćhün-dzy (spódnica). Wszędzie indziej „un” to „łyn”: 春 czhłyn, 对 tłej.",
    "przyklad_pl": "Powiedz „cień”. Dodaj mocny wydech: „ćhien” (钱, pieniądze). Powiedz „klej”. Dołóż „sz”: „szłej” (水, woda). Nie mów „ćian” ani „szui”.",
    "jak_cwiczyc": "Powiedz „klej”. Teraz „szłej” (水, woda). Powiedz „pień”. Teraz „thien” z mocnym wydechem (天, dzień). Powiedz „lio” i dodaj „ł”: „lioł” (六, sześć).",
    "blad_polakow": "Czytasz literka po literce: „tian”, „dui”, „liu”, „xuan”. Brzmi obco. Do tego „ian” i „iang” zaczynają ci się mylić.",
@@ -2425,7 +2425,7 @@
     {
      "znaki": "愿意",
      "pinyin": "yuànyì",
-     "polski": "jüen-i",
+     "polski": "jüan-i",
      "znaczenie": "chcieć",
      "lekcja": 3
     },

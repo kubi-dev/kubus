@@ -19,8 +19,8 @@ Data: 2026-09-19
 
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
-| 愿意 | yuànyì | jüen-i | JUAN-YI · YES | willing / yes · chcę / tak |
-| 不愿意 | bú yuànyì | pu jüen-i | PU JUAN-YI · NO | not willing / no · nie chcę / nie |
+| 愿意 | yuànyì | jüan-i | JUAN-YI · YES | willing / yes · chcę / tak |
+| 不愿意 | bú yuànyì | pu jüan-i | PU JUAN-YI · NO | not willing / no · nie chcę / nie |
 
 ## Zwroty
 

@@ -39,7 +39,7 @@
         {"kto": "A", "znaki": "是，我是单身。你呢？", "pinyin": "Shì, wǒ shì dānshēn. Nǐ ne?", "wymowa": "szy, ło szy tan-szyn. ni na", "polski": "Tak, jestem singielką. A ty?"},
         {"kto": "B", "znaki": "我是单身。", "pinyin": "Wǒ shì dānshēn.", "wymowa": "ło szy tan-szyn", "polski": "Jestem singlem."},
         {"kto": "B", "znaki": "一起吃饭吗？", "pinyin": "Yìqǐ chīfàn ma?", "wymowa": "i-ćhi czhy-fan ma", "polski": "Zjemy razem?"},
-        {"kto": "A", "znaki": "愿意！你想吃什么？", "pinyin": "Yuànyì! Nǐ xiǎng chī shénme?", "wymowa": "jüen-i! ni siang czhy szen-ma", "polski": "Chętnie! Co chcesz zjeść?"},
+        {"kto": "A", "znaki": "愿意！你想吃什么？", "pinyin": "Yuànyì! Nǐ xiǎng chī shénme?", "wymowa": "jüan-i! ni siang czhy szen-ma", "polski": "Chętnie! Co chcesz zjeść?"},
         {"kto": "B", "znaki": "我想吃饺子。你呢？", "pinyin": "Wǒ xiǎng chī jiǎozi. Nǐ ne?", "wymowa": "ło siang czhy dział-dzy. ni na", "polski": "Chcę zjeść pierogi. A ty?"},
         {"kto": "A", "znaki": "我想吃炒饭和鸡肉。", "pinyin": "Wǒ xiǎng chī chǎofàn hé jīròu.", "wymowa": "ło siang czhy czhał-fan chy dzi-żoł", "polski": "Chcę smażony ryż i kurczaka."},
         {"kto": "B", "znaki": "太好了！你很漂亮。", "pinyin": "Tài hǎo le! Nǐ hěn piàoliang.", "wymowa": "thaj chał la! ni chyn phiał-liang", "polski": "Świetnie! Jesteś bardzo ładna."},

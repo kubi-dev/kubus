@@ -31,10 +31,10 @@
     {
       "nazwa": "Chcę / nie chcę",
       "pozycje": [
-        {"znaki": "愿意", "pinyin": "yuànyì", "polski": "jüen-i", "notatki": "JUAN-YI · YES", "znaczenie": "willing / yes · chcę / tak", "obrazek": {
+        {"znaki": "愿意", "pinyin": "yuànyì", "polski": "jüan-i", "notatki": "JUAN-YI · YES", "znaczenie": "willing / yes · chcę / tak", "obrazek": {
             "id": "9417b289-710a-4523-b840-316c42032f6c", "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHgxMDIyMzEyLWltYWdlLWt3dndmOHc5LmpwZw.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5914523/image-background-public-domain-hand"}
         },
-        {"znaki": "不愿意", "pinyin": "bú yuànyì", "polski": "pu jüen-i", "notatki": "PU JUAN-YI · NO", "znaczenie": "not willing / no · nie chcę / nie", "obrazek": {
+        {"znaki": "不愿意", "pinyin": "bú yuànyì", "polski": "pu jüan-i", "notatki": "PU JUAN-YI · NO", "znaczenie": "not willing / no · nie chcę / nie", "obrazek": {
             "id": "95f4017b-d6f1-4511-8441-9dd9948f6bd8", "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvcHgxMTA2MTc0LWltYWdlLWt3eXI3eDFyLmpwZw.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5962041/free-public-domain-cc0-photo"}
         }
       ]
