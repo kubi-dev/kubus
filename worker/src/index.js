@@ -146,14 +146,16 @@ export default {
       const bytes = new Uint8Array(buf);
       let bin = ""; for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
       const t0 = Date.now();
+      const cel = (url.searchParams.get("cel") || "").slice(0, 100), strona = (url.searchParams.get("strona") || "").slice(0, 100);
       try {
+        // Podpowiedź = zwrot z karty (jak słuchacz, który wie, o czym mowa): uproszczone znaki i mniej zmyślania.
+        // Stara podpowiedź „以下是普通话的句子。” na krótkim nagraniu ucznia dawała napisy z YouTube („请不吝点赞 订阅 转发…”).
+        // Sprawdzone na nagraniach z KV: zły cel nie przechodzi (很多吻 z celem 我爱你 -> bełkot), bardzo podobny czasem tak (老师 z celem 老婆).
         const out = await env.AI.run("@cf/openai/whisper-large-v3-turbo", {
-          audio: btoa(bin), task: "transcribe", language: "zh",
-          initial_prompt: "以下是普通话的句子。", // podpowiedź: uproszczone znaki
+          audio: btoa(bin), task: "transcribe", language: "zh", ...(cel ? { initial_prompt: cel } : {}),
         });
         const text = (out && out.text || "").trim(), ms = Date.now() - t0;
         // ostatnie próby do odsłuchu przy szukaniu błędów rozpoznawania: WAV + cel + wynik, 7 dni (wrangler kv key list --prefix nagranie:)
-        const cel = (url.searchParams.get("cel") || "").slice(0, 100), strona = (url.searchParams.get("strona") || "").slice(0, 100);
         ctx.waitUntil(env.STAN.put("nagranie:" + new Date().toISOString(), buf, { expirationTtl: 7 * 86400, metadata: { cel, text: text.slice(0, 100), strona, ms } }).catch(() => {}));
         return json({ text, ms });
       } catch (e) { return json({ error: "whisper: " + (e.message || e) }, 502); }
