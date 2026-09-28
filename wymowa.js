@@ -166,8 +166,8 @@
   const INI_PL = { b: "p", p: "ph", m: "m", f: "f", d: "t", t: "th", n: "n", l: "l", g: "k", k: "kh", h: "ch", j: "dz", q: "ćh", x: "s", zh: "cz", ch: "czh", sh: "sz", r: "ż", z: "dz", c: "cch", s: "s", "": "" };
   const FIN_PL = { a: "a", o: "o", e: "y", i: "i", u: "u", "ü": "ü", ai: "aj", ei: "ej", ao: "ał", ou: "oł", an: "an", en: "yn", ang: "ang", eng: "yng", ong: "ung", er: "ar",
     ia: "ia", ie: "ie", iao: "iał", iu: "ioł", ian: "ien", in: "in", iang: "iang", ing: "ing", iong: "iung",
-    ua: "ła", uo: "ło", uai: "łaj", ui: "łej", uan: "łan", un: "łyn", uang: "łang", ueng: "łyng", "üe": "üe", "üan": "üen", "ün": "ün" };
-  const ZERO_PL = { yi: "i", ya: "ja", ye: "je", yao: "jał", you: "joł", yan: "jen", yin: "in", yang: "jang", ying: "ing", yong: "jung", yu: "ü", yue: "üe", yuan: "jüen", yun: "ün",
+    ua: "ła", uo: "ło", uai: "łaj", ui: "łej", uan: "łan", un: "łyn", uang: "łang", ueng: "łyng", "üe": "üe", "üan": "üan", "ün": "ün" };
+  const ZERO_PL = { yi: "i", ya: "ja", ye: "je", yao: "jał", you: "joł", yan: "jen", yin: "in", yang: "jang", ying: "ing", yong: "jung", yu: "ü", yue: "üe", yuan: "jüan", yun: "ün",
     wu: "łu", wa: "ła", wo: "ło", wai: "łaj", wei: "łej", wan: "łan", wen: "łyn", wang: "łang", weng: "łyng" };
   // polska litera + polskie słowo, na którym Polak słyszy ten dźwięk (do podpowiedzi o dmuchnięciu)
   const SLOWO_PL = { p: ["p", "pan"], t: ["t", "tak"], k: ["k", "kot"], q: ["ć", "ćma"], ch: ["cz", "czapka"], c: ["c", "cena"],
@@ -198,7 +198,10 @@
     if (["j", "q", "x"].includes(ini)) H.push([1, "Usta w lekki uśmiech, czubek języka oparty o dolne zęby."]);
     if (r.twardeY && ["z", "c", "s"].includes(ini)) H.push([4, `Po ${q({ z: "dz", c: "c", s: "s" }[ini])} język zostaje na miejscu, zęby prawie zamknięte, i tylko przeciągasz ten sam szum. Żadnego osobnego „y”.`]);
     else if (r.twardeY) H.push([4, "Język zostaje zagięty jak przy spółgłosce i przeciągasz ten sam szum. Nie otwieraj ust na osobne „y”."]);
-    if (fin.includes("ü")) H.push([4, "Usta w dzióbek jak do gwizdania, a język jak do „i”. Dzióbek trzymaj do końca, w lustrze usta się nie rozjeżdżają."]);
+    // ü także w sylabach bez spółgłoski (yu, yue, yuan, yun), gdzie pinyin pisze samo „u”
+    const u = fin.includes("ü") || (r.zero && fin.startsWith("yu")), samoU = ["ü", "ün", "yu", "yun"].includes(fin);
+    if (u && samoU) H.push([4, "Usta w dzióbek jak do gwizdania, a język jak do „i”. Dzióbek trzymaj do końca, w lustrze usta się nie rozjeżdżają."]);
+    else if (u) H.push([4, "Zaczynasz od „ü”: usta w dzióbek jak do gwizdania, a język jak do „i”. Dopiero potem otwierasz usta na resztę."]);
     if (["e", "en", "eng"].includes(fin) && !r.lekkieE) H.push([3, "„y” z tyłu gardła, jak zastanawiające „yyy…”. Usta płasko, szczęka lekko w dół."]);
     if (fin === "er") H.push([3, "Mówiąc „a”, zawiń czubek języka do góry i do tyłu, bez dotykania podniebienia. Nic nie drga."]);
     if (/ng$/.test(fin)) H.push([3, "Na końcu żadnego „g”: tył języka zamyka gardło jak w „bank” tuż przed „k”. Czubek języka leży na dole."]);

@@ -6,7 +6,7 @@ Strona do nauki chińskiego dla Polaka: statyczny HTML na GitHub Pages (https://
 
 ## Polecenia
 
-- `python3 build.py` buduje wszystkie strony i pobiera tylko brakujące nagrania (Google TTS) i obrazki. `--no-audio` pomija nagrania i składanie podcastów, `--no-obrazki` pomija obrazki. Linie z `!` to błędy (zwykle chwilowe z TTS): uruchom ponownie.
+- `python3 build.py` buduje wszystkie strony i pobiera tylko brakujące nagrania (Google TTS) i obrazki. `--no-obrazki` pomija obrazki. Nie używaj `--no-audio` przed deployem: pomija składanie podcastów i zostawia pustą listę odcinków na stronach `podcast/` i `scenki/` (pełny build i tak pobiera tylko brakujące nagrania). Linie z `!` to błędy (zwykle chwilowe z TTS): uruchom ponownie.
 - `./serwuj.sh` to podgląd na http://localhost:8765/ (mikrofon wymaga http, nie file://).
 - `./deploy.sh "opis"` robi `git add -A`, commit i push; GitHub Pages odświeża stronę po ~1 min.
 - `python3 scenki.py sprawdz lekcje/NN-slug` to jedyna automatyczna kontrola: pokrycie dialogu znanym słownictwem ≥ 75% i zgodność pola `wymowa` z kartami. Testów ani lintera nie ma.
