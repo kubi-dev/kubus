@@ -23,7 +23,7 @@ Strona do nauki chińskiego dla Polaka: statyczny HTML na GitHub Pages (https://
 
 **Talia kart:** `build_powtorka` składa karty ze wszystkich lekcji po numerze lekcji; przy powtórzonych znakach wygrywa pierwsze wystąpienie. Ta sama talia zasila powtórkę, ulubione i wyszukiwarkę na stronie głównej. `id` karty to jej znaki, a postęp powtórek i ulubione są zapisane po `id`, więc zmiana znaków w `lekcja.json` gubi postęp tej karty.
 
-**Wspólny JS:** `wymowa.js` (odtwarzanie mp3 przez jeden `AudioContext` na stronę, mikrofon: Web Speech z zapasowym Whisperem w workerze, trener tonów) ładują wszystkie strony, więc poprawki audio i mikrofonu rób tylko tam i sprawdzaj wszystkie strony. `lista.js` + `lista.css` to lista zwrotów z wyszukiwarką i karta zwrotu (strona główna, ulubione).
+**Wspólny JS:** `wymowa.js` (odtwarzanie mp3 przez jeden `AudioContext` na stronę, mikrofon: domyślnie Whisper w workerze, Web Speech tylko z wyboru albo bez klucza, trener tonów) ładują wszystkie strony, więc poprawki audio i mikrofonu rób tylko tam i sprawdzaj wszystkie strony. `lista.js` + `lista.css` to lista zwrotów z wyszukiwarką i karta zwrotu (strona główna, ulubione).
 
 **Worker (`worker/`):** synchronizacja postępu w KV (`/stan`), rozpoznawanie mowy Whisper (`/wymowa`), trener tonów przez Claude (`/trener`), proxy TTS (`/tts`). Adres workera jest w `sync.url`, build wstawia go do stron.
 

@@ -19,7 +19,8 @@ Strony nie używają elementu `<audio>`: mp3 gra `wymowa.js` przez jeden `AudioC
 Sesja audio (`navigator.audioSession.type`): `playback` bezczynnie, `play-and-record` od naciśnięcia mikrofonu do końca
 nasłuchu (ustawiane przed `recognition.start()`, inaczej na iOS mikrofon Web Speech nagrywa ciszę). Po `onstart`
 `getUserMedia` nagrywa równolegle: w dzienniku widać poziom nagrania, a gdy Web Speech nic nie zwróci mimo głosu,
-tekst rozpoznaje Whisper (worker `/wymowa`). Silnik tylko-Whisper: `?silnik=chmura`, powrót: `?silnik=auto`.
+tekst rozpoznaje Whisper (worker `/wymowa`). Domyślny silnik to tylko-Whisper (`chmura`, gdy strona ma adres workera i klucz), bo Web Speech
+na iOS zgaduje krótkie słowa (nagranie 愿意 puszczone do mikrofonu: Web Speech 1 na 3, Whisper 3 na 3). Web Speech: `?silnik=auto`, powrót: `?silnik=chmura`.
 
 ## Trener tonów
 Po każdym wyniku mikrofonu (poza idealnym) strona rysuje wykres tonów sylaba po sylabie: kontur celu na górze, usłyszany na dole,

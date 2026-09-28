@@ -10,8 +10,9 @@
 //  4. Nowa instancja SpeechRecognition na sesję, zdarzenia starych ignorowane; użytkownik kończy, puszczając przycisk;
 //     strona ukryta = sesja porzucona.
 //
-// Silniki: "system" (domyślny: Web Speech + nagranie awaryjne) i "chmura" (tylko nagranie + Whisper).
-// localStorage "kubus.wymowa.silnik" = auto | system | chmura; w URL: ?silnik=chmura
+// Silniki: "chmura" (domyślny, gdy jest adres workera i klucz: tylko nagranie + Whisper) i "system" (Web Speech + nagranie awaryjne).
+// Domyślnie chmura, bo Web Speech na iOS zgaduje krótkie słowa (nasze nagranie 愿意 zaliczał 1 na 3, Whisper 3 na 3).
+// localStorage "kubus.wymowa.silnik" = chmura | auto | system (auto i system = Web Speech); w URL: ?silnik=auto
 // Adres workera: window.SYNC_URL (wstawia build.py); klucz: localStorage "kubus.powtorka.sync" (jak sync powtórek).
 //
 // Użycie:
@@ -78,7 +79,7 @@
   function cfg() {
     const ls = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
     let sync = {}; try { sync = JSON.parse(ls("kubus.powtorka.sync") || "{}"); } catch (e) {}
-    const silnik = ls("kubus.wymowa.silnik") || "auto";
+    const silnik = ls("kubus.wymowa.silnik") || "chmura";
     const url = (sync.url || window.SYNC_URL || "").replace(/\/$/, ""), klucz = sync.klucz || "";
     const chmuraOk = !!(url && klucz && GUM && AC);
     const uzyj = silnik === "chmura" && chmuraOk ? "chmura" : "system";
