@@ -81,6 +81,8 @@ def build_lesson(lesson_dir):
         for p in sek["pozycje"]:
             try: p["audio"] = ensure_audio(lesson_dir, p["znaki"])
             except Exception as e: print(f"  ! {e}", file=sys.stderr); p.pop("audio", None)
+            if not p.get("doslownie") and len(p.get("polski", "").split()) > 1:
+                print(f"  ! brak pola 'doslownie' (znaczenie słowo po słowie): {p['znaki']}", file=sys.stderr)
             img = ensure_image(lesson_dir, p)
             if img: p["img"] = img
             else: p.pop("img", None)
@@ -100,7 +102,7 @@ def build_lesson(lesson_dir):
     data["podcast"] = pod; data["scenki"] = len([sc for sc in scenki if sc.get("podcast")])
     html = TEMPLATE.replace("{{TYTUL}}", data["tytul"]).replace("{{DATA_JSON}}", json.dumps(data, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
     (lesson_dir / "index.html").write_text(html, encoding="utf-8")
-    karty = [{"id": p["znaki"], "znaki": p["znaki"], "pinyin": p["pinyin"], "polski": p.get("polski", ""), "znaczenie": p["znaczenie"],
+    karty = [{"id": p["znaki"], "znaki": p["znaki"], "pinyin": p["pinyin"], "polski": p.get("polski", ""), "doslownie": p.get("doslownie", ""), "znaczenie": p["znaczenie"],
               "lekcja": data.get("numer", 0), "lekcjaTytul": data["tytul"],
               "audio": f"lekcje/{lesson_dir.name}/audio/{p['audio']}" if p.get("audio") else "",
               "img": f"lekcje/{lesson_dir.name}/{p['img']}" if p.get("img") else "",

@@ -54,6 +54,9 @@
   .result { font-size: 14px; padding: 10px 12px; border-radius: 10px; background: var(--bg); line-height: 1.4; width: 100%; box-sizing: border-box; min-height: 42px; }
   .result:empty { background: transparent; padding: 0; }
   .wym { min-height: 30px; line-height: 30px; font-size: 24px; font-weight: 600; color: var(--accent); }   /* polski zapis nad guzikiem; miejsce zarezerwowane od początku */
+  .dosl { font-size: 12px; line-height: 1.35; color: var(--muted); }   /* znaczenie słowo po słowie */
+  .wym + .dosl { margin-top: -12px; }
+  .dosl.ukryte { visibility: hidden; }
   .result.ok { background: var(--ok-bg); color: var(--ok-ink); }
   .result.mid { background: var(--mid-bg); color: var(--mid-ink); }
   .result.bad { background: var(--accent-soft); color: var(--accent); }
@@ -329,6 +332,7 @@ function odslon(k, kontener, zMikrofonem, onWynik, bezWymowy) {
   if (!bezWymowy) {   // karta A ma wymowę już pod guzikiem
     r.appendChild(el("div", "pinyin", k.pinyin));
     if (k.polski) r.appendChild(el("div", "pl", "po polsku: " + k.polski));
+    if (k.doslownie) r.appendChild(el("div", "dosl", "dosłownie: " + k.doslownie));
   }
   r.appendChild(el("div", "", polskie(k) + (angielskie(k) ? ` <span class="pl">· ${angielskie(k)}</span>` : "")));
   const kr = kredyt(k); if (kr) r.appendChild(kr);
@@ -375,13 +379,15 @@ function kartaA(c, w) {
   // wymowa: tylko polski zapis, NAD guzikiem (prawy kciuk na guziku nie zasłania), po podpowiedzi albo po odsłonięciu
   const wym = el("div", "wym");
   const polskiZapis = () => k.polski || (window.pinyinPro ? pinyinPro.pinyin(k.znaki, { toneType: "none", type: "array" }).map(Wymowa.pinyinPl).join("-") : k.pinyin);
-  const pokazWymowe = () => { wym.textContent = polskiZapis(); };
+  // znaczenie słowo po słowie tuż pod wymową; tekst jest od początku (niewidoczny), żeby guzik nie skoczył przy odsłonięciu
+  const dosl = k.doslownie ? el("div", "dosl ukryte", k.doslownie) : null;
+  const pokazWymowe = () => { wym.textContent = polskiZapis(); if (dosl) dosl.classList.remove("ukryte"); };
   const pokazPodpowiedz = (n, zDzwiekiem) => {
     if (n === 1) { pokazWymowe(); hint.textContent = "posłuchaj"; }
     else if (zDzwiekiem) graj(k);
   };
   hint.addEventListener("click", () => { widok.podpowiedzi++; pokazPodpowiedz(widok.podpowiedzi, true); });
-  card.appendChild(wym); card.appendChild(mic); card.appendChild(out); card.appendChild(hint);
+  card.appendChild(wym); if (dosl) card.appendChild(dosl); card.appendChild(mic); card.appendChild(out); card.appendChild(hint);
   const rev = el("div"); card.appendChild(rev);
   let odslonieto = false;
   const pokazWynik = (r, sug) => {

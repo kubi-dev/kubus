@@ -110,6 +110,7 @@ window.Lista = (function () {
     card.appendChild(el("div", "hanzi", k.znaki));
     card.appendChild(el("div", "pinyin", k.pinyin));
     if (k.polski) card.appendChild(el("div", "pl", "po polsku: " + k.polski));
+    if (k.doslownie) card.appendChild(el("div", "dosl", "dosłownie: " + k.doslownie));
     const kr = kredyt(k); if (kr) card.appendChild(kr);
     const row = el("div", "row");
     const b1 = el("button", "big", "🔊 posłuchaj"); b1.type = "button"; b1.addEventListener("click", () => graj(k)); row.appendChild(b1);

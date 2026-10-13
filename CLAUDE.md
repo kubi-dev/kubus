@@ -33,7 +33,7 @@ Strona do nauki chińskiego dla Polaka: statyczny HTML na GitHub Pages (https://
 
 Gdy user pyta o cokolwiek po chińsku (słowo, zwrot, wymowę, „jak się mówi X”), najpierw sprawdź, co jest na kartach, dopiero potem odpowiadaj albo szukaj w internecie.
 
-- Karty z lekcji: `lekcje/*/lekcja.json` (pole `polski` to zapis wymowy, `znaczenie` to tłumaczenie, `nazwa` sekcji np. „Chcę / nie chcę”). Wszystkie karty naraz: `powtorka/karty.json` (generowany przez `build.py`).
+- Karty z lekcji: `lekcje/*/lekcja.json` (pole `polski` to zapis wymowy, `doslownie` to znaczenie słowo po słowie, `znaczenie` to tłumaczenie, `nazwa` sekcji np. „Chcę / nie chcę”). Wszystkie karty naraz: `powtorka/karty.json` (generowany przez `build.py`).
 - Szukaj po polskim znaczeniu i po nazwach sekcji, nie tylko po znakach. Jedno polskie słowo może mieć kilka chińskich odpowiedników (np. „chcę”: 想 siang w lekcji 2, 愿意 jüen-i w lekcji 3, 要 jał tylko na stronie wymowy). Gdy pasuje kilka, pokaż wszystkie albo zapytaj, o które chodzi.
 - `wymowa.json` (strony tony/dźwięki) to przykłady do ćwiczeń wymowy, nie karty z lekcji. Nie traktuj ich jako pierwszego źródła.
 - W odpowiedzi używaj słowa i zapisu dokładnie takiego, jak na karcie.

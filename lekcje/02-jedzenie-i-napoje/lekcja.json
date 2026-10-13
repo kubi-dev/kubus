@@ -48,18 +48,18 @@
         {"znaki": "粥", "pinyin": "zhōu", "polski": "czoł", "notatki": "DZOŁ", "znaczenie": "congee · kleik ryżowy", "obrazek": {
             "id": "153b4919-2d96-42c7-b7fd-a46ff1d52698", "url": "https://live.staticflickr.com/136/319209550_d029d15c33_b.jpg", "autor": "roland", "licencja": "by", "zrodlo": "https://www.flickr.com/photos/35034347371@N01/319209550"}
         },
-        {"znaki": "我喜欢……", "pinyin": "Wǒ xǐhuan…", "polski": "ło si-chłan", "notatki": "ŁO SI HŁAN", "znaczenie": "I like… · Lubię…"},
-        {"znaki": "我想吃……", "pinyin": "Wǒ xiǎng chī…", "polski": "ło siang czhy", "notatki": "ŁO-SIA-CZY", "znaczenie": "I want to eat… · Chcę zjeść…"},
-        {"znaki": "我想吃饺子。", "pinyin": "Wǒ xiǎng chī jiǎozi.", "polski": "ło siang czhy dział-dzy", "notatki": "ŁO-SIA-CZY-DZIAŁ-ZY", "znaczenie": "I want to eat dumplings. · Chcę zjeść pierogi."},
-        {"znaki": "我想吃鸡肉。", "pinyin": "Wǒ xiǎng chī jīròu.", "polski": "ło siang czhy dzi-żoł", "notatki": "ŁO-SIA-CZY-DZI-RO", "znaczenie": "I want to eat chicken. · Chcę zjeść kurczaka."}
+        {"znaki": "我喜欢……", "pinyin": "Wǒ xǐhuan…", "polski": "ło si-chłan", "doslownie": "ja · lubić", "notatki": "ŁO SI HŁAN", "znaczenie": "I like… · Lubię…"},
+        {"znaki": "我想吃……", "pinyin": "Wǒ xiǎng chī…", "polski": "ło siang czhy", "doslownie": "ja · chcieć · jeść", "notatki": "ŁO-SIA-CZY", "znaczenie": "I want to eat… · Chcę zjeść…"},
+        {"znaki": "我想吃饺子。", "pinyin": "Wǒ xiǎng chī jiǎozi.", "polski": "ło siang czhy dział-dzy", "doslownie": "ja · chcieć · jeść · pierogi", "notatki": "ŁO-SIA-CZY-DZIAŁ-ZY", "znaczenie": "I want to eat dumplings. · Chcę zjeść pierogi."},
+        {"znaki": "我想吃鸡肉。", "pinyin": "Wǒ xiǎng chī jīròu.", "polski": "ło siang czhy dzi-żoł", "doslownie": "ja · chcieć · jeść · kurczak", "notatki": "ŁO-SIA-CZY-DZI-RO", "znaczenie": "I want to eat chicken. · Chcę zjeść kurczaka."}
       ]
     },
     {
       "nazwa": "Napoje",
       "pozycje": [
-        {"znaki": "我想喝……", "pinyin": "Wǒ xiǎng hē…", "polski": "ło siang chy", "notatki": "ŁO-SIA-HYA", "znaczenie": "I want to drink… · Chcę się napić…"},
-        {"znaki": "我想喝果汁。", "pinyin": "Wǒ xiǎng hē guǒzhī.", "polski": "ło siang chy kło-czy", "notatki": "ŁO-SIA-HYA-GŁO-DZY", "znaczenie": "I want to drink juice. · Chcę się napić soku."},
-        {"znaki": "我想喝啤酒。", "pinyin": "Wǒ xiǎng hē píjiǔ.", "polski": "ło siang chy phi-dzioł", "notatki": "ŁO-SIA-HYA-PI-DZIO", "znaczenie": "I want to drink beer. · Chcę się napić piwa."},
+        {"znaki": "我想喝……", "pinyin": "Wǒ xiǎng hē…", "polski": "ło siang chy", "doslownie": "ja · chcieć · pić", "notatki": "ŁO-SIA-HYA", "znaczenie": "I want to drink… · Chcę się napić…"},
+        {"znaki": "我想喝果汁。", "pinyin": "Wǒ xiǎng hē guǒzhī.", "polski": "ło siang chy kło-czy", "doslownie": "ja · chcieć · pić · sok", "notatki": "ŁO-SIA-HYA-GŁO-DZY", "znaczenie": "I want to drink juice. · Chcę się napić soku."},
+        {"znaki": "我想喝啤酒。", "pinyin": "Wǒ xiǎng hē píjiǔ.", "polski": "ło siang chy phi-dzioł", "doslownie": "ja · chcieć · pić · piwo", "notatki": "ŁO-SIA-HYA-PI-DZIO", "znaczenie": "I want to drink beer. · Chcę się napić piwa."},
         {"znaki": "水", "pinyin": "shuǐ", "polski": "szłej", "notatki": "SŁEJ", "znaczenie": "water · woda", "obrazek": {
             "id": "887064fb-0978-440c-b0a4-dc0023306bc2", "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvaXMxNzg1Ny1pbWFnZS1rd3lzOHJ4eC5qcGc.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5968966/glass-water"}
         },
@@ -92,22 +92,22 @@
     {
       "nazwa": "Zdania",
       "pozycje": [
-        {"znaki": "我不明白。", "pinyin": "Wǒ bù míngbai.", "polski": "ło pu ming-paj", "notatki": "ŁO PU MING PAJ", "znaczenie": "I don't understand. · Nie rozumiem."},
-        {"znaki": "我不知道。", "pinyin": "Wǒ bù zhīdào.", "polski": "ło pu czy-tał", "notatki": "ŁO PU CZY TO", "znaczenie": "I don't know. · Nie wiem."},
-        {"znaki": "你会说英语吗？", "pinyin": "Nǐ huì shuō Yīngyǔ ma?", "polski": "ni chłej szło ing-ü ma", "notatki": "NI-HŁEJ-SŁO-ING-JU-MA", "znaczenie": "Do you speak English? · Czy mówisz po angielsku?"},
-        {"znaki": "用英语说。", "pinyin": "Yòng Yīngyǔ shuō.", "polski": "jung ing-ü szło", "notatki": "", "znaczenie": "Say it in English. · Powiedz to po angielsku."},
-        {"znaki": "你想喝什么？", "pinyin": "Nǐ xiǎng hē shénme?", "polski": "ni siang chy szen-ma", "notatki": "NI-SIA-HYA-SZA-MA", "znaczenie": "What do you want to drink? · Czego się napijesz?"},
-        {"znaki": "你想吃什么？", "pinyin": "Nǐ xiǎng chī shénme?", "polski": "ni siang czhy szen-ma", "notatki": "NI-SIA-CZY-SZA-MA", "znaczenie": "What do you want to eat? · Co chcesz zjeść?"},
-        {"znaki": "你吃什么？", "pinyin": "Nǐ chī shénme?", "polski": "ni czhy szen-ma", "notatki": "", "znaczenie": "What are you eating? · Co jesz?"},
-        {"znaki": "你喝什么？", "pinyin": "Nǐ hē shénme?", "polski": "ni chy szen-ma", "notatki": "", "znaczenie": "What are you drinking? · Co pijesz?"}
+        {"znaki": "我不明白。", "pinyin": "Wǒ bù míngbai.", "polski": "ło pu ming-paj", "doslownie": "ja · nie · rozumieć", "notatki": "ŁO PU MING PAJ", "znaczenie": "I don't understand. · Nie rozumiem."},
+        {"znaki": "我不知道。", "pinyin": "Wǒ bù zhīdào.", "polski": "ło pu czy-tał", "doslownie": "ja · nie · wiedzieć", "notatki": "ŁO PU CZY TO", "znaczenie": "I don't know. · Nie wiem."},
+        {"znaki": "你会说英语吗？", "pinyin": "Nǐ huì shuō Yīngyǔ ma?", "polski": "ni chłej szło ing-ü ma", "doslownie": "ty · umieć · mówić · angielski · (pytanie)", "notatki": "NI-HŁEJ-SŁO-ING-JU-MA", "znaczenie": "Do you speak English? · Czy mówisz po angielsku?"},
+        {"znaki": "用英语说。", "pinyin": "Yòng Yīngyǔ shuō.", "polski": "jung ing-ü szło", "doslownie": "używać · angielski · mówić", "notatki": "", "znaczenie": "Say it in English. · Powiedz to po angielsku."},
+        {"znaki": "你想喝什么？", "pinyin": "Nǐ xiǎng hē shénme?", "polski": "ni siang chy szen-ma", "doslownie": "ty · chcieć · pić · co", "notatki": "NI-SIA-HYA-SZA-MA", "znaczenie": "What do you want to drink? · Czego się napijesz?"},
+        {"znaki": "你想吃什么？", "pinyin": "Nǐ xiǎng chī shénme?", "polski": "ni siang czhy szen-ma", "doslownie": "ty · chcieć · jeść · co", "notatki": "NI-SIA-CZY-SZA-MA", "znaczenie": "What do you want to eat? · Co chcesz zjeść?"},
+        {"znaki": "你吃什么？", "pinyin": "Nǐ chī shénme?", "polski": "ni czhy szen-ma", "doslownie": "ty · jeść · co", "notatki": "", "znaczenie": "What are you eating? · Co jesz?"},
+        {"znaki": "你喝什么？", "pinyin": "Nǐ hē shénme?", "polski": "ni chy szen-ma", "doslownie": "ty · pić · co", "notatki": "", "znaczenie": "What are you drinking? · Co pijesz?"}
       ]
     },
     {
       "nazwa": "Ze scenek",
       "pozycje": [
         {"znaki": "请", "pinyin": "qǐng", "polski": "ćhing", "notatki": "", "znaczenie": "please · proszę", "auto": "scenka"},
-        {"znaki": "太好了！", "pinyin": "Tài hǎo le!", "polski": "thaj chał la", "notatki": "", "znaczenie": "Great! · Świetnie!", "auto": "scenka"},
-        {"znaki": "多少钱？", "pinyin": "Duōshao qián?", "polski": "tło-szał ćhien", "notatki": "", "znaczenie": "How much? · Ile to kosztuje?", "auto": "scenka"}
+        {"znaki": "太好了！", "pinyin": "Tài hǎo le!", "polski": "thaj chał la", "doslownie": "zbyt · dobry · (już)", "notatki": "", "znaczenie": "Great! · Świetnie!", "auto": "scenka"},
+        {"znaki": "多少钱？", "pinyin": "Duōshao qián?", "polski": "tło-szał ćhien", "doslownie": "ile · pieniądze", "notatki": "", "znaczenie": "How much? · Ile to kosztuje?", "auto": "scenka"}
       ]
     }
   ]

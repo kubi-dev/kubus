@@ -22,8 +22,8 @@
       ],
       "nowe": [
         {"znaki": "请", "pinyin": "qǐng", "polski": "ćhing", "notatki": "", "znaczenie": "please · proszę"},
-        {"znaki": "太好了！", "pinyin": "Tài hǎo le!", "polski": "thaj chał la", "notatki": "", "znaczenie": "Great! · Świetnie!"},
-        {"znaki": "多少钱？", "pinyin": "Duōshao qián?", "polski": "tło-szał ćhien", "notatki": "", "znaczenie": "How much? · Ile to kosztuje?"}
+        {"znaki": "太好了！", "pinyin": "Tài hǎo le!", "polski": "thaj chał la", "doslownie": "zbyt · dobry · (już)", "notatki": "", "znaczenie": "Great! · Świetnie!"},
+        {"znaki": "多少钱？", "pinyin": "Duōshao qián?", "polski": "tło-szał ćhien", "doslownie": "ile · pieniądze", "notatki": "", "znaczenie": "How much? · Ile to kosztuje?"}
       ]
     },
     {

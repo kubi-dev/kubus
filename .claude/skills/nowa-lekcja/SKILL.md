@@ -16,6 +16,7 @@ Repo: strony lekcji chińskiego. Każda lekcja = katalog `lekcje/NN-slug/` z `le
    - `znaki` — poprawne znaki uproszczone, ze znakami interpunkcyjnymi chińskimi w zdaniach (。？)
    - `pinyin` — z tonami (diakrytyki), poprawny, nawet jeśli w notatkach brak
    - `polski` — zapis wymowy po polsku wg konwencji z `lekcje/01-przyjaciele/lekcja.json` (ch = polskie ch, y = polskie y, ł, ü, kh/ph/czh = z przydechem, dz/p = bez przydechu; „e” bez tonu = „a”: 的 ta, 了 la, 呢 na, 个 ka, 什么 szen-ma)
+   - `doslownie` — znaczenie słowo po słowie po polsku, tylko gdy pozycja ma więcej niż jedno słowo, czyli spację w `polski` (karta pokazuje je małymi literami pod zapisem polskim). Jedno polskie słowo na każde słowo z `polski`, w tej samej kolejności, rozdzielone „ · ”: 可以吻你吗？ (khy-i łyn ni ma) → `móc · całować · ty · (pytanie)`. Słowo to jego zwykłe znaczenie, nie rozbiór na znaki (明天 = `jutro`, nie „jasny+dzień”; user: to nie ułatwia). Formy podstawowe (bezokolicznik, mianownik). Słówka gramatyczne w nawiasie: 吗 (pytanie), 吧 (propozycja), 了 (już), 的 (ten, co), 呢 (a…?), 啦 (no!), 个 (sztuka). To samo słowo ma ten sam odpowiednik co na wcześniejszych kartach: najpierw `grep -h doslownie lekcje/*/lekcja.json`. Build wypisuje `! brak pola 'doslownie'`, gdy go nie ma.
    - `notatki` — jak user zapisał (puste, jeśli nie zapisał)
    - `znaczenie` — format `english · polski`
 5. **Sekcje.** Grupuj wg tego, co jest w notatkach (Słówka, Zdania, Gramatyka, Liczby…). Zachowaj kolejność ze zdjęć.

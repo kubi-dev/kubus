@@ -35,6 +35,8 @@
   .pinyin { font-size: 17px; color: var(--accent); margin-top: 4px; }
   .pl { font-size: 15px; margin-top: 4px; }
   .pl::before { content: "po polsku: "; color: var(--muted); font-size: 13px; }
+  .dosl { font-size: 12px; color: var(--muted); margin-top: 2px; }   /* znaczenie słowo po słowie */
+  .dosl::before { content: "dosłownie: "; }
   .fon { font-size: 13px; color: var(--muted); margin-top: 2px; }
   .fon::before { content: "moje: "; }
   .mean { font-size: 15px; margin-top: 8px; }
@@ -211,6 +213,7 @@ function render(sekcje) {
         <div class="hanzi">${p.znaki}</div>
         <div class="pinyin">${p.pinyin}</div>
         ${p.polski ? `<div class="pl">${p.polski}</div>` : ""}
+        ${p.doslownie ? `<div class="dosl">${p.doslownie}</div>` : ""}
         ${p.notatki ? `<div class="fon">${p.notatki}</div>` : ""}
         <div class="mean">${p.znaczenie}</div>
         ${kredyt(p.img ? p.obrazek : null)}
