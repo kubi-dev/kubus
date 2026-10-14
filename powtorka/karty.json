@@ -1015,21 +1015,17 @@
   }
  },
  {
-  "id": "来旅游吗？",
-  "znaki": "来旅游吗？",
-  "pinyin": "Lái lǚyóu ma?",
-  "polski": "laj lü-joł ma",
-  "doslownie": "przyjechać · podróżować · (pytanie)",
+  "id": "来旅游的吗？",
+  "znaki": "来旅游的吗？",
+  "pinyin": "Lái lǚyóu de ma?",
+  "polski": "laj lü-joł ta ma",
+  "doslownie": "przyjechać · podróżować · (ten, co) · (pytanie)",
   "znaczenie": "Here as a tourist? · Jesteś tu jako turystka?",
   "lekcja": 3,
   "lekcjaTytul": "Lekcja 3 · Poznajemy się",
-  "audio": "lekcje/03-poznajemy-sie/audio/805a0ffc6d",
-  "img": "lekcje/03-poznajemy-sie/obrazki/805a0ffc6d.jpg",
-  "obrazek": {
-   "autor": "",
-   "licencja": "cc0",
-   "zrodlo": "https://www.rawpixel.com/image/3282472/free-photo-image-road-bicycle-crossing-busy-street"
-  }
+  "audio": "lekcje/03-poznajemy-sie/audio/6ed570230c",
+  "img": "",
+  "obrazek": null
  },
  {
   "id": "做朋友吧！",
@@ -1092,38 +1088,30 @@
   }
  },
  {
-  "id": "中国哪里？",
-  "znaki": "中国哪里？",
-  "pinyin": "Zhōngguó nǎlǐ?",
-  "polski": "czung-kło na-li",
-  "doslownie": "Chiny · gdzie",
-  "znaczenie": "Where in China? · Skąd w Chinach?",
+  "id": "你是哪里人？",
+  "znaki": "你是哪里人？",
+  "pinyin": "Nǐ shì nǎlǐ rén?",
+  "polski": "ni szy na-li żyn",
+  "doslownie": "ty · być · gdzie · człowiek",
+  "znaczenie": "Where are you from (which city)? · Skąd jesteś (z jakiego miasta)?",
   "lekcja": 3,
   "lekcjaTytul": "Lekcja 3 · Poznajemy się",
-  "audio": "lekcje/03-poznajemy-sie/audio/be59ea6478",
-  "img": "lekcje/03-poznajemy-sie/obrazki/be59ea6478.jpg",
-  "obrazek": {
-   "autor": "",
-   "licencja": "cc0",
-   "zrodlo": "https://www.rawpixel.com/image/6449513/vector-sticker-public-domain-stars"
-  }
+  "audio": "lekcje/03-poznajemy-sie/audio/8515b1d0cb",
+  "img": "",
+  "obrazek": null
  },
  {
-  "id": "然后去哪？",
-  "znaki": "然后去哪？",
-  "pinyin": "Ránhòu qù nǎ?",
-  "polski": "żan-choł ćhü na",
-  "doslownie": "potem · iść · gdzie",
-  "znaczenie": "Where next? · Gdzie dalej?",
+  "id": "下一站去哪？",
+  "znaki": "下一站去哪？",
+  "pinyin": "Xià yí zhàn qù nǎ?",
+  "polski": "sia-i-czan ćhü na",
+  "doslownie": "następny przystanek · iść · gdzie",
+  "znaczenie": "Where is your next stop? · Gdzie jedziesz dalej?",
   "lekcja": 3,
   "lekcjaTytul": "Lekcja 3 · Poznajemy się",
-  "audio": "lekcje/03-poznajemy-sie/audio/46f7b1d1a6",
-  "img": "lekcje/03-poznajemy-sie/obrazki/46f7b1d1a6.jpg",
-  "obrazek": {
-   "autor": "",
-   "licencja": "cc0",
-   "zrodlo": "https://www.rawpixel.com/image/5917082/image-light-public-domain-free"
-  }
+  "audio": "lekcje/03-poznajemy-sie/audio/0f5fd8ad98",
+  "img": "",
+  "obrazek": null
  },
  {
   "id": "愿意",
