@@ -1024,8 +1024,12 @@
   "lekcja": 3,
   "lekcjaTytul": "Lekcja 3 · Poznajemy się",
   "audio": "lekcje/03-poznajemy-sie/audio/6ed570230c",
-  "img": "",
-  "obrazek": null
+  "img": "lekcje/03-poznajemy-sie/obrazki/6ed570230c.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/3282472/free-photo-image-road-bicycle-crossing-busy-street"
+  }
  },
  {
   "id": "做朋友吧！",
@@ -1097,8 +1101,12 @@
   "lekcja": 3,
   "lekcjaTytul": "Lekcja 3 · Poznajemy się",
   "audio": "lekcje/03-poznajemy-sie/audio/8515b1d0cb",
-  "img": "",
-  "obrazek": null
+  "img": "lekcje/03-poznajemy-sie/obrazki/8515b1d0cb.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/6449513/vector-sticker-public-domain-stars"
+  }
  },
  {
   "id": "下一站去哪？",
@@ -1110,8 +1118,12 @@
   "lekcja": 3,
   "lekcjaTytul": "Lekcja 3 · Poznajemy się",
   "audio": "lekcje/03-poznajemy-sie/audio/0f5fd8ad98",
-  "img": "",
-  "obrazek": null
+  "img": "lekcje/03-poznajemy-sie/obrazki/0f5fd8ad98.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/5917082/image-light-public-domain-free"
+  }
  },
  {
   "id": "愿意",
@@ -1383,6 +1395,427 @@
   "lekcja": 3,
   "lekcjaTytul": "Lekcja 3 · Poznajemy się",
   "audio": "lekcje/03-poznajemy-sie/audio/295af37e05",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你今天过得好吗？",
+  "znaki": "你今天过得好吗？",
+  "pinyin": "Nǐ jīntiān guò de hǎo ma?",
+  "polski": "ni dzin-thien kło ta chał ma",
+  "doslownie": "ty · dzisiaj · spędzać · (jak) · dobry · (pytanie)",
+  "znaczenie": "How was your day? · Jak minął ci dzień?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/9b7c82f2f1",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "不好。",
+  "znaki": "不好。",
+  "pinyin": "Bù hǎo.",
+  "polski": "pu chał",
+  "doslownie": "nie · dobry",
+  "znaczenie": "Not good. · Niedobrze.",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/5bcfeede7b",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你今天做了什么？",
+  "znaki": "你今天做了什么？",
+  "pinyin": "Nǐ jīntiān zuò le shénme?",
+  "polski": "ni dzin-thien dzło la szen-ma",
+  "doslownie": "ty · dzisiaj · robić · (już) · co",
+  "znaczenie": "What did you do today? · Co dziś robiłeś?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/fdcd32d44d",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "工作",
+  "znaki": "工作",
+  "pinyin": "gōngzuò",
+  "polski": "kung-dzło",
+  "doslownie": "",
+  "znaczenie": "work · praca, pracować",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/9a018b21ab",
+  "img": "lekcje/04-jak-minal-dzien/obrazki/9a018b21ab.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/6113653/photo-image-public-domain-logo-laptop"
+  }
+ },
+ {
+  "id": "健身",
+  "znaki": "健身",
+  "pinyin": "jiànshēn",
+  "polski": "dzien-szyn",
+  "doslownie": "",
+  "znaczenie": "workout · siłownia, ćwiczyć",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/c24d6f13a4",
+  "img": "lekcje/04-jak-minal-dzien/obrazki/c24d6f13a4.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/5926278/photo-image-public-domain-free-plates"
+  }
+ },
+ {
+  "id": "见朋友",
+  "znaki": "见朋友",
+  "pinyin": "jiàn péngyou",
+  "polski": "dzien phyng-joł",
+  "doslownie": "widzieć · przyjaciel",
+  "znaczenie": "meet friends · spotkać się ze znajomymi",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/41cb9649fe",
+  "img": "lekcje/04-jak-minal-dzien/obrazki/41cb9649fe.jpg",
+  "obrazek": {
+   "autor": "Gareth1953 All Right Now",
+   "licencja": "by",
+   "zrodlo": "https://www.flickr.com/photos/40837632@N05/3851689785"
+  }
+ },
+ {
+  "id": "出去玩",
+  "znaki": "出去玩",
+  "pinyin": "chūqù wán",
+  "polski": "czhu-ćhü łan",
+  "doslownie": "wyjść · bawić się",
+  "znaczenie": "go out, hang out · wyjść się zabawić",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/bc4c74d46f",
+  "img": "lekcje/04-jak-minal-dzien/obrazki/bc4c74d46f.jpg",
+  "obrazek": {
+   "autor": "noeljordan",
+   "licencja": "by",
+   "zrodlo": "https://www.flickr.com/photos/89209149@N02/11309463946"
+  }
+ },
+ {
+  "id": "约会",
+  "znaki": "约会",
+  "pinyin": "yuēhuì",
+  "polski": "jüe-chłej",
+  "doslownie": "",
+  "znaczenie": "date · randka, iść na randkę",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/d8944f2e20",
+  "img": "lekcje/04-jak-minal-dzien/obrazki/d8944f2e20.jpg",
+  "obrazek": {
+   "autor": "Brodie Vissers",
+   "licencja": "cc0",
+   "zrodlo": "https://stocksnap.io/photo/people-man-2S9UCLX4CZ"
+  }
+ },
+ {
+  "id": "最近过得好吗？",
+  "znaki": "最近过得好吗？",
+  "pinyin": "Zuìjìn guò de hǎo ma?",
+  "polski": "dzłej-dzin kło ta chał ma",
+  "doslownie": "ostatnio · spędzać · (jak) · dobry · (pytanie)",
+  "znaczenie": "How have you been lately? · Jak ci ostatnio leci?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/20257635df",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你在中国过得怎么样？",
+  "znaki": "你在中国过得怎么样？",
+  "pinyin": "Nǐ zài Zhōngguó guò de zěnmeyàng?",
+  "polski": "ni dzaj czung-kło kło ta dzyn-ma-jang",
+  "doslownie": "ty · w · Chiny · spędzać · (jak) · jak",
+  "znaczenie": "How is your time in China? · Jak ci się żyje w Chinach?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/3308cb7723",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "我会去上海和台湾。",
+  "znaki": "我会去上海和台湾。",
+  "pinyin": "Wǒ huì qù Shànghǎi hé Táiwān.",
+  "polski": "ło chłej ćhü szang-chaj chy thaj-łan",
+  "doslownie": "ja · (przyszłość) · iść · Szanghaj · i · Tajwan",
+  "znaczenie": "I'm going to Shanghai and Taiwan. · Pojadę do Szanghaju i na Tajwan.",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/28c24ed1b8",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "吃饭了吗？",
+  "znaki": "吃饭了吗？",
+  "pinyin": "Chīfàn le ma?",
+  "polski": "czhy-fan la ma",
+  "doslownie": "jeść · (już) · (pytanie)",
+  "znaczenie": "Have you eaten? (a greeting) · Jadłeś już? (powitanie)",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/2592fc2d64",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你最喜欢吃什么？",
+  "znaki": "你最喜欢吃什么？",
+  "pinyin": "Nǐ zuì xǐhuan chī shénme?",
+  "polski": "ni dzłej si-chłan czhy szen-ma",
+  "doslownie": "ty · najbardziej · lubić · jeść · co",
+  "znaczenie": "What do you like to eat most? · Co najbardziej lubisz jeść?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/41cab89380",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "我都喜欢。",
+  "znaki": "我都喜欢。",
+  "pinyin": "Wǒ dōu xǐhuan.",
+  "polski": "ło toł si-chłan",
+  "doslownie": "ja · wszystko · lubić",
+  "znaczenie": "I like it all. · Lubię wszystko.",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/a5ffb2629f",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "厕所在哪里？",
+  "znaki": "厕所在哪里？",
+  "pinyin": "Cèsuǒ zài nǎlǐ?",
+  "polski": "cy-sło dzaj na-li",
+  "doslownie": "toaleta · w · gdzie",
+  "znaczenie": "Where is the toilet? · Gdzie jest toaleta?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/080231410f",
+  "img": "lekcje/04-jak-minal-dzien/obrazki/080231410f.jpg",
+  "obrazek": {
+   "autor": "Markus Spiske",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/431805/free-photo-image-toilet-bathroom-public"
+  }
+ },
+ {
+  "id": "风景好漂亮。",
+  "znaki": "风景好漂亮。",
+  "pinyin": "Fēngjǐng hǎo piàoliang.",
+  "polski": "fyng-dzing chał phiał-liang",
+  "doslownie": "widok · bardzo · ładny",
+  "znaczenie": "The view is so beautiful. · Jaki piękny widok.",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/b99c301850",
+  "img": "lekcje/04-jak-minal-dzien/obrazki/b99c301850.jpg",
+  "obrazek": {
+   "autor": "Markus Spiske",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/431867/free-photo-image-fog-landscape-mountain-tyrol"
+  }
+ },
+ {
+  "id": "直走",
+  "znaki": "直走",
+  "pinyin": "zhí zǒu",
+  "polski": "czy dzoł",
+  "doslownie": "prosto · iść",
+  "znaczenie": "go straight · prosto",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/7e1e12fb5d",
+  "img": "lekcje/04-jak-minal-dzien/obrazki/7e1e12fb5d.jpg",
+  "obrazek": {
+   "autor": "XoMEoX",
+   "licencja": "by",
+   "zrodlo": "https://www.flickr.com/photos/110925305@N06/51598884592"
+  }
+ },
+ {
+  "id": "左转",
+  "znaki": "左转",
+  "pinyin": "zuǒ zhuǎn",
+  "polski": "dzło człan",
+  "doslownie": "lewo · skręcać",
+  "znaczenie": "turn left · w lewo",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/b1dc7fc6ac",
+  "img": "lekcje/04-jak-minal-dzien/obrazki/b1dc7fc6ac.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/6791776/vector-sticker-public-domain-arrow"
+  }
+ },
+ {
+  "id": "右转",
+  "znaki": "右转",
+  "pinyin": "yòu zhuǎn",
+  "polski": "joł człan",
+  "doslownie": "prawo · skręcać",
+  "znaczenie": "turn right · w prawo",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/a64e12a467",
+  "img": "lekcje/04-jak-minal-dzien/obrazki/a64e12a467.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/9071430/png-arrow-people"
+  }
+ },
+ {
+  "id": "对不起",
+  "znaki": "对不起",
+  "pinyin": "duìbuqǐ",
+  "polski": "tłej-pu-ćhi",
+  "doslownie": "",
+  "znaczenie": "sorry · przepraszam",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/cd51c8c91e",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "没关系",
+  "znaki": "没关系",
+  "pinyin": "méi guānxi",
+  "polski": "mej kłan-si",
+  "doslownie": "nie mieć · związek",
+  "znaczenie": "no problem · nic nie szkodzi",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/ac85b3780c",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "不要辣椒。",
+  "znaki": "不要辣椒。",
+  "pinyin": "Bú yào làjiāo.",
+  "polski": "pu jał la-dział",
+  "doslownie": "nie · chcieć · chili",
+  "znaczenie": "No chili, please. · Bez chili.",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/0f2a8bab10",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "不好意思",
+  "znaki": "不好意思",
+  "pinyin": "bù hǎoyìsi",
+  "polski": "pu-chał-i-sy",
+  "doslownie": "",
+  "znaczenie": "excuse me · przepraszam (że przeszkadzam)",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/e81fdd38b6",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "容易",
+  "znaki": "容易",
+  "pinyin": "róngyì",
+  "polski": "żung-i",
+  "doslownie": "",
+  "znaczenie": "easy · łatwy",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/9ec02c6d60",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "说慢一点。",
+  "znaki": "说慢一点。",
+  "pinyin": "Shuō màn yìdiǎn.",
+  "polski": "szło man i-tien",
+  "doslownie": "mówić · wolno · trochę",
+  "znaczenie": "Speak a bit slower. · Mów trochę wolniej.",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/b0506af8f1",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你的眼睛好漂亮。",
+  "znaki": "你的眼睛好漂亮。",
+  "pinyin": "Nǐ de yǎnjing hǎo piàoliang.",
+  "polski": "ni-ta jen-dzing chał phiał-liang",
+  "doslownie": "twój · oczy · bardzo · ładny",
+  "znaczenie": "Your eyes are beautiful. · Masz piękne oczy.",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/5e1da287b0",
+  "img": "lekcje/04-jak-minal-dzien/obrazki/5e1da287b0.jpg",
+  "obrazek": {
+   "autor": "peasap",
+   "licencja": "by",
+   "zrodlo": "https://www.flickr.com/photos/21314760@N00/518956588"
+  }
+ },
+ {
+  "id": "今晚有空吗？",
+  "znaki": "今晚有空吗？",
+  "pinyin": "Jīnwǎn yǒu kòng ma?",
+  "polski": "dzin-łan joł khung ma",
+  "doslownie": "dziś wieczorem · mieć · wolny czas · (pytanie)",
+  "znaczenie": "Are you free tonight? · Masz czas dziś wieczorem?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/1fb7c624b0",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你周末有什么计划？",
+  "znaki": "你周末有什么计划？",
+  "pinyin": "Nǐ zhōumò yǒu shénme jìhuà?",
+  "polski": "ni czoł-mo joł szen-ma dzi-chła",
+  "doslownie": "ty · weekend · mieć · co · plan",
+  "znaczenie": "Any plans for the weekend? · Jakie masz plany na weekend?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/a5873e48c7",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "下次见。",
+  "znaki": "下次见。",
+  "pinyin": "Xià cì jiàn.",
+  "polski": "sia-cy dzien",
+  "doslownie": "następny raz · widzieć",
+  "znaczenie": "See you next time. · Do zobaczenia następnym razem.",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/a18dd4b65a",
   "img": "",
   "obrazek": null
  }

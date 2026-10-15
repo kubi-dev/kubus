@@ -1,0 +1,71 @@
+{
+  "numer": 4,
+  "tytul": "Lekcja 4 · Jak minął dzień",
+  "data": "2026-10-15",
+  "sekcje": [
+    {
+      "nazwa": "Jak minął dzień?",
+      "pozycje": [
+        {"znaki": "你今天过得好吗？", "pinyin": "Nǐ jīntiān guò de hǎo ma?", "polski": "ni dzin-thien kło ta chał ma", "doslownie": "ty · dzisiaj · spędzać · (jak) · dobry · (pytanie)", "notatki": "NI-DZIN TIEN-GŁO-DA-HAŁ-MA · HOW WAS YOUR DAY", "znaczenie": "How was your day? · Jak minął ci dzień?"},
+        {"znaki": "不好。", "pinyin": "Bù hǎo.", "polski": "pu chał", "doslownie": "nie · dobry", "notatki": "PU-HAŁ · NOT GOOD", "znaczenie": "Not good. · Niedobrze."},
+        {"znaki": "你今天做了什么？", "pinyin": "Nǐ jīntiān zuò le shénme?", "polski": "ni dzin-thien dzło la szen-ma", "doslownie": "ty · dzisiaj · robić · (już) · co", "notatki": "NI-DZIN TIEN-DZŁO-LO-SZE-MA · WHAT HAVE YOU BEEN DOING?", "znaczenie": "What did you do today? · Co dziś robiłeś?"}
+      ]
+    },
+    {
+      "nazwa": "Co robiłem",
+      "pozycje": [
+        {"znaki": "工作", "pinyin": "gōngzuò", "polski": "kung-dzło", "notatki": "GUŁ DZŁO · WORK", "znaczenie": "work · praca, pracować", "obrazek": {"id": "20bf80af-87bb-48f9-a5a6-95cf84a4c68c", "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL25zNjE5NC1pbWFnZS1rejJlOWc0dy5qcGc.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/6113653/photo-image-public-domain-logo-laptop"}},
+        {"znaki": "健身", "pinyin": "jiànshēn", "polski": "dzien-szyn", "notatki": "DZIEN-SZEN · SPORT", "znaczenie": "workout · siłownia, ćwiczyć", "obrazek": {"id": "50e07973-6ca7-424c-8c55-facd053b2eb1", "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA3L25zNzcxNS1pbWFnZV8yLmpwZw.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5926278/photo-image-public-domain-free-plates"}},
+        {"znaki": "见朋友", "pinyin": "jiàn péngyou", "polski": "dzien phyng-joł", "doslownie": "widzieć · przyjaciel", "notatki": "DZIEN PENG-JOŁ · MEET FRIENDS", "znaczenie": "meet friends · spotkać się ze znajomymi", "obrazek": {"id": "a1a3104f-a842-41ba-b93e-f0409d4d5872", "url": "https://live.staticflickr.com/2611/3851689785_153059f81c_b.jpg", "autor": "Gareth1953 All Right Now", "licencja": "by", "zrodlo": "https://www.flickr.com/photos/40837632@N05/3851689785"}},
+        {"znaki": "出去玩", "pinyin": "chūqù wán", "polski": "czhu-ćhü łan", "doslownie": "wyjść · bawić się", "notatki": "CZU-CZI-ŁAN · HANG OUT", "znaczenie": "go out, hang out · wyjść się zabawić", "obrazek": {"id": "dfd89f9a-b31b-45c7-b87d-dff825e74b43", "url": "https://live.staticflickr.com/5538/11309463946_fd94f3dee4_b.jpg", "autor": "noeljordan", "licencja": "by", "zrodlo": "https://www.flickr.com/photos/89209149@N02/11309463946"}},
+        {"znaki": "约会", "pinyin": "yuēhuì", "polski": "jüe-chłej", "notatki": "JUE-CHUI · DATING", "znaczenie": "date · randka, iść na randkę", "obrazek": {"id": "3f4339af-150e-4ae3-83e5-ae997e7111b8", "url": "https://cdn.stocksnap.io/img-thumbs/960w/2S9UCLX4CZ.jpg", "autor": "Brodie Vissers", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/people-man-2S9UCLX4CZ"}}
+      ]
+    },
+    {
+      "nazwa": "Pogawędka",
+      "pozycje": [
+        {"znaki": "最近过得好吗？", "pinyin": "Zuìjìn guò de hǎo ma?", "polski": "dzłej-dzin kło ta chał ma", "doslownie": "ostatnio · spędzać · (jak) · dobry · (pytanie)", "notatki": "DZŁEJ-DZING-GŁO-DA-HAŁ-MA? · CO ROBISZ OSTATNIO?", "znaczenie": "How have you been lately? · Jak ci ostatnio leci?"},
+        {"znaki": "你在中国过得怎么样？", "pinyin": "Nǐ zài Zhōngguó guò de zěnmeyàng?", "polski": "ni dzaj czung-kło kło ta dzyn-ma-jang", "doslownie": "ty · w · Chiny · spędzać · (jak) · jak", "notatki": "NI-DZAJ-CZONG-ŁO-GŁO DA-DZA-MA-JA · HOW IS YOUR TIME IN CHINA?", "znaczenie": "How is your time in China? · Jak ci się żyje w Chinach?"},
+        {"znaki": "我会去上海和台湾。", "pinyin": "Wǒ huì qù Shànghǎi hé Táiwān.", "polski": "ło chłej ćhü szang-chaj chy thaj-łan", "doslownie": "ja · (przyszłość) · iść · Szanghaj · i · Tajwan", "notatki": "ŁO-HUI-CZY-SZANGHAI-HY-TAIWAN · I GO TO SHANGHAI AND TAIWAN", "znaczenie": "I'm going to Shanghai and Taiwan. · Pojadę do Szanghaju i na Tajwan."},
+        {"znaki": "吃饭了吗？", "pinyin": "Chīfàn le ma?", "polski": "czhy-fan la ma", "doslownie": "jeść · (już) · (pytanie)", "notatki": "CZY FAN LA MA · HAVE YOU EAT ALREADY", "znaczenie": "Have you eaten? (a greeting) · Jadłeś już? (powitanie)"},
+        {"znaki": "你最喜欢吃什么？", "pinyin": "Nǐ zuì xǐhuan chī shénme?", "polski": "ni dzłej si-chłan czhy szen-ma", "doslownie": "ty · najbardziej · lubić · jeść · co", "notatki": "NI-DZŁEJ-SI-HŁAN CZY SZE MA (CZHY) · WHAT YOU LIKE TO EAT", "znaczenie": "What do you like to eat most? · Co najbardziej lubisz jeść?"},
+        {"znaki": "我都喜欢。", "pinyin": "Wǒ dōu xǐhuan.", "polski": "ło toł si-chłan", "doslownie": "ja · wszystko · lubić", "notatki": "ŁO-DOŁ-SI-HŁAN · I LIKE EVERYTHING", "znaczenie": "I like it all. · Lubię wszystko."}
+      ]
+    },
+    {
+      "nazwa": "W drodze",
+      "pozycje": [
+        {"znaki": "厕所在哪里？", "pinyin": "Cèsuǒ zài nǎlǐ?", "polski": "cy-sło dzaj na-li", "doslownie": "toaleta · w · gdzie", "notatki": "TY-SŁO-DZAI-NA-LI · WHERE IS RESTROOM", "znaczenie": "Where is the toilet? · Gdzie jest toaleta?", "obrazek": {"id": "e1f84df6-6b56-45ce-a17b-0e48c2e1c7b2", "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvLWEwMTAtbWFya3Vzcy0wMDE0LmpwZw.jpg", "autor": "Markus Spiske", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/431805/free-photo-image-toilet-bathroom-public"}},
+        {"znaki": "风景好漂亮。", "pinyin": "Fēngjǐng hǎo piàoliang.", "polski": "fyng-dzing chał phiał-liang", "doslownie": "widok · bardzo · ładny", "notatki": "FUN-DZI-HAŁ PIAŁ LIANG · THE VIEW IS BEAUTIFUL (HAŁ PIAŁ LIANG = TO JEST PIĘKNE)", "znaczenie": "The view is so beautiful. · Jaki piękny widok.", "obrazek": {"id": "a87f1305-a758-4096-bea6-987baa1fd66f", "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvLWEwMTAtbWFya3Vzcy0wMDg3LmpwZw.jpg", "autor": "Markus Spiske", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/431867/free-photo-image-fog-landscape-mountain-tyrol"}},
+        {"znaki": "直走", "pinyin": "zhí zǒu", "polski": "czy dzoł", "doslownie": "prosto · iść", "notatki": "DZY-COŁ · PROSTO", "znaczenie": "go straight · prosto", "obrazek": {"id": "c7437832-b219-4524-9a5a-a7d3f0b76ac1", "url": "https://live.staticflickr.com/65535/51598884592_9bce7e6035_b.jpg", "autor": "XoMEoX", "licencja": "by", "zrodlo": "https://www.flickr.com/photos/110925305@N06/51598884592"}},
+        {"znaki": "左转", "pinyin": "zuǒ zhuǎn", "polski": "dzło człan", "doslownie": "lewo · skręcać", "notatki": "DZŁO-DZŁAN · PRAWO", "znaczenie": "turn left · w lewo", "obrazek": {"id": "6de30d61-cbd3-46bd-9817-84253c7d3b37", "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2pvYjcyNy0yNTMtdi5qcGc.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/6791776/vector-sticker-public-domain-arrow"}},
+        {"znaki": "右转", "pinyin": "yòu zhuǎn", "polski": "joł człan", "doslownie": "prawo · skręcać", "notatki": "JU DZŁAN · LEWO", "znaczenie": "turn right · w prawo", "obrazek": {"id": "4f00c0cf-32d1-4fe9-ad56-a368666b8909", "url": "https://images.rawpixel.com/image_png_1300/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL2pvYjk2Mi0wMjktcC5wbmc.png", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/9071430/png-arrow-people"}}
+      ]
+    },
+    {
+      "nazwa": "Przydatne",
+      "pozycje": [
+        {"znaki": "对不起", "pinyin": "duìbuqǐ", "polski": "tłej-pu-ćhi", "notatki": "DUEJ-PU-CI · SORRY", "znaczenie": "sorry · przepraszam"},
+        {"znaki": "没关系", "pinyin": "méi guānxi", "polski": "mej kłan-si", "doslownie": "nie mieć · związek", "notatki": "MEJ GŁAN-SI · NO PROBLEM", "znaczenie": "no problem · nic nie szkodzi"},
+        {"znaki": "不要辣椒。", "pinyin": "Bú yào làjiāo.", "polski": "pu jał la-dział", "doslownie": "nie · chcieć · chili", "notatki": "PU JAŁ LA DZIAŁ · NO SPICY", "znaczenie": "No chili, please. · Bez chili."},
+        {"znaki": "不好意思", "pinyin": "bù hǎoyìsi", "polski": "pu-chał-i-sy", "notatki": "PU HAŁ I SY · EXCUSE ME", "znaczenie": "excuse me · przepraszam (że przeszkadzam)"},
+        {"znaki": "容易", "pinyin": "róngyì", "polski": "żung-i", "notatki": "ZON-NI · EASY", "znaczenie": "easy · łatwy"},
+        {"znaki": "说慢一点。", "pinyin": "Shuō màn yìdiǎn.", "polski": "szło man i-tien", "doslownie": "mówić · wolno · trochę", "notatki": "SŁO-MA I TIEN · SPEAK SLOWER", "znaczenie": "Speak a bit slower. · Mów trochę wolniej."}
+      ]
+    },
+    {
+      "nazwa": "Komplementy i randka",
+      "pozycje": [
+        {"znaki": "你的眼睛好漂亮。", "pinyin": "Nǐ de yǎnjing hǎo piàoliang.", "polski": "ni-ta jen-dzing chał phiał-liang", "doslownie": "twój · oczy · bardzo · ładny", "notatki": "NI-DY-JEN-GI HAŁ PIAŁ LIANG · YOUR EYES ARE BEAUTIFUL", "znaczenie": "Your eyes are beautiful. · Masz piękne oczy.", "obrazek": {"id": "6a965ba2-33c1-48ea-b666-0c70dd36de5e", "url": "https://live.staticflickr.com/206/518956588_c3897c48eb_b.jpg", "autor": "peasap", "licencja": "by", "zrodlo": "https://www.flickr.com/photos/21314760@N00/518956588"}},
+        {"znaki": "今晚有空吗？", "pinyin": "Jīnwǎn yǒu kòng ma?", "polski": "dzin-łan joł khung ma", "doslownie": "dziś wieczorem · mieć · wolny czas · (pytanie)", "notatki": "DZIN-ŁAN-JOŁ-KUN-MA · ARE YOU FREE TONIGHT", "znaczenie": "Are you free tonight? · Masz czas dziś wieczorem?"}
+      ]
+    },
+    {
+      "nazwa": "Dopisane (w notatkach bez znaków)",
+      "pozycje": [
+        {"znaki": "你周末有什么计划？", "pinyin": "Nǐ zhōumò yǒu shénme jìhuà?", "polski": "ni czoł-mo joł szen-ma dzi-chła", "doslownie": "ty · weekend · mieć · co · plan", "notatki": "JAKIE MASZ PLANY NA WEEKEND", "znaczenie": "Any plans for the weekend? · Jakie masz plany na weekend?"},
+        {"znaki": "下次见。", "pinyin": "Xià cì jiàn.", "polski": "sia-cy dzien", "doslownie": "następny raz · widzieć", "notatki": "SEE YOU NEXT TIME", "znaczenie": "See you next time. · Do zobaczenia następnym razem."}
+      ]
+    }
+  ]
+}

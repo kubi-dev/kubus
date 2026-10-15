@@ -1,0 +1,50 @@
+{
+  "scenki": [
+    {
+      "id": "wieczor",
+      "tytul": "Wieczór z Li Mei",
+      "opis": "Li Mei pyta Kubiego, jak minął mu dzień. Kubi zaprasza ją na kolację i mówi jej komplement.",
+      "role": {"A": "Li Mei", "B": "Kubi"},
+      "ty": "B",
+      "kwestie": [
+        {"kto": "A", "znaki": "你好！你今天过得好吗？", "pinyin": "Nǐ hǎo! Nǐ jīntiān guò de hǎo ma?", "wymowa": "ni chał! ni dzin-thien kło ta chał ma", "polski": "Cześć! Jak minął ci dzień?"},
+        {"kto": "B", "znaki": "不好。", "pinyin": "Bù hǎo.", "wymowa": "pu chał", "polski": "Niedobrze."},
+        {"kto": "A", "znaki": "你今天做了什么？", "pinyin": "Nǐ jīntiān zuò le shénme?", "wymowa": "ni dzin-thien dzło la szen-ma", "polski": "Co dziś robiłeś?"},
+        {"kto": "B", "znaki": "工作。你呢？", "pinyin": "Gōngzuò. Nǐ ne?", "wymowa": "kung-dzło. ni na", "polski": "Pracowałem. A ty?"},
+        {"kto": "A", "znaki": "健身。", "pinyin": "Jiànshēn.", "wymowa": "dzien-szyn", "polski": "Byłam na siłowni."},
+        {"kto": "B", "znaki": "今晚有空吗？", "pinyin": "Jīnwǎn yǒu kòng ma?", "wymowa": "dzin-łan joł khung ma", "polski": "Masz czas dziś wieczorem?"},
+        {"kto": "A", "znaki": "有空。", "pinyin": "Yǒu kòng.", "wymowa": "joł khung", "polski": "Mam."},
+        {"kto": "B", "znaki": "一起吃饭吗？", "pinyin": "Yìqǐ chīfàn ma?", "wymowa": "i-ćhi czhy-fan ma", "polski": "Zjemy razem?"},
+        {"kto": "A", "znaki": "好！你最喜欢吃什么？", "pinyin": "Hǎo! Nǐ zuì xǐhuan chī shénme?", "wymowa": "chał! ni dzłej si-chłan czhy szen-ma", "polski": "Dobrze! Co najbardziej lubisz jeść?"},
+        {"kto": "B", "znaki": "我都喜欢。", "pinyin": "Wǒ dōu xǐhuan.", "wymowa": "ło toł si-chłan", "polski": "Lubię wszystko."},
+        {"kto": "A", "znaki": "我想吃饺子。", "pinyin": "Wǒ xiǎng chī jiǎozi.", "wymowa": "ło siang czhy dział-dzy", "polski": "Mam ochotę na pierogi."},
+        {"kto": "B", "znaki": "你的眼睛好漂亮。", "pinyin": "Nǐ de yǎnjing hǎo piàoliang.", "wymowa": "ni-ta jen-dzing chał phiał-liang", "polski": "Masz piękne oczy."},
+        {"kto": "A", "znaki": "谢谢！今晚见！", "pinyin": "Xièxie! Jīnwǎn jiàn!", "wymowa": "sie-sie! dzin-łan dzien", "polski": "Dziękuję! Do zobaczenia wieczorem!"}
+      ],
+      "nowe": []
+    },
+    {
+      "id": "widok",
+      "tytul": "Turystka na punkcie widokowym",
+      "opis": "Turystka pyta Kubiego o toaletę. Kubi tłumaczy drogę, a potem zagaduje ją o podróż i prosi o WeChata.",
+      "role": {"A": "Turystka", "B": "Kubi"},
+      "ty": "B",
+      "kwestie": [
+        {"kto": "A", "znaki": "不好意思，厕所在哪里？", "pinyin": "Bù hǎoyìsi, cèsuǒ zài nǎlǐ?", "wymowa": "pu-chał-i-sy, cy-sło dzaj na-li", "polski": "Przepraszam, gdzie jest toaleta?"},
+        {"kto": "B", "znaki": "直走，左转。", "pinyin": "Zhí zǒu, zuǒ zhuǎn.", "wymowa": "czy dzoł, dzło człan", "polski": "Prosto, potem w lewo."},
+        {"kto": "A", "znaki": "对不起，说慢一点。", "pinyin": "Duìbuqǐ, shuō màn yìdiǎn.", "wymowa": "tłej-pu-ćhi, szło man i-tien", "polski": "Przepraszam, mów trochę wolniej."},
+        {"kto": "B", "znaki": "没关系。直走，左转。", "pinyin": "Méi guānxi. Zhí zǒu, zuǒ zhuǎn.", "wymowa": "mej kłan-si. czy dzoł, dzło człan", "polski": "Nic nie szkodzi. Prosto, w lewo."},
+        {"kto": "A", "znaki": "谢谢！", "pinyin": "Xièxie!", "wymowa": "sie-sie", "polski": "Dziękuję!"},
+        {"kto": "B", "znaki": "风景好漂亮。", "pinyin": "Fēngjǐng hǎo piàoliang.", "wymowa": "fyng-dzing chał phiał-liang", "polski": "Jaki piękny widok."},
+        {"kto": "A", "znaki": "来旅游的吗？", "pinyin": "Lái lǚyóu de ma?", "wymowa": "laj lü-joł ta ma", "polski": "Jesteś tu jako turysta?"},
+        {"kto": "B", "znaki": "是！下一站去哪？", "pinyin": "Shì! Xià yí zhàn qù nǎ?", "wymowa": "szy! sia-i-czan ćhü na", "polski": "Tak! Gdzie jedziesz dalej?"},
+        {"kto": "A", "znaki": "我会去上海和台湾。", "pinyin": "Wǒ huì qù Shànghǎi hé Táiwān.", "wymowa": "ło chłej ćhü szang-chaj chy thaj-łan", "polski": "Pojadę do Szanghaju i na Tajwan."},
+        {"kto": "B", "znaki": "太好了！", "pinyin": "Tài hǎo le!", "wymowa": "thaj chał la", "polski": "Świetnie!"},
+        {"kto": "B", "znaki": "加个微信吧！", "pinyin": "Jiā ge Wēixìn ba!", "wymowa": "dzia ka łej-sin pa", "polski": "Dodajmy się na WeChacie!"},
+        {"kto": "A", "znaki": "好！下次见！", "pinyin": "Hǎo! Xià cì jiàn!", "wymowa": "chał! sia-cy dzien", "polski": "Dobra! Do zobaczenia następnym razem!"},
+        {"kto": "B", "znaki": "拜拜。", "pinyin": "Bàibài.", "wymowa": "paj-paj", "polski": "Pa pa."}
+      ],
+      "nowe": []
+    }
+  ]
+}
