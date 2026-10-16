@@ -1523,6 +1523,19 @@
   }
  },
  {
+  "id": "我和朋友一起吃饭了。",
+  "znaki": "我和朋友一起吃饭了。",
+  "pinyin": "Wǒ hé péngyou yìqǐ chīfàn le.",
+  "polski": "ło chy phyng-joł i-ćhi czhy-fan la",
+  "doslownie": "ja · i · przyjaciel · razem · jeść · (już)",
+  "znaczenie": "I ate with friends. · Jadłem z przyjaciółmi.",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/f8840bea29",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "最近过得好吗？",
   "znaki": "最近过得好吗？",
   "pinyin": "Zuìjìn guò de hǎo ma?",

@@ -19,6 +19,7 @@ Data: 2026-10-15
 | 见朋友 | jiàn péngyou | dzien phyng-joł | DZIEN PENG-JOŁ · MEET FRIENDS | meet friends · spotkać się ze znajomymi |
 | 出去玩 | chūqù wán | czhu-ćhü łan | CZU-CZI-ŁAN · HANG OUT | go out, hang out · wyjść się zabawić |
 | 约会 | yuēhuì | jüe-chłej | JUE-CHUI · DATING | date · randka, iść na randkę |
+| 我和朋友一起吃饭了。 | Wǒ hé péngyou yìqǐ chīfàn le. | ło chy phyng-joł i-ćhi czhy-fan la |  | I ate with friends. · Jadłem z przyjaciółmi. |
 
 ## Pogawędka
 
