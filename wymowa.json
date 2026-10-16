@@ -1449,7 +1449,7 @@
    "id": "wydech-ptk",
    "tytul": "p / b, t / d, k / g · dmuchnij albo nie",
    "trudnosc": 5,
-   "opis": "Chińskie p, t, k to polskie p, t, k plus mocne dmuchnięcie. Chińskie b, d, g to polskie p, t, k bez dmuchnięcia. W naszym zapisie „h” po literze znaczy dmuchnięcie: ph, th, kh. Tej różnicy uchem nie złapiesz. Nie musisz. Złapiesz ją kartką.",
+   "opis": "Chińskie p, t, k to polskie p, t, k plus mocne dmuchnięcie. Chińskie b, d, g to polskie p, t, k bez dmuchnięcia. W naszym zapisie „h” po literze znaczy dmuchnięcie: ph, th, kh. Różnicę słychać: dmuchnięcie trwa kilka razy dłużej niż w polskim p. Kartka pomoże ci ją poczuć.",
    "przyklad_pl": "Dmuchasz na gorącą zupę: „fuuu”. Teraz zrób to dmuchnięcie i w jego środku powiedz „a”: „phaaa”. To jest 怕 (bać się). Zwykłe polskie „pa”, jak w „pan”, bez dmuchania: to 爸 (tata).",
    "jak_cwiczyc": "1. Weź kartkę papieru. Trzymaj ją 2 cm przed ustami.\n2. Powiedz zwykłe „pa”, jak w „pan”. Kartka stoi. To chińskie 爸 (tata).\n3. Dmuchnij jak na zupę i w środku dmuchnięcia powiedz „pa”: „phaaa”. Kartka ma wyraźnie drgnąć. To chińskie 怕 (bać się). Nie drgnęła? Za słabo. Dmuchnij tak, jakbyś gasił świeczkę.\n4. Tak samo z t: „tu” (肚, brzuch), kartka stoi. „thu” (兔, królik), kartka drga.\n5. Tak samo z k: „ky” (哥, brat), stoi. „khy” (科, nauka), drga.\n6. Zasada na całe życie: widzisz w zapisie „h” po p, t, k? Kartka ma drgnąć. Nie ma „h”? Kartka stoi.",
    "blad_polakow": "Mówisz „pa” po polsku, bez dmuchnięcia, i kartka stoi. Chińczyk słyszy wtedy „b”. Zamiast „boję się” mówisz „tata”. Drugi błąd: dmuchasz dopiero po słowie, osobno. Dmuchnięcie ma być w środku, między „p” a „a”. To najczęstszy błąd Polaka, który zmienia słowo.",
@@ -1533,14 +1533,14 @@
      "a": {
       "znaki": "工",
       "pinyin": "gōng",
-      "polski": "kung",
+      "polski": "kong",
       "znaczenie": "praca",
       "lekcja": 3
      },
      "b": {
       "znaki": "空",
       "pinyin": "kōng",
-      "polski": "khung",
+      "polski": "khong",
       "znaczenie": "pusty"
      },
      "roznica": "bez dmuchnięcia (praca) albo z dmuchnięciem (pusty)"
@@ -1728,7 +1728,7 @@
     {
      "znaki": "聪明",
      "pinyin": "cōngming",
-     "polski": "cchung-ming",
+     "polski": "cchong-ming",
      "znaczenie": "mądry",
      "lekcja": 1
     },
@@ -2309,7 +2309,7 @@
    "id": "ukryte-litery",
    "tytul": "-ian, -iu, -ui, -un, -üan · pinyin ukrywa jedną literę",
    "trudnosc": 2,
-   "opis": "Najważniejsze: czytaj polski zapis, nie pinyin. Pinyin kilka końcówek pisze krócej, niż się mówi, a nasz zapis pokazuje, jak jest naprawdę.\n„-ian” mówisz „ien”. „-iu” mówisz „ioł”. „-ui” mówisz „łej”. „-un” mówisz „łen”. „yuan” i „xuan” to „jüan” i „süan”. „ong” mówisz „ung” (中国 czung-kło), „eng” mówisz „yng” (朋友 phyng-joł).\nWyjątek: po j, q, x, y „un” to „ün”: 裙子 ćhün-dzy (spódnica). Wszędzie indziej „un” to „łen”: 春 czhłen, 对 tłej.",
+   "opis": "Najważniejsze: czytaj polski zapis, nie pinyin. Pinyin kilka końcówek pisze krócej, niż się mówi, a nasz zapis pokazuje, jak jest naprawdę.\n„-ian” mówisz „ien”. „-iu” mówisz „ioł”. „-ui” mówisz „łej”. „-un” mówisz „łen”. „yuan” i „xuan” to „jüan” i „süan”. „eng” mówisz „yng” (朋友 phyng-joł).\nWyjątek: po j, q, x, y „un” to „ün”: 裙子 ćhün-dzy (spódnica). Wszędzie indziej „un” to „łen”: 春 czhłen, 对 tłej.",
    "przyklad_pl": "Powiedz „cień”. Dodaj mocny wydech: „ćhien” (钱, pieniądze). Powiedz „klej”. Dołóż „sz”: „szłej” (水, woda). Nie mów „ćian” ani „szui”.",
    "jak_cwiczyc": "Powiedz „klej”. Teraz „szłej” (水, woda). Powiedz „pień”. Teraz „thien” z mocnym wydechem (天, dzień). Powiedz „lio” i dodaj „ł”: „lioł” (六, sześć).",
    "blad_polakow": "Czytasz literka po literce: „tian”, „dui”, „liu”, „xuan”. Brzmi obco. Do tego „ian” i „iang” zaczynają ci się mylić.",
@@ -2440,13 +2440,13 @@
     {
      "znaki": "工作",
      "pinyin": "gōngzuò",
-     "polski": "kung-dzło",
+     "polski": "kong-dzło",
      "znaczenie": "praca"
     },
     {
      "znaki": "中国",
      "pinyin": "Zhōngguó",
-     "polski": "czung-kło",
+     "polski": "czong-kło",
      "znaczenie": "Chiny"
     }
    ]
@@ -2686,7 +2686,7 @@
     {
      "znaki": "中国",
      "pinyin": "Zhōngguó",
-     "polski": "czung-kło",
+     "polski": "czong-kło",
      "znaczenie": "Chiny",
      "lekcja": 3
     },
@@ -2703,7 +2703,7 @@
    "id": "za-darmo",
    "tytul": "Co masz za darmo jako Polak",
    "trudnosc": 1,
-   "opis": "Większość chińskich dźwięków to polskie dźwięki pod inną literą. h = polskie ch. w = ł. y = j. r = ż. ai = aj, ei = ej, ao = ał, ou = oł. m n l f mówisz dokładnie jak po polsku. b d g to polskie p t k bez wydechu (汉堡 to „chan-pał”, 中国 to „czung-kło”). Czytaj pinyin po polsku, nie po angielsku. Wtedy połowa roboty jest z głowy.\nJeszcze to: uo = ło (说 szło, 做 dzło), ua = ła, uai = łaj, ui = łej (水 szłej), iu = ioł (六 lioł). Litera u po spółgłosce to zwykle polskie ł, nie u.",
+   "opis": "Większość chińskich dźwięków to polskie dźwięki pod inną literą. h = polskie ch. w = ł. y = j. r = ż. ai = aj, ei = ej, ao = ał, ou = oł. m n l f mówisz dokładnie jak po polsku. b d g to polskie p t k bez wydechu (汉堡 to „chan-pał”, 中国 to „czong-kło”). Czytaj pinyin po polsku, nie po angielsku. Wtedy połowa roboty jest z głowy.\nJeszcze to: uo = ło (说 szło, 做 dzło), ua = ła, uai = łaj, ui = łej (水 szłej), iu = ioł (六 lioł). Litera u po spółgłosce to zwykle polskie ł, nie u.",
    "przyklad_pl": "好 hǎo to „chał” jak w „chałwa”. 我 wǒ to „ło” jak w „łoś”. 买 mǎi to „maj” jak miesiąc maj. 美 měi to „mej”.",
    "jak_cwiczyc": "1. Powiedz „chałwa” i utnij „wa”: „chał” (好, dobry).\n2. Powiedz „łoś” i utnij „ś”: „ło” (我, ja).\n3. Powiedz miesiąc „maj”: to 买 (kupować). Powiedz „mej” jak w „mejl”: to 美 (piękny).\n4. Od zera uczysz się tylko: dmuchnięcia, ü, „yyy”, -ng, twardego „y” i „ar”. Reszta to polskie dźwięki pod inną literą. Tony ćwiczysz osobno, na stronie „Tony”.",
    "blad_polakow": "Jedyny błąd to pomylone literki. Pinyin „h” to polskie „ch”. Pinyin „ch” to polskie „cz” z mocnym wydechem. 好 to „chał”, 炒 to „czhał”. Nie pomyl tych dwóch.",

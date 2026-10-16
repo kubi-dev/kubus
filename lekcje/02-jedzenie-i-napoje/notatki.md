@@ -49,7 +49,7 @@ Data: 2026-09-09
 | 我不明白。 | Wǒ bù míngbai. | ło pu ming-paj | ŁO PU MING PAJ | I don't understand. · Nie rozumiem. |
 | 我不知道。 | Wǒ bù zhīdào. | ło pu czy-tał | ŁO PU CZY TO | I don't know. · Nie wiem. |
 | 你会说英语吗？ | Nǐ huì shuō Yīngyǔ ma? | ni chłej szło ing-ü ma | NI-HŁEJ-SŁO-ING-JU-MA | Do you speak English? · Czy mówisz po angielsku? |
-| 用英语说。 | Yòng Yīngyǔ shuō. | jung ing-ü szło |  | Say it in English. · Powiedz to po angielsku. |
+| 用英语说。 | Yòng Yīngyǔ shuō. | jong ing-ü szło |  | Say it in English. · Powiedz to po angielsku. |
 | 你想喝什么？ | Nǐ xiǎng hē shénme? | ni siang chy szen-ma | NI-SIA-HYA-SZA-MA | What do you want to drink? · Czego się napijesz? |
 | 你想吃什么？ | Nǐ xiǎng chī shénme? | ni siang czhy szen-ma | NI-SIA-CZY-SZA-MA | What do you want to eat? · Co chcesz zjeść? |
 | 你吃什么？ | Nǐ chī shénme? | ni czhy szen-ma |  | What are you eating? · Co jesz? |

@@ -6,13 +6,13 @@
     {
       "nazwa": "Słówka",
       "pozycje": [
-        {"znaki": "朋友", "pinyin": "péngyou", "polski": "pyng-joł", "notatki": "PAN-JO", "znaczenie": "friend · przyjaciel", "obrazek": {
+        {"znaki": "朋友", "pinyin": "péngyou", "polski": "phyng-joł", "notatki": "PAN-JO", "znaczenie": "friend · przyjaciel", "obrazek": {
             "id": "beed1f25-9f17-458a-809f-33f512ad57e9", "url": "https://cdn.stocksnap.io/img-thumbs/960w/6ZYX4YY4IR.jpg", "autor": "Helena Lopes", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/friends-hugging-6ZYX4YY4IR"}
         },
-        {"znaki": "好朋友", "pinyin": "hǎo péngyou", "polski": "chał pyng-joł", "doslownie": "dobry · przyjaciel", "notatki": "HAŁ PAN JO", "znaczenie": "close friend · bliski przyjaciel", "obrazek": {
+        {"znaki": "好朋友", "pinyin": "hǎo péngyou", "polski": "chał phyng-joł", "doslownie": "dobry · przyjaciel", "notatki": "HAŁ PAN JO", "znaczenie": "close friend · bliski przyjaciel", "obrazek": {
             "id": "a73d3a61-19ee-4043-9d68-1791553c6861", "url": "https://cdn.stocksnap.io/img-thumbs/960w/M16QHPDGYJ.jpg", "autor": "Helena Lopes", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/group-friends-M16QHPDGYJ"}
         },
-        {"znaki": "女朋友", "pinyin": "nǚ péngyou", "polski": "nü pyng-joł", "doslownie": "kobieta · przyjaciel", "notatki": "NIU PAN JO", "znaczenie": "girlfriend · dziewczyna", "obrazek": {
+        {"znaki": "女朋友", "pinyin": "nǚ péngyou", "polski": "nü phyng-joł", "doslownie": "kobieta · przyjaciel", "notatki": "NIU PAN JO", "znaczenie": "girlfriend · dziewczyna", "obrazek": {
             "id": "3d5cfcdd-3659-492f-96ba-e7c19289a15b", "url": "https://cdn.stocksnap.io/img-thumbs/960w/3IOFSSN53B.jpg", "autor": "Living Together", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/young-couple-3IOFSSN53B"}
         },
         {"znaki": "可爱", "pinyin": "kě'ài", "polski": "khy-aj", "notatki": "KY AJ", "znaczenie": "cute · słodki", "obrazek": {
@@ -21,7 +21,7 @@
         {"znaki": "美丽", "pinyin": "měilì", "polski": "mej-li", "notatki": "MAILI", "znaczenie": "piękna", "obrazek": {
             "id": "f7e79159-d7ba-4ce7-9ff5-ad142addec0c", "url": "https://cdn.stocksnap.io/img-thumbs/960w/L6YVQ85CKY.jpg", "autor": "Anggoro Sakti", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/beautiful-woman-L6YVQ85CKY"}
         },
-        {"znaki": "聪明", "pinyin": "cōngming", "polski": "cung-ming", "notatki": "TONGMING", "znaczenie": "clever · mądry"},
+        {"znaki": "聪明", "pinyin": "cōngming", "polski": "cchong-ming", "notatki": "TONGMING", "znaczenie": "clever · mądry"},
         {"znaki": "和", "pinyin": "hé", "polski": "chy", "notatki": "HYA", "znaczenie": "and · i"},
         {"znaki": "好吃", "pinyin": "hǎochī", "polski": "chał czhy", "doslownie": "dobry · jeść", "notatki": "HAŁ SZY", "znaczenie": "tasty · smaczne", "obrazek": {
             "id": "c1a2cf97-ddb6-422a-8029-5b7b09ad38a8", "url": "https://cdn.stocksnap.io/img-thumbs/960w/JMJZKYXUWD.jpg", "autor": "Snapwire", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/steak-asparagus-JMJZKYXUWD"}
@@ -42,10 +42,10 @@
         },
         {"znaki": "你很可爱。", "pinyin": "Nǐ hěn kě'ài.", "polski": "ni chen khy-aj", "doslownie": "ty · bardzo · słodki", "notatki": "NI HAN KY AJ", "znaczenie": "You are cute. · Jesteś słodki/a."},
         {"znaki": "我们明天见。", "pinyin": "Wǒmen míngtiān jiàn.", "polski": "ło-men ming-thien dzien", "doslownie": "my · jutro · widzieć", "notatki": "", "znaczenie": "See you tomorrow. · Spotkajmy się jutro."},
-        {"znaki": "你叫什么名字？", "pinyin": "Nǐ jiào shénme míngzi?", "polski": "ni dziao szen-ma ming-dzy", "doslownie": "ty · nazywać się · co · imię", "notatki": "", "znaczenie": "What's your name? · Jak masz na imię?", "obrazek": {
+        {"znaki": "你叫什么名字？", "pinyin": "Nǐ jiào shénme míngzi?", "polski": "ni dział szen-ma ming-dzy", "doslownie": "ty · nazywać się · co · imię", "notatki": "", "znaczenie": "What's your name? · Jak masz na imię?", "obrazek": {
             "id": "66e94c7a-636e-4ec0-9840-c842ac90a74c", "url": "https://pd.w.org/2025/01/507677c56423162d0.55668569-2048x1365.jpg", "autor": "Nilo Velez", "licencja": "cc0", "zrodlo": "https://wordpress.org/photos/photo/507677c564/"}
         },
-        {"znaki": "我叫Kubi。", "pinyin": "Wǒ jiào Kubi.", "polski": "ło dziao Kubi", "doslownie": "ja · nazywać się · Kubi", "notatki": "", "znaczenie": "My name is Kubi. · Jestem / nazywam się Kubi."},
+        {"znaki": "我叫Kubi。", "pinyin": "Wǒ jiào Kubi.", "polski": "ło dział Kubi", "doslownie": "ja · nazywać się · Kubi", "notatki": "", "znaczenie": "My name is Kubi. · Jestem / nazywam się Kubi."},
         {"znaki": "我喜欢你。", "pinyin": "Wǒ xǐhuan nǐ.", "polski": "ło si-chłan ni", "doslownie": "ja · lubić · ty", "notatki": "", "znaczenie": "I like you. · Lubię Cię.", "obrazek": {
             "id": "679635b1-fa55-4316-acd9-c1006da98f0a", "url": "https://cdn.stocksnap.io/img-thumbs/960w/U7HD0CO2AS.jpg", "autor": "Element5 Digital", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/love-valentine'sday-U7HD0CO2AS"}
         },
