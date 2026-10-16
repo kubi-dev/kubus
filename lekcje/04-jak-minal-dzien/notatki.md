@@ -20,6 +20,7 @@ Data: 2026-10-15
 | 出去玩 | chūqù wán | czhu-ćhü łan | CZU-CZI-ŁAN · HANG OUT | go out, hang out · wyjść się zabawić |
 | 约会 | yuēhuì | jüe-chłej | JUE-CHUI · DATING | date · randka, iść na randkę |
 | 我和朋友一起吃饭了。 | Wǒ hé péngyou yìqǐ chīfàn le. | ło chy phyng-joł i-ćhi czhy-fan la |  | I ate with friends. · Jadłem z przyjaciółmi. |
+| 我吃了鱼肉和米饭。 | Wǒ chī le yúròu hé mǐfàn. | ło czhy la ü-ro chy mi-fan |  | I ate fish with rice. · Zjadłem rybę z ryżem. |
 
 ## Pogawędka
 
@@ -31,6 +32,7 @@ Data: 2026-10-15
 | 吃饭了吗？ | Chīfàn le ma? | czhy-fan la ma | CZY FAN LA MA · HAVE YOU EAT ALREADY | Have you eaten? (a greeting) · Jadłeś już? (powitanie) |
 | 你最喜欢吃什么？ | Nǐ zuì xǐhuan chī shénme? | ni dzłej si-chłan czhy szen-ma | NI-DZŁEJ-SI-HŁAN CZY SZE MA (CZHY) · WHAT YOU LIKE TO EAT | What do you like to eat most? · Co najbardziej lubisz jeść? |
 | 我都喜欢。 | Wǒ dōu xǐhuan. | ło toł si-chłan | ŁO-DOŁ-SI-HŁAN · I LIKE EVERYTHING | I like it all. · Lubię wszystko. |
+| 我有一个新的中国朋友。 | Wǒ yǒu yí ge xīn de Zhōngguó péngyou. | ło joł i-ka sin da czong-kło phyng-joł |  | I have a new Chinese friend. · Mam nowego chińskiego przyjaciela. |
 
 ## W drodze
 

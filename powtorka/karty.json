@@ -1549,6 +1549,19 @@
   "obrazek": null
  },
  {
+  "id": "我吃了鱼肉和米饭。",
+  "znaki": "我吃了鱼肉和米饭。",
+  "pinyin": "Wǒ chī le yúròu hé mǐfàn.",
+  "polski": "ło czhy la ü-ro chy mi-fan",
+  "doslownie": "ja · jeść · (już) · ryba · i · ryż",
+  "znaczenie": "I ate fish with rice. · Zjadłem rybę z ryżem.",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/f5e001c84e",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "最近过得好吗？",
   "znaki": "最近过得好吗？",
   "pinyin": "Zuìjìn guò de hǎo ma?",
@@ -1623,6 +1636,19 @@
   "lekcja": 4,
   "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
   "audio": "lekcje/04-jak-minal-dzien/audio/a5ffb2629f",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "我有一个新的中国朋友。",
+  "znaki": "我有一个新的中国朋友。",
+  "pinyin": "Wǒ yǒu yí ge xīn de Zhōngguó péngyou.",
+  "polski": "ło joł i-ka sin da czong-kło phyng-joł",
+  "doslownie": "ja · mieć · jeden (sztuka) · nowy · (ten, co) · Chiny · przyjaciel",
+  "znaczenie": "I have a new Chinese friend. · Mam nowego chińskiego przyjaciela.",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/ced2fdc3fe",
   "img": "",
   "obrazek": null
  },
