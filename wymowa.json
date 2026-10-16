@@ -218,7 +218,7 @@
     {
      "znaki": "很",
      "pinyin": "hěn",
-     "polski": "chen",
+     "polski": "chyn",
      "znaczenie": "bardzo"
     },
     {
@@ -393,7 +393,7 @@
     {
      "znaki": "很好",
      "pinyin": "hěn hǎo",
-     "polski": "chen chał",
+     "polski": "chyn chał",
      "znaczenie": "bardzo dobrze"
     },
     {
@@ -419,18 +419,18 @@
   {
    "id": "z333",
    "tytul": "Trzy „Noooo…” pod rząd",
-   "opis": "Czasem trzy takie słowa stoją obok siebie. Wtedy wszystkie oprócz ostatniego zmieniają się w „Cooo?”. Ostatnie zostaje „Noooo…”.\nPowiedz na głos: „Cooo? Cooo? Noooo…”. Teraz tak samo: ło chen chał. „ło” i „chen” jak „Cooo?”, „chał” jak „Noooo…”.",
+   "opis": "Czasem trzy takie słowa stoją obok siebie. Wtedy wszystkie oprócz ostatniego zmieniają się w „Cooo?”. Ostatnie zostaje „Noooo…”.\nPowiedz na głos: „Cooo? Cooo? Noooo…”. Teraz tak samo: ło chyn chał. „ło” i „chyn” jak „Cooo?”, „chał” jak „Noooo…”.",
    "slowa": [
     {
      "znaki": "我很好",
      "pinyin": "wǒ hěn hǎo",
-     "polski": "ło chen chał",
+     "polski": "ło chyn chał",
      "znaczenie": "mam się dobrze"
     },
     {
      "znaki": "你很好",
      "pinyin": "nǐ hěn hǎo",
-     "polski": "ni chen chał",
+     "polski": "ni chyn chał",
      "znaczenie": "masz się dobrze"
     },
     {
@@ -757,7 +757,7 @@
     {
      "znaki": "很好",
      "pinyin": "hěn hǎo",
-     "polski": "chen chał",
+     "polski": "chyn chał",
      "znaczenie": "bardzo dobrze"
     },
     {
@@ -982,7 +982,7 @@
     {
      "znaki": "大门",
      "pinyin": "dàmén",
-     "polski": "ta-men",
+     "polski": "ta-myn",
      "znaczenie": "brama"
     },
     {
@@ -1432,13 +1432,13 @@
    "a": {
     "znaki": "吻",
     "pinyin": "wěn",
-    "polski": "łen",
+    "polski": "łyn",
     "znaczenie": "pocałunek"
    },
    "b": {
     "znaki": "问",
     "pinyin": "wèn",
-    "polski": "łen",
+    "polski": "łyn",
     "znaczenie": "pytać"
    },
    "roznica": "Pocałunek: jak „Noooo…”. Pytać: jak „Nie!”. Pomylisz i zamiast zapytać, pocałujesz."
@@ -2085,14 +2085,14 @@
    "trudnosc": 3,
    "opis": "Na końcu słowa chiński ma dwa różne 'n'. Zwykłe -n: język dotyka za zębami, jak w 'ten'. A -ng: język z tyłu, jak w 'bank' tuż przed 'k'. Po polsku takie -ng słyszysz tylko przed k albo g. Nigdy na końcu słowa.",
    "przyklad_pl": "Powiedz 'bank' i zatrzymaj się tuż przed 'k'. To, co słyszysz, to chińskie -ng. Teraz powiedz powoli 'ten' i trzymaj język za zębami. To jest -n.",
-   "jak_cwiczyc": "1. Powiedz „bank” i utnij „k”: „bang”. Zauważ: na końcu czubek języka wisi w powietrzu, nie dotyka zębów.\n2. Tak samo „fyng” (风, wiatr). Język na końcu nie dotyka zębów.\n3. Powiedz „ten” i na końcu przytrzymaj: czubek języka dotyka za górnymi zębami. Tak samo „fen” (分, minuta).\n4. Test bez ucha: na końcu słowa sprawdź język. Dotyka zębów: -n. Wisi w powietrzu: -ng. Nie mów przez nos jak w „ę”.",
+   "jak_cwiczyc": "1. Powiedz „bank” i utnij „k”: „bang”. Zauważ: na końcu czubek języka wisi w powietrzu, nie dotyka zębów.\n2. Tak samo „fyng” (风, wiatr). Język na końcu nie dotyka zębów.\n3. Powiedz „ten” i na końcu przytrzymaj: czubek języka dotyka za górnymi zębami. Tak samo „fyn” (分, minuta).\n4. Test bez ucha: na końcu słowa sprawdź język. Dotyka zębów: -n. Wisi w powietrzu: -ng. Nie mów przez nos jak w „ę”.",
    "blad_polakow": "Mówisz -ng jak zwykłe n i 风 (wiatr) brzmi jak 分 (minuta). Albo mówisz -n przez nos, jak polskie 'ę', i wychodzi 'fę'. To mniej groźne niż tony i dmuchnięcie. Sami Chińczycy z południa to mieszają.",
    "pary": [
     {
      "a": {
       "znaki": "分",
       "pinyin": "fēn",
-      "polski": "fen",
+      "polski": "fyn",
       "znaczenie": "minuta"
      },
      "b": {
@@ -2170,7 +2170,7 @@
     {
      "znaki": "很",
      "pinyin": "hěn",
-     "polski": "chen",
+     "polski": "chyn",
      "znaczenie": "bardzo",
      "lekcja": 1
     },
@@ -2184,7 +2184,7 @@
     {
      "znaki": "单身",
      "pinyin": "dānshēn",
-     "polski": "tan-szen",
+     "polski": "tan-szyn",
      "znaczenie": "singiel",
      "lekcja": 3
     },
@@ -2223,8 +2223,8 @@
    "tytul": "r na początku · to polskie „ż”, nie „r”",
    "trudnosc": 2,
    "opis": "Chińskie r na początku wcale nie warczy. To zwykłe polskie „ż” z „żaby”. Tyle.",
-   "przyklad_pl": "Powiedz na głos „żaba”. Masz już 人 rén: „żen” (człowiek).",
-   "jak_cwiczyc": "1. Powiedz „żaba”.\n2. Teraz „żen” (人, człowiek).\n3. Test: powiedz „rower”, a zaraz „żen”. Język w „żen” ma NIE drgać jak w „rower”. Drga? Zacznij od „żaba” jeszcze raz.",
+   "przyklad_pl": "Powiedz na głos „żaba”. Masz już 人 rén: „żyn” (człowiek).",
+   "jak_cwiczyc": "1. Powiedz „żaba”.\n2. Teraz „żyn” (人, człowiek).\n3. Test: powiedz „rower”, a zaraz „żyn”. Język w „żyn” ma NIE drgać jak w „rower”. Drga? Zacznij od „żaba” jeszcze raz.",
    "blad_polakow": "Widzisz literę r i mówisz „rower”. Chińczyk tego nie rozpozna. Zapamiętaj: chińskie r to polskie ż.",
    "pary": [
     {
@@ -2279,14 +2279,14 @@
     {
      "znaki": "人",
      "pinyin": "rén",
-     "polski": "żen",
+     "polski": "żyn",
      "znaczenie": "człowiek",
      "lekcja": 3
     },
     {
      "znaki": "认识",
      "pinyin": "rènshi",
-     "polski": "żen-szy",
+     "polski": "żyn-szy",
      "znaczenie": "znać",
      "lekcja": 3
     },
@@ -2300,7 +2300,7 @@
     {
      "znaki": "日本",
      "pinyin": "Rìběn",
-     "polski": "ży-pen",
+     "polski": "ży-pyn",
      "znaczenie": "Japonia"
     }
    ]
@@ -2309,7 +2309,7 @@
    "id": "ukryte-litery",
    "tytul": "-ian, -iu, -ui, -un, -üan · pinyin ukrywa jedną literę",
    "trudnosc": 2,
-   "opis": "Najważniejsze: czytaj polski zapis, nie pinyin. Pinyin kilka końcówek pisze krócej, niż się mówi, a nasz zapis pokazuje, jak jest naprawdę.\n„-ian” mówisz „ien”. „-iu” mówisz „ioł”. „-ui” mówisz „łej”. „-un” mówisz „łen”. „yuan” i „xuan” to „jüan” i „süan”. „eng” mówisz „yng” (朋友 phyng-joł).\nWyjątek: po j, q, x, y „un” to „ün”: 裙子 ćhün-dzy (spódnica). Wszędzie indziej „un” to „łen”: 春 czhłen, 对 tłej.",
+   "opis": "Najważniejsze: czytaj polski zapis, nie pinyin. Pinyin kilka końcówek pisze krócej, niż się mówi, a nasz zapis pokazuje, jak jest naprawdę.\n„-ian” mówisz „ien”. „-iu” mówisz „ioł”. „-ui” mówisz „łej”. „-un” mówisz „łyn”. „yuan” i „xuan” to „jüan” i „süan”. „eng” mówisz „yng” (朋友 phyng-joł).\nWyjątek: po j, q, x, y „un” to „ün”: 裙子 ćhün-dzy (spódnica). Wszędzie indziej „un” to „łyn”: 春 czhłyn, 对 tłej.",
    "przyklad_pl": "Powiedz „cień”. Dodaj mocny wydech: „ćhien” (钱, pieniądze). Powiedz „klej”. Dołóż „sz”: „szłej” (水, woda). Nie mów „ćian” ani „szui”.",
    "jak_cwiczyc": "Powiedz „klej”. Teraz „szłej” (水, woda). Powiedz „pień”. Teraz „thien” z mocnym wydechem (天, dzień). Powiedz „lio” i dodaj „ł”: „lioł” (六, sześć).",
    "blad_polakow": "Czytasz literka po literce: „tian”, „dui”, „liu”, „xuan”. Brzmi obco. Do tego „ian” i „iang” zaczynają ci się mylić.",
@@ -2428,7 +2428,7 @@
     {
      "znaki": "春",
      "pinyin": "chūn",
-     "polski": "czhłen",
+     "polski": "czhłyn",
      "znaczenie": "wiosna"
     },
     {

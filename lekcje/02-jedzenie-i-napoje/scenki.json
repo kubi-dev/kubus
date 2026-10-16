@@ -15,7 +15,7 @@
         {"kto": "A", "znaki": "好。你想喝什么？", "pinyin": "Hǎo. Nǐ xiǎng hē shénme?", "wymowa": "chał. ni siang chy szen-ma", "polski": "Dobrze. Czego się napijesz?"},
         {"kto": "B", "znaki": "我想喝茶，谢谢。", "pinyin": "Wǒ xiǎng hē chá, xièxie.", "wymowa": "ło siang chy czha, sie-sie", "polski": "Napiję się herbaty, dziękuję."},
         {"kto": "A", "znaki": "请。饺子好吃吗？", "pinyin": "Qǐng. Jiǎozi hǎochī ma?", "wymowa": "ćhing. dział-dzy chał czhy ma", "polski": "Proszę. Czy pierogi są smaczne?"},
-        {"kto": "B", "znaki": "很好吃！", "pinyin": "Hěn hǎochī!", "wymowa": "chen chał czhy", "polski": "Bardzo smaczne!"},
+        {"kto": "B", "znaki": "很好吃！", "pinyin": "Hěn hǎochī!", "wymowa": "chyn chał czhy", "polski": "Bardzo smaczne!"},
         {"kto": "B", "znaki": "我喜欢饺子。", "pinyin": "Wǒ xǐhuan jiǎozi.", "wymowa": "ło si-chłan dział-dzy", "polski": "Lubię pierogi."},
         {"kto": "A", "znaki": "太好了！", "pinyin": "Tài hǎo le!", "wymowa": "thaj chał la", "polski": "Świetnie!"},
         {"kto": "B", "znaki": "多少钱？", "pinyin": "Duōshao qián?", "wymowa": "tło-szał ćhien", "polski": "Ile płacę?"}
@@ -44,9 +44,9 @@
         {"kto": "A", "znaki": "披萨好吃。", "pinyin": "Pīsà hǎochī.", "wymowa": "phi-sa chał czhy", "polski": "Pizza jest smaczna."},
         {"kto": "A", "znaki": "汉堡难吃。", "pinyin": "Hànbǎo nánchī.", "wymowa": "chan-pał nan czhy", "polski": "Hamburger jest niedobry."},
         {"kto": "B", "znaki": "我不明白。", "pinyin": "Wǒ bù míngbai.", "wymowa": "ło pu ming-paj", "polski": "Nie rozumiem."},
-        {"kto": "B", "znaki": "汉堡很好吃！", "pinyin": "Hànbǎo hěn hǎochī!", "wymowa": "chan-pał chen chał czhy", "polski": "Hamburger jest bardzo smaczny!"},
+        {"kto": "B", "znaki": "汉堡很好吃！", "pinyin": "Hànbǎo hěn hǎochī!", "wymowa": "chan-pał chyn chał czhy", "polski": "Hamburger jest bardzo smaczny!"},
         {"kto": "A", "znaki": "好，好。", "pinyin": "Hǎo, hǎo.", "wymowa": "chał, chał", "polski": "Dobrze, dobrze."},
-        {"kto": "B", "znaki": "你很可爱。", "pinyin": "Nǐ hěn kě'ài.", "wymowa": "ni chen khy-aj", "polski": "Jesteś słodka."},
+        {"kto": "B", "znaki": "你很可爱。", "pinyin": "Nǐ hěn kě'ài.", "wymowa": "ni chyn khy-aj", "polski": "Jesteś słodka."},
         {"kto": "B", "znaki": "我们明天见？", "pinyin": "Wǒmen míngtiān jiàn?", "wymowa": "ło-men ming-thien dzien", "polski": "Spotkamy się jutro?"},
         {"kto": "A", "znaki": "好，明天见！", "pinyin": "Hǎo, míngtiān jiàn!", "wymowa": "chał, ming-thien dzien", "polski": "Dobrze, do jutra!"}
       ],

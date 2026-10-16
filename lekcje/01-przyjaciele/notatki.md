@@ -21,10 +21,10 @@ Data: 2026-09-06
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
 | 你好吗？ | Nǐ hǎo ma? | ni chał ma | NI HO MA | How are you? · Jak się masz? |
-| 很好。 | Hěn hǎo. | chen chał | HYN HA | I'm good. · Dobrze. |
+| 很好。 | Hěn hǎo. | chyn chał | HYN HA | I'm good. · Dobrze. |
 | 你来自哪里？ | Nǐ láizì nǎlǐ? | ni laj-dzy na-li | NI LAJ CY NA LI | Where are you from? · Skąd jesteś? |
 | 我来自波兰。 | Wǒ láizì Bōlán. | ło laj-dzy po-lan | ŁO LAJ CY POLAN | I'm from Poland. · Jestem z Polski. |
-| 你很可爱。 | Nǐ hěn kě'ài. | ni chen khy-aj | NI HAN KY AJ | You are cute. · Jesteś słodki/a. |
+| 你很可爱。 | Nǐ hěn kě'ài. | ni chyn khy-aj | NI HAN KY AJ | You are cute. · Jesteś słodki/a. |
 | 我们明天见。 | Wǒmen míngtiān jiàn. | ło-men ming-thien dzien |  | See you tomorrow. · Spotkajmy się jutro. |
 | 你叫什么名字？ | Nǐ jiào shénme míngzi? | ni dział szen-ma ming-dzy |  | What's your name? · Jak masz na imię? |
 | 我叫Kubi。 | Wǒ jiào Kubi. | ło dział Kubi |  | My name is Kubi. · Jestem / nazywam się Kubi. |

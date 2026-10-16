@@ -10,9 +10,9 @@ Data: 2026-09-19
 | 来旅游的吗？ | Lái lǚyóu de ma? | laj lü-joł da ma | krótko zamiast: 你是来旅游的吗？ (Nǐ shì lái lǚyóu de ma?) | Here as a tourist? · Jesteś tu jako turystka? |
 | 做朋友吧！ | Zuò péngyou ba! | dzło phyng-joł pa | krótko zamiast: 你是否愿意做我的朋友？ (Nǐ shìfǒu yuànyì zuò wǒ de péngyou?) | Let's be friends! · Zostańmy przyjaciółmi! |
 | 加个微信吧！ | Jiā ge Wēixìn ba! | dzia ka łej-sin pa | krótko zamiast: 可以给我你的微信吗？ (Kěyǐ gěi wǒ nǐ de Wēixìn ma?) | Let's add each other on WeChat! · Dodajmy się na WeChacie! |
-| 教我中文吧！ | Jiāo wǒ Zhōngwén ba! | dział ło czong-łen pa | krótko zamiast: 你可以教我中文吗？ (Nǐ kěyǐ jiāo wǒ Zhōngwén ma?) | Teach me Chinese! · Naucz mnie chińskiego! |
+| 教我中文吧！ | Jiāo wǒ Zhōngwén ba! | dział ło czong-łyn pa | krótko zamiast: 你可以教我中文吗？ (Nǐ kěyǐ jiāo wǒ Zhōngwén ma?) | Teach me Chinese! · Naucz mnie chińskiego! |
 | 你做什么的？ | Nǐ zuò shénme de? | ni dzło szen-ma da | krótko zamiast: 你是做什么工作的？ (Nǐ shì zuò shénme gōngzuò de?) | What do you do? · Czym się zajmujesz? |
-| 你是哪里人？ | Nǐ shì nǎlǐ rén? | ni szy na-li żen | krótko zamiast: 你来自中国哪里？ (Nǐ láizì Zhōngguó nǎlǐ?) | Where are you from (which city)? · Skąd jesteś (z jakiego miasta)? |
+| 你是哪里人？ | Nǐ shì nǎlǐ rén? | ni szy na-li żyn | krótko zamiast: 你来自中国哪里？ (Nǐ láizì Zhōngguó nǎlǐ?) | Where are you from (which city)? · Skąd jesteś (z jakiego miasta)? |
 | 下一站去哪？ | Xià yí zhàn qù nǎ? | sia-i-czan ćhü na | krótko zamiast: 你后面会去哪里？ (Nǐ hòumiàn huì qù nǎlǐ?) | Where is your next stop? · Gdzie jedziesz dalej? |
 
 ## Chcę / nie chcę
@@ -27,17 +27,17 @@ Data: 2026-09-19
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
 | 拜拜。 | Bàibài. | paj-paj | BAI BAI | bye bye · pa pa |
-| 很高兴认识你。 | Hěn gāoxìng rènshi nǐ. | chen kał-sing żen-szy ni | HYN-GAŁ-SIN RYN-SZY NI | Nice to meet you. · Miło Cię poznać. |
+| 很高兴认识你。 | Hěn gāoxìng rènshi nǐ. | chyn kał-sing żyn-szy ni | HYN-GAŁ-SIN RYN-SZY NI | Nice to meet you. · Miło Cię poznać. |
 
 ## Komplementy i randka
 
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
-| 你单身吗？ | Nǐ dānshēn ma? | ni tan-szen ma | krótko zamiast: 你是否单身？ (Nǐ shìfǒu dānshēn?) | Are you single? · Jesteś singielką? |
+| 你单身吗？ | Nǐ dānshēn ma? | ni tan-szyn ma | krótko zamiast: 你是否单身？ (Nǐ shìfǒu dānshēn?) | Are you single? · Jesteś singielką? |
 | 一起吃饭吗？ | Yìqǐ chīfàn ma? | i-ćhi czhy-fan ma | krótko zamiast: 你愿意一起吃饭吗？ (Nǐ yuànyì yìqǐ chīfàn ma?) | Dinner together? · Zjemy razem? |
-| 你很漂亮。 | Nǐ hěn piàoliang. | ni chen phiał-liang | NI-KHY-PIAŁ-LIAN · YOU ARE VERY ATTRACTIVE (= 美丽) | You are very pretty. · Jesteś bardzo ładna. |
-| 你很帅。 | Nǐ hěn shuài. | ni chen szłaj | NI HAN SŁAJ | You are handsome. · Jesteś przystojny. |
-| 你很友善。 | Nǐ hěn yǒushàn. | ni chen joł-szan | NI KHYN-JO-HA | You are friendly. · Jesteś miła. |
+| 你很漂亮。 | Nǐ hěn piàoliang. | ni chyn phiał-liang | NI-KHY-PIAŁ-LIAN · YOU ARE VERY ATTRACTIVE (= 美丽) | You are very pretty. · Jesteś bardzo ładna. |
+| 你很帅。 | Nǐ hěn shuài. | ni chyn szłaj | NI HAN SŁAJ | You are handsome. · Jesteś przystojny. |
+| 你很友善。 | Nǐ hěn yǒushàn. | ni chyn joł-szan | NI KHYN-JO-HA | You are friendly. · Jesteś miła. |
 
 ## O sobie
 
@@ -53,9 +53,9 @@ Data: 2026-09-19
 |---|---|---|---|---|
 | 旅游 | lǚyóu | lü-joł | LI-JO · TRAVEL | travel · podróżować |
 | 当然啦！ | Dāngrán la! | tang-żan la | DON-RAN-LA · OCZYWIŚCIE | Of course! · Oczywiście! |
-| 可以吻你吗？ | Kěyǐ wěn nǐ ma? | khy-i łen ni ma | KAJI-ŁYN NI MA | Can I kiss you? · Mogę Cię pocałować? |
+| 可以吻你吗？ | Kěyǐ wěn nǐ ma? | khy-i łyn ni ma | KAJI-ŁYN NI MA | Can I kiss you? · Mogę Cię pocałować? |
 | 成交！ | Chéngjiāo! | czhyng-dział | CZA DZIAŁ | Deal! · Umowa stoi! |
-| 很多吻。 | Hěn duō wěn. | chen tło łen | HAN DO WEN · A LOT OF KISSES | Lots of kisses. · Dużo całusów. |
+| 很多吻。 | Hěn duō wěn. | chyn tło łyn | HAN DO WEN · A LOT OF KISSES | Lots of kisses. · Dużo całusów. |
 | 晚安。 | Wǎn'ān. | łan-an | ŁAN-A · GOOD NIGHT | Good night. · Dobranoc. |
 
 ## Ze scenek
