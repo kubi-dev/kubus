@@ -8,9 +8,9 @@ Data: 2026-09-09
 |---|---|---|---|---|
 | 面条 | miàntiáo | mien-thiał | MIEN-TIAŁ | noodles · makaron |
 | 米饭 | mǐfàn | mi-fan | MI-FA | rice · ryż |
-| 鸡肉 | jīròu | dzi-żoł | DZI-RO | chicken · kurczak |
-| 鱼肉 | yúròu | ü-żoł | YURO | fish · ryba |
-| 牛肉 | niúròu | nioł-żoł | NIURO | beef · wołowina |
+| 鸡肉 | jīròu | dzi-ro | DZI-RO | chicken · kurczak |
+| 鱼肉 | yúròu | ü-ro | YURO | fish · ryba |
+| 牛肉 | niúròu | nioł-ro | NIURO | beef · wołowina |
 | 面包 | miànbāo | mien-pał | MIEN-PO | bread · chleb |
 | 披萨 | pīsà | phi-sa | PIZZA | pizza · pizza |
 | 汉堡 | hànbǎo | chan-pał | HAN-BO | hamburger · hamburger |
@@ -23,7 +23,7 @@ Data: 2026-09-09
 | 我喜欢…… | Wǒ xǐhuan… | ło si-chłan | ŁO SI HŁAN | I like… · Lubię… |
 | 我想吃…… | Wǒ xiǎng chī… | ło siang czhy | ŁO-SIA-CZY | I want to eat… · Chcę zjeść… |
 | 我想吃饺子。 | Wǒ xiǎng chī jiǎozi. | ło siang czhy dział-dzy | ŁO-SIA-CZY-DZIAŁ-ZY | I want to eat dumplings. · Chcę zjeść pierogi. |
-| 我想吃鸡肉。 | Wǒ xiǎng chī jīròu. | ło siang czhy dzi-żoł | ŁO-SIA-CZY-DZI-RO | I want to eat chicken. · Chcę zjeść kurczaka. |
+| 我想吃鸡肉。 | Wǒ xiǎng chī jīròu. | ło siang czhy dzi-ro | ŁO-SIA-CZY-DZI-RO | I want to eat chicken. · Chcę zjeść kurczaka. |
 
 ## Napoje
 

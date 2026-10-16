@@ -12,13 +12,13 @@
         {"znaki": "米饭", "pinyin": "mǐfàn", "polski": "mi-fan", "notatki": "MI-FA", "znaczenie": "rice · ryż", "obrazek": {
             "id": "e3bc57f8-70d4-4f99-87c4-6b877c1ef914", "url": "https://images.rawpixel.com/image_png_1300/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA1L2pvYjk2NS1lbGVtZW50LTE0Mi1wXzEucG5n.png", "autor": "Miiruuku", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/10791841/png-moon-cartoon"}
         },
-        {"znaki": "鸡肉", "pinyin": "jīròu", "polski": "dzi-żoł", "notatki": "DZI-RO", "znaczenie": "chicken · kurczak", "obrazek": {
+        {"znaki": "鸡肉", "pinyin": "jīròu", "polski": "dzi-ro", "notatki": "DZI-RO", "znaczenie": "chicken · kurczak", "obrazek": {
             "id": "81f8f07d-5a8b-4e89-bbd3-2a38c3364ea7", "url": "https://cdn.stocksnap.io/img-thumbs/960w/34LMASJHCT.jpg", "autor": "Krzysztof Puszczyński", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/grilled-chicken-34LMASJHCT"}
         },
-        {"znaki": "鱼肉", "pinyin": "yúròu", "polski": "ü-żoł", "notatki": "YURO", "znaczenie": "fish · ryba", "obrazek": {
+        {"znaki": "鱼肉", "pinyin": "yúròu", "polski": "ü-ro", "notatki": "YURO", "znaczenie": "fish · ryba", "obrazek": {
             "id": "73c66a67-4ee0-4bc2-8c81-428a5691192b", "url": "https://cdn.stocksnap.io/img-thumbs/960w/G8QICMKLUV.jpg", "autor": "Dana Tentis", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/food-recipe-G8QICMKLUV"}
         },
-        {"znaki": "牛肉", "pinyin": "niúròu", "polski": "nioł-żoł", "notatki": "NIURO", "znaczenie": "beef · wołowina", "obrazek": {
+        {"znaki": "牛肉", "pinyin": "niúròu", "polski": "nioł-ro", "notatki": "NIURO", "znaczenie": "beef · wołowina", "obrazek": {
             "id": "ce2ecee4-0fb3-4914-b052-8be1a8f9453c", "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvYTAxOS1qYWt1YmstMDIxNi1yYXctYmVlZi1zdGVha3MxLmpwZw.jpg", "autor": "Jakub Kapusnak", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/447741/free-photo-image-meat-steak-beef"}
         },
         {"znaki": "面包", "pinyin": "miànbāo", "polski": "mien-pał", "notatki": "MIEN-PO", "znaczenie": "bread · chleb", "obrazek": {
@@ -51,7 +51,7 @@
         {"znaki": "我喜欢……", "pinyin": "Wǒ xǐhuan…", "polski": "ło si-chłan", "doslownie": "ja · lubić", "notatki": "ŁO SI HŁAN", "znaczenie": "I like… · Lubię…"},
         {"znaki": "我想吃……", "pinyin": "Wǒ xiǎng chī…", "polski": "ło siang czhy", "doslownie": "ja · chcieć · jeść", "notatki": "ŁO-SIA-CZY", "znaczenie": "I want to eat… · Chcę zjeść…"},
         {"znaki": "我想吃饺子。", "pinyin": "Wǒ xiǎng chī jiǎozi.", "polski": "ło siang czhy dział-dzy", "doslownie": "ja · chcieć · jeść · pierogi", "notatki": "ŁO-SIA-CZY-DZIAŁ-ZY", "znaczenie": "I want to eat dumplings. · Chcę zjeść pierogi."},
-        {"znaki": "我想吃鸡肉。", "pinyin": "Wǒ xiǎng chī jīròu.", "polski": "ło siang czhy dzi-żoł", "doslownie": "ja · chcieć · jeść · kurczak", "notatki": "ŁO-SIA-CZY-DZI-RO", "znaczenie": "I want to eat chicken. · Chcę zjeść kurczaka."}
+        {"znaki": "我想吃鸡肉。", "pinyin": "Wǒ xiǎng chī jīròu.", "polski": "ło siang czhy dzi-ro", "doslownie": "ja · chcieć · jeść · kurczak", "notatki": "ŁO-SIA-CZY-DZI-RO", "znaczenie": "I want to eat chicken. · Chcę zjeść kurczaka."}
       ]
     },
     {

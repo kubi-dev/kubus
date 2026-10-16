@@ -1831,7 +1831,7 @@
     {
      "znaki": "鱼肉",
      "pinyin": "yúròu",
-     "polski": "ü-żoł",
+     "polski": "ü-ro",
      "znaczenie": "ryba (mięso)",
      "lekcja": 2
     },
@@ -2224,7 +2224,7 @@
    "trudnosc": 2,
    "opis": "Chińskie r na początku wcale nie warczy. To zwykłe polskie „ż” z „żaby”. Tyle.",
    "przyklad_pl": "Powiedz na głos „żaba”. Masz już 人 rén: „żen” (człowiek).",
-   "jak_cwiczyc": "1. Powiedz „żaba”.\n2. Teraz „żen” (人, człowiek). Teraz „żoł” (肉, mięso).\n3. Test: powiedz „rower”, a zaraz „żen”. Język w „żen” ma NIE drgać jak w „rower”. Drga? Zacznij od „żaba” jeszcze raz.",
+   "jak_cwiczyc": "1. Powiedz „żaba”.\n2. Teraz „żen” (人, człowiek).\n3. Test: powiedz „rower”, a zaraz „żen”. Język w „żen” ma NIE drgać jak w „rower”. Drga? Zacznij od „żaba” jeszcze raz.",
    "blad_polakow": "Widzisz literę r i mówisz „rower”. Chińczyk tego nie rozpozna. Zapamiętaj: chińskie r to polskie ż.",
    "pary": [
     {
@@ -2241,22 +2241,6 @@
       "znaczenie": "radość"
      },
      "roznica": "ż (gorący) albo l (radość)"
-    },
-    {
-     "a": {
-      "znaki": "肉",
-      "pinyin": "ròu",
-      "polski": "żoł",
-      "znaczenie": "mięso",
-      "lekcja": 2
-     },
-     "b": {
-      "znaki": "漏",
-      "pinyin": "lòu",
-      "polski": "loł",
-      "znaczenie": "przeciekać"
-     },
-     "roznica": "ż (mięso) albo l (przeciekać)"
     },
     {
      "a": {
@@ -2298,13 +2282,6 @@
      "polski": "żen",
      "znaczenie": "człowiek",
      "lekcja": 3
-    },
-    {
-     "znaki": "鸡肉",
-     "pinyin": "jīròu",
-     "polski": "dzi-żoł",
-     "znaczenie": "kurczak",
-     "lekcja": 2
     },
     {
      "znaki": "认识",
