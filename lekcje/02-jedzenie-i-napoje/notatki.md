@@ -20,6 +20,7 @@ Data: 2026-09-09
 | 饺子 | jiǎozi | dział-dzy | DZIAŁ-ZY | dumplings · pierogi |
 | 炒饭 | chǎofàn | czhał-fan | CZOP-FA | fried rice · smażony ryż |
 | 粥 | zhōu | czoł | DZOŁ | congee · kleik ryżowy |
+| 蟹黄包 | xièhuángbāo | sie-chłang-pał |  | crab roe bun · bułeczka z ikrą kraba |
 | 我喜欢…… | Wǒ xǐhuan… | ło si-chłan | ŁO SI HŁAN | I like… · Lubię… |
 | 我想吃…… | Wǒ xiǎng chī… | ło siang czhy | ŁO-SIA-CZY | I want to eat… · Chcę zjeść… |
 | 我想吃饺子。 | Wǒ xiǎng chī jiǎozi. | ło siang czhy dział-dzy | ŁO-SIA-CZY-DZIAŁ-ZY | I want to eat dumplings. · Chcę zjeść pierogi. |

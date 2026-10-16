@@ -48,6 +48,7 @@
         {"znaki": "粥", "pinyin": "zhōu", "polski": "czoł", "notatki": "DZOŁ", "znaczenie": "congee · kleik ryżowy", "obrazek": {
             "id": "153b4919-2d96-42c7-b7fd-a46ff1d52698", "url": "https://live.staticflickr.com/136/319209550_d029d15c33_b.jpg", "autor": "roland", "licencja": "by", "zrodlo": "https://www.flickr.com/photos/35034347371@N01/319209550"}
         },
+        {"znaki": "蟹黄包", "pinyin": "xièhuángbāo", "polski": "sie-chłang-pał", "notatki": "", "znaczenie": "crab roe bun · bułeczka z ikrą kraba"},
         {"znaki": "我喜欢……", "pinyin": "Wǒ xǐhuan…", "polski": "ło si-chłan", "doslownie": "ja · lubić", "notatki": "ŁO SI HŁAN", "znaczenie": "I like… · Lubię…"},
         {"znaki": "我想吃……", "pinyin": "Wǒ xiǎng chī…", "polski": "ło siang czhy", "doslownie": "ja · chcieć · jeść", "notatki": "ŁO-SIA-CZY", "znaczenie": "I want to eat… · Chcę zjeść…"},
         {"znaki": "我想吃饺子。", "pinyin": "Wǒ xiǎng chī jiǎozi.", "polski": "ło siang czhy dział-dzy", "doslownie": "ja · chcieć · jeść · pierogi", "notatki": "ŁO-SIA-CZY-DZIAŁ-ZY", "znaczenie": "I want to eat dumplings. · Chcę zjeść pierogi."},
