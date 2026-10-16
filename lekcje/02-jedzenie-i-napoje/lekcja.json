@@ -52,7 +52,8 @@
         {"znaki": "我喜欢……", "pinyin": "Wǒ xǐhuan…", "polski": "ło si-chłan", "doslownie": "ja · lubić", "notatki": "ŁO SI HŁAN", "znaczenie": "I like… · Lubię…"},
         {"znaki": "我想吃……", "pinyin": "Wǒ xiǎng chī…", "polski": "ło siang czhy", "doslownie": "ja · chcieć · jeść", "notatki": "ŁO-SIA-CZY", "znaczenie": "I want to eat… · Chcę zjeść…"},
         {"znaki": "我想吃饺子。", "pinyin": "Wǒ xiǎng chī jiǎozi.", "polski": "ło siang czhy dział-dzy", "doslownie": "ja · chcieć · jeść · pierogi", "notatki": "ŁO-SIA-CZY-DZIAŁ-ZY", "znaczenie": "I want to eat dumplings. · Chcę zjeść pierogi."},
-        {"znaki": "我想吃鸡肉。", "pinyin": "Wǒ xiǎng chī jīròu.", "polski": "ło siang czhy dzi-ro", "doslownie": "ja · chcieć · jeść · kurczak", "notatki": "ŁO-SIA-CZY-DZI-RO", "znaczenie": "I want to eat chicken. · Chcę zjeść kurczaka."}
+        {"znaki": "我想吃鸡肉。", "pinyin": "Wǒ xiǎng chī jīròu.", "polski": "ło siang czhy dzi-ro", "doslownie": "ja · chcieć · jeść · kurczak", "notatki": "ŁO-SIA-CZY-DZI-RO", "znaczenie": "I want to eat chicken. · Chcę zjeść kurczaka."},
+        {"znaki": "我想吃蟹黄包。", "pinyin": "Wǒ xiǎng chī xièhuángbāo.", "polski": "ło siang czhy sie-chłang-pał", "doslownie": "ja · chcieć · jeść · bułeczka z ikrą kraba", "notatki": "", "znaczenie": "I want to eat a crab roe bun. · Chcę zjeść bułeczkę z ikrą kraba."}
       ]
     },
     {

@@ -25,6 +25,7 @@ Data: 2026-09-09
 | 我想吃…… | Wǒ xiǎng chī… | ło siang czhy | ŁO-SIA-CZY | I want to eat… · Chcę zjeść… |
 | 我想吃饺子。 | Wǒ xiǎng chī jiǎozi. | ło siang czhy dział-dzy | ŁO-SIA-CZY-DZIAŁ-ZY | I want to eat dumplings. · Chcę zjeść pierogi. |
 | 我想吃鸡肉。 | Wǒ xiǎng chī jīròu. | ło siang czhy dzi-ro | ŁO-SIA-CZY-DZI-RO | I want to eat chicken. · Chcę zjeść kurczaka. |
+| 我想吃蟹黄包。 | Wǒ xiǎng chī xièhuángbāo. | ło siang czhy sie-chłang-pał |  | I want to eat a crab roe bun. · Chcę zjeść bułeczkę z ikrą kraba. |
 
 ## Napoje
 
