@@ -34,6 +34,7 @@ Data: 2026-09-09
 | 我想喝啤酒。 | Wǒ xiǎng hē píjiǔ. | ło siang chy phi-dzioł | ŁO-SIA-HYA-PI-DZIO | I want to drink beer. · Chcę się napić piwa. |
 | 水 | shuǐ | szłej | SŁEJ | water · woda |
 | 咖啡 | kāfēi | kha-fej | CAFE | coffee · kawa |
+| 咖啡馆 | kāfēiguǎn | kha-fej-kłan |  | café · kawiarnia |
 | 茶 | chá | czha | CZA | tea · herbata |
 | 果汁 | guǒzhī | kło-czy | GŁO-DZY | juice · sok |
 | 啤酒 | píjiǔ | phi-dzioł | PI-DZIO | beer · piwo |

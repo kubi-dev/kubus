@@ -736,6 +736,19 @@
   }
  },
  {
+  "id": "咖啡馆",
+  "znaki": "咖啡馆",
+  "pinyin": "kāfēiguǎn",
+  "polski": "kha-fej-kłan",
+  "doslownie": "",
+  "znaczenie": "café · kawiarnia",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/c30b22ccb1",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "茶",
   "znaki": "茶",
   "pinyin": "chá",

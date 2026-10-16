@@ -66,6 +66,7 @@
         {"znaki": "咖啡", "pinyin": "kāfēi", "polski": "kha-fej", "notatki": "CAFE", "znaczenie": "coffee · kawa", "obrazek": {
             "id": "18bfb8f5-81b4-4fb1-b312-d1593ae61424", "url": "https://cdn.stocksnap.io/img-thumbs/960w/WZKGHBRQIB.jpg", "autor": "Negative Space", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/coffee-cup-WZKGHBRQIB"}
         },
+        {"znaki": "咖啡馆", "pinyin": "kāfēiguǎn", "polski": "kha-fej-kłan", "notatki": "", "znaczenie": "café · kawiarnia"},
         {"znaki": "茶", "pinyin": "chá", "polski": "czha", "notatki": "CZA", "znaczenie": "tea · herbata", "obrazek": {
             "id": "22159df9-3e40-46ad-a27d-ae3b606f3b05", "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJ0ZWVfc2VydmljZV9lYXJsX2dyYXlfMC1pbWFnZS1reWJjbW5ody5qcGc.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/6031450/photo-image-public-domain-floral-bubbles"}
         },
