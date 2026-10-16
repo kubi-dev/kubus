@@ -15,7 +15,7 @@ Data: 2026-10-15
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
 | 工作 | gōngzuò | kung-dzło | GUŁ DZŁO · WORK | work · praca, pracować |
-| 健身 | jiànshēn | dzien-szyn | DZIEN-SZEN · SPORT | workout · siłownia, ćwiczyć |
+| 健身 | jiànshēn | dzien-szen | DZIEN-SZEN · SPORT | workout · siłownia, ćwiczyć |
 | 见朋友 | jiàn péngyou | dzien phyng-joł | DZIEN PENG-JOŁ · MEET FRIENDS | meet friends · spotkać się ze znajomymi |
 | 出去玩 | chūqù wán | czhu-ćhü łan | CZU-CZI-ŁAN · HANG OUT | go out, hang out · wyjść się zabawić |
 | 约会 | yuēhuì | jüe-chłej | JUE-CHUI · DATING | date · randka, iść na randkę |
@@ -25,7 +25,7 @@ Data: 2026-10-15
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
 | 最近过得好吗？ | Zuìjìn guò de hǎo ma? | dzłej-dzin kło ta chał ma | DZŁEJ-DZING-GŁO-DA-HAŁ-MA? · CO ROBISZ OSTATNIO? | How have you been lately? · Jak ci ostatnio leci? |
-| 你在中国过得怎么样？ | Nǐ zài Zhōngguó guò de zěnmeyàng? | ni dzaj czung-kło kło ta dzyn-ma-jang | NI-DZAJ-CZONG-ŁO-GŁO DA-DZA-MA-JA · HOW IS YOUR TIME IN CHINA? | How is your time in China? · Jak ci się żyje w Chinach? |
+| 你在中国过得怎么样？ | Nǐ zài Zhōngguó guò de zěnmeyàng? | ni dzaj czung-kło kło ta dzen-ma-jang | NI-DZAJ-CZONG-ŁO-GŁO DA-DZA-MA-JA · HOW IS YOUR TIME IN CHINA? | How is your time in China? · Jak ci się żyje w Chinach? |
 | 我会去上海和台湾。 | Wǒ huì qù Shànghǎi hé Táiwān. | ło chłej ćhü szang-chaj chy thaj-łan | ŁO-HUI-CZY-SZANGHAI-HY-TAIWAN · I GO TO SHANGHAI AND TAIWAN | I'm going to Shanghai and Taiwan. · Pojadę do Szanghaju i na Tajwan. |
 | 吃饭了吗？ | Chīfàn le ma? | czhy-fan la ma | CZY FAN LA MA · HAVE YOU EAT ALREADY | Have you eaten? (a greeting) · Jadłeś już? (powitanie) |
 | 你最喜欢吃什么？ | Nǐ zuì xǐhuan chī shénme? | ni dzłej si-chłan czhy szen-ma | NI-DZŁEJ-SI-HŁAN CZY SZE MA (CZHY) · WHAT YOU LIKE TO EAT | What do you like to eat most? · Co najbardziej lubisz jeść? |
