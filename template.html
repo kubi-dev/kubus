@@ -257,6 +257,7 @@ function bindMic(btn, target, card) {
   const out = card.querySelector(".result");
   Wymowa.bind(btn, {
     target,
+    audio: () => AUDIO[target] ? "audio/" + AUDIO[target] + ".mp3" : "",
     onStart: () => {},
     onDone: (res) => { const r = Wymowa.render(res, target); out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html; }
   });

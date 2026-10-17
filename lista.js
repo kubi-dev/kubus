@@ -120,6 +120,7 @@ window.Lista = (function () {
     const out = el("div", "result");
     Wymowa.bind(mic, {
       target: k.znaki,
+      audio: () => k.audio ? opcje.baza + k.audio + ".mp3" : "",
       onStart: () => {},
       onDone: (res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; }
     });

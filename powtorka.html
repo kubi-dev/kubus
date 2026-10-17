@@ -344,6 +344,7 @@ function odslon(k, kontener, zMikrofonem, onWynik, bezWymowy) {
     const out = el("div", "result");
     Wymowa.bind(mic, {
       target: k.znaki,
+      audio: () => k.audio ? "../" + k.audio + ".mp3" : "",
       onStart: () => {},
       onDone: onWynik || ((res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; })
     });
@@ -406,6 +407,7 @@ function kartaA(c, w) {
   };
   Wymowa.bind(mic, {
     target: k.znaki,
+    audio: () => k.audio ? "../" + k.audio + ".mp3" : "",
     onStart: () => {},
     onDone: zastosujWynik
   });

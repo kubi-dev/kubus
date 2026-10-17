@@ -17,9 +17,10 @@
 //
 // Użycie:
 //   Wymowa.beforeStart = () => { /* tylko UI, audio zatrzymuje moduł */ };
-//   Wymowa.bind(btn, { target: () => "朋友", onStart(), onInterim(text), onDone(result) });  wynik wstępny moduł pokazuje w przycisku; strony nie ruszają układu w trakcie mówienia
+//   Wymowa.bind(btn, { target: () => "朋友", audio: () => "audio/x.mp3", onStart(), onInterim(text), onDone(result) });
+//     audio = nagranie lektora (normalne tempo): z niego linia wysokości głosu, na której rysuje się twoja  wynik wstępny moduł pokazuje w przycisku; strony nie ruszają układu w trakcie mówienia
 //   Wymowa.graj(url, { onEnd(przerwane) }) -> Promise<bool>;  Wymowa.stopAudio();  Wymowa.preload(url)
-//   result = { alts: [...], gotFinal, error, heldMs, started }
+//   result = { alts: [...], gotFinal, error, heldMs, started, wys: { ty: [Hz], cel: [Hz] | null } }
 //   Wymowa.render(result, target) -> { cls, html, grade }
 (function () {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -117,15 +118,15 @@
     if (result.zaciete) return { cls: "mid", html: "Rozpoznawanie się zacięło i nic sensownego nie wyszło. To nie twoja wina. Powiedz jeszcze raz.", grade: null };
     const g = grade(target, result.alts);
     const note = result.gotFinal ? "" : " <i>(wynik wstępny)</i>";
-    const t = g.target;
+    const t = g.target, glos = wykresGlosu(result.wys);
     if (g.level === "none") {
       const html = result.started === false ? "Puściłeś przycisk, zanim nasłuch się uruchomił. Przytrzymaj, poczekaj na „mów teraz”, powiedz słowo, dopiero wtedy puść."
         : result.heldMs < 400 ? "Za krótko. Przytrzymaj przycisk, poczekaj na „mów teraz”, powiedz słowo, dopiero wtedy puść."
         : "Nic nie usłyszałem. Przytrzymaj, poczekaj na „mów teraz”, powiedz i puść.";
       return { cls: "bad", html, grade: g };
     }
-    if (g.level === "exact") return { cls: "ok", html: `✓ Idealnie. Usłyszałem: <b>${t}</b> (${g.targetPy})${note}`, grade: g };
-    const trener = trenerHtml(g);
+    if (g.level === "exact") return { cls: "ok", html: `✓ Idealnie. Usłyszałem: <b>${t}</b> (${g.targetPy})${note}${glos}`, grade: g };
+    const trener = glos + trenerHtml(g);
     if (g.level === "tones") return { cls: "ok", html: `✓ Sylaby OK, sprawdź tony. Usłyszałem: <b>${g.best}</b> (${g.heardPy}), cel: ${g.targetPy}${note}${trener}`, grade: g };
     if (g.level === "close") return { cls: "mid", html: `~ Blisko. Usłyszałem: <b>${g.best}</b> (${g.heardPy})<br>cel: ${t} (${g.targetPy})${note}${trener}`, grade: g };
     return { cls: "bad", html: `✗ Usłyszałem: <b>${g.best}</b> (${g.heardPy})<br>cel: ${t} (${g.targetPy})${note}${trener}`, grade: g };
@@ -266,7 +267,7 @@
         (cw.znaki ? `<div class="tr-cw"><div class="tr-cw-tyt">${cw.ton ? "Ćwiczenie na " + cw.ton + ". ton" : "Ćwiczenie"} · powtórz:</div><b class="tr-znaki">${esc(cw.znaki)}</b> <span>${esc(cw.pinyin)}</span> · ${esc(cw.polski)}${cw.dlaczego ? `<div class="tr-cw-tyt">${esc(cw.dlaczego)}</div>` : ""}<div class="tr-wym">po polsku: <b>${esc(cw.wymowa)}</b></div><div class="tr-odsluch">${play(cw.znaki, cw.pinyin)}</div><button class="mic tr-mic" type="button"></button><div class="result tr-wynik" hidden></div></div>` : "") +
         (slaby ? `<div class="tr-stat">Najczęściej ucieka ci ${slaby.ton}. ton (${slaby.razy}×).</div>` : "");
       const mic = el.querySelector(".tr-mic"), out = el.querySelector(".tr-wynik");
-      if (mic) bind(mic, { target: () => cw.znaki,
+      if (mic) bind(mic, { target: () => cw.znaki, audio: () => c.url + "/tts?k=" + encodeURIComponent(c.klucz) + "&q=" + encodeURIComponent(cw.znaki),
           onDone: (res) => { const x = render(res, cw.znaki); out.hidden = false; out.className = "result tr-wynik " + x.cls; out.innerHTML = x.html; } });
     } catch (e) { diag("trener błąd: " + e.message); el.textContent = "Trener niedostępny: " + e.message; }
   }
@@ -327,6 +328,21 @@
 .trener .tr-mic { margin-top: 6px; }
 .trener .tr-wynik { margin-top: 6px; }
 .trener .tr-stat { margin-top: 6px; font-size: 12px; opacity: .7; }
+.glos, .glos-panel { --glos-lektor: rgba(0,0,0,.18); --glos-ty: #1d4ed8; --glos-siatka: rgba(0,0,0,.1); }
+.glos { margin-top: 8px; }
+.glos svg { display: block; width: 100%; height: 64px; }
+.glos .glos-os { stroke: var(--glos-siatka); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.glos path { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.glos .glos-lektor { stroke: var(--glos-lektor); stroke-width: 7; }
+.glos .glos-ty { stroke: var(--glos-ty); stroke-width: 3; }
+.glos-pod { font-size: 11px; opacity: .7; text-align: left; }
+.glos-pod span { display: inline-block; width: 16px; height: 4px; border-radius: 2px; vertical-align: middle; margin: 0 4px 0 0; }
+.glos-pod .glos-l { background: var(--glos-lektor); height: 7px; }
+.glos-pod .glos-t { background: var(--glos-ty); margin-left: 8px; }
+.glos-panel { position: fixed; left: 50%; top: 10px; transform: translateX(-50%); width: min(92vw, 420px); padding: 8px 10px 6px; border-radius: 14px; background: #fff; color: #111; box-shadow: 0 4px 18px rgba(0,0,0,.22); display: none; pointer-events: none; z-index: 9998; box-sizing: border-box; }
+.glos-panel.on { display: block; }
+.glos-panel canvas { display: block; width: 100%; height: 110px; }
+@media (prefers-color-scheme: dark) { .glos, .glos-panel { --glos-lektor: rgba(255,255,255,.22); --glos-ty: #60a5fa; --glos-siatka: rgba(255,255,255,.12); } .glos-panel { background: #202020; color: #eee; } }
 .wym-kom { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); max-width: min(92vw, 420px); padding: 10px 14px; border-radius: 12px; background: rgba(30,30,30,.94); color: #fff; font-size: 14px; line-height: 1.35; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,.25); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 9999; }
 .wym-kom.on { opacity: 1; transform: translate(-50%, 0); }
 @media (prefers-color-scheme: dark) { .wym-kom { background: rgba(245,245,245,.96); color: #111; } }
@@ -465,6 +481,166 @@
     return true;
   }
 
+  // ---- wysokość głosu: linia lektora (z mp3) i twoja (z mikrofonu, rysowana na żywo) ----
+  // YIN na 16 kHz, ramka 25 ms co 10 ms. Linie w półtonach względem mediany mówiącego: liczy się kształt, nie to, czy głos niski.
+  const F0_RATE = 16000, F0_WIN = 400, F0_TMIN = Math.floor(F0_RATE / 500), F0_TMAX = Math.ceil(F0_RATE / 70), F0_D = new Float32Array(F0_TMAX + 2);
+  const KLUCZ_GLOS = "kubus.wymowa.glos";   // typowa wysokość twojego głosu (Hz): stała linia od pierwszej chwili mówienia
+  function do16k(x, rate) {
+    const ratio = rate / F0_RATE, n = Math.floor(x.length / ratio), out = new Float32Array(n);
+    for (let i = 0; i < n; i++) { const a = Math.floor(i * ratio), b = Math.max(a + 1, Math.floor((i + 1) * ratio)); let s = 0; for (let j = a; j < b; j++) s += x[j]; out[i] = s / (b - a); }
+    return out;
+  }
+  function f0Ramka(x, o) {                    // Hz albo 0 (cisza, szum, spółgłoska bez głosu)
+    let e = 0; for (let i = 0; i < F0_WIN; i++) e += x[o + i] * x[o + i];
+    if (e / F0_WIN < 1e-4) return 0;          // rms < 0,01: szum w cichym pokoju to ~0,007
+    const d = F0_D; let suma = 0; d[0] = 1;
+    for (let t = 1; t <= F0_TMAX + 1; t++) {
+      let s = 0; for (let i = 0; i < F0_WIN; i++) { const r = x[o + i] - x[o + i + t]; s += r * r; }
+      suma += s; d[t] = suma ? s * t / suma : 1;
+    }
+    // pierwszy dołek poniżej 0,2; bez niego najgłębszy, jeśli wyraźny (szybko opadający ton 4. psuje okresowość w ramce)
+    let t = F0_TMIN;
+    for (; t <= F0_TMAX; t++) if (d[t] < 0.2) { while (t < F0_TMAX && d[t + 1] < d[t]) t++; break; }
+    if (t > F0_TMAX) { t = F0_TMIN; for (let u = F0_TMIN + 1; u <= F0_TMAX; u++) if (d[u] < d[t]) t = u; if (d[t] > 0.65) return 0; }
+    const a = d[t - 1], b = d[t], c = d[t + 1], m = a - 2 * b + c;
+    return F0_RATE / (t + (m > 0 ? (a - c) / (2 * m) : 0));
+  }
+  function f0Ciagu(x) { const hz = []; for (let o = 0; o + F0_WIN + F0_TMAX + 1 <= x.length; o += 160) hz.push(f0Ramka(x, o)); return hz; }
+  const mediana = a => { const v = Array.from(a).filter(x => x > 0).sort((p, q) => p - q); return v.length ? v[v.length >> 1] : 0; };
+  // mediana z 5 ramek, kawałki krótsze niż 40 ms wypadają, skoki o oktawę (typowy błąd pomiaru) wracają na miejsce
+  function wygladz(hz) {
+    const n = hz.length, out = new Float32Array(n);
+    for (let i = 0; i < n; i++) { if (!hz[i]) continue; const w = []; for (let j = i - 2; j <= i + 2; j++) if (j >= 0 && j < n && hz[j]) w.push(hz[j]); w.sort((p, q) => p - q); out[i] = w[w.length >> 1]; }
+    for (let i = 0; i < n;) { if (!out[i]) { i++; continue; } let j = i; while (j < n && out[j]) j++; if (j - i < 4) out.fill(0, i, j); i = j; }
+    // oktawa względem poprzedniej ramki z głosem, nie mediany: 4. ton potrafi zjechać o całą oktawę
+    for (let i = 0, prev = 0, gdzie = -99; i < n; i++) if (out[i]) {
+      if (prev && i - gdzie < 10) { if (out[i] > prev * 1.7) out[i] /= 2; else if (out[i] < prev / 1.7) out[i] *= 2; }
+      prev = out[i]; gdzie = i;
+    }
+    return out;
+  }
+  // tylko główna wypowiedź: kawałki głosu oddzielone ciszą dłuższą niż 0,4 s to osobne grupy, zostaje ta z największą
+  // liczbą ramek (stuk, oddech czy echo po słowie nie rozciągają wykresu)
+  function glowna(hz) {
+    const out = Float32Array.from(hz), grupy = [];
+    let g = null, cisza = 99;
+    for (let i = 0; i < out.length; i++) {
+      if (!out[i]) { cisza++; continue; }
+      if (!g || cisza > 40) grupy.push(g = { a: i, b: i, n: 0 });
+      g.b = i; g.n++; cisza = 0;
+    }
+    if (grupy.length < 2) return out;
+    const naj = grupy.reduce((x, y) => y.n > x.n ? y : x);
+    out.fill(0, 0, naj.a); out.fill(0, naj.b + 1);
+    return out;
+  }
+  // { hz, i0, i1, med, glosne }: od pierwszej do ostatniej ramki z głosem; med = środek wykresu (bez podanego: środek
+  // między najniższym a najwyższym głosem, żeby zjazd 4. tonu o oktawę zmieścił się na wykresie)
+  function zakres(hz, med) {
+    let i0 = -1, i1 = -1, glosne = 0, lo = Infinity, hi = 0;
+    for (let i = 0; i < hz.length; i++) if (hz[i]) { if (i0 < 0) i0 = i; i1 = i; glosne++; if (hz[i] < lo) lo = hz[i]; if (hz[i] > hi) hi = hz[i]; }
+    return glosne ? { hz, i0, i1, med: med || Math.sqrt(lo * hi), glosne } : null;
+  }
+  const liniaLektora = new Map();            // url -> Promise<Float32Array|null>
+  function lektor(url) {
+    if (!url) return Promise.resolve(null);
+    if (!liniaLektora.has(url)) {
+      liniaLektora.set(url, dekoduj(url).then(b => glowna(wygladz(f0Ciagu(do16k(b.getChannelData(0), b.sampleRate)))))
+        .catch(e => { diag("linia lektora: " + e.message); liniaLektora.delete(url); return null; }));
+      if (liniaLektora.size > MAX_BUFOROW) liniaLektora.delete(liniaLektora.keys().next().value);
+    }
+    return liniaLektora.get(url);
+  }
+  const ST_MAX = 10;                           // ± półtonów na wykresie
+  // ścieżka SVG/canvas: x z indeksu ramki, y z półtonów; przerwy tam, gdzie nie ma głosu
+  function punkty(z, x0, skala, y) {
+    const seg = []; let cur = null;
+    for (let i = z.i0; i <= z.i1; i++) {
+      const v = z.hz[i]; if (!v) { cur = null; continue; }
+      if (!cur) seg.push(cur = []);
+      cur.push([x0 + (i - z.i0) * skala, y(12 * Math.log2(v / z.med))]);
+    }
+    return seg;
+  }
+  const yNa = (h, p) => st => h / 2 - Math.max(-ST_MAX, Math.min(ST_MAX, st)) / ST_MAX * (h / 2 - p);
+
+  // panel na żywo: przyklejony u góry ekranu (nic na stronie nie skacze w trakcie mówienia)
+  let panelEl = null;
+  function panel() {
+    if (panelEl) return panelEl;
+    panelEl = document.createElement("div"); panelEl.className = "glos-panel";
+    panelEl.innerHTML = `<canvas></canvas><div class="glos-pod"><span class="glos-l"></span>lektor <span class="glos-t"></span>ty</div>`;
+    document.body.appendChild(panelEl);
+    return panelEl;
+  }
+  function doczytaj(w) {                      // nowe kawałki nagrania -> 16 kHz -> ramki
+    const n = w.n;
+    while (w.idx < n.chunks.length) {
+      const x = do16k(n.chunks[w.idx++], n.rate);
+      if (w.len + x.length > w.buf.length) break;
+      w.buf.set(x, w.len); w.len += x.length;
+    }
+    while (w.pos + F0_WIN + F0_TMAX + 1 <= w.len) { w.hz.push(f0Ramka(w.buf, w.pos)); w.pos += 160; }
+  }
+  // błąd rysowania nigdy nie psuje nagrania: wtedy po prostu nie ma linii
+  function glosStart(n, opts) {
+    try { return glosStartDo(n, opts); } catch (e) { diag("linia głosu: " + e.message); return null; }
+  }
+  function glosStartDo(n, opts) {
+    const w = { n, idx: 0, buf: new Float32Array(F0_RATE * 32), len: 0, pos: 0, hz: [], cel: null, koniec: false };
+    let url = ""; try { url = (typeof opts.audio === "function" ? opts.audio() : opts.audio) || ""; } catch (e) {}
+    lektor(url).then(c => { w.cel = c; });
+    let zapisany = 0; try { zapisany = Number(localStorage.getItem(KLUCZ_GLOS)) || 0; } catch (e) {}
+    w.zapisany = zapisany;
+    const p = panel(), cv = p.querySelector("canvas");
+    p.classList.add("on");
+    const petla = () => {
+      if (w.koniec) return;
+        try { doczytaj(w); rysujPanel(cv, w); } catch (e) { diag("linia głosu: " + e.message); return; }
+      requestAnimationFrame(petla);
+    };
+    requestAnimationFrame(petla);
+    return w;
+  }
+  function rysujPanel(cv, w) {
+    const dpr = window.devicePixelRatio || 1, cw = cv.clientWidth, ch = cv.clientHeight;
+    if (!cw) return;
+    if (cv.width !== Math.round(cw * dpr)) { cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr); }
+    const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, cw, ch);
+    const kolor = getComputedStyle(cv.parentNode), P = 8, y = yNa(ch, P);
+    g.strokeStyle = kolor.getPropertyValue("--glos-siatka").trim(); g.lineWidth = 1;
+    g.beginPath(); g.moveTo(P, ch / 2); g.lineTo(cw - P, ch / 2); g.stroke();
+    const ty = wygladz(w.hz), zt = zakres(ty, w.zapisany || mediana(ty)), zc = w.cel && zakres(w.cel);
+    // oś czasu w ramkach: tyle, ile trwa słowo lektora (z zapasem), dłużej, gdy mówisz dłużej
+    const T = Math.max(zc ? (zc.i1 - zc.i0) * 1.25 : 0, 80, zt ? ty.length - zt.i0 : 0), skala = (cw - 2 * P) / T;
+    const rysuj = (seg, styl, grub) => {
+      g.strokeStyle = styl; g.lineWidth = grub; g.lineCap = "round"; g.lineJoin = "round";
+      for (const s of seg) { g.beginPath(); s.forEach(([px, py], i) => i ? g.lineTo(px, py) : g.moveTo(px, py)); g.stroke(); }
+    };
+    if (zc) rysuj(punkty(zc, P, skala, y), kolor.getPropertyValue("--glos-lektor").trim(), 6);
+    if (zt) rysuj(punkty({ ...zt, i1: ty.length - 1 }, P, skala, y), kolor.getPropertyValue("--glos-ty").trim(), 3);
+  }
+  function glosStop(w) {
+    if (!w || w.koniec) return null;
+    w.koniec = true;
+    if (panelEl) panelEl.classList.remove("on");
+    try { doczytaj(w); } catch (e) { return null; }
+    const ty = glowna(wygladz(w.hz)), z = zakres(ty), med = mediana(ty);
+    if (z && z.glosne >= 10) { try { localStorage.setItem(KLUCZ_GLOS, String(Math.round(w.zapisany ? w.zapisany * 0.7 + med * 0.3 : med))); } catch (e) {} }
+    return { ty: Array.from(ty), cel: w.cel ? Array.from(w.cel) : null };
+  }
+  // wykres pod wynikiem: obie linie rozciągnięte na całą szerokość, żeby porównać sam kształt
+  function wykresGlosu(w) {
+    const zt = w && w.ty && zakres(w.ty);
+    if (!zt || zt.glosne < 10) return "";
+    const zc = w.cel && zakres(w.cel), S = 300, H = 80, P = 6, y = yNa(H, P);
+    const d = (z) => punkty(z, P, (S - 2 * P) / Math.max(1, z.i1 - z.i0), y).map(s => s.map(([x, yy], i) => (i ? "L" : "M") + x.toFixed(1) + " " + yy.toFixed(1)).join("")).join("");
+    return `<div class="glos"><svg viewBox="0 0 ${S} ${H}" preserveAspectRatio="none" aria-label="wysokość głosu: lektor i ty">` +
+      `<line x1="${P}" y1="${H / 2}" x2="${S - P}" y2="${H / 2}" class="glos-os"/>` +
+      (zc ? `<path class="glos-lektor" d="${d(zc)}"/>` : "") + `<path class="glos-ty" d="${d(zt)}"/></svg>` +
+      `<div class="glos-pod">${zc ? `<span class="glos-l"></span>lektor ` : ""}<span class="glos-t"></span>ty</div></div>`;
+  }
+
   // ---- głos systemowy: strony zgłaszają go tu (po nim odstęp przed mikrofonem) ----
   let ostatnieAudio = 0;
   function audioAktywne() { ostatnieAudio = Date.now(); }
@@ -543,6 +719,7 @@
     let gotFinal = s.gotFinal, error = s.error;
     const heldMs = s.startedAt ? Date.now() - s.startedAt : 0;
     const n = s.nagr; s.nagr = null; zamknijNagranie(n);
+    const wys = glosStop(s.wys);
     ustawSesje("playback", "koniec nasłuchu");
     const lv = n ? poziom(n) : null;
     diag("koniec (" + why + "): final=" + gotFinal + " interim=" + JSON.stringify(s.interim || "") + " trzymane " + heldMs + " ms" +
@@ -555,7 +732,7 @@
       przetwarzanie = false;
     } else if (!alts.length && !error && lv && heldMs > 1500 && !lv.glos) diag("mikrofon nie nagrał głosu (cisza albo za cicho)");
     s.btn.classList.remove("rec"); s.btn.textContent = LABEL_IDLE;
-    const res = { alts, gotFinal, error, heldMs, started: !!s.startedAt, zaciete: !!s.zaciete && !alts.length };
+    const res = { alts, gotFinal, error, heldMs, started: !!s.startedAt, zaciete: !!s.zaciete && !alts.length, wys };
     if (s.opts.onDone && !s.porzuc) { try { s.opts.onDone(res); } catch (e) { diag("onDone błąd: " + e.message); } }
   }
   function forceFinish(s, why, porzuc) {
@@ -605,7 +782,7 @@
         const n = await Promise.race([p.catch(e => { diag("getUserMedia błąd: " + e.name + " " + e.message); return null; }), sleep(1500).then(() => null)]);
         if (!n) p.then(zamknijNagranie, () => {});
         else if (!moja() || s.faza !== "listening") zamknijNagranie(n);
-        else { s.nagr = n; diag("nagranie równoległe działa (" + n.rate + " Hz)"); }
+        else { s.nagr = n; s.wys = glosStart(n, s.opts); diag("nagranie równoległe działa (" + n.rate + " Hz)"); }
         s.otwieram = false;
       }
       if (moja() && s.faza === "listening") {
@@ -691,7 +868,7 @@
       if (c.state !== "running") await obudz(c, 800);
       const n = await otworzNagranie(c);
       if (nagranie !== g) { zamknijNagranie(n); return; }
-      g.n = n; g.startedAt = Date.now();
+      g.n = n; g.startedAt = Date.now(); g.wys = glosStart(n, opts);
       diag("chmura: nagrywam (" + n.rate + " Hz)");
       btn.textContent = MOW;
       g.watchdog = setTimeout(() => { if (nagranie === g) { diag("chmura watchdog 15 s"); chmuraStop(g); } }, 15000);
@@ -712,9 +889,10 @@
     g.done = true; clearTimeout(g.watchdog);
     const heldMs = g.startedAt ? Date.now() - g.startedAt : 0;
     zamknijNagranie(g.n);
+    const wys = glosStop(g.wys);
     if (nagranie === g) nagranie = null;
     ustawSesje("playback", "koniec nagrania (chmura)");
-    const fin = (res) => { przetwarzanie = false; g.btn.classList.remove("rec"); g.btn.textContent = LABEL_IDLE; if (!porzuc && g.opts.onDone) g.opts.onDone(res); };
+    const fin = (res) => { if (res) res.wys = wys; przetwarzanie = false; g.btn.classList.remove("rec"); g.btn.textContent = LABEL_IDLE; if (!porzuc && g.opts.onDone) g.opts.onDone(res); };
     if (porzuc || !g.n) { fin(null); return; }
     const lv = poziom(g.n);
     diag("chmura stop: " + heldMs + " ms, szczyt=" + lv.szczyt.toFixed(3) + " rms=" + lv.rms.toFixed(4));

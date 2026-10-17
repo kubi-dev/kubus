@@ -213,6 +213,7 @@ function wiersz(s, opts) {
 function bindMic(btn, out, target, para) {
   Wymowa.bind(btn, {
     target: () => target,
+    audio: () => AUDIO[target] ? "audio/" + AUDIO[target] + ".mp3" : "",
     onStart: () => {},
     onDone: (res) => {
       const r = Wymowa.render(res, target);

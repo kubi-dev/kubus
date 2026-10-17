@@ -30,6 +30,14 @@ mały JSON z celem, usłyszanym tekstem i sylabami; wraca diagnoza po polsku, ws
 (słowo z tym samym tonem, zapis polski w konwencji notatek, nagranie wolno przez `GET /tts`, własny mikrofon). Licznik wpadek per ton
 w `localStorage kubus.tony`. Worker potrzebuje sekretu `ANTHROPIC_API_KEY` (`npx wrangler secret put ANTHROPIC_API_KEY`).
 
+## Linia głosu (wysokość dźwięku)
+Przy każdym mikrofonie: w trakcie mówienia u góry ekranu wisi panel (bez przesuwania strony) z szarą linią lektora
+i twoją niebieską linią rysowaną na żywo; po puszczeniu przycisku ten sam wykres jest pod wynikiem (obie linie rozciągnięte
+na całą szerokość, liczy się kształt). Wysokość liczy `wymowa.js` w przeglądarce (YIN na 16 kHz, ramka 25 ms co 10 ms),
+z tego samego nagrania getUserMedia co Whisper; linię lektora z mp3 karty (strony podają `audio` w `Wymowa.bind`).
+Półtony względem środka głosu mówiącego, więc niski męski głos i wysoki lektorki dają porównywalne kształty.
+Typowa wysokość twojego głosu w `localStorage kubus.wymowa.glos` (stała linia od pierwszej chwili mówienia).
+
 ## Podcast
 Strona `podcast/`: odcinek do każdej lekcji (`lekcje/NN/podcast.mp3`) i zbiorczy ze wszystkich zwrotów (`podcast/wszystko.mp3`).
 Buduje `podcast.py` (wołany z `build.py`): polski lektor (Google TTS `tl=pl`, pliki `audio/pl-*.mp3`) + istniejące mp3 chińskie
