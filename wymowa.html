@@ -207,13 +207,14 @@ function wiersz(s, opts) {
     <span class="info"><span class="py">${esc(s.pinyin)}</span>${s.polski ? ` · <span class="ppl">${esc(s.polski)}</span>` : ""}<br><span class="mn">${esc(s.znaczenie)}</span>${s.lekcja ? `<span class="lek" title="znasz z lekcji ${s.lekcja}">L${s.lekcja}</span>` : ""}</span>
     ${opts.bezMic ? "" : `<button class="mic" type="button"></button><div class="result" hidden></div>`}`;
   d.addEventListener("click", (e) => { if (e.target.closest(".mic, .result")) return; graj(s.znaki, d); });
-  if (!opts.bezMic) bindMic(d.querySelector(".mic"), d.querySelector(".result"), s.znaki, opts.para);
+  if (!opts.bezMic) bindMic(d.querySelector(".mic"), d.querySelector(".result"), s.znaki, opts.para, s);
   return d;
 }
-function bindMic(btn, out, target, para) {
+function bindMic(btn, out, target, para, s) {
   Wymowa.bind(btn, {
     target: () => target,
     audio: () => AUDIO[target] ? "audio/" + AUDIO[target] + ".mp3" : "",
+    ekran: () => ({ polski: s && s.polski, pinyin: s && s.pinyin, znaczenie: s && s.znaczenie }),
     onStart: () => {},
     onDone: (res) => {
       const r = Wymowa.render(res, target);

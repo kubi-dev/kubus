@@ -121,6 +121,7 @@ window.Lista = (function () {
     Wymowa.bind(mic, {
       target: k.znaki,
       audio: () => k.audio ? opcje.baza + k.audio + ".mp3" : "",
+      ekran: () => ({ polski: k.polski, pinyin: k.pinyin, znaczenie: polskie(k) }),
       onStart: () => {},
       onDone: (res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; }
     });

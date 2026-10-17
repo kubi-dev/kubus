@@ -220,7 +220,7 @@ function render(sekcje) {
         <button class="mic" type="button">🎤 przytrzymaj i mów</button>
         <div class="result" hidden></div>`;
       c.addEventListener("click", (e) => { if (e.target.closest(".mic, .result, .kred a, .star")) return; play(p.znaki, c); });
-      bindMic(c.querySelector(".mic"), p.znaki, c);
+      bindMic(c.querySelector(".mic"), p.znaki, c, p);
       const star = c.querySelector(".star");
       star.dataset.znaki = p.znaki;
       star.addEventListener("click", () => { przelaczUlubiona(p.znaki); odswiezGwiazdki(); });
@@ -253,11 +253,13 @@ Wymowa.beforeStart = () => setPlaying(null);   // audio zatrzymuje sam moduł (s
   }
   requestAnimationFrame(() => window.scrollTo(0, w.scrollY || 0));
 })();
-function bindMic(btn, target, card) {
+function bindMic(btn, target, card, p) {
   const out = card.querySelector(".result");
   Wymowa.bind(btn, {
     target,
     audio: () => AUDIO[target] ? "audio/" + AUDIO[target] + ".mp3" : "",
+    // znaczenie bywa „angielskie · polskie”: na ekranie mówienia tylko polskie
+    ekran: () => ({ polski: p.polski, pinyin: p.pinyin, znaczenie: (m => m.length > 1 ? m.slice(1).join("·") : m[0])(p.znaczenie.split("·")).trim() }),
     onStart: () => {},
     onDone: (res) => { const r = Wymowa.render(res, target); out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html; }
   });

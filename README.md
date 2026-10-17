@@ -31,9 +31,12 @@ mały JSON z celem, usłyszanym tekstem i sylabami; wraca diagnoza po polsku, ws
 w `localStorage kubus.tony`. Worker potrzebuje sekretu `ANTHROPIC_API_KEY` (`npx wrangler secret put ANTHROPIC_API_KEY`).
 
 ## Linia głosu (wysokość dźwięku)
-Przy każdym mikrofonie: w trakcie mówienia u góry ekranu wisi panel (bez przesuwania strony) z szarą linią lektora
-i twoją niebieską linią rysowaną na żywo; po puszczeniu przycisku ten sam wykres jest pod wynikiem (obie linie rozciągnięte
-na całą szerokość, liczy się kształt). Wysokość liczy `wymowa.js` w przeglądarce (YIN na 16 kHz, ramka 25 ms co 10 ms),
+Przy każdym mikrofonie, od naciśnięcia do puszczenia, działa ekran mówienia: strona znika pod warstwą w kolorze tła
+z „dziurą” na guzik (guzik się nie rusza), a tuż nad guzikiem (pod nim, gdy nad nim brak miejsca) jest blok: polska wymowa,
+melodia sylab słowami z notatek („Cooo? · końcówka”, tony z pinyinu karty, dwa 3. tony pod rząd jak 你好), znaczenie,
+szara linia lektora i twoja niebieska rysowana na żywo. Strony podają treść w `Wymowa.bind(..., { ekran })`; powtórka,
+karta „powiedz po chińsku”: tylko znaczenie i wykres (`bezWymowy`), bo wymowa zdradziłaby odpowiedź. Po puszczeniu
+wraca zwykły ekran, a pod wynikiem jest ten sam wykres (obie linie rozciągnięte na całą szerokość, liczy się kształt). Wysokość liczy `wymowa.js` w przeglądarce (YIN na 16 kHz, ramka 25 ms co 10 ms),
 z tego samego nagrania getUserMedia co Whisper; linię lektora z mp3 karty (strony podają `audio` w `Wymowa.bind`).
 Półtony względem środka głosu mówiącego, więc niski męski głos i wysoki lektorki dają porównywalne kształty.
 Typowa wysokość twojego głosu w `localStorage kubus.wymowa.glos` (stała linia od pierwszej chwili mówienia).

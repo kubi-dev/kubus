@@ -345,6 +345,7 @@ function odslon(k, kontener, zMikrofonem, onWynik, bezWymowy) {
     Wymowa.bind(mic, {
       target: k.znaki,
       audio: () => k.audio ? "../" + k.audio + ".mp3" : "",
+      ekran: () => ({ polski: k.polski, pinyin: k.pinyin, znaczenie: polskie(k) }),
       onStart: () => {},
       onDone: onWynik || ((res) => { const x = Wymowa.render(res, k.znaki); out.hidden = false; out.className = "result " + x.cls; out.innerHTML = x.html; })
     });
@@ -408,6 +409,7 @@ function kartaA(c, w) {
   Wymowa.bind(mic, {
     target: k.znaki,
     audio: () => k.audio ? "../" + k.audio + ".mp3" : "",
+    ekran: () => ({ znaczenie: polskie(k), bezWymowy: true }),   // karta „powiedz po chińsku”: wymowa zdradziłaby odpowiedź
     onStart: () => {},
     onDone: zastosujWynik
   });
