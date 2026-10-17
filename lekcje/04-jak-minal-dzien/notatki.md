@@ -68,3 +68,22 @@ Data: 2026-10-15
 |---|---|---|---|---|
 | 你周末有什么计划？ | Nǐ zhōumò yǒu shénme jìhuà? | ni czoł-mo joł szen-ma dzi-chła | JAKIE MASZ PLANY NA WEEKEND | Any plans for the weekend? · Jakie masz plany na weekend? |
 | 下次见。 | Xià cì jiàn. | sia-cchy dzien | SEE YOU NEXT TIME | See you next time. · Do zobaczenia następnym razem. |
+
+## Słówka ze zdań
+
+| Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
+|---|---|---|---|---|
+| 今天 | jīntiān | dzin-thien |  | today · dzisiaj |
+| 做 | zuò | dzło |  | do · robić |
+| 一起 | yìqǐ | i-ćhi |  | together · razem |
+| 会 | huì | chłej |  | will; can · będzie (o przyszłości); umieć |
+| 去 | qù | ćhü |  | go · iść, jechać |
+| 都 | dōu | toł |  | all · wszystko, wszyscy |
+| 有 | yǒu | joł |  | have · mieć |
+| 厕所 | cèsuǒ | cchy-sło |  | toilet · toaleta |
+| 风景 | fēngjǐng | fyng-dzing |  | view, scenery · widok |
+| 眼睛 | yǎnjing | jen-dzing |  | eyes · oczy |
+| 今晚 | jīnwǎn | dzin-łan |  | tonight · dziś wieczorem |
+| 有空 | yǒu kòng | joł khong |  | have free time · mieć wolny czas |
+| 周末 | zhōumò | czoł-mo |  | weekend · weekend |
+| 计划 | jìhuà | dzi-chła |  | plan · plan |

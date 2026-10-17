@@ -69,6 +69,25 @@
         {"znaki": "你周末有什么计划？", "pinyin": "Nǐ zhōumò yǒu shénme jìhuà?", "polski": "ni czoł-mo joł szen-ma dzi-chła", "doslownie": "ty · weekend · mieć · co · plan", "notatki": "JAKIE MASZ PLANY NA WEEKEND", "znaczenie": "Any plans for the weekend? · Jakie masz plany na weekend?"},
         {"znaki": "下次见。", "pinyin": "Xià cì jiàn.", "polski": "sia-cchy dzien", "doslownie": "następny raz · widzieć", "notatki": "SEE YOU NEXT TIME", "znaczenie": "See you next time. · Do zobaczenia następnym razem."}
       ]
+    },
+    {
+      "nazwa": "Słówka ze zdań",
+      "pozycje": [
+        {"znaki": "今天", "pinyin": "jīntiān", "polski": "dzin-thien", "notatki": "", "znaczenie": "today · dzisiaj"},
+        {"znaki": "做", "pinyin": "zuò", "polski": "dzło", "notatki": "", "znaczenie": "do · robić"},
+        {"znaki": "一起", "pinyin": "yìqǐ", "polski": "i-ćhi", "notatki": "", "znaczenie": "together · razem"},
+        {"znaki": "会", "pinyin": "huì", "polski": "chłej", "notatki": "", "znaczenie": "will; can · będzie (o przyszłości); umieć"},
+        {"znaki": "去", "pinyin": "qù", "polski": "ćhü", "notatki": "", "znaczenie": "go · iść, jechać"},
+        {"znaki": "都", "pinyin": "dōu", "polski": "toł", "notatki": "", "znaczenie": "all · wszystko, wszyscy"},
+        {"znaki": "有", "pinyin": "yǒu", "polski": "joł", "notatki": "", "znaczenie": "have · mieć"},
+        {"znaki": "厕所", "pinyin": "cèsuǒ", "polski": "cchy-sło", "notatki": "", "znaczenie": "toilet · toaleta"},
+        {"znaki": "风景", "pinyin": "fēngjǐng", "polski": "fyng-dzing", "notatki": "", "znaczenie": "view, scenery · widok"},
+        {"znaki": "眼睛", "pinyin": "yǎnjing", "polski": "jen-dzing", "notatki": "", "znaczenie": "eyes · oczy"},
+        {"znaki": "今晚", "pinyin": "jīnwǎn", "polski": "dzin-łan", "notatki": "", "znaczenie": "tonight · dziś wieczorem"},
+        {"znaki": "有空", "pinyin": "yǒu kòng", "polski": "joł khong", "doslownie": "mieć · wolny czas", "notatki": "", "znaczenie": "have free time · mieć wolny czas"},
+        {"znaki": "周末", "pinyin": "zhōumò", "polski": "czoł-mo", "notatki": "", "znaczenie": "weekend · weekend"},
+        {"znaki": "计划", "pinyin": "jìhuà", "polski": "dzi-chła", "notatki": "", "znaczenie": "plan · plan"}
+      ]
     }
   ]
 }
