@@ -1477,6 +1477,19 @@
   "obrazek": null
  },
  {
+  "id": "我的也是。",
+  "znaki": "我的也是。",
+  "pinyin": "Wǒde yě shì.",
+  "polski": "ło-da je szy",
+  "doslownie": "mój · też · być",
+  "znaczenie": "Mine too. · Mój też.",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/5e9332737e",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "不好。",
   "znaki": "不好。",
   "pinyin": "Bù hǎo.",

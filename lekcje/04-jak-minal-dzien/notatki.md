@@ -9,6 +9,7 @@ Data: 2026-10-15
 | 你今天过得好吗？ | Nǐ jīntiān guò de hǎo ma? | ni dzin-thien kło da chał ma | NI-DZIN TIEN-GŁO-DA-HAŁ-MA · HOW WAS YOUR DAY | How was your day? · Jak minął ci dzień? |
 | 你周末过得好吗？ | Nǐ zhōumò guò de hǎo ma? | ni czoł-mo kło da chał ma |  | How was your weekend? · Udał ci się weekend? |
 | 你周末过得怎么样？ | Nǐ zhōumò guò de zěnmeyàng? | ni czoł-mo kło da dzen-ma-jang |  | How was your weekend? · Jak minął ci weekend? |
+| 我的也是。 | Wǒde yě shì. | ło-da je szy |  | Mine too. · Mój też. |
 | 不好。 | Bù hǎo. | pu chał | PU-HAŁ · NOT GOOD | Not good. · Niedobrze. |
 | 你今天做了什么？ | Nǐ jīntiān zuò le shénme? | ni dzin-thien dzło la szen-ma | NI-DZIN TIEN-DZŁO-LO-SZE-MA · WHAT HAVE YOU BEEN DOING? | What did you do today? · Co dziś robiłeś? |
 
