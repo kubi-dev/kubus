@@ -32,7 +32,8 @@ function scal(a, b) {
     if (!x || (y.z || 0) > (x.z || 0)) out.ulubione[k] = y;
   }
   if (b.ustawienia && (b.ustawienia.z || 0) > (out.ustawienia.z || 0)) out.ustawienia = b.ustawienia;
-  if (b.dzien && (b.dzien.data > (out.dzien.data || "") || (b.dzien.data === out.dzien.data && (b.dzien.nowe || 0) > (out.dzien.nowe || 0)))) out.dzien = b.dzien;
+  if (b.dzien && b.dzien.data > (out.dzien.data || "")) out.dzien = b.dzien;
+  else if (b.dzien && b.dzien.data === out.dzien.data) out.dzien = { data: out.dzien.data, nowe: Math.max(out.dzien.nowe || 0, b.dzien.nowe || 0), hsk: Math.max(out.dzien.hsk || 0, b.dzien.hsk || 0) };
   return out;
 }
 
@@ -73,10 +74,10 @@ Pola odpowiedzi:
     Nie może być tak, że wskazówka mówi o jednej głosce, a ćwiczenie ma inną.
   Pola: znaki, pinyin, polski (znaczenie), dlaczego,
   ton (numer ćwiczonego tonu 1-4, 0 gdy chodzi o głoskę), wymowa = zapis polskimi literami, sylaby przez myślnik, w konwencji ucznia:
-  喝=chy, 水=szłej, 吃=czhy, 茶=czha, 我想=ło siang, 你好=ni chał, 咖啡=kha-fej, 鸡肉=dzi-żoł, 饺子=dział-dzy, 面条=mien-thiał, 米饭=mi-fan,
-  果汁=kło-czy, 啤酒=phi-dzioł, 牛奶=nioł-naj, 葡萄酒=phu-thał-dzioł, 我不知道=ło pu czy-tał, 朋友=phyng-joł.
+  喝=chy, 水=szłej, 吃=czhy, 茶=czha, 我想=ło siang, 你好=ni chał, 咖啡=kha-fej, 鸡肉=dzi-ro, 饺子=dział-dzy, 面条=mien-thiał, 米饭=mi-fan,
+  果汁=kło-czy, 啤酒=phi-dzioł, 牛奶=nioł-naj, 葡萄酒=phu-thał-dzioł, 我不知道=ło pu czy-tał, 朋友=phang-joł.
   Zasady: p/t/k/q/ch/c z "h" (ph, th, kh, czh, ćh, cch); b/d/g/zh/j/z jako p, t, k, cz, dź/dzi, dz; x=si, sh=sz, r=ż, ü=ü,
-  -ao=ał, -ou=oł, -ei=ej, -ai=aj, -uo=ło, -ui=łej, -e=y (po spółgłosce, z tonem), -e bez tonu=a (的=ta, 了=la, 呢=na, 么=ma, 个=ka, 什么=szen-ma), -eng=yng, -ong=ung, -ian=ien.
+  -ao=ał, -ou=oł, -ei=ej, -ai=aj, -uo=ło, -ui=łej, -e=y (po spółgłosce, z tonem), -e bez tonu=a (的=da, 了=la, 呢=na, 么=ma, 个=ka, 什么=szen-ma), -en=en (很=chen, 人=żen), -un=łen, -eng=ang (生=szang, 冷=lang), -ong=ong, -ian=ien.
 Bez emoji. Bez pochwał. Bez wstępów.`;
 
 const TRENER_SCHEMA = {

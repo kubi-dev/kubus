@@ -6,7 +6,7 @@ Użycie: python3 build.py              # wszystkie lekcje
         python3 build.py --no-audio   # bez pobierania audio
         python3 build.py --no-obrazki # bez pobierania obrazków
 """
-import hashlib, json, pathlib, subprocess, sys, time, urllib.parse
+import hashlib, json, pathlib, re, subprocess, sys, time, urllib.parse
 import podcast
 
 ROOT = pathlib.Path(__file__).resolve().parent
@@ -35,9 +35,13 @@ def fetch(url, dest):
     if dest.stat().st_size < 500 or dest.read_bytes()[:2] not in (b"\xff\xfb", b"\xff\xf3", b"\xff\xf2", b"ID"):
         dest.unlink(); raise RuntimeError(f"zły plik audio dla {url}")
 
-def ensure_audio(lesson_dir, text):
+def ensure_audio(lesson_dir, text, tts=True):
+    """tts=False: nagrania są gotowe (materiały dodatkowe mają nagrania z oryginału), brak pliku = błąd, bez Google TTS."""
     key = audio_key(text)
     adir = lesson_dir / "audio"; adir.mkdir(exist_ok=True)
+    if not tts:
+        if not (adir / f"{key}.mp3").exists(): raise RuntimeError(f"brak nagrania {adir.name}/{key}.mp3 dla {text}")
+        return key
     q = urllib.parse.quote(text)
     for suffix, slow in (("", ""), ("-slow", "&ttsspeed=0.24")):
         dest = adir / f"{key}{suffix}.mp3"
@@ -50,11 +54,13 @@ def ensure_image(lesson_dir, p):
     """Pobiera obrazek z pola "obrazek" ({id: openverse, url: oryginał, autor, licencja, zrodlo}) i zmniejsza do JPEG.
     Zwraca ścieżkę względną w katalogu lekcji albo None."""
     o = p.get("obrazek")
-    if not o or not (o.get("id") or o.get("url")): return None
+    if not o or not (o.get("id") or o.get("url") or o.get("plik")): return None
     key = audio_key(p["znaki"])
     odir = lesson_dir / "obrazki"; odir.mkdir(exist_ok=True)
     dest = odir / f"{key}.jpg"
     if dest.exists(): return f"obrazki/{dest.name}"
+    if o.get("plik"):  # kadr z oryginalnego materiału, plik leży w repo (nie ma skąd go pobrać)
+        print(f"  ! obrazek {p['znaki']}: brak pliku obrazki/{dest.name}", file=sys.stderr); return None
     if NO_OBRAZKI: return None
     zrodla = ([f"https://api.openverse.org/v1/images/{o['id']}/thumb/"] if o.get("id") else []) + ([o["url"]] if o.get("url") else [])
     tmp = odir / f"{key}.tmp"
@@ -76,10 +82,13 @@ def ensure_image(lesson_dir, p):
     return None
 
 def build_lesson(lesson_dir):
+    """Lekcja (lekcje/NN/) albo materiał dodatkowy (materialy/xxx/, pole "sciezka" np. "hsk"): ta sama strona i karty;
+    materiał ma gotowe nagrania z oryginału i nie ma podcastu ani scenek."""
     data = json.loads((lesson_dir / "lekcja.json").read_text(encoding="utf-8"))
+    sciezka = data.get("sciezka", "")
     for sek in data["sekcje"]:
         for p in sek["pozycje"]:
-            try: p["audio"] = ensure_audio(lesson_dir, p["znaki"])
+            try: p["audio"] = ensure_audio(lesson_dir, p["znaki"], tts=not sciezka)
             except Exception as e: print(f"  ! {e}", file=sys.stderr); p.pop("audio", None)
             if not p.get("doslownie") and len(p.get("polski", "").split()) > 1:
                 print(f"  ! brak pola 'doslownie' (znaczenie słowo po słowie): {p['znaki']}", file=sys.stderr)
@@ -95,20 +104,21 @@ def build_lesson(lesson_dir):
     n = sum(len(s["pozycje"]) for s in data["sekcje"])
     print(f"{lesson_dir.name}: {n} pozycji")
     pod = None
-    if not NO_AUDIO:
+    if not NO_AUDIO and not sciezka:
         try: pod = podcast.build_lesson_podcast(lesson_dir, data)
         except Exception as e: print(f"  ! podcast: {e}", file=sys.stderr)
-    scenki = build_scenki(lesson_dir, data)
+    scenki = [] if sciezka else build_scenki(lesson_dir, data)
     data["podcast"] = pod; data["scenki"] = len([sc for sc in scenki if sc.get("podcast")])
     html = TEMPLATE.replace("{{TYTUL}}", data["tytul"]).replace("{{DATA_JSON}}", json.dumps(data, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
     (lesson_dir / "index.html").write_text(html, encoding="utf-8")
+    baza = lesson_dir.relative_to(ROOT).as_posix()
     karty = [{"id": p["znaki"], "znaki": p["znaki"], "pinyin": p["pinyin"], "polski": p.get("polski", ""), "doslownie": p.get("doslownie", ""), "znaczenie": p["znaczenie"],
-              "lekcja": data.get("numer", 0), "lekcjaTytul": data["tytul"],
-              "audio": f"lekcje/{lesson_dir.name}/audio/{p['audio']}" if p.get("audio") else "",
-              "img": f"lekcje/{lesson_dir.name}/{p['img']}" if p.get("img") else "",
+              "lekcja": data.get("numer", 0), "lekcjaTytul": data["tytul"], **({"sciezka": sciezka} if sciezka else {}),
+              "audio": f"{baza}/audio/{p['audio']}" if p.get("audio") else "",
+              "img": f"{baza}/{p['img']}" if p.get("img") else "",
               "obrazek": {k: p["obrazek"].get(k, "") for k in ("autor", "licencja", "zrodlo")} if p.get("img") else None}
              for sek in data["sekcje"] for p in sek["pozycje"]]
-    return {"dir": lesson_dir.name, "tytul": data["tytul"], "data": data.get("data", ""), "n": n, "numer": data.get("numer", 0), "karty": karty, "podcast": pod, "scenki": scenki}
+    return {"dir": lesson_dir.name, "baza": baza, "sciezka": sciezka, "tytul": data["tytul"], "opis": data.get("opis", ""), "data": data.get("data", ""), "n": n, "numer": data.get("numer", 0), "karty": karty, "podcast": pod, "scenki": scenki}
 
 def build_scenki(lesson_dir, data):
     """Scenki z lekcje/NN/scenki.json: nagrania kwestii + odcinek mp3 każdej scenki. Zwraca listę do strony podcastu."""
@@ -152,12 +162,14 @@ def build_podcast(lessons):
     print(f"scenki: {sum(len(l['scenki']) for l in lek)} scenek")
 
 def build_powtorka(lessons):
-    """Talia do powtórek ze wszystkich lekcji (pierwsze wystąpienie znaków wygrywa) + strona powtorka/index.html."""
+    """Talia do powtórek ze wszystkich lekcji, potem materiały dodatkowe (pierwsze wystąpienie znaków wygrywa, więc karta z lekcji
+    ma pierwszeństwo przed tą samą z materiału) + strona powtorka/index.html."""
     seen, karty = set(), []
-    for l in sorted(lessons, key=lambda l: l["numer"]):
+    for l in sorted(lessons, key=lambda l: (bool(l["sciezka"]), l["numer"])):
         for k in l["karty"]:
-            if k["id"] in seen: continue
-            seen.add(k["id"]); karty.append(k)
+            klucz = re.sub(r"[。？！，、…?!,. ]", "", k["id"])  # 我喜欢你！ i 我喜欢你。 to ta sama karta
+            if klucz in seen: continue
+            seen.add(klucz); karty.append(k)
     out = ROOT / "powtorka"; out.mkdir(exist_ok=True)
     (out / "karty.json").write_text(json.dumps(karty, ensure_ascii=False, indent=1), encoding="utf-8")
     html = POWTORKA.replace("{{KARTY_JSON}}", json.dumps(karty, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
@@ -212,20 +224,24 @@ def build_wymowa(lessons):
         (out / "index.html").write_text(html, encoding="utf-8")
         print(f"{tryb}: {n} słów, {len(audio)} nagrań")
 
-def build_index(lessons, karty):
+def build_index(lessons, materialy, karty):
     """Strona główna (glowna.html): linki + wyszukiwarka po polsku we wszystkich zwrotach (ta sama talia i karta co ulubione/)."""
     items = "\n".join(
         f'    <a class="card-link" href="lekcje/{l["dir"]}/"><div class="t">{l["tytul"]}</div><div class="m">{l["data"]} · {l["n"]} pozycji</div></a>'
         for l in sorted(lessons, key=lambda l: l["numer"]))
-    html = (GLOWNA.replace("{{LEKCJE}}", items).replace("{{KARTY_JSON}}", json.dumps(karty, ensure_ascii=False))
+    mat = "\n".join(
+        f'    <a class="card-link" href="{l["baza"]}/"><div class="t">{l["tytul"]}</div><div class="m">{l["n"]} pozycji · {l["opis"]}</div></a>'
+        for l in sorted(materialy, key=lambda l: l["numer"]))
+    html = (GLOWNA.replace("{{LEKCJE}}", items).replace("{{MATERIALY}}", mat).replace("{{KARTY_JSON}}", json.dumps(karty, ensure_ascii=False))
             .replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL))
     (ROOT / "index.html").write_text(html, encoding="utf-8")
 
 if __name__ == "__main__":
     dirs = sorted(p for p in (ROOT / "lekcje").iterdir() if (p / "lekcja.json").exists())
     lessons = [build_lesson(d) for d in dirs]
-    karty = build_powtorka(lessons)
-    build_index(lessons, karty)
+    materialy = [build_lesson(d) for d in sorted(p for p in (ROOT / "materialy").glob("*") if (p / "lekcja.json").exists())]
+    karty = build_powtorka(lessons + materialy)
+    build_index(lessons, materialy, karty)
     build_podcast(lessons)
     build_wymowa(lessons)
     print("index.html OK")

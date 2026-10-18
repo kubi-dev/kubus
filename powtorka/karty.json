@@ -3,7 +3,7 @@
   "id": "朋友",
   "znaki": "朋友",
   "pinyin": "péngyou",
-  "polski": "phyng-joł",
+  "polski": "phang-joł",
   "doslownie": "",
   "znaczenie": "friend · przyjaciel",
   "lekcja": 1,
@@ -20,7 +20,7 @@
   "id": "好朋友",
   "znaki": "好朋友",
   "pinyin": "hǎo péngyou",
-  "polski": "chał phyng-joł",
+  "polski": "chał phang-joł",
   "doslownie": "dobry · przyjaciel",
   "znaczenie": "close friend · bliski przyjaciel",
   "lekcja": 1,
@@ -37,7 +37,7 @@
   "id": "女朋友",
   "znaki": "女朋友",
   "pinyin": "nǚ péngyou",
-  "polski": "nü phyng-joł",
+  "polski": "nü phang-joł",
   "doslownie": "kobieta · przyjaciel",
   "znaczenie": "girlfriend · dziewczyna",
   "lekcja": 1,
@@ -157,7 +157,7 @@
   "id": "很好。",
   "znaki": "很好。",
   "pinyin": "Hěn hǎo.",
-  "polski": "chyn chał",
+  "polski": "chen chał",
   "doslownie": "bardzo · dobry",
   "znaczenie": "I'm good. · Dobrze.",
   "lekcja": 1,
@@ -204,7 +204,7 @@
   "id": "你很可爱。",
   "znaki": "你很可爱。",
   "pinyin": "Nǐ hěn kě'ài.",
-  "polski": "ni chyn khy-aj",
+  "polski": "ni chen khy-aj",
   "doslownie": "ty · bardzo · słodki",
   "znaczenie": "You are cute. · Jesteś słodki/a.",
   "lekcja": 1,
@@ -1074,7 +1074,7 @@
   "id": "做朋友吧！",
   "znaki": "做朋友吧！",
   "pinyin": "Zuò péngyou ba!",
-  "polski": "dzło phyng-joł pa",
+  "polski": "dzło phang-joł pa",
   "doslownie": "robić · przyjaciel · (propozycja)",
   "znaczenie": "Let's be friends! · Zostańmy przyjaciółmi!",
   "lekcja": 3,
@@ -1104,7 +1104,7 @@
   "id": "教我中文吧！",
   "znaki": "教我中文吧！",
   "pinyin": "Jiāo wǒ Zhōngwén ba!",
-  "polski": "dział ło czong-łyn pa",
+  "polski": "dział ło czong-łen pa",
   "doslownie": "uczyć · ja · chiński · (propozycja)",
   "znaczenie": "Teach me Chinese! · Naucz mnie chińskiego!",
   "lekcja": 3,
@@ -1134,7 +1134,7 @@
   "id": "你是哪里人？",
   "znaki": "你是哪里人？",
   "pinyin": "Nǐ shì nǎlǐ rén?",
-  "polski": "ni szy na-li żyn",
+  "polski": "ni szy na-li żen",
   "doslownie": "ty · być · gdzie · człowiek",
   "znaczenie": "Where are you from (which city)? · Skąd jesteś (z jakiego miasta)?",
   "lekcja": 3,
@@ -1219,7 +1219,7 @@
   "id": "很高兴认识你。",
   "znaki": "很高兴认识你。",
   "pinyin": "Hěn gāoxìng rènshi nǐ.",
-  "polski": "chyn kał-sing żyn-szy ni",
+  "polski": "chen kał-sing żen-szy ni",
   "doslownie": "bardzo · zadowolony · poznać · ty",
   "znaczenie": "Nice to meet you. · Miło Cię poznać.",
   "lekcja": 3,
@@ -1236,7 +1236,7 @@
   "id": "你单身吗？",
   "znaki": "你单身吗？",
   "pinyin": "Nǐ dānshēn ma?",
-  "polski": "ni tan-szyn ma",
+  "polski": "ni tan-szen ma",
   "doslownie": "ty · singiel · (pytanie)",
   "znaczenie": "Are you single? · Jesteś singielką?",
   "lekcja": 3,
@@ -1266,7 +1266,7 @@
   "id": "你很漂亮。",
   "znaki": "你很漂亮。",
   "pinyin": "Nǐ hěn piàoliang.",
-  "polski": "ni chyn phiał-liang",
+  "polski": "ni chen phiał-liang",
   "doslownie": "ty · bardzo · ładny",
   "znaczenie": "You are very pretty. · Jesteś bardzo ładna.",
   "lekcja": 3,
@@ -1283,7 +1283,7 @@
   "id": "你很帅。",
   "znaki": "你很帅。",
   "pinyin": "Nǐ hěn shuài.",
-  "polski": "ni chyn szłaj",
+  "polski": "ni chen szłaj",
   "doslownie": "ty · bardzo · przystojny",
   "znaczenie": "You are handsome. · Jesteś przystojny.",
   "lekcja": 3,
@@ -1300,7 +1300,7 @@
   "id": "你很友善。",
   "znaki": "你很友善。",
   "pinyin": "Nǐ hěn yǒushàn.",
-  "polski": "ni chyn joł-szan",
+  "polski": "ni chen joł-szan",
   "doslownie": "ty · bardzo · miły",
   "znaczenie": "You are friendly. · Jesteś miła.",
   "lekcja": 3,
@@ -1360,7 +1360,7 @@
   "id": "可以吻你吗？",
   "znaki": "可以吻你吗？",
   "pinyin": "Kěyǐ wěn nǐ ma?",
-  "polski": "khy-i łyn ni ma",
+  "polski": "khy-i łen ni ma",
   "doslownie": "móc · całować · ty · (pytanie)",
   "znaczenie": "Can I kiss you? · Mogę Cię pocałować?",
   "lekcja": 3,
@@ -1377,7 +1377,7 @@
   "id": "成交！",
   "znaki": "成交！",
   "pinyin": "Chéngjiāo!",
-  "polski": "czhyng-dział",
+  "polski": "czhang-dział",
   "doslownie": "",
   "znaczenie": "Deal! · Umowa stoi!",
   "lekcja": 3,
@@ -1394,7 +1394,7 @@
   "id": "很多吻。",
   "znaki": "很多吻。",
   "pinyin": "Hěn duō wěn.",
-  "polski": "chyn tło łyn",
+  "polski": "chen tło łen",
   "doslownie": "bardzo · dużo · całus",
   "znaczenie": "Lots of kisses. · Dużo całusów.",
   "lekcja": 3,
@@ -1497,7 +1497,7 @@
   "id": "健身",
   "znaki": "健身",
   "pinyin": "jiànshēn",
-  "polski": "dzien-szyn",
+  "polski": "dzien-szen",
   "doslownie": "",
   "znaczenie": "workout · siłownia, ćwiczyć",
   "lekcja": 4,
@@ -1514,7 +1514,7 @@
   "id": "见朋友",
   "znaki": "见朋友",
   "pinyin": "jiàn péngyou",
-  "polski": "dzien phyng-joł",
+  "polski": "dzien phang-joł",
   "doslownie": "widzieć · przyjaciel",
   "znaczenie": "meet friends · spotkać się ze znajomymi",
   "lekcja": 4,
@@ -1565,7 +1565,7 @@
   "id": "我和朋友一起吃饭了。",
   "znaki": "我和朋友一起吃饭了。",
   "pinyin": "Wǒ hé péngyou yìqǐ chīfàn le.",
-  "polski": "ło chy phyng-joł i-ćhi czhy-fan la",
+  "polski": "ło chy phang-joł i-ćhi czhy-fan la",
   "doslownie": "ja · i · przyjaciel · razem · jeść · (już)",
   "znaczenie": "I ate with friends. · Jadłem z przyjaciółmi.",
   "lekcja": 4,
@@ -1604,7 +1604,7 @@
   "id": "你在中国过得怎么样？",
   "znaki": "你在中国过得怎么样？",
   "pinyin": "Nǐ zài Zhōngguó guò de zěnmeyàng?",
-  "polski": "ni dzaj czong-kło kło da dzyn-ma-jang",
+  "polski": "ni dzaj czong-kło kło da dzen-ma-jang",
   "doslownie": "ty · w · Chiny · spędzać · (jak) · jak",
   "znaczenie": "How is your time in China? · Jak ci się żyje w Chinach?",
   "lekcja": 4,
@@ -1669,7 +1669,7 @@
   "id": "我有一个新的中国朋友。",
   "znaki": "我有一个新的中国朋友。",
   "pinyin": "Wǒ yǒu yí ge xīn de Zhōngguó péngyou.",
-  "polski": "ło joł i-ka sin da czong-kło phyng-joł",
+  "polski": "ło joł i-ka sin da czong-kło phang-joł",
   "doslownie": "ja · mieć · jeden (sztuka) · nowy · (ten, co) · Chiny · przyjaciel",
   "znaczenie": "I have a new Chinese friend. · Mam nowego chińskiego przyjaciela.",
   "lekcja": 4,
@@ -1699,7 +1699,7 @@
   "id": "风景好漂亮。",
   "znaki": "风景好漂亮。",
   "pinyin": "Fēngjǐng hǎo piàoliang.",
-  "polski": "fyng-dzing chał phiał-liang",
+  "polski": "fang-dzing chał phiał-liang",
   "doslownie": "widok · bardzo · ładny",
   "znaczenie": "The view is so beautiful. · Jaki piękny widok.",
   "lekcja": 4,
@@ -2005,7 +2005,7 @@
   "id": "风景",
   "znaki": "风景",
   "pinyin": "fēngjǐng",
-  "polski": "fyng-dzing",
+  "polski": "fang-dzing",
   "doslownie": "",
   "znaczenie": "view, scenery · widok",
   "lekcja": 4,
@@ -2078,5 +2078,1121 @@
   "audio": "lekcje/04-jak-minal-dzien/audio/0debf521ea",
   "img": "",
   "obrazek": null
+ },
+ {
+  "id": "好久不见！",
+  "znaki": "好久不见！",
+  "pinyin": "Hǎojiǔ bújiàn!",
+  "polski": "chał-dzioł pu-dzien",
+  "doslownie": "dawno · nie widzieć",
+  "znaczenie": "Long time no see! · Dawno się nie widzieliśmy!",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/c4bd891893",
+  "img": "materialy/hsk1/obrazki/c4bd891893.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "一切都好吗？",
+  "znaki": "一切都好吗？",
+  "pinyin": "Yíqiè dōu hǎo ma?",
+  "polski": "i-ćhie toł chał ma",
+  "doslownie": "wszystko · całe · dobry · (pytanie)",
+  "znaczenie": "How's everything? · Wszystko w porządku?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/3ab269b472",
+  "img": "materialy/hsk1/obrazki/3ab269b472.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "保持联系！",
+  "znaki": "保持联系！",
+  "pinyin": "Bǎochí liánxì!",
+  "polski": "pał-czhy lien-si",
+  "doslownie": "utrzymywać · kontakt",
+  "znaczenie": "Keep in touch! · Bądźmy w kontakcie!",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/6855f2adaf",
+  "img": "materialy/hsk1/obrazki/6855f2adaf.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你是谁？",
+  "znaki": "你是谁？",
+  "pinyin": "Nǐ shì shéi?",
+  "polski": "ni szy szej",
+  "doslownie": "ty · być · kto",
+  "znaczenie": "Who are you? · Kim jesteś?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/4cd43b154e",
+  "img": "materialy/hsk1/obrazki/4cd43b154e.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你在哪儿？",
+  "znaki": "你在哪儿？",
+  "pinyin": "Nǐ zài nǎr?",
+  "polski": "ni dzaj nar",
+  "doslownie": "ty · w · gdzie",
+  "znaczenie": "Where are you? · Gdzie jesteś?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/84b82aa0e9",
+  "img": "materialy/hsk1/obrazki/84b82aa0e9.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我爱你！",
+  "znaki": "我爱你！",
+  "pinyin": "Wǒ ài nǐ!",
+  "polski": "ło aj ni",
+  "doslownie": "ja · kochać · ty",
+  "znaczenie": "I love you! · Kocham Cię!",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/9f692eadea",
+  "img": "materialy/hsk1/obrazki/9f692eadea.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我想你！",
+  "znaki": "我想你！",
+  "pinyin": "Wǒ xiǎng nǐ!",
+  "polski": "ło siang ni",
+  "doslownie": "ja · tęsknić · ty",
+  "znaczenie": "I miss you! · Tęsknię za Tobą!",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/35f609c3f6",
+  "img": "materialy/hsk1/obrazki/35f609c3f6.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我需要你！",
+  "znaki": "我需要你！",
+  "pinyin": "Wǒ xūyào nǐ!",
+  "polski": "ło sü-jał ni",
+  "doslownie": "ja · potrzebować · ty",
+  "znaczenie": "I need you! · Potrzebuję Cię!",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/37ee63b723",
+  "img": "materialy/hsk1/obrazki/37ee63b723.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你喜欢什么？",
+  "znaki": "你喜欢什么？",
+  "pinyin": "Nǐ xǐhuan shénme?",
+  "polski": "ni si-chłan szen-ma",
+  "doslownie": "ty · lubić · co",
+  "znaczenie": "What do you like? · Co lubisz?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/b133e2b85c",
+  "img": "materialy/hsk1/obrazki/b133e2b85c.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我喜欢看书。",
+  "znaki": "我喜欢看书。",
+  "pinyin": "Wǒ xǐhuan kànshū.",
+  "polski": "ło si-chłan khan-szu",
+  "doslownie": "ja · lubić · czytać",
+  "znaczenie": "I like reading. · Lubię czytać.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/e20e0ae8e5",
+  "img": "materialy/hsk1/obrazki/e20e0ae8e5.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我喜欢跑步。",
+  "znaki": "我喜欢跑步。",
+  "pinyin": "Wǒ xǐhuan pǎobù.",
+  "polski": "ło si-chłan phał-pu",
+  "doslownie": "ja · lubić · biegać",
+  "znaczenie": "I like running. · Lubię biegać.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/11db3f2cad",
+  "img": "materialy/hsk1/obrazki/11db3f2cad.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我喜欢游泳。",
+  "znaki": "我喜欢游泳。",
+  "pinyin": "Wǒ xǐhuan yóuyǒng.",
+  "polski": "ło si-chłan joł-jong",
+  "doslownie": "ja · lubić · pływać",
+  "znaczenie": "I like swimming. · Lubię pływać.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/98fdc52862",
+  "img": "materialy/hsk1/obrazki/98fdc52862.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我喜欢做饭。",
+  "znaki": "我喜欢做饭。",
+  "pinyin": "Wǒ xǐhuan zuòfàn.",
+  "polski": "ło si-chłan dzło-fan",
+  "doslownie": "ja · lubić · gotować",
+  "znaczenie": "I like cooking. · Lubię gotować.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/d71e2d21ce",
+  "img": "materialy/hsk1/obrazki/d71e2d21ce.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你开心吗？",
+  "znaki": "你开心吗？",
+  "pinyin": "Nǐ kāixīn ma?",
+  "polski": "ni khaj-sin ma",
+  "doslownie": "ty · wesoły · (pytanie)",
+  "znaczenie": "Are you happy? · Jesteś szczęśliwa?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/f1947b8e8f",
+  "img": "materialy/hsk1/obrazki/f1947b8e8f.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你确定吗？",
+  "znaki": "你确定吗？",
+  "pinyin": "Nǐ quèdìng ma?",
+  "polski": "ni ćhüe-ting ma",
+  "doslownie": "ty · pewny · (pytanie)",
+  "znaczenie": "Are you sure? · Jesteś pewna?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/d10d3ea645",
+  "img": "materialy/hsk1/obrazki/d10d3ea645.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你生气吗？",
+  "znaki": "你生气吗？",
+  "pinyin": "Nǐ shēngqì ma?",
+  "polski": "ni szang-ćhi ma",
+  "doslownie": "ty · złościć się · (pytanie)",
+  "znaczenie": "Are you angry? · Jesteś zła?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/faa9994d55",
+  "img": "materialy/hsk1/obrazki/faa9994d55.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我知道你的感受。",
+  "znaki": "我知道你的感受。",
+  "pinyin": "Wǒ zhīdào nǐ de gǎnshòu.",
+  "polski": "ło czy-tał ni-da kan-szoł",
+  "doslownie": "ja · wiedzieć · twój · uczucie",
+  "znaczenie": "I know how you feel. · Wiem, co czujesz.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/a344654835",
+  "img": "materialy/hsk1/obrazki/a344654835.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "准备好了吗？",
+  "znaki": "准备好了吗？",
+  "pinyin": "Zhǔnbèi hǎo le ma?",
+  "polski": "człen-pej chał la ma",
+  "doslownie": "przygotować · dobry · (już) · (pytanie)",
+  "znaczenie": "Are you ready? · Gotowa?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/53785d2c95",
+  "img": "materialy/hsk1/obrazki/53785d2c95.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我准备好了。",
+  "znaki": "我准备好了。",
+  "pinyin": "Wǒ zhǔnbèi hǎo le.",
+  "polski": "ło człen-pej chał la",
+  "doslownie": "ja · przygotować · dobry · (już)",
+  "znaczenie": "I'm ready. · Jestem gotowy.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/efcb30aa6c",
+  "img": "materialy/hsk1/obrazki/efcb30aa6c.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "玩得开心。",
+  "znaki": "玩得开心。",
+  "pinyin": "Wán de kāixīn.",
+  "polski": "łan da khaj-sin",
+  "doslownie": "bawić się · (jak) · wesoły",
+  "znaczenie": "Have a good time. · Baw się dobrze.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/0810bddc3b",
+  "img": "materialy/hsk1/obrazki/0810bddc3b.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "她很漂亮。",
+  "znaki": "她很漂亮。",
+  "pinyin": "Tā hěn piàoliang.",
+  "polski": "tha chen phiał-liang",
+  "doslownie": "ona · bardzo · ładny",
+  "znaczenie": "She's pretty. · Ona jest ładna.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/e7b2f705be",
+  "img": "materialy/hsk1/obrazki/e7b2f705be.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "她很苗条。",
+  "znaki": "她很苗条。",
+  "pinyin": "Tā hěn miáotiao.",
+  "polski": "tha chen miał-thiał",
+  "doslownie": "ona · bardzo · szczupły",
+  "znaczenie": "She's slim. · Ona jest szczupła.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/e44470908b",
+  "img": "materialy/hsk1/obrazki/e44470908b.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "她很性感。",
+  "znaki": "她很性感。",
+  "pinyin": "Tā hěn xìnggǎn.",
+  "polski": "tha chen sing-kan",
+  "doslownie": "ona · bardzo · seksowny",
+  "znaczenie": "She's hot. · Ona jest seksowna.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/867256385f",
+  "img": "materialy/hsk1/obrazki/867256385f.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "她很胖。",
+  "znaki": "她很胖。",
+  "pinyin": "Tā hěn pàng.",
+  "polski": "tha chen phang",
+  "doslownie": "ona · bardzo · gruby",
+  "znaczenie": "She's fat. · Ona jest gruba.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/682ee41692",
+  "img": "materialy/hsk1/obrazki/682ee41692.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你是做什么的？",
+  "znaki": "你是做什么的？",
+  "pinyin": "Nǐ shì zuò shénme de?",
+  "polski": "ni szy dzło szen-ma da",
+  "doslownie": "ty · być · robić · co · (ten, co)",
+  "znaczenie": "What do you do? · Czym się zajmujesz?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/761bc1504a",
+  "img": "materialy/hsk1/obrazki/761bc1504a.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你什么意思？",
+  "znaki": "你什么意思？",
+  "pinyin": "Nǐ shénme yìsi?",
+  "polski": "ni szen-ma i-sy",
+  "doslownie": "ty · co · znaczenie",
+  "znaczenie": "What do you mean? · Co masz na myśli?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/db1d7c9633",
+  "img": "materialy/hsk1/obrazki/db1d7c9633.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你需要什么？",
+  "znaki": "你需要什么？",
+  "pinyin": "Nǐ xūyào shénme?",
+  "polski": "ni sü-jał szen-ma",
+  "doslownie": "ty · potrzebować · co",
+  "znaczenie": "What do you need? · Czego potrzebujesz?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/83bdd93b7f",
+  "img": "materialy/hsk1/obrazki/83bdd93b7f.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你要什么？",
+  "znaki": "你要什么？",
+  "pinyin": "Nǐ yào shénme?",
+  "polski": "ni jał szen-ma",
+  "doslownie": "ty · chcieć · co",
+  "znaczenie": "What do you want? · Czego chcesz?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/1f1f2b957f",
+  "img": "materialy/hsk1/obrazki/1f1f2b957f.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你怎么认为？",
+  "znaki": "你怎么认为？",
+  "pinyin": "Nǐ zěnme rènwéi?",
+  "polski": "ni dzen-ma żen-łej",
+  "doslownie": "ty · jak · uważać",
+  "znaczenie": "What do you think? · Co o tym myślisz?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/c3f504bf2d",
+  "img": "materialy/hsk1/obrazki/c3f504bf2d.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你说什么？",
+  "znaki": "你说什么？",
+  "pinyin": "Nǐ shuō shénme?",
+  "polski": "ni szło szen-ma",
+  "doslownie": "ty · mówić · co",
+  "znaczenie": "What did you say? · Co powiedziałaś?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/4a5e2f4771",
+  "img": "materialy/hsk1/obrazki/4a5e2f4771.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我会做饭。",
+  "znaki": "我会做饭。",
+  "pinyin": "Wǒ huì zuòfàn.",
+  "polski": "ło chłej dzło-fan",
+  "doslownie": "ja · umieć · gotować",
+  "znaczenie": "I can cook. · Umiem gotować.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/af66688e30",
+  "img": "materialy/hsk1/obrazki/af66688e30.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我会唱歌。",
+  "znaki": "我会唱歌。",
+  "pinyin": "Wǒ huì chànggē.",
+  "polski": "ło chłej czhang-ky",
+  "doslownie": "ja · umieć · śpiewać",
+  "znaczenie": "I can sing. · Umiem śpiewać.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/f450b8f1a1",
+  "img": "materialy/hsk1/obrazki/f450b8f1a1.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我会跳舞。",
+  "znaki": "我会跳舞。",
+  "pinyin": "Wǒ huì tiàowǔ.",
+  "polski": "ło chłej thiał-łu",
+  "doslownie": "ja · umieć · tańczyć",
+  "znaczenie": "I can dance. · Umiem tańczyć.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/ba73cf2b8e",
+  "img": "materialy/hsk1/obrazki/ba73cf2b8e.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我会游泳。",
+  "znaki": "我会游泳。",
+  "pinyin": "Wǒ huì yóuyǒng.",
+  "polski": "ło chłej joł-jong",
+  "doslownie": "ja · umieć · pływać",
+  "znaczenie": "I can swim. · Umiem pływać.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/037b47d191",
+  "img": "materialy/hsk1/obrazki/037b47d191.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我的手机在哪里？",
+  "znaki": "我的手机在哪里？",
+  "pinyin": "Wǒ de shǒujī zài nǎlǐ?",
+  "polski": "ło-da szoł-dzi dzaj na-li",
+  "doslownie": "mój · telefon · w · gdzie",
+  "znaczenie": "Where is my phone? · Gdzie jest mój telefon?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/3cca0ecf8b",
+  "img": "materialy/hsk1/obrazki/3cca0ecf8b.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我的包在哪里？",
+  "znaki": "我的包在哪里？",
+  "pinyin": "Wǒ de bāo zài nǎlǐ?",
+  "polski": "ło-da pał dzaj na-li",
+  "doslownie": "mój · torba · w · gdzie",
+  "znaczenie": "Where is my bag? · Gdzie jest moja torba?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/a4fc811227",
+  "img": "materialy/hsk1/obrazki/a4fc811227.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我的钥匙在哪里？",
+  "znaki": "我的钥匙在哪里？",
+  "pinyin": "Wǒ de yàoshi zài nǎlǐ?",
+  "polski": "ło-da jał-szy dzaj na-li",
+  "doslownie": "mój · klucz · w · gdzie",
+  "znaczenie": "Where are my keys? · Gdzie są moje klucze?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/c4b7d6481e",
+  "img": "materialy/hsk1/obrazki/c4b7d6481e.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我的眼镜在哪里？",
+  "znaki": "我的眼镜在哪里？",
+  "pinyin": "Wǒ de yǎnjìng zài nǎlǐ?",
+  "polski": "ło-da jen-dzing dzaj na-li",
+  "doslownie": "mój · okulary · w · gdzie",
+  "znaczenie": "Where are my glasses? · Gdzie są moje okulary?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/7e9097e0f4",
+  "img": "materialy/hsk1/obrazki/7e9097e0f4.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我在打电话。",
+  "znaki": "我在打电话。",
+  "pinyin": "Wǒ zài dǎ diànhuà.",
+  "polski": "ło dzaj ta tien-chła",
+  "doslownie": "ja · (teraz) · dzwonić · telefon",
+  "znaczenie": "I'm on the phone. · Rozmawiam przez telefon.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/32e9491e35",
+  "img": "materialy/hsk1/obrazki/32e9491e35.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "给我发信息。",
+  "znaki": "给我发信息。",
+  "pinyin": "Gěi wǒ fā xìnxī.",
+  "polski": "kej ło fa sin-si",
+  "doslownie": "dla · ja · wysłać · wiadomość",
+  "znaczenie": "Text me. · Napisz do mnie.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/3163bb4cf3",
+  "img": "materialy/hsk1/obrazki/3163bb4cf3.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我马上回来。",
+  "znaki": "我马上回来。",
+  "pinyin": "Wǒ mǎshàng huílai.",
+  "polski": "ło ma-szang chłej-laj",
+  "doslownie": "ja · zaraz · wrócić",
+  "znaczenie": "I'll be right back. · Zaraz wracam.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/0202d71443",
+  "img": "materialy/hsk1/obrazki/0202d71443.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "这是我的荣幸。",
+  "znaki": "这是我的荣幸。",
+  "pinyin": "Zhè shì wǒ de róngxìng.",
+  "polski": "czy szy ło-da rong-sing",
+  "doslownie": "to · być · mój · zaszczyt",
+  "znaczenie": "It's my pleasure. · Cała przyjemność po mojej stronie.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/1d09595cf3",
+  "img": "materialy/hsk1/obrazki/1d09595cf3.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我睡不着。",
+  "znaki": "我睡不着。",
+  "pinyin": "Wǒ shuì bù zháo.",
+  "polski": "ło szłej pu czał",
+  "doslownie": "ja · spać · nie · (udać się)",
+  "znaczenie": "I can't sleep. · Nie mogę zasnąć.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/b161a819d0",
+  "img": "materialy/hsk1/obrazki/b161a819d0.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我想见你。",
+  "znaki": "我想见你。",
+  "pinyin": "Wǒ xiǎng jiàn nǐ.",
+  "polski": "ło siang dzien ni",
+  "doslownie": "ja · chcieć · widzieć · ty",
+  "znaczenie": "I want to see you. · Chcę Cię zobaczyć.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/68f9c24998",
+  "img": "materialy/hsk1/obrazki/68f9c24998.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我为你而来。",
+  "znaki": "我为你而来。",
+  "pinyin": "Wǒ wèi nǐ ér lái.",
+  "polski": "ło łej ni ar laj",
+  "doslownie": "ja · dla · ty · (i) · przyjść",
+  "znaczenie": "I came for you. · Przyszedłem dla Ciebie.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/431fad45f7",
+  "img": "materialy/hsk1/obrazki/431fad45f7.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你很重要。",
+  "znaki": "你很重要。",
+  "pinyin": "Nǐ hěn zhòngyào.",
+  "polski": "ni chen czong-jał",
+  "doslownie": "ty · bardzo · ważny",
+  "znaczenie": "You are important. · Jesteś ważna.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/e65dcce0fd",
+  "img": "materialy/hsk1/obrazki/e65dcce0fd.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你很有魅力。",
+  "znaki": "你很有魅力。",
+  "pinyin": "Nǐ hěn yǒu mèilì.",
+  "polski": "ni chen joł mej-li",
+  "doslownie": "ty · bardzo · mieć · urok",
+  "znaczenie": "You're charming. · Masz w sobie urok.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/aa57140cd4",
+  "img": "materialy/hsk1/obrazki/aa57140cd4.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我感冒了。",
+  "znaki": "我感冒了。",
+  "pinyin": "Wǒ gǎnmào le.",
+  "polski": "ło kan-mał la",
+  "doslownie": "ja · przeziębić się · (już)",
+  "znaczenie": "I have a cold. · Jestem przeziębiony.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/21e9b8081a",
+  "img": "materialy/hsk1/obrazki/21e9b8081a.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我冷死了。",
+  "znaki": "我冷死了。",
+  "pinyin": "Wǒ lěng sǐ le.",
+  "polski": "ło lang sy la",
+  "doslownie": "ja · zimny · umrzeć · (już)",
+  "znaczenie": "I'm freezing. · Umieram z zimna.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/92261dd730",
+  "img": "materialy/hsk1/obrazki/92261dd730.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "你能帮我一下吗？",
+  "znaki": "你能帮我一下吗？",
+  "pinyin": "Nǐ néng bāng wǒ yíxià ma?",
+  "polski": "ni nang pang ło i-sia ma",
+  "doslownie": "ty · móc · pomóc · ja · (chwilkę) · (pytanie)",
+  "znaczenie": "Can you help me, please? · Możesz mi pomóc?",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/4781f6bd14",
+  "img": "materialy/hsk1/obrazki/4781f6bd14.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "对不起，我不明白。",
+  "znaki": "对不起，我不明白。",
+  "pinyin": "Duìbuqǐ, wǒ bù míngbai.",
+  "polski": "tłej-pu-ćhi ło pu ming-paj",
+  "doslownie": "przepraszam · ja · nie · rozumieć",
+  "znaczenie": "I'm sorry, I don't understand. · Przepraszam, nie rozumiem.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/3b19077ed9",
+  "img": "materialy/hsk1/obrazki/3b19077ed9.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "跟我来。",
+  "znaki": "跟我来。",
+  "pinyin": "Gēn wǒ lái.",
+  "polski": "ken ło laj",
+  "doslownie": "iść za · ja · przyjść",
+  "znaczenie": "Follow me. · Chodź za mną.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/52f322eed1",
+  "img": "materialy/hsk1/obrazki/52f322eed1.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "相信我。",
+  "znaki": "相信我。",
+  "pinyin": "Xiāngxìn wǒ.",
+  "polski": "siang-sin ło",
+  "doslownie": "wierzyć · ja",
+  "znaczenie": "Trust me. · Zaufaj mi.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/60ac5f2711",
+  "img": "materialy/hsk1/obrazki/60ac5f2711.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "听我说。",
+  "znaki": "听我说。",
+  "pinyin": "Tīng wǒ shuō.",
+  "polski": "thing ło szło",
+  "doslownie": "słuchać · ja · mówić",
+  "znaczenie": "Listen to me. · Posłuchaj mnie.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/575bb9872d",
+  "img": "materialy/hsk1/obrazki/575bb9872d.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "看着我。",
+  "znaki": "看着我。",
+  "pinyin": "Kànzhe wǒ.",
+  "polski": "khan-cza ło",
+  "doslownie": "patrzeć · ja",
+  "znaczenie": "Look at me. · Spójrz na mnie.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/251bca65c2",
+  "img": "materialy/hsk1/obrazki/251bca65c2.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "把杯子递给我。",
+  "znaki": "把杯子递给我。",
+  "pinyin": "Bǎ bēizi dì gěi wǒ.",
+  "polski": "pa pej-dzy ti kej ło",
+  "doslownie": "(weź) · kubek · podać · dla · ja",
+  "znaczenie": "Pass me the cup. · Podaj mi kubek.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/32758c4fc1",
+  "img": "materialy/hsk1/obrazki/32758c4fc1.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "把书递给我。",
+  "znaki": "把书递给我。",
+  "pinyin": "Bǎ shū dì gěi wǒ.",
+  "polski": "pa szu ti kej ło",
+  "doslownie": "(weź) · książka · podać · dla · ja",
+  "znaczenie": "Pass me the book. · Podaj mi książkę.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/1410b911c4",
+  "img": "materialy/hsk1/obrazki/1410b911c4.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "把盘子递给我。",
+  "znaki": "把盘子递给我。",
+  "pinyin": "Bǎ pánzi dì gěi wǒ.",
+  "polski": "pa phan-dzy ti kej ło",
+  "doslownie": "(weź) · talerz · podać · dla · ja",
+  "znaczenie": "Pass me the plate. · Podaj mi talerz.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/ec7d273ffe",
+  "img": "materialy/hsk1/obrazki/ec7d273ffe.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "别傻了。",
+  "znaki": "别傻了。",
+  "pinyin": "Bié shǎ le.",
+  "polski": "pie sza la",
+  "doslownie": "nie (rób) · głupi · (już)",
+  "znaczenie": "Don't be silly. · Nie bądź głupia.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/a51c7368e6",
+  "img": "materialy/hsk1/obrazki/a51c7368e6.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "我怀疑。",
+  "znaki": "我怀疑。",
+  "pinyin": "Wǒ huáiyí.",
+  "polski": "ło chłaj-i",
+  "doslownie": "ja · wątpić",
+  "znaczenie": "I doubt it. · Wątpię.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/766d8172c0",
+  "img": "materialy/hsk1/obrazki/766d8172c0.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "该你了。",
+  "znaki": "该你了。",
+  "pinyin": "Gāi nǐ le.",
+  "polski": "kaj ni la",
+  "doslownie": "kolej na · ty · (już)",
+  "znaczenie": "It's your turn. · Twoja kolej.",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/90891b3495",
+  "img": "materialy/hsk1/obrazki/90891b3495.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
+ },
+ {
+  "id": "太遗憾了。",
+  "znaki": "太遗憾了。",
+  "pinyin": "Tài yíhàn le.",
+  "polski": "thaj i-chan la",
+  "doslownie": "zbyt · żal · (już)",
+  "znaczenie": "What a pity! · Jaka szkoda!",
+  "lekcja": 101,
+  "lekcjaTytul": "HSK 1 · 65 zwrotów",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1/audio/cfb9bac27a",
+  "img": "materialy/hsk1/obrazki/cfb9bac27a.jpg",
+  "obrazek": {
+   "autor": "Andy and Sarah Mandarin",
+   "licencja": "youtube",
+   "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"
+  }
  }
 ]

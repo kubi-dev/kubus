@@ -15,11 +15,11 @@ Data: 2026-10-15
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
 | 工作 | gōngzuò | kong-dzło | GUŁ DZŁO · WORK | work · praca, pracować |
-| 健身 | jiànshēn | dzien-szyn | DZIEN-SZEN · SPORT | workout · siłownia, ćwiczyć |
-| 见朋友 | jiàn péngyou | dzien phyng-joł | DZIEN PENG-JOŁ · MEET FRIENDS | meet friends · spotkać się ze znajomymi |
+| 健身 | jiànshēn | dzien-szen | DZIEN-SZEN · SPORT | workout · siłownia, ćwiczyć |
+| 见朋友 | jiàn péngyou | dzien phang-joł | DZIEN PENG-JOŁ · MEET FRIENDS | meet friends · spotkać się ze znajomymi |
 | 出去玩 | chūqù wán | czhu-ćhü łan | CZU-CZI-ŁAN · HANG OUT | go out, hang out · wyjść się zabawić |
 | 约会 | yuēhuì | jüe-chłej | JUE-CHUI · DATING | date · randka, iść na randkę |
-| 我和朋友一起吃饭了。 | Wǒ hé péngyou yìqǐ chīfàn le. | ło chy phyng-joł i-ćhi czhy-fan la |  | I ate with friends. · Jadłem z przyjaciółmi. |
+| 我和朋友一起吃饭了。 | Wǒ hé péngyou yìqǐ chīfàn le. | ło chy phang-joł i-ćhi czhy-fan la |  | I ate with friends. · Jadłem z przyjaciółmi. |
 | 我吃了鱼肉和米饭。 | Wǒ chī le yúròu hé mǐfàn. | ło czhy la ü-ro chy mi-fan |  | I ate fish with rice. · Zjadłem rybę z ryżem. |
 
 ## Pogawędka
@@ -27,19 +27,19 @@ Data: 2026-10-15
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
 | 最近过得好吗？ | Zuìjìn guò de hǎo ma? | dzłej-dzin kło da chał ma | DZŁEJ-DZING-GŁO-DA-HAŁ-MA? · CO ROBISZ OSTATNIO? | How have you been lately? · Jak ci ostatnio leci? |
-| 你在中国过得怎么样？ | Nǐ zài Zhōngguó guò de zěnmeyàng? | ni dzaj czong-kło kło da dzyn-ma-jang | NI-DZAJ-CZONG-ŁO-GŁO DA-DZA-MA-JA · HOW IS YOUR TIME IN CHINA? | How is your time in China? · Jak ci się żyje w Chinach? |
+| 你在中国过得怎么样？ | Nǐ zài Zhōngguó guò de zěnmeyàng? | ni dzaj czong-kło kło da dzen-ma-jang | NI-DZAJ-CZONG-ŁO-GŁO DA-DZA-MA-JA · HOW IS YOUR TIME IN CHINA? | How is your time in China? · Jak ci się żyje w Chinach? |
 | 我会去上海和台湾。 | Wǒ huì qù Shànghǎi hé Táiwān. | ło chłej ćhü szang-chaj chy thaj-łan | ŁO-HUI-CZY-SZANGHAI-HY-TAIWAN · I GO TO SHANGHAI AND TAIWAN | I'm going to Shanghai and Taiwan. · Pojadę do Szanghaju i na Tajwan. |
 | 吃饭了吗？ | Chīfàn le ma? | czhy-fan la ma | CZY FAN LA MA · HAVE YOU EAT ALREADY | Have you eaten? (a greeting) · Jadłeś już? (powitanie) |
 | 你最喜欢吃什么？ | Nǐ zuì xǐhuan chī shénme? | ni dzłej si-chłan czhy szen-ma | NI-DZŁEJ-SI-HŁAN CZY SZE MA (CZHY) · WHAT YOU LIKE TO EAT | What do you like to eat most? · Co najbardziej lubisz jeść? |
 | 我都喜欢。 | Wǒ dōu xǐhuan. | ło toł si-chłan | ŁO-DOŁ-SI-HŁAN · I LIKE EVERYTHING | I like it all. · Lubię wszystko. |
-| 我有一个新的中国朋友。 | Wǒ yǒu yí ge xīn de Zhōngguó péngyou. | ło joł i-ka sin da czong-kło phyng-joł |  | I have a new Chinese friend. · Mam nowego chińskiego przyjaciela. |
+| 我有一个新的中国朋友。 | Wǒ yǒu yí ge xīn de Zhōngguó péngyou. | ło joł i-ka sin da czong-kło phang-joł |  | I have a new Chinese friend. · Mam nowego chińskiego przyjaciela. |
 
 ## W drodze
 
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
 | 厕所在哪里？ | Cèsuǒ zài nǎlǐ? | cchy-sło dzaj na-li | TY-SŁO-DZAI-NA-LI · WHERE IS RESTROOM | Where is the toilet? · Gdzie jest toaleta? |
-| 风景好漂亮。 | Fēngjǐng hǎo piàoliang. | fyng-dzing chał phiał-liang | FUN-DZI-HAŁ PIAŁ LIANG · THE VIEW IS BEAUTIFUL (HAŁ PIAŁ LIANG = TO JEST PIĘKNE) | The view is so beautiful. · Jaki piękny widok. |
+| 风景好漂亮。 | Fēngjǐng hǎo piàoliang. | fang-dzing chał phiał-liang | FUN-DZI-HAŁ PIAŁ LIANG · THE VIEW IS BEAUTIFUL (HAŁ PIAŁ LIANG = TO JEST PIĘKNE) | The view is so beautiful. · Jaki piękny widok. |
 | 直走 | zhí zǒu | czy dzoł | DZY-COŁ · PROSTO | go straight · prosto |
 | 左转 | zuǒ zhuǎn | dzło człan | DZŁO-DZŁAN · PRAWO | turn left · w lewo |
 | 右转 | yòu zhuǎn | joł człan | JU DZŁAN · LEWO | turn right · w prawo |
@@ -81,7 +81,7 @@ Data: 2026-10-15
 | 都 | dōu | toł |  | all · wszystko, wszyscy |
 | 有 | yǒu | joł |  | have · mieć |
 | 厕所 | cèsuǒ | cchy-sło |  | toilet · toaleta |
-| 风景 | fēngjǐng | fyng-dzing |  | view, scenery · widok |
+| 风景 | fēngjǐng | fang-dzing |  | view, scenery · widok |
 | 眼睛 | yǎnjing | jen-dzing |  | eyes · oczy |
 | 今晚 | jīnwǎn | dzin-łan |  | tonight · dziś wieczorem |
 | 有空 | yǒu kòng | joł khong |  | have free time · mieć wolny czas |

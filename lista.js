@@ -27,7 +27,8 @@ window.Lista = (function () {
     for (const k in (b.karty || {})) { const x = out.karty[k], y = b.karty[k]; if (!x || (y.z || 0) > (x.z || 0)) out.karty[k] = y; }
     for (const k in (b.ulubione || {})) { const x = out.ulubione[k], y = b.ulubione[k]; if (!x || (y.z || 0) > (x.z || 0)) out.ulubione[k] = y; }
     if (b.ustawienia && (b.ustawienia.z || 0) > (a.ustawienia.z || 0)) out.ustawienia = b.ustawienia;
-    if (b.dzien && (b.dzien.data > (a.dzien.data || "") || (b.dzien.data === a.dzien.data && (b.dzien.nowe || 0) > (a.dzien.nowe || 0)))) out.dzien = b.dzien;
+    if (b.dzien && b.dzien.data > (a.dzien.data || "")) out.dzien = b.dzien;
+    else if (b.dzien && b.dzien.data === a.dzien.data) out.dzien = { data: a.dzien.data, nowe: Math.max(a.dzien.nowe || 0, b.dzien.nowe || 0), hsk: Math.max(a.dzien.hsk || 0, b.dzien.hsk || 0) };
     return out;
   }
   function zapiszLokalnie() { try { localStorage.setItem(KLUCZ_LS, JSON.stringify(stan)); } catch (e) {} }

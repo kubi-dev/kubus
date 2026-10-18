@@ -9,19 +9,20 @@ Strona do nauki chińskiego dla Polaka: statyczny HTML na GitHub Pages (https://
 - `python3 build.py` buduje wszystkie strony i pobiera tylko brakujące nagrania (Google TTS) i obrazki. `--no-obrazki` pomija obrazki. Nie używaj `--no-audio` przed deployem: pomija składanie podcastów i zostawia pustą listę odcinków na stronach `podcast/` i `scenki/` (pełny build i tak pobiera tylko brakujące nagrania). Linie z `!` to błędy (zwykle chwilowe z TTS): uruchom ponownie.
 - `./serwuj.sh` to podgląd na http://localhost:8765/ (mikrofon wymaga http, nie file://).
 - `./deploy.sh "opis"` robi `git add -A`, commit i push; GitHub Pages odświeża stronę po ~1 min.
-- `python3 scenki.py sprawdz lekcje/NN-slug` to jedyna automatyczna kontrola: pokrycie dialogu znanym słownictwem ≥ 75% i zgodność pola `wymowa` z kartami. Testów ani lintera nie ma.
+- `python3 zapis.py sprawdz` pokazuje karty, których zapis polski różni się od słownika sylab (`zapis.json`); `python3 zapis.py wpisz` je poprawia (potem `scenki.py wymowa` dla lekcji ze scenkami i build); `python3 zapis.py zapisz "znaki" "pinyin"` daje zapis nowej karty.
+- `python3 scenki.py sprawdz lekcje/NN-slug` to druga automatyczna kontrola: pokrycie dialogu znanym słownictwem ≥ 75% i zgodność pola `wymowa` z kartami. Testów ani lintera nie ma.
 - Worker: `cd worker && npx wrangler deploy` (endpointy i pierwsze wdrożenie w `worker/README.md`).
 - Build wymaga `curl`, `ffmpeg` (podcast) i Pillow (obrazki).
 
 ## Architektura
 
-**Źródła prawdy (edytuj tylko je):** `lekcje/NN-slug/lekcja.json`, `lekcje/NN-slug/scenki.json`, `wymowa.json`, szablony `*.html` w katalogu głównym, `wymowa.js`, `lista.js`, `lista.css`, skrypty `.py`.
+**Źródła prawdy (edytuj tylko je):** `lekcje/NN-slug/lekcja.json`, `lekcje/NN-slug/scenki.json`, `materialy/*/lekcja.json` (z gotowymi `audio/` i `obrazki/`, bo tych nie da się pobrać ponownie), `wymowa.json`, `zapis.json`, szablony `*.html` w katalogu głównym, `wymowa.js`, `lista.js`, `lista.css`, skrypty `.py`.
 
 **Wszystko inne generuje `build.py`** i jest commitowane, bo GitHub Pages serwuje repo wprost: każdy `index.html` (główny, `lekcje/*/`, `powtorka/`, `ulubione/`, `podcast/`, `scenki/`, `tony/`, `dzwieki/`), `notatki.md`, `powtorka/karty.json`, katalogi `audio/` i `obrazki/`, pliki `*.mp3` i ich manifesty (`podcast.json`, `scenka-*.json`, `wszystko.json`). Nie poprawiaj ich ręcznie: zmień szablon lub dane i przebuduj.
 
 **Jak działa build:** szablony mają znaczniki `{{DATA_JSON}}`, `{{KARTY_JSON}}`, `{{SYNC_URL}}`, `{{WERSJA}}` itd., a build wstrzykuje dane jako JSON prosto w stronę (strony nie pobierają danych w runtime). `{{WERSJA}}` to hash `wymowa.js` + `lista.js` + `lista.css` do cache-bustingu, więc po zmianie tych plików zawsze przebuduj. Nazwa nagrania to md5 znaków, więc zmiana znaków w karcie oznacza nowe nagranie.
 
-**Talia kart:** `build_powtorka` składa karty ze wszystkich lekcji po numerze lekcji; przy powtórzonych znakach wygrywa pierwsze wystąpienie. Ta sama talia zasila powtórkę, ulubione i wyszukiwarkę na stronie głównej. `id` karty to jej znaki, a postęp powtórek i ulubione są zapisane po `id`, więc zmiana znaków w `lekcja.json` gubi postęp tej karty.
+**Talia kart:** `build_powtorka` składa karty ze wszystkich lekcji po numerze lekcji, potem z materiałów dodatkowych (`materialy/`, druga ścieżka, np. HSK); przy powtórzonych znakach (bez interpunkcji) wygrywa pierwsze wystąpienie, więc karta z lekcji wygrywa z materiałem. Ta sama talia zasila powtórkę, ulubione i wyszukiwarkę na stronie głównej. `id` karty to jej znaki, a postęp powtórek i ulubione są zapisane po `id`, więc zmiana znaków w `lekcja.json` gubi postęp tej karty.
 
 **Wspólny JS:** `wymowa.js` (odtwarzanie mp3 przez jeden `AudioContext` na stronę, mikrofon: domyślnie Whisper w workerze, Web Speech tylko z wyboru albo bez klucza, trener tonów) ładują wszystkie strony, więc poprawki audio i mikrofonu rób tylko tam i sprawdzaj wszystkie strony. `lista.js` + `lista.css` to lista zwrotów z wyszukiwarką i karta zwrotu (strona główna, ulubione).
 

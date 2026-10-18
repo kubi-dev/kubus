@@ -15,7 +15,7 @@ tylko dopisane do lekcji (pole `auto`, znaczek „✦ ze scenki” na karcie). J
 1. **Lekcja.** Argument skilla = numer lekcji; bez argumentu weź najwyższy numer w `lekcje/`. Katalog `lekcje/NN-slug/`.
 2. **Słownictwo.** `python3 scenki.py slownictwo lekcje/NN-slug` — lista wszystkiego, co user zna do tej lekcji włącznie. Tylko z tego budujesz dialog.
 3. **Scenki.** Napisz 1–2 scenki (2, gdy lekcja ma > 20 pozycji). Każda w innej sytuacji, pasującej do tematu lekcji (lekcja o jedzeniu → restauracja, kawa z kolegą).
-   - Co najmniej 75% znaków w dialogu ze znanego słownictwa. Nowe słowa (max 25% znaków, zwykle 3–6 słów) tylko wtedy, gdy bez nich dialog byłby sztuczny (谢谢, 请, 你呢, 多少钱). Wypisz je w `nowe` z `pinyin`, `polski` (zapis wymowy wg konwencji z `lekcje/01-przyjaciele/lekcja.json`), `doslownie` (znaczenie słowo po słowie, gdy pozycja ma więcej niż jedno słowo; zasady w skillu `nowa-lekcja`, krok 4), `znaczenie` (`english · polski`).
+   - Co najmniej 75% znaków w dialogu ze znanego słownictwa. Nowe słowa (max 25% znaków, zwykle 3–6 słów) tylko wtedy, gdy bez nich dialog byłby sztuczny (谢谢, 请, 你呢, 多少钱). Wypisz je w `nowe` z `pinyin`, `polski` (zapis wymowy ze słownika: `python3 zapis.py zapisz "znaki" "pinyin"`), `doslownie` (znaczenie słowo po słowie, gdy pozycja ma więcej niż jedno słowo; zasady w skillu `nowa-lekcja`, krok 4), `znaczenie` (`english · polski`).
    - Jedna kwestia = jedna myśl: jedno zdanie albo jedno pytanie (user uczy się od zera). Wolno dokleić krótki dodatek: powitanie,
      jednowyrazową odpowiedź, „A ty?”, „Tak”, „Świetnie!” (你好！你喝什么？ · 抹茶。你呢？ · 咖啡。我叫Kubi。 · 太好了！教我中文吧！).
      Nigdy dwa pełne zdania ani dwa pytania w jednej kwestii (źle: 你待多久？你做什么的？). Takie rozbij na osobne kwestie, także gdy

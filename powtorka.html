@@ -139,11 +139,13 @@
 const KARTY = {{KARTY_JSON}};
 const SYNC_URL_DOMYSLNY = "{{SYNC_URL}}";
 const DZIEN = 24 * 3600 * 1000;
+// nowe karty z materiałów dodatkowych (HSK) dziennie, oprócz naszych; gdy naszych nowych brakuje, HSK dopełnia do limitu
+const HSK_DZIENNIE = 5;
 const $ = id => document.getElementById(id);
 
 // ---------- stan (localStorage + chmura) ----------
 const KLUCZ_LS = "kubus.powtorka";
-let stan = { karty: {}, ustawienia: { nowe: 10, z: 0 }, dzien: { data: "", nowe: 0 }, ulubione: {} };
+let stan = { karty: {}, ustawienia: { nowe: 10, z: 0 }, dzien: { data: "", nowe: 0, hsk: 0 }, ulubione: {} };
 try { const s = JSON.parse(localStorage.getItem(KLUCZ_LS) || "null"); if (s && s.karty) stan = scal(stan, s); } catch (e) {}
 const cfg = { url: "", klucz: "" };
 try { Object.assign(cfg, JSON.parse(localStorage.getItem(KLUCZ_LS + ".sync") || "{}")); } catch (e) {}
@@ -158,7 +160,8 @@ function scal(a, b) {
   for (const k in (b.karty || {})) { const x = out.karty[k], y = b.karty[k]; if (!x || (y.z || 0) > (x.z || 0)) out.karty[k] = y; }
   for (const k in (b.ulubione || {})) { const x = out.ulubione[k], y = b.ulubione[k]; if (!x || (y.z || 0) > (x.z || 0)) out.ulubione[k] = y; }
   if (b.ustawienia && (b.ustawienia.z || 0) > (a.ustawienia.z || 0)) out.ustawienia = b.ustawienia;
-  if (b.dzien && (b.dzien.data > (a.dzien.data || "") || (b.dzien.data === a.dzien.data && (b.dzien.nowe || 0) > (a.dzien.nowe || 0)))) out.dzien = b.dzien;
+  if (b.dzien && b.dzien.data > (a.dzien.data || "")) out.dzien = b.dzien;
+  else if (b.dzien && b.dzien.data === a.dzien.data) out.dzien = { data: a.dzien.data, nowe: Math.max(a.dzien.nowe || 0, b.dzien.nowe || 0), hsk: Math.max(a.dzien.hsk || 0, b.dzien.hsk || 0) };
   return out;
 }
 function zapiszLokalnie() { try { localStorage.setItem(KLUCZ_LS, JSON.stringify(stan)); } catch (e) {} }
@@ -236,15 +239,26 @@ function zbudujKolejke(dodatkoweNowe) {
   const f = $("filtr").value;
   const karty = KARTY.filter(k => !f || String(k.lekcja) === f);
   const teraz = dzis() + DZIEN - 1;
-  const zalegle = [], nowe = [];
+  const zalegle = [], nasze = [], hsk = [];
   for (const k of karty) for (const typ of ["B", "A"]) {
     const id = k.id + "|" + typ, s = stanKarty(id);
-    if (!s) nowe.push({ id, k, typ });
+    if (!s) (k.sciezka ? hsk : nasze).push({ id, k, typ });
     else if (s.termin <= teraz) zalegle.push({ id, k, typ });
   }
   const d = dataStr(dzis());
-  if (stan.dzien.data !== d) stan.dzien = { data: d, nowe: 0 };
-  const limit = Math.max(0, stan.ustawienia.nowe - stan.dzien.nowe) + (dodatkoweNowe || 0);
+  if (stan.dzien.data !== d) stan.dzien = { data: d, nowe: 0, hsk: 0 };
+  // najpierw nasze (po kolei z lekcji), potem HSK: 5 dziennie + to, czego zabrakło z naszych; HSK losowo, bo kolejne zwroty
+  // często powtarzają ten sam schemat (losowanie stałe w ciągu dnia, para B+A jednego zwrotu zostaje razem)
+  const limNasze = Math.max(0, stan.ustawienia.nowe - stan.dzien.nowe) + (dodatkoweNowe || 0);
+  const wybrane = nasze.slice(0, limNasze);
+  const limHsk = Math.max(0, HSK_DZIENNIE + (limNasze - wybrane.length) - (stan.dzien.hsk || 0));
+  const poZwrocie = new Map();
+  for (const c of hsk) { if (!poZwrocie.has(c.k.id)) poZwrocie.set(c.k.id, []); poZwrocie.get(c.k.id).push(c); }
+  const grupy = [...poZwrocie.values()];
+  let ziarno = [...d].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7);
+  const los = () => ((ziarno = (ziarno * 1664525 + 1013904223) >>> 0) / 4294967296);
+  for (let i = grupy.length - 1; i > 0; i--) { const j = Math.floor(los() * (i + 1)); [grupy[i], grupy[j]] = [grupy[j], grupy[i]]; }
+  const nowe = wybrane.concat(grupy.flat().slice(0, limHsk)), limit = nowe.length;
   for (let i = zalegle.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [zalegle[i], zalegle[j]] = [zalegle[j], zalegle[i]]; }
   // nowe słówka rozłożone równomiernie między zaległe (nie na końcu); para B+A jednego słówka zostaje razem
   const paczki = [];
@@ -502,7 +516,7 @@ rate.addEventListener("click", (e) => {
   const q = Number(b.dataset.q);
   const byloNowe = !stanKarty(biezaca.id);
   stan.karty[biezaca.id] = ocen(stanKarty(biezaca.id) || nowyStan(), q);
-  if (byloNowe) stan.dzien.nowe++;
+  if (byloNowe) { if (biezaca.k.sciezka) stan.dzien.hsk = (stan.dzien.hsk || 0) + 1; else stan.dzien.nowe++; }
   if (q === 0) { kolejka.push(biezaca); razem++; }
   zrobione++;
   zapiszLokalnie(); zaplanujSync();

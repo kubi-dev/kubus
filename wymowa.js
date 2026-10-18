@@ -167,14 +167,14 @@
   function slabyTon() { try { const t = JSON.parse(localStorage.getItem(KLUCZ_TONY) || "{}"); let b = null; for (const k in t) if (!b || t[k] > t[b]) b = k; return b && t[b] >= 3 ? { ton: b, razy: t[b] } : null; } catch (e) { return null; } }
 
   // ---- podpowiedzi deterministyczne (bez LLM): pinyin -> polski zapis + esencja, jak zrobić dźwięk i ton ----
-  // Ten sam zapis co w wymowa.json i w prompcie trenera (p/t/k = bez dmuchnięcia, ph/th/kh/czh/cch/ćh = z dmuchnięciem).
+  // Ten sam zapis co zapis.json (słownik sylab kart) i prompt trenera (p/t/k = bez dmuchnięcia, ph/th/kh/czh/cch/ćh = z dmuchnięciem).
   const INICJALY = ["zh", "ch", "sh", "b", "p", "m", "f", "d", "t", "n", "l", "g", "k", "h", "j", "q", "x", "r", "z", "c", "s"];
   const INI_PL = { b: "p", p: "ph", m: "m", f: "f", d: "t", t: "th", n: "n", l: "l", g: "k", k: "kh", h: "ch", j: "dz", q: "ćh", x: "s", zh: "cz", ch: "czh", sh: "sz", r: "ż", z: "dz", c: "cch", s: "s", "": "" };
-  const FIN_PL = { a: "a", o: "o", e: "y", i: "i", u: "u", "ü": "ü", ai: "aj", ei: "ej", ao: "ał", ou: "oł", an: "an", en: "yn", ang: "ang", eng: "yng", ong: "ung", er: "ar",
-    ia: "ia", ie: "ie", iao: "iał", iu: "ioł", ian: "ien", in: "in", iang: "iang", ing: "ing", iong: "iung",
-    ua: "ła", uo: "ło", uai: "łaj", ui: "łej", uan: "łan", un: "łyn", uang: "łang", ueng: "łyng", "üe": "üe", "üan": "üan", "ün": "ün" };
-  const ZERO_PL = { yi: "i", ya: "ja", ye: "je", yao: "jał", you: "joł", yan: "jen", yin: "in", yang: "jang", ying: "ing", yong: "jung", yu: "ü", yue: "üe", yuan: "jüan", yun: "ün",
-    wu: "łu", wa: "ła", wo: "ło", wai: "łaj", wei: "łej", wan: "łan", wen: "łyn", wang: "łang", weng: "łyng" };
+  const FIN_PL = { a: "a", o: "o", e: "y", i: "i", u: "u", "ü": "ü", ai: "aj", ei: "ej", ao: "ał", ou: "oł", an: "an", en: "en", ang: "ang", eng: "ang", ong: "ong", er: "ar",
+    ia: "ia", ie: "ie", iao: "iał", iu: "ioł", ian: "ien", in: "in", iang: "iang", ing: "ing", iong: "iong",
+    ua: "ła", uo: "ło", uai: "łaj", ui: "łej", uan: "łan", un: "łen", uang: "łang", ueng: "łang", "üe": "üe", "üan": "üan", "ün": "ün" };
+  const ZERO_PL = { yi: "i", ya: "ja", ye: "je", yao: "jał", you: "joł", yan: "jen", yin: "in", yang: "jang", ying: "ing", yong: "jong", yu: "ü", yue: "jüe", yuan: "jüan", yun: "jün",
+    wu: "łu", wa: "ła", wo: "ło", wai: "łaj", wei: "łej", wan: "łan", wen: "łen", wang: "łang", weng: "łang" };
   // polska litera + polskie słowo, na którym Polak słyszy ten dźwięk (do podpowiedzi o dmuchnięciu)
   const SLOWO_PL = { p: ["p", "pan"], t: ["t", "tak"], k: ["k", "kot"], q: ["ć", "ćma"], ch: ["cz", "czapka"], c: ["c", "cena"],
     b: ["p", "pan"], d: ["t", "tak"], g: ["k", "kot"], j: ["dzi", "dziura"], zh: ["cz", "czy"], z: ["dz", "dzwon"] };

@@ -89,7 +89,23 @@ workera (`/wymowa?zapis=1&ocena=`, KV „nagranie:”, 7 dni) do sprawdzania oce
 Licznik wpadek per ton/grupa w `localStorage kubus.wymowa.stat.<strona>`, lista „co ci najczęściej ucieka” linkuje do sekcji.
 Treść powstała z badania (tony i dźwięki trudne dla Polaków, metody ćwiczeń) i została sprawdzona pod kątem chińskiego i prostego polskiego.
 
+## Materiały dodatkowe (HSK)
+Druga ścieżka słówek obok lekcji: `materialy/<slug>/lekcja.json` w tym samym formacie co lekcja, plus `"sciezka": "hsk"`, `"opis"`
+i `"zrodlo"` (link do oryginału na stronie). Build robi z niej stronę jak lekcję (bez podcastu i scenek) i dokłada karty do talii
+po lekcjach; zwrot, który jest już na karcie z lekcji, zostaje tylko na stronie materiału. Nagrania i obrazki pochodzą z oryginału
+i leżą w repo (`audio/`, `obrazki/`, pole `obrazek.plik`), build niczego nie pobiera z Google TTS: brak pliku = błąd `!`.
+`materialy/hsk1/`: 65 zwrotów HSK 1 z filmu https://www.youtube.com/watch?v=6ozVFwyxvio (Andy and Sarah Mandarin). Na każdy zwrot
+w filmie jest kobieta mówiąca normalnie i mężczyzna mówiący wolno: `<klucz>.mp3` = kobieta, `<klucz>-slow.mp3` („wolniej”) = mężczyzna.
+Obrazki to kadry z filmu z rozmytym miejscem na napisy (chiński na obrazku zdradzałby odpowiedź na karcie).
+
+## Zapis polski (słownik sylab)
+`zapis.json`: każda sylaba pinyin -> zapis po polsku (z lekkim tonem osobno: 了 la, 们 men) i kilka wyjątków według ucha (什么 szen-ma,
+的/得 da, 哪儿 nar). Odtwarza zapis wszystkich kart z lekcji i słów ze stron tonów i dźwięków. `python3 zapis.py sprawdz` pokazuje karty
+niezgodne ze słownikiem, `wpisz` je poprawia, `zapisz "znaki" "pinyin"` daje zapis nowej karty. Sprawdzone na nagraniach HSK (pomiar
+samogłosek obu lektorów i ucho usera, 2026-10-18): lekkie e = „a”, -en = „en” (很 chen, 人 żen, 吻 łen, 春 czhłen; wcześniej „yn”), -eng = „ang” (朋友 phang-joł, 生 szang, 冷 lang; wcześniej „yng”), 而/二 = „ar”.
+
 ## Powtórki
+- Nowe karty dziennie: najpierw z lekcji, po kolei (ustawienie „Nowych kart dziennie”, domyślnie 10), do tego 5 z materiałów dodatkowych (`HSK_DZIENNIE` w `powtorka.html`). Gdy nowych z lekcji brakuje, materiały dopełniają do limitu. Materiały idą w losowej kolejności (ziarno = data, więc w ciągu dnia ta sama), bo kolejne zwroty często powtarzają ten sam schemat. Licznik dnia: `dzien.nowe` (lekcje) i `dzien.hsk` (materiały).
 - Strona `powtorka/` (SM-2 jak w Anki). Karta A: obrazek + polskie znaczenie, mówisz po chińsku (mikrofon). Karta B: audio po chińsku, wybierasz znaczenie, po dojrzeniu karty wpisujesz; obrazek pokazuje się po odsłonięciu.
 - Znaczenie słowo po słowie (pole `doslownie` w `lekcja.json`, tylko pozycje dłuższe niż jedno słowo) stoi małymi literami pod zapisem polskim na każdej karcie: w powtórce razem z wymową (karta A: po podpowiedzi albo odsłonięciu, miejsce zarezerwowane, żeby guzik nie skakał), na karcie z wyszukiwarki i ulubionych, na stronie lekcji. Jedno polskie słowo na każde słowo z zapisu polskiego, nawias to słówko gramatyczne: `móc · całować · ty · (pytanie)`.
 - Gwiazdka ☆ na karcie (w powtórce, na stronie lekcji, na karcie z wyszukiwarki) dodaje zwrot do ulubionych. Strona `ulubione/` to ściąga na rozmowę: lista po polsku (z wyszukiwarką), dotknięcie otwiera kartę ze znakami, pinyin, zapisem polskim, nagraniem i mikrofonem. Ulubione są w tym samym stanie co postęp (pole `ulubione`), więc synchronizują się między urządzeniami.
@@ -105,6 +121,8 @@ podcast.html             szablon strony podcastu
 scenki.html              szablon strony scenek
 wymowa.html              szablon stron tony/ i dzwieki/
 wymowa.json              treść obu stron (źródło prawdy)
+zapis.json, zapis.py     słownik zapisu polskiego (sylaba -> zapis) i sprawdzanie/poprawianie kart
+materialy/<slug>/        materiały dodatkowe (druga ścieżka, np. HSK): lekcja.json + gotowe audio/ i obrazki/ z oryginału
 podcast.py               składanie odcinków mp3 (polski → chiński → pauza)
 scenki.py                sprawdzanie i wpisywanie scenek (dialogów) do lekcji
 ulubione.html            szablon strony ulubionych zwrotów
