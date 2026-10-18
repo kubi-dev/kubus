@@ -19,9 +19,11 @@
 //   Wymowa.beforeStart = () => { /* tylko UI, audio zatrzymuje moduł */ };
 //   Wymowa.bind(btn, { target: () => "朋友", audio: () => "audio/x.mp3", onStart(), onInterim(text), onDone(result) });
 //     audio = nagranie lektora (normalne tempo): z niego linia wysokości głosu, na której rysuje się twoja
+//     tylkoGlos: true = ćwiczenie melodii: samo nagranie, bez rozpoznawania; tony: () => [2, 3] (Wymowa.tonyMowione) = co oceniać,
+//       wynik ma pole ocena (Wymowa.renderTony); wzor: () => Wymowa.wzorTonu(2) = linia celu zamiast nagrania lektora
 //     ekran: () => ({ polski, pinyin, znaczenie, bezWymowy }) = co widać nad guzikiem w trakcie mówienia (bezWymowy: bez polskiej wymowy i melodii)  wynik wstępny moduł pokazuje w przycisku; strony nie ruszają układu w trakcie mówienia
 //   Wymowa.graj(url, { onEnd(przerwane) }) -> Promise<bool>;  Wymowa.stopAudio();  Wymowa.preload(url)
-//   result = { alts: [...], gotFinal, error, heldMs, started, wys: { ty: [Hz], cel: [Hz] | null } }
+//   result = { alts: [...], gotFinal, error, heldMs, started, wys: { ty: [Hz], cel: [Hz] | null, ref }, ocena (tylkoGlos) }
 //   Wymowa.render(result, target) -> { cls, html, grade }
 (function () {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -329,13 +331,19 @@
 .trener .tr-mic { margin-top: 6px; }
 .trener .tr-wynik { margin-top: 6px; }
 .trener .tr-stat { margin-top: 6px; font-size: 12px; opacity: .7; }
-.glos, .glos-ekran { --glos-lektor: rgba(0,0,0,.18); --glos-ty: #1d4ed8; --glos-siatka: rgba(0,0,0,.1); }
+.glos, .glos-ekran, .ocena, .oc-rada { --glos-lektor: rgba(0,0,0,.18); --glos-ty: #1d4ed8; --glos-zle: #c2410c; --glos-siatka: rgba(0,0,0,.1); }
 .glos { margin-top: 8px; }
 .glos svg { display: block; width: 100%; height: 64px; }
 .glos .glos-os { stroke: var(--glos-siatka); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .glos path { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .glos .glos-lektor { stroke: var(--glos-lektor); stroke-width: 7; }
 .glos .glos-ty { stroke: var(--glos-ty); stroke-width: 3; }
+.glos .glos-zle { stroke: var(--glos-zle); stroke-width: 3.5; }
+.ocena { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.ocena .oc { font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; opacity: .9; }
+.ocena .oc.zle { color: var(--glos-zle); font-weight: 600; }
+.ocena .oc.lekki { opacity: .55; }
+.oc-rada { margin-top: 6px; font-size: 13px; }
 .glos-pod { font-size: 11px; opacity: .7; text-align: left; }
 .glos-pod span { display: inline-block; width: 16px; height: 4px; border-radius: 2px; vertical-align: middle; margin: 0 4px 0 0; }
 .glos-pod .glos-l { background: var(--glos-lektor); height: 7px; }
@@ -348,7 +356,7 @@
 .glos-ekran .ge-mel { font-size: 15px; margin-top: 3px; opacity: .75; }
 .glos-ekran .ge-zn { font-size: 17px; margin-top: 4px; }
 .glos-ekran canvas { display: block; width: 100%; height: 110px; margin-top: 6px; }
-@media (prefers-color-scheme: dark) { .glos, .glos-ekran { --glos-lektor: rgba(255,255,255,.22); --glos-ty: #60a5fa; --glos-siatka: rgba(255,255,255,.12); } .glos-ekran .ge-blok { background: #202020; color: #eee; } }
+@media (prefers-color-scheme: dark) { .glos, .glos-ekran, .ocena, .oc-rada { --glos-lektor: rgba(255,255,255,.22); --glos-ty: #60a5fa; --glos-zle: #fb923c; --glos-siatka: rgba(255,255,255,.12); } .glos-ekran .ge-blok { background: #202020; color: #eee; } }
 .wym-kom { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); max-width: min(92vw, 420px); padding: 10px 14px; border-radius: 12px; background: rgba(30,30,30,.94); color: #fff; font-size: 14px; line-height: 1.35; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,.25); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 9999; }
 .wym-kom.on { opacity: 1; transform: translate(-50%, 0); }
 @media (prefers-color-scheme: dark) { .wym-kom { background: rgba(245,245,245,.96); color: #111; } }
@@ -557,7 +565,30 @@
     }
     return liniaLektora.get(url);
   }
-  const ST_MAX = 10;                           // ± półtonów na wykresie
+  // wzór melodii do ćwiczenia po polsku, gdy nie ma nagrania: gładka linia w Hz (punkt co 10 ms), półtony od środka głosu
+  const WZOR = { 1: [[0, 3], [1, 3]], 2: [[0, -2], [0.25, -2.5], [1, 4]], 3: [[0, 0], [0.65, -6], [1, -3.5]], 4: [[0, 4], [1, -8]] };
+  function wzorTonu(ton) {
+    const p = WZOR[ton]; if (!p) return null;
+    const n = ton === 4 ? 35 : ton === 3 ? 70 : 55, out = new Float32Array(n + 20);
+    for (let i = 0; i < n; i++) {
+      const x = i / (n - 1); let k = 1; while (k < p.length - 1 && p[k][0] < x) k++;
+      const [x0, y0] = p[k - 1], [x1, y1] = p[k];
+      out[i + 10] = 150 * Math.pow(2, (y0 + (y1 - y0) * (x - x0) / (x1 - x0)) / 12);
+    }
+    return out;
+  }
+  // linia, na której rysuje się twoja: wzór podany przez stronę (opts.wzor) albo linia lektora z mp3 (opts.audio)
+  function liniaCelu(opts) {
+    const wz = wartosc(opts.wzor);
+    return wz ? Promise.resolve(wz) : lektor(wartosc(opts.audio));
+  }
+  const ST_MAX = 10;                           // ± półtonów na wykresie (najwięcej)
+  // skala z linii na wykresie: mała melodia (3. ton lektora schodzi o 3–4 półtony) ma być dobrze widać
+  function skalaSt(...lista) {
+    let m = 0;
+    for (const z of lista) if (z) for (let i = z.i0; i <= z.i1; i++) if (z.hz[i]) m = Math.max(m, Math.abs(12 * Math.log2(z.hz[i] / z.med)));
+    return m ? Math.max(4, Math.min(ST_MAX, m * 1.2)) : ST_MAX;
+  }
   // ścieżka SVG/canvas: x z indeksu ramki, y z półtonów; przerwy tam, gdzie nie ma głosu
   function punkty(z, x0, skala, y) {
     const seg = []; let cur = null;
@@ -568,7 +599,107 @@
     }
     return seg;
   }
-  const yNa = (h, p) => st => h / 2 - Math.max(-ST_MAX, Math.min(ST_MAX, st)) / ST_MAX * (h / 2 - p);
+  const yNa = (h, p, max = ST_MAX) => st => h / 2 - Math.max(-max, Math.min(max, st)) / max * (h / 2 - p);
+
+  // ---- ton z samej linii głosu (bez rozpoznawania mowy) ----
+  // Linia dzielona na tyle kawałków, ile sylab (cięcie w przerwie w głosie blisko oczekiwanego miejsca, inaczej po czasie;
+  // lekka końcówka liczy się za pół). Z każdego kawałka bierzemy środek (brzegi to przejścia między sylabami) i patrzymy
+  // tylko na kształt: w górę, w dół, dołek, równo. Ocena łagodna: „źle” tylko przy wyraźnie innym kształcie.
+  function oktawy(hz) {                       // cały kawałek głosu o oktawę od reszty = błąd pomiaru, wraca na miejsce
+    const out = Float32Array.from(hz), med = mediana(out); if (!med) return out;
+    for (let i = 0; i < out.length;) {
+      if (!out[i]) { i++; continue; }
+      let j = i; while (j < out.length && out[j]) j++;
+      const m = mediana(out.subarray(i, j));
+      if (m > med * 1.7) for (let k = i; k < j; k++) out[k] /= 2;
+      else if (m < med / 1.7) for (let k = i; k < j; k++) out[k] *= 2;
+      i = j;
+    }
+    return out;
+  }
+  // bez przerwy w głosie cięcie tam, gdzie kończy się poprzedni ton: po 2. na szczycie, po 3. i 4. w dołku, inaczej po czasie
+  function kawalki(hz, wagi, tony) {
+    let i0 = -1, i1 = -1;
+    for (let i = 0; i < hz.length; i++) if (hz[i]) { if (i0 < 0) i0 = i; i1 = i; }
+    if (i0 < 0) return null;
+    const n = wagi.length, dl = i1 - i0 + 1, suma = wagi.reduce((p, q) => p + q, 0), gr = [i0], wSzczycie = [];
+    let acc = 0;
+    for (let k = 0; k < n - 1; k++) {
+      acc += wagi[k];
+      const c = i0 + dl * acc / suma, od = Math.max(gr[gr.length - 1] + 3, Math.round(c - dl * 0.2)), doo = Math.min(i1 - 3, Math.round(c + dl * 0.2));
+      let best = -1, bestD = Infinity;
+      for (let i = od; i <= doo; i++) if (!hz[i] && hz[i - 1]) {
+        let j = i; while (j <= i1 && !hz[j]) j++;
+        const s = (i + j) / 2; if (j - i >= 2 && Math.abs(s - c) < bestD) { best = Math.round(s); bestD = Math.abs(s - c); }
+      }
+      if (best < 0) {
+        const t = [].concat(tony ? tony[k] : 0)[0], znak = t === 2 ? 1 : t === 3 || t === 4 ? -1 : 0;
+        best = Math.round(c); wSzczycie[k] = !!znak;
+        if (znak) for (let i = od + 1, bv = -Infinity; i < doo; i++) {
+          if (!hz[i] || !hz[i - 1] || !hz[i + 1]) continue;
+          const v = znak * Math.log2(hz[i - 1] * hz[i] * hz[i + 1]);
+          if (v > bv) { bv = v; best = i; }
+        }
+      }
+      gr.push(best);
+    }
+    gr.push(i1 + 1);
+    // trzeci element: cięcie w szczycie / dołku poprzedniego tonu, więc jego koniec to cel tonu, nie przejście
+    return gr.slice(0, -1).map((a, k) => [a, gr[k + 1], !!wSzczycie[k]]);
+  }
+  // cechy kawałka w półtonach względem ref; brzeg przy innej sylabie obcinany mocniej (25%) niż brzeg słowa
+  function cechy(hz, a, b, ref, lewySasiad, prawySasiad) {   // prawySasiad: true = przejście, "cel" = cięcie w szczycie/dołku
+    const v = [];
+    for (let i = a; i < b; i++) if (hz[i]) v.push(12 * Math.log2(hz[i] / ref));
+    if (v.length < 6) return null;
+    const t0 = Math.floor(v.length * (lewySasiad ? 0.25 : 0.12)), t1 = v.length - Math.floor(v.length * (prawySasiad === "cel" ? 0.05 : prawySasiad ? 0.25 : 0.1)), w = v.slice(t0, t1);
+    if (w.length < 4) return null;
+    const sr = (x, y) => { let s = 0; for (let i = x; i < y; i++) s += w[i]; return s / (y - x); };
+    const q = Math.max(1, Math.round(w.length * 0.2)), poc = sr(0, q), kon = sr(w.length - q, w.length);
+    let mn = Infinity, pmn = 0, mx = -Infinity;
+    for (let i = 1; i < w.length - 1; i++) { const m = (w[i - 1] + w[i] + w[i + 1]) / 3; if (m < mn) { mn = m; pmn = i / (w.length - 1); } if (m > mx) mx = m; }
+    return { poc, kon, mn, pmn, mx, sr: sr(0, w.length), n: v.length };
+  }
+  // kształt kawałka zapisany tonem, który tak brzmi (do komunikatu „wyszło jak …”), i czy pasuje do celu
+  // kształt kawałka zapisany tonem, który tak brzmi (do komunikatu „wyszło jak …”), i czy pasuje do celu.
+  // s = sąsiedzi: { nast: początek następnej sylaby, nisko: kawałek wyraźnie niżej niż sąsiednie albo niż twój zwykły głos }.
+  // 2. ton przed inną sylabą często wchodzi w górę dopiero na jej początku (4. ton w dół tak samo); 3. ton w środku słowa to samo „nisko”.
+  function klasyfikuj(ton, c, s) {
+    s = s || {};
+    const doNast = (ton === 2 || ton === 4) && s.nast != null, szczyt = Math.max(c.kon, ton === 2 && doNast ? s.nast : -99);
+    const zmiana = szczyt - c.poc, gora = szczyt - c.mn, dol = c.poc - c.mn, zakres = Math.max(c.mx, ton === 2 && doNast ? s.nast : -99) - c.mn;
+    // spadek 4. tonu: do końca, do dołka (koniec często chrypi i pomiar skacze w górę) albo do początku następnej sylaby
+    const spadek = Math.max(c.poc - c.kon, c.pmn > 0.25 ? c.poc - c.mn : -99, ton === 4 && doNast ? c.poc - s.nast : -99);
+    const rowno = zakres < 1.5, wGore = zmiana >= 2.5 && c.pmn < 0.4, wDol = -zmiana >= 2.5 && c.pmn > 0.7,
+      dolek = dol >= 2.5 && gora >= 2.5 && c.pmn > 0.2 && c.pmn < 0.7;
+    // 0 = nic wyraźnego; zejście w dół i koniec niżej niż start, ale nie ostro: „Noooo…”
+    const jak = rowno ? 1 : wGore ? 2 : dolek ? 3 : wDol ? 4 : -zmiana >= 1 && dol >= 2 ? 3 : 0;
+    let ok = true;
+    if (ton === 1) ok = !((zmiana >= 2 && c.pmn < 0.8) || gora >= 3 || -zmiana >= 3 || dolek);
+    else if (ton === 2) ok = !(rowno || (wDol && gora < 1.5) || (-zmiana >= 1.5 && c.pmn > 0.75) || (s.sam && -zmiana >= 1 && dol >= 2));
+    else if (ton === 3) ok = !((rowno && !s.nisko) || (gora >= 2 && dol < 2 && s.nast == null && !s.nisko) || (wGore && dol < 1.5) || (s.sam && -zmiana >= 8 && c.kon - c.mn < 1));
+    else if (ton === 4) ok = !(rowno || spadek < 2);   // dołek przy 4. tonie to zwykle chrypka na końcu, więc liczy się tylko spadek
+    return { ok, jak: ok ? ton : jak === ton ? 0 : jak };
+  }
+  // tony: tony do powiedzenia (po zmianach, np. 你好 = 2 3), pozycja może mieć dwa dobre tony ([2, 3]: pierwsze z trzech
+  // „Noooo…” pod rząd ludzie mówią na oba sposoby); ref: typowy głos mówiącego (Hz), bez niego mediana tej linii.
+  // Wynik: { h: linia po poprawce oktaw, kaw: granice sylab [od, do), sylaby: [{ ton, ok, jak, lekki }] } albo null (za mało głosu)
+  function ocenTony(hz, tony, ref) {
+    const h = oktawy(hz), z = zakres(h);
+    if (!z || z.glosne < 12 || !tony || !tony.length) return null;
+    const kaw = kawalki(h, tony.map(t => t === 5 ? 0.5 : 1), tony), r = ref || mediana(h);
+    const c = kaw.map(([a, b, cel], i) => cechy(h, a, b, r, i > 0, i < tony.length - 1 && (cel ? "cel" : true)));
+    const sylaby = tony.map((t, i) => {
+      const dobre = [].concat(t), ton = dobre[0];
+      if (ton === 5) return { ton, ok: true, lekki: true };
+      if (!c[i]) return { ton, ok: true, brak: true };
+      const obok = [c[i - 1], c[i + 1]].filter(Boolean).map(x => x.sr);
+      const nisko = obok.length ? c[i].sr <= Math.min(...obok) - 2 : !!ref && c[i].sr <= -2.5;
+      const s = { nast: c[i + 1] ? c[i + 1].poc : null, nisko, sam: tony.length === 1 }, wyn = dobre.map(x => klasyfikuj(x, c[i], s)), traf = wyn.findIndex(w => w.ok);
+      return Object.assign({ ton: traf >= 0 ? dobre[traf] : ton }, traf >= 0 ? wyn[traf] : wyn[0]);
+    });
+    return { h, kaw, sylaby };
+  }
 
   // ekran mówienia: od naciśnięcia do puszczenia strona znika (warstwa w kolorze tła z „dziurą” na guzik, więc guzik
   // się nie rusza), nad guzikiem zostaje blok: polska wymowa, melodia sylab, znaczenie, linia lektora i twoja na żywo
@@ -606,6 +737,12 @@
     const syl = s0.map((x, i) => ({ celTon: tk ? tk[i] : x.ton }));
     return syl.map((x, i) => MELODIA[tonMowiony(syl, i)] || "").filter(Boolean).join(" · ");
   }
+  // tony do powiedzenia, sylaba po sylabie (do oceny z linii głosu): dwa „Noooo…” pod rząd = pierwsze „Cooo?”;
+  // z trzech pod rząd pierwsze może być jednym albo drugim ([2, 3]), bo 我很好 mówi się na oba sposoby
+  function tonyMowione(znaki, pinyin) {
+    const s0 = sylabyZTonami(strip(znaki || "")), tk = tonyKarty(s0, pinyin), t = s0.map((x, i) => tk ? tk[i] : x.ton);
+    return t.map((x, i) => x === 3 && t[i + 1] === 3 ? (t[i + 2] === 3 && t[i - 1] !== 3 ? [2, 3] : 2) : x);
+  }
   const wartosc = v => { try { return (typeof v === "function" ? v() : v) || ""; } catch (e) { return ""; } };
   function tloStrony() {
     for (const el of [document.body, document.documentElement]) {
@@ -634,13 +771,13 @@
       for (const [sel, t] of pola) { const el = e.querySelector(sel); el.textContent = t; el.hidden = !t; }
       const d = e.firstChild, cs = getComputedStyle(btn);
       d.style.borderRadius = cs.borderRadius; d.style.boxShadow = "0 0 0 200vmax " + tloStrony();
-      const st = ekr = { btn, cel: null, w: null, koniec: false };
-      lektor(wartosc(opts.audio)).then(c => { st.cel = c; });
+      const st = ekr = { btn, cel: null, w: null, koniec: false, skaluj: !!opts.tylkoGlos };
+      liniaCelu(opts).then(c => { st.cel = c; });
       e.classList.add("on");
       const cv = e.querySelector("canvas");
       const petla = () => {
         if (st.koniec) return;
-        try { ulozEkran(e, btn); if (st.w) doczytaj(st.w); rysujPanel(cv, st.w, st.cel); } catch (err) { diag("ekran mówienia: " + err.message); return; }
+        try { ulozEkran(e, btn); if (st.w) doczytaj(st.w); rysujPanel(cv, st.w, st.cel, st.skaluj); } catch (err) { diag("ekran mówienia: " + err.message); return; }
         requestAnimationFrame(petla);
       };
       ulozEkran(e, btn); petla();
@@ -665,20 +802,21 @@
   }
   function glosStartDo(n, opts) {
     const w = { n, idx: 0, buf: new Float32Array(F0_RATE * 32), len: 0, pos: 0, hz: [], cel: null, koniec: false };
-    lektor(wartosc(opts.audio)).then(c => { w.cel = c; });
+    liniaCelu(opts).then(c => { w.cel = c; }); w.wzor = !!wartosc(opts.wzor);
     try { w.zapisany = Number(localStorage.getItem(KLUCZ_GLOS)) || 0; } catch (e) { w.zapisany = 0; }
     if (ekr) ekr.w = w;                       // ekran mówienia rysuje twoją linię z tego nagrania
     return w;
   }
-  function rysujPanel(cv, w, cel) {
+  function rysujPanel(cv, w, cel, skaluj) {   // skaluj: skala z linii celu (strona tonów), inaczej stałe ±10 półtonów
     const dpr = window.devicePixelRatio || 1, cw = cv.clientWidth, ch = cv.clientHeight;
     if (!cw) return;
     if (cv.width !== Math.round(cw * dpr)) { cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr); }
     const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, cw, ch);
-    const kolor = getComputedStyle(cv.parentNode), P = 8, y = yNa(ch, P);
+    const kolor = getComputedStyle(cv.parentNode), P = 8;
     g.strokeStyle = kolor.getPropertyValue("--glos-siatka").trim(); g.lineWidth = 1;
     g.beginPath(); g.moveTo(P, ch / 2); g.lineTo(cw - P, ch / 2); g.stroke();
     const ty = w && !w.koniec ? wygladz(w.hz) : [], zt = ty.length ? zakres(ty, w.zapisany || mediana(ty)) : null, zc = cel && zakres(cel);
+    const y = yNa(ch, P, skaluj && zc ? Math.min(ST_MAX, skalaSt(zc) * 1.3) : ST_MAX);   // z linii celu, żeby nie skakała w trakcie mówienia
     // oś czasu w ramkach: tyle, ile trwa słowo lektora (z zapasem), dłużej, gdy mówisz dłużej
     const T = Math.max(zc ? (zc.i1 - zc.i0) * 1.25 : 0, 80, zt ? ty.length - zt.i0 : 0), skala = (cw - 2 * P) / T;
     const rysuj = (seg, styl, grub) => {
@@ -694,18 +832,51 @@
     try { doczytaj(w); } catch (e) { return null; }
     const ty = glowna(wygladz(w.hz)), z = zakres(ty), med = mediana(ty);
     if (z && z.glosne >= 10) { try { localStorage.setItem(KLUCZ_GLOS, String(Math.round(w.zapisany ? w.zapisany * 0.7 + med * 0.3 : med))); } catch (e) {} }
-    return { ty: Array.from(ty), cel: w.cel ? Array.from(w.cel) : null };
+    return { ty: Array.from(ty), cel: w.cel ? Array.from(w.cel) : null, ref: w.zapisany || 0, wzor: w.wzor };
   }
   // wykres pod wynikiem: obie linie rozciągnięte na całą szerokość, żeby porównać sam kształt
-  function wykresGlosu(w) {
-    const zt = w && w.ty && zakres(w.ty);
+  // oc = wynik ocenTony (strona tonów): twoja linia po poprawce oktaw, źle powiedziana sylaba innym kolorem, skala z linii na wykresie
+  function wykresGlosu(w, oc) {
+    const zt = w && w.ty && zakres(oc ? oc.h : w.ty);
     if (!zt || zt.glosne < 10) return "";
-    const zc = w.cel && zakres(w.cel), S = 300, H = 80, P = 6, y = yNa(H, P);
-    const d = (z) => punkty(z, P, (S - 2 * P) / Math.max(1, z.i1 - z.i0), y).map(s => s.map(([x, yy], i) => (i ? "L" : "M") + x.toFixed(1) + " " + yy.toFixed(1)).join("")).join("");
+    const zc = w.cel && zakres(w.cel), S = 300, H = 80, P = 6, y = yNa(H, P, oc ? skalaSt(zc, zt) : ST_MAX);
+    const sciezka = (z, x0, skala) => punkty(z, x0, skala, y).map(s => s.map(([x, yy], i) => (i ? "L" : "M") + x.toFixed(1) + " " + yy.toFixed(1)).join("")).join("");
+    const d = (z) => sciezka(z, P, (S - 2 * P) / Math.max(1, z.i1 - z.i0));
+    let ty = `<path class="glos-ty" d="${d(zt)}"/>`;
+    if (oc && oc.sylaby.some(s => !s.ok)) {
+      const skala = (S - 2 * P) / Math.max(1, zt.i1 - zt.i0);
+      ty = oc.kaw.map(([a, b], k) => {
+        const i0 = Math.max(a, zt.i0), i1 = Math.min(b - 1, zt.i1);
+        // kawałek zaczyna się punkt wcześniej, żeby linia nie miała przerwy na granicy sylab
+        const z = { ...zt, i0: Math.max(zt.i0, i0 - 1), i1 };
+        return i1 > i0 ? `<path class="${oc.sylaby[k].ok ? "glos-ty" : "glos-zle"}" d="${sciezka(z, P + (z.i0 - zt.i0) * skala, skala)}"/>` : "";
+      }).join("");
+    }
     return `<div class="glos"><svg viewBox="0 0 ${S} ${H}" preserveAspectRatio="none" aria-label="wysokość głosu: lektor i ty">` +
       `<line x1="${P}" y1="${H / 2}" x2="${S - P}" y2="${H / 2}" class="glos-os"/>` +
-      (zc ? `<path class="glos-lektor" d="${d(zc)}"/>` : "") + `<path class="glos-ty" d="${d(zt)}"/></svg>` +
-      `<div class="glos-pod">${zc ? `<span class="glos-l"></span>lektor ` : ""}<span class="glos-t"></span>ty</div></div>`;
+      (zc ? `<path class="glos-lektor" d="${d(zc)}"/>` : "") + ty + `</svg>` +
+      `<div class="glos-pod">${zc ? `<span class="glos-l"></span>${w.wzor ? "wzór" : "lektor"} ` : ""}<span class="glos-t"></span>ty</div></div>`;
+  }
+  // wynik ćwiczenia melodii (mikrofon z tylkoGlos): wykres i każda sylaba z polskim słowem z notatek.
+  // info = { znaki, polski, ok, zle }: polski = zapis z karty, kawałki przez spację albo myślnik (gdy liczba się zgadza);
+  // ok / zle = własny nagłówek wyniku zamiast „Melodia się zgadza” (ćwiczenie po polsku)
+  const KOTW = { 1: "„Aaaa”", 2: "„Cooo?”", 3: "„Noooo…”", 4: "„Nie!”" };
+  const ZAMIAST = { 1: "a głos się ruszał", 2: "a głos nie poszedł w górę", 3: "a głos nie zszedł nisko", 4: "a głos nie spadł" };
+  function renderTony(res, info) {
+    info = info || {};
+    if (res && res.error) return { cls: "bad", html: "✗ " + esc(res.error), ok: false };
+    const oc = res && res.ocena;
+    if (!oc) return { cls: "bad", html: "Nie słyszę głosu. Przytrzymaj 🎤, powiedz głośno i wyraźnie, dopiero potem puść.", ok: false };
+    const znaki = [...strip(info.znaki || "")], pl = String(info.polski || "").split(/[\s\-–]+/).filter(Boolean);
+    const syl = oc.sylaby, ile = syl.length, zle = syl.filter(s => !s.ok);
+    const nazwa = (i) => (znaki.length === ile ? znaki[i] + " " : "") + (pl.length === ile ? pl[i] : "");
+    const chip = (s, i) => `<span class="oc ${s.lekki ? "lekki" : s.ok ? "ok" : "zle"}">${esc(nazwa(i))}${s.lekki ? " · lekko" : s.ok ? " ✓ " + KOTW[s.ton] : " ✗"}</span>`;
+    const rada = zle.map(s => { const i = syl.indexOf(s), n = nazwa(i).trim();
+      return `<div class="oc-rada">${n ? `<b>${esc(n)}</b>: ` : ""}ma być ${KOTWICA_TONU[s.ton]}, ${s.jak ? "wyszło jak " + KOTWICA_TONU[s.jak] : ZAMIAST[s.ton]}.</div>`; }).join("");
+    const head = !zle.length ? "✓ Melodia się zgadza." : zle.length === syl.filter(s => !s.lekki).length ? "✗ Melodia jeszcze nie ta."
+      : `Prawie. ${zle.length === 1 ? "Jeden kawałek" : zle.length + " kawałki"} do poprawki.`;
+    return { cls: zle.length ? (zle.length < ile ? "mid" : "bad") : "ok", ok: !zle.length,
+      html: `<div>${esc((zle.length ? info.zle : info.ok) || head)}</div>` + wykresGlosu(res.wys, oc) + (ile > 1 ? `<div class="ocena">${syl.map(chip).join("")}</div>` : "") + rada };
   }
 
   // ---- głos systemowy: strony zgłaszają go tu (po nim odstęp przed mikrofonem) ----
@@ -763,6 +934,14 @@
   // Whisper czasem zapętla się na krótkim nagraniu (徐徐徐徐徐徐): kawałek 1–3 znaków 4+ razy pod rząd, a w celu tego nie ma
   const zapetla = /(.{1,3})\1{3,}/u;
   const zaciete = (t, cel) => zapetla.test(strip(t)) && !zapetla.test(strip(cel || ""));
+  // ćwiczenie melodii nie potrzebuje Whispera, ale próba i jej ocena idą do workera (KV „nagranie:”, 7 dni), żeby dało się
+  // sprawdzić ocenę na prawdziwym głosie; bez czekania na odpowiedź
+  function zapiszProbe(n, opts, ocena) {
+    const c = cfg(); if (!c.url || !c.klucz || !n || !n.chunks.length) return;
+    const oc = ocena ? ocena.sylaby.map(x => x.ton + (x.ok ? "ok" : "zle" + x.jak)).join(" ") : "brak";
+    fetch(c.url + "/wymowa?zapis=1&cel=" + encodeURIComponent(celZ(opts)) + "&strona=" + encodeURIComponent(location.pathname) + "&ocena=" + encodeURIComponent(oc),
+      { method: "POST", headers: { "Authorization": "Bearer " + c.klucz, "Content-Type": "audio/wav" }, body: wav16k(n.chunks, n.rate) }).catch(e => diag("zapis próby: " + e.message));
+  }
   async function whisper(n, cel) {
     const c = cfg(), t0 = Date.now();
     const r = await fetch(c.url + "/wymowa?cel=" + encodeURIComponent(cel || "") + "&strona=" + encodeURIComponent(location.pathname), { method: "POST", headers: { "Authorization": "Bearer " + c.klucz, "Content-Type": "audio/wav" }, body: wav16k(n.chunks, n.rate) });
@@ -965,6 +1144,14 @@
     if (porzuc || !g.n) { fin(null); return; }
     const lv = poziom(g.n);
     diag("chmura stop: " + heldMs + " ms, szczyt=" + lv.szczyt.toFixed(3) + " rms=" + lv.rms.toFixed(4));
+    if (g.opts.tylkoGlos) {                     // ćwiczenie melodii: ocena z linii głosu, bez rozpoznawania mowy
+      let ocena = null;
+      try { const tony = wartosc(g.opts.tony); if (wys && lv.glos && tony) ocena = ocenTony(Float32Array.from(wys.ty), tony, wys.ref); } catch (e) { diag("ocena tonów: " + e.message); }
+      diag("ocena tonów: " + (ocena ? ocena.sylaby.map(x => x.ton + (x.ok ? "" : "✗" + x.jak)).join(" ") : "brak głosu"));
+      zapiszProbe(g.n, g.opts, ocena);
+      fin({ alts: [], gotFinal: false, error: null, heldMs, started: true, ocena });
+      return;
+    }
     if (!lv.glos) { fin({ alts: [], gotFinal: false, error: null, heldMs, started: true }); return; }   // Whisper na ciszy zmyśla
     przetwarzanie = true; g.btn.textContent = "⏳ rozpoznaję…";
     try {
@@ -981,7 +1168,7 @@
       if (e.isPrimary === false || (e.button && e.button > 0)) return;
       e.preventDefault(); e.stopPropagation(); try { btn.setPointerCapture(e.pointerId); } catch (err) {}
       if ((session && session.btn === btn) || (nagranie && nagranie.btn === btn)) return; // powtórny pointerdown (multi-touch)
-      if (cfg().uzyj === "chmura") chmuraStart(btn, opts); else startListening(btn, opts);
+      if (opts.tylkoGlos || cfg().uzyj === "chmura") chmuraStart(btn, opts); else startListening(btn, opts);
     };
     const up = (e) => {
       e.preventDefault(); e.stopPropagation();
@@ -996,6 +1183,6 @@
   }
 
   const W = { diag, supported: !!SR || GUM, iOS: !!IOS_VER, beforeStart: null, zapiszStan: null, bind, grade, render, strip, toPinyin, cfg, odbierzWynik, pinyinPl, podpowiedzDzwiek, podpowiedzTon, podpowiedzSylaby,
-              audioAktywne, graj, stopAudio, preload: dekoduj, kontekst, LABEL_IDLE };
+              audioAktywne, graj, stopAudio, preload: dekoduj, kontekst, LABEL_IDLE, renderTony, tonyMowione, wzorTonu, KOTWICA_TONU };
   window.Wymowa = W;
 })();

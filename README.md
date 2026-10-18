@@ -70,9 +70,22 @@ głosu, ręka), `koniec` (liczby 1–10, strona dźwięków), `pary_tonow` (20 p
 twarde „y” po z c s zh ch sh r, e, -n/-ng, r, ukryte litery -ian -iu -ui -un -ong, er, „masz za darmo”: trzy szeregi, h, ł, aj/ej/ał/oł).
 Każdy wpis: `znaki`, `pinyin`, `polski` (zapis wg konwencji notatek), `znaczenie`; build dopisuje `lekcja`, gdy słowo jest w lekcjach
 (znaczek L1/L2/L3). `build.py` (`build_wymowa`, tabela `STRONY_WYMOWY`) nagrywa mp3 (wolno i normalnie) do `tony/audio/` i `dzwieki/audio/` i składa obie strony.
-Strona: każde słowo ▶ i 🎤 (ten sam `wymowa.js`, trener tonów działa jak w lekcjach), siatka par tonów, pary słów obok siebie
-(rozpoznanie drugiego słowa z pary = osobny komunikat), ćwiczenia „Który ton?” (pojedyncze słowa, ton z pinyinu w danych),
-„Które słowo?” (pary tonów i dźwięków), „Powiedz to” (tylko słowa z ≥ 2 znaków, bo pojedyncze telefon rozpoznaje losowo).
+Strona: każde słowo ▶ i 🎤, siatka par tonów, pary słów obok siebie, ćwiczenia „Który ton?” (pojedyncze słowa, ton z pinyinu
+w danych; po odpowiedzi to słowo z mikrofonem), „Które słowo?” (pary tonów i dźwięków), „Powiedz to”.
+Na `dzwieki/` mikrofon rozpoznaje słowa jak w lekcjach (rozpoznanie drugiego słowa z pary = osobny komunikat, „Powiedz to” tylko
+słowa z ≥ 2 znaków, bo pojedyncze telefon rozpoznaje losowo).
+
+Na `tony/` mikrofon słucha tylko melodii (`Wymowa.bind(..., { tylkoGlos, tony })`): nagranie bez Whispera, ocena w przeglądarce
+z linii głosu (`ocenTony` w `wymowa.js`), więc działa też na pojedynczych sylabach i bez klucza workera. Linia dzielona na sylaby
+(cięcie w przerwie w głosie, bez przerwy w szczycie po 2. tonie albo w dołku po 3. i 4., inaczej po czasie; lekka końcówka liczy się
+za pół), z każdej sylaby środek w półtonach i kształt: równo, w górę, dołek / nisko, w dół. Ocena łagodna: „źle” tylko przy wyraźnie
+innym kształcie, z polskim słowem z notatek („ma być „Cooo?”, wyszło jak „Aaaa” u lekarza”); lekkiej końcówki nie ocenia. Tony do
+powiedzenia z pinyinu słowa ze zmianami (`Wymowa.tonyMowione`: dwa 3. pod rząd = 2. i 3.; z trzech pierwsze może być 2. albo 3.).
+Sprawdzone na nagraniach lektora ze strony (213 sylab, zero „źle”) i na tych samych nagraniach z podmienionym celem (wykrywa ok. 60%
+złych tonów; prawie nigdy: 3. powiedziany zamiast 4. i, w słowach, 4. zamiast 3.). Karty tonów: najpierw polskie słowo z notatek do mikrofonu
+na wzorze melodii (`po_polsku` w `wymowa.json`, `Wymowa.wzorTonu`), potem chińskie słowa tak samo; pod znakami melodia każdej sylaby.
+Wynik: wykres (skala z linii na wykresie, źle powiedziana sylaba na pomarańczowo) i sylaby ze znaczkiem. Próba z oceną idzie do
+workera (`/wymowa?zapis=1&ocena=`, KV „nagranie:”, 7 dni) do sprawdzania oceny na prawdziwym głosie.
 Licznik wpadek per ton/grupa w `localStorage kubus.wymowa.stat.<strona>`, lista „co ci najczęściej ucieka” linkuje do sekcji.
 Treść powstała z badania (tony i dźwięki trudne dla Polaków, metody ćwiczeń) i została sprawdzona pod kątem chińskiego i prostego polskiego.
 

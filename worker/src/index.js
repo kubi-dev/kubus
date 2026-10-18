@@ -2,6 +2,7 @@
 // GET /stan  -> aktualny stan
 // PUT /stan  -> scalenie przysłanego stanu z zapisanym (nowsza wersja karty wygrywa), zapis, zwrot scalonego
 // POST /wymowa?cel=&strona= -> rozpoznanie mowy (Whisper, Workers AI); body = plik audio (WAV), odpowiedź {text}; próba zostaje 7 dni w KV „nagranie:<czas>”
+//   &zapis=1&ocena= -> bez rozpoznawania, sam zapis próby z oceną tonów ze strony tonów
 // POST /trener -> trener wymowy (Claude): body = JSON z celem, tym co usłyszano i sylabami z tonami, odpowiedź JSON po polsku
 // Autoryzacja: nagłówek "Authorization: Bearer <TOKEN>" (sekret workera). Klucz Anthropic: sekret ANTHROPIC_API_KEY.
 
@@ -147,6 +148,12 @@ export default {
       let bin = ""; for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
       const t0 = Date.now();
       const cel = (url.searchParams.get("cel") || "").slice(0, 100), strona = (url.searchParams.get("strona") || "").slice(0, 100);
+      // ćwiczenie melodii (strona tonów): bez Whispera, tylko zapis próby z oceną tonów policzoną w przeglądarce
+      if (url.searchParams.get("zapis") === "1") {
+        const ocena = (url.searchParams.get("ocena") || "").slice(0, 100);
+        ctx.waitUntil(env.STAN.put("nagranie:" + new Date().toISOString(), buf, { expirationTtl: 7 * 86400, metadata: { cel, text: "", ocena, strona, ms: 0 } }).catch(() => {}));
+        return json({ ok: true });
+      }
       try {
         // Podpowiedź = zwrot z karty (jak słuchacz, który wie, o czym mowa): uproszczone znaki i mniej zmyślania.
         // Stara podpowiedź „以下是普通话的句子。” na krótkim nagraniu ucznia dawała napisy z YouTube („请不吝点赞 订阅 转发…”).

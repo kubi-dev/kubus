@@ -63,6 +63,10 @@
    "ton": 1,
    "nazwa": "1. ton (płaski i wysoki) · „Aaaa” u lekarza",
    "opis": "Znak: pozioma kreska (mā). Wyobraź sobie, że jesteś u lekarza. Prosi, żebyś otworzył usta i powiedział równe, długie, wysokie „Aaaa”. Głos nie skacze, trzyma się na jednym, wysokim poziomie.",
+   "po_polsku": {
+    "powiedz": "Aaaa",
+    "jak": "Lekarz zagląda ci do gardła. Równo i wysoko, trzymaj dwie sekundy."
+   },
    "przyklad_pl": "Lekarz zagląda ci do gardła i mówi: „Powiedz aaa”. Mówisz „Aaaa” i trzymasz, aż lekarz skończy. Głos nie skacze, nic się w nim nie zmienia. Drugi przykład: sygnał „zajęte” w telefonie, „tuuu”.",
    "jak_cwiczyc": "Wyobraź sobie lekarza. Powiedz „Aaaa” na trzy sekundy. Nie przerywaj, tylko w środku tego „Aaaa” zmień usta i powiedz „ma” (妈). Ma brzmieć, jakby lekarz dalej patrzył ci w gardło. Potem tak samo „san” (三). Potem „pa” (八). Każde jak kawałek tego samego „Aaaa”.",
    "blad_polakow": "Poznasz błąd tak: powiedz „ma, ma, ma” trzy razy. Jeśli brzmi jak polskie zdanie z kropką na końcu (ostatnie „ma” ciszej, jakby zmęczone), to źle. Wszystkie trzy mają brzmieć jak jedno „Aaaa” u lekarza, pocięte na kawałki. Drugi błąd: piszczysz, jakbyś się bał. Wysoko, ale wygodnie, jak u lekarza.",
@@ -122,6 +126,10 @@
    "ton": 2,
    "nazwa": "2. ton (wznoszący) · zdziwione „Cooo?”",
    "opis": "Znak: kreska wznosząca się w prawo (má). Brzmi dokładnie jak polskie zdziwienie, gdy o coś dopytujesz. Głos wędruje z dołu do góry. Całe słowo brzmi jak to jedno „Cooo?”.",
+   "po_polsku": {
+    "powiedz": "Cooo?",
+    "jak": "Ktoś mówi ci coś szokującego. Z prawdziwym niedowierzaniem."
+   },
    "przyklad_pl": "Ktoś mówi ci coś szokującego. Odpowiadasz z niedowierzaniem: „Cooo?”. Twój głos sam wędruje z dołu do góry. Tak samo, gdy kolega mówi, że wygrał w totka, a ty: „Serio?”.",
    "jak_cwiczyc": "Powiedz „Cooo?”, jakbyś nie wierzył w to, co słyszysz. Teraz to samo „Cooo?”, tylko z innymi literami: „laj?” (来). Teraz „mej?” (没). Teraz „paj?” (白). Za każdym razem to samo niedowierzanie, tylko inne litery.",
    "blad_polakow": "Poznasz błąd tak: powiedz „laj” i zaraz po nim „Cooo?”. Jeśli „laj” brzmi jak stwierdzenie, a dopiero „Cooo?” jak pytanie, to „laj” było jak „Aaaa” u lekarza. Za mało zdziwienia. Ma być „laj?!” z takim samym niedowierzaniem jak „Cooo?!”. Jak nie wychodzi, przesadź: „laaaj?!”.",
@@ -181,6 +189,10 @@
    "ton": 3,
    "nazwa": "3. ton (opadająco-wznoszący) · przeciągłe „Noooo…”",
    "opis": "Znak: haczyk, jak litera V (mǎ). Zaczynasz normalnie, schodzisz głosem bardzo nisko, jakbyś „dusił” dźwięk w gardle. Na sam koniec lekko odbijasz w górę. Trwa dłużej niż inne tony.",
+   "po_polsku": {
+    "powiedz": "Noooo…",
+    "jak": "Musisz się zastanowić. Przeciągle, zejdź nisko, aż dźwięk dusi się w gardle."
+   },
    "przyklad_pl": "Ktoś pyta cię o coś, a ty musisz się zastanowić. Mówisz przeciągle: „Noooo… nie wiem”. To „Noooo…” zaczyna się normalnie, schodzi nisko, aż dźwięk dusi się w gardle, a na sam koniec lekko odbija w górę.",
    "jak_cwiczyc": "1. Wyobraź sobie, że ktoś pyta cię o coś trudnego. Powiedz przeciągle „Noooo…”, jakbyś się zastanawiał. Schodź nisko, aż dźwięk zacznie się dusić w gardle. Na końcu lekko odbij w górę. Powtórz 3 razy.\n2. Teraz tak samo, ale zamiast „Noooo…” powiedz „chaaał” (好). Tak samo przeciągle, tak samo duszone w gardle.\n3. Puść nagranie 好 niżej. Brzmi tak samo? Dobrze.\n4. Tak samo „ło” (我) i „ni” (你). Każde jak to zastanowienie.\n5. Test: palce na gardle, tuż nad obojczykiem. Gdy dźwięk się dusi, czujesz tam drganie. Nic nie drga, głos gładki i czysty? To „Aaaa” u lekarza, inne słowo. Wróć do kroku 1.",
    "blad_polakow": "To najtrudniejszy ton dla Polaka, bo Polak chce powiedzieć „chał” ładnie i wyraźnie, jak w szkole. Wtedy wychodzi „Aaaa” u lekarza albo „Cooo?”. Test 1: powiedz „chał” (好) i zaraz „Cooo?”. Brzmią podobnie, jakby oba były zdziwieniem? Źle. „chał” ma najpierw zejść nisko, jak „Noooo…”. Test 2: powiedz „chał” i zaraz „Aaaa” u lekarza. Oba równe i wysokie? Źle. „chał” ma być jak przeciągłe zastanowienie.",
@@ -252,6 +264,10 @@
    "ton": 4,
    "nazwa": "4. ton (opadający, krótki) · stanowcze „Nie!”",
    "opis": "Znak: kreska opadająca w prawo (mà). Krótki, ostry i zdecydowany dźwięk, który spada w dół. Brzmi jak stanowczy polski rozkaz: „Nie!” albo „Zostaw!”. Całe słowo brzmi jak to jedno „Nie!”.",
+   "po_polsku": {
+    "powiedz": "Nie!",
+    "jak": "Stanowczy rozkaz. Krótko i ostro."
+   },
    "przyklad_pl": "Pies ma już łapy na stole i sięga po kiełbasę. Mówisz stanowczo: „Nie!” albo „Zostaw!”. Krótko, ostro, bez dyskusji. Albo dziecko biegnie na ulicę: „Stój!”.",
    "jak_cwiczyc": "Wyobraź sobie, że wydajesz rozkaz. Powiedz „Nie!”. Teraz to samo „Nie!”, tylko z innymi literami: „pu!” (不). Teraz „ta!” (大). Teraz „aj!” (爱). Każde tak krótkie i stanowcze jak „Zostaw!”.",
    "blad_polakow": "Poznasz błąd tak: powiedz „pu” (不) i zaraz „Nie!”. Jeśli „Nie!” było krótsze i ostrzejsze niż „pu”, to „pu” było za miękkie. Polak mówi „pu” jak koniec spokojnego zdania: „Idę spać.”. Za łagodnie. Ma być jak rozkaz. Drugi błąd: robisz „Nie!” na końcu każdego zdania, bo po polsku tak kończysz zdanie. Sprawdź na „ni chał” (你好, cześć): „chał” ma brzmieć jak przeciągłe „Noooo…”, nie jak „Nie!”.",

@@ -115,6 +115,21 @@
   details.grupa summary::after { content: "▸"; margin-left: auto; color: var(--muted); transition: transform .15s; }
   details.grupa[open] summary::after { transform: rotate(90deg); }
   .latwe { border-style: dashed; }
+  /* karta tonu: krok po polsku, krok po chińsku, reszta opisu pod „więcej” */
+  .krok { margin-top: 10px; }
+  .krok > .lab { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
+  .popl { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "txt mic" "res res"; gap: 6px 10px; align-items: center; padding: 8px 10px; border-radius: 10px; background: var(--bg); }
+  .popl .txt { grid-area: txt; font-size: 15px; line-height: 1.4; }
+  .popl .txt b { color: var(--accent); font-size: 20px; }
+  .popl .mic { grid-area: mic; }
+  .popl .result { grid-area: res; }
+  details.wiecej { margin-top: 10px; }
+  details.wiecej summary { cursor: pointer; font-size: 13px; color: var(--accent); }
+  .w .kt { display: flex; gap: 1px; margin-top: 2px; }
+  .w .kt svg { width: 16px; height: 12px; }
+  .w .kt path { fill: none; stroke: var(--muted); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  .w .kt circle { fill: var(--muted); }
+  .w .znk { grid-area: zn; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
   [hidden] { display: none !important; }
   @media (max-width: 420px) { .odp { grid-template-columns: repeat(2, 1fr); } .para .dwa { gap: 4px; } }
 </style>
@@ -129,11 +144,12 @@
 <main>
   <h1>{{NAGLOWEK}}</h1>
   <p class="intro">{{WSTEP}} Na dole są ćwiczenia na ucho i wynik: co ci najczęściej ucieka.</p>
-  <p class="hint">Pojedyncze krótkie słowa telefon łapie słabo. Jak trzy razy nie rozpozna, nie znaczy to, że mówisz źle. Mikrofon sprawdzaj najlepiej na słowach z dwóch części.</p>
+  <p class="hint" data-tryb="tony">Mikrofon na tej stronie słucha tylko melodii, nie liter, więc działa też na pojedynczych słowach. Szara linia to lektor, niebieska to ty, kawałek na pomarańczowo wyszedł inaczej.</p>
+  <p class="hint" data-tryb="dzwieki">Pojedyncze krótkie słowa telefon łapie słabo. Jak trzy razy nie rozpozna, nie znaczy to, że mówisz źle. Mikrofon sprawdzaj najlepiej na słowach z dwóch części.</p>
   <p class="hint" data-tryb="tony">Zapis polski: <b>ch</b> = polskie ch · <b>y</b> = polskie y · <b>ł</b> = polskie ł · <b>j</b> = polskie j · <b>p, t, k, dz</b> = jak po polsku, bez wydechu (chińskie b, d, g, z)</p>
   <p class="hint" data-tryb="dzwieki">Zapis polski: <b>ch</b> = polskie ch · <b>y</b> = polskie y · <b>ł</b> = polskie ł · <b>ü</b> = „i” z ustami ułożonymi do „u” · <b>kh, ph, th, czh, cch, ćh</b> = z mocnym wydechem · <b>dz, p, t, k</b> = bez wydechu (chińskie z, b, d, g)</p>
 
-  <section id="tony" data-tryb="tony"><h2>Tony · co robi głos</h2><p class="intro">Cztery melodie plus jedna „bez melodii”. Każdą masz w polskim, tylko nie w słowie, a w sytuacji.</p><div id="s-wstep"></div><div id="s-tony"></div></section>
+  <section id="tony" data-tryb="tony"><h2>Tony · co robi głos</h2><p class="intro">Cztery melodie plus jedna „bez melodii”. Każdą masz w polskim, tylko nie w słowie, a w sytuacji. Dlatego najpierw mówisz polskie słowo i patrzysz na swoją linię, potem chińskie tak samo.</p><div id="s-wstep"></div><div id="s-tony"></div></section>
   <section id="zmiany" data-tryb="tony"><h2>Zmiany tonów · kiedy słowo brzmi inaczej niż w słowniku</h2><div id="s-zmiany"></div></section>
   <section id="zdania" data-tryb="tony"><h2>W całym słowie i zdaniu · polskie nawyki</h2><div id="s-zdania"></div></section>
   <section id="pary" data-tryb="tony"><h2>Pary tonów · dwa słowa, jedna melodia</h2><p class="intro">Chiński mówi się parami. Wybierz parę, posłuchaj kilku słów z tą samą melodią, powtórz. <span id="pary-start"></span></p><div class="siatka" id="siatka"></div><div id="s-pary"></div></section>
@@ -203,7 +219,9 @@ Wymowa.beforeStart = () => { if (grajacy) { grajacy.classList.remove("playing");
 function wiersz(s, opts) {
   opts = opts || {};
   const d = document.createElement("div"); d.className = "w";
-  d.innerHTML = `<button class="play" type="button" aria-label="posłuchaj">▶</button><span class="zn">${esc(s.znaki)}</span>
+  // na stronie tonów pod znakami melodia każdej sylaby (tak, jak się ją mówi: 你好 = „Cooo?” „Noooo…”)
+  const kt = TRYB === "tony" ? `<span class="kt">${Wymowa.tonyMowione(s.znaki, s.pinyin).map(t => svgTon([].concat(t)[0])).join("")}</span>` : "";
+  d.innerHTML = `<button class="play" type="button" aria-label="posłuchaj">▶</button><span class="znk"><span class="zn">${esc(s.znaki)}</span>${kt}</span>
     <span class="info"><span class="py">${esc(s.pinyin)}</span>${s.polski ? ` · <span class="ppl">${esc(s.polski)}</span>` : ""}<br><span class="mn">${esc(s.znaczenie)}</span>${s.lekcja ? `<span class="lek" title="znasz z lekcji ${s.lekcja}">L${s.lekcja}</span>` : ""}</span>
     ${opts.bezMic ? "" : `<button class="mic" type="button"></button><div class="result" hidden></div>`}`;
   d.addEventListener("click", (e) => { if (e.target.closest(".mic, .result")) return; graj(s.znaki, d); });
@@ -211,6 +229,7 @@ function wiersz(s, opts) {
   return d;
 }
 function bindMic(btn, out, target, para, s) {
+  if (TRYB === "tony") { bindMelodia(btn, out, s || { znaki: target }); return; }
   Wymowa.bind(btn, {
     target: () => target,
     audio: () => AUDIO[target] ? "audio/" + AUDIO[target] + ".mp3" : "",
@@ -225,9 +244,46 @@ function bindMic(btn, out, target, para, s) {
       if (r.grade && r.grade.level !== "none") zapiszStat(para ? "mowa" : "mowa", r.grade.level === "exact");
     }
   });
-  btn.textContent = "🎤 mów";
-  const obs = new MutationObserver(() => { if (btn.textContent === Wymowa.LABEL_IDLE) btn.textContent = "🎤 mów"; });
+  etykieta(btn, "🎤 mów");
+}
+function etykieta(btn, tekst) {
+  btn.textContent = tekst;
+  const obs = new MutationObserver(() => { if (btn.textContent === Wymowa.LABEL_IDLE) btn.textContent = tekst; });
   obs.observe(btn, { childList: true, characterData: true, subtree: true });
+}
+// strona tonów: mikrofon słucha samej melodii (bez rozpoznawania słów), ocena sylaba po sylabie z linii głosu
+function bindMelodia(btn, out, s) {
+  Wymowa.bind(btn, {
+    tylkoGlos: true,
+    target: () => s.znaki,
+    tony: () => Wymowa.tonyMowione(s.znaki, s.pinyin),
+    audio: () => AUDIO[s.znaki] ? "audio/" + AUDIO[s.znaki] + ".mp3" : "",
+    ekran: () => ({ polski: s.polski, pinyin: s.pinyin, znaczenie: s.znaczenie }),
+    onDone: (res) => {
+      if (!res) return;
+      const r = Wymowa.renderTony(res, { znaki: s.znaki, polski: s.polski });
+      out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
+      if (res.ocena) for (const x of res.ocena.sylaby) if (!x.lekki && !x.brak) zapiszStat("ton" + x.ton, x.ok);
+    }
+  });
+  etykieta(btn, "🎤 mów");
+}
+// najpierw po polsku: to samo polskie słowo z notatek, linia rysuje się na wzorze melodii (bez nagrania lektora)
+function bindPoPolsku(btn, out, t) {
+  const pp = t.po_polsku;
+  Wymowa.bind(btn, {
+    tylkoGlos: true,
+    target: () => pp.powiedz,
+    tony: () => [t.ton],
+    wzor: () => Wymowa.wzorTonu(t.ton),
+    ekran: () => ({ polski: "„" + pp.powiedz + "”", znaczenie: pp.jak }),
+    onDone: (res) => {
+      if (!res) return;
+      const r = Wymowa.renderTony(res, { ok: `✓ Tak brzmi „${pp.powiedz}”. Teraz tak samo po chińsku, niżej.`, zle: `To jeszcze nie „${pp.powiedz}”. ${pp.jak}` });
+      out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
+    }
+  });
+  etykieta(btn, "🎤 powiedz");
 }
 function para(p, klucz) {
   const d = document.createElement("div"); d.className = "para";
@@ -245,9 +301,14 @@ function blokEsc(lab, tekst) { return blok(lab, esc(tekst), true); }
   const root = $("s-tony"); if (!root) return;
   for (const t of DATA.tony) {
     const c = document.createElement("div"); c.className = "card"; c.id = "ton-" + t.ton;
+    const pp = t.po_polsku;
     c.innerHTML = `<h3>${svgTon(t.ton, "big")}<span>${esc(t.nazwa)}</span></h3><div class="opis">${esc(t.opis)}</div>` +
-      blokEsc("Po polsku brzmi tak", t.przyklad_pl) + blokEsc("Zrób tak", t.jak_cwiczyc) +
-      (t.blad_polakow ? `<div class="blad"><b>Na co uważać:</b> ${esc(t.blad_polakow)}</div>` : "") + `<div class="slowa"></div>`;
+      (pp ? `<div class="krok"><span class="lab">1. Najpierw po polsku</span><div class="popl"><div class="txt">Powiedz <b>„${esc(pp.powiedz)}”</b><br>${esc(pp.jak)}</div>` +
+        `<button class="mic" type="button"></button><div class="result" hidden></div></div></div>` : "") +
+      `<div class="krok"><span class="lab">${pp ? "2. Teraz tak samo po chińsku" : "Posłuchaj i powiedz"}</span><div class="slowa"></div></div>` +
+      `<details class="wiecej"><summary>Więcej o tym tonie</summary>` + blokEsc("Po polsku brzmi tak", t.przyklad_pl) + blokEsc("Zrób tak", t.jak_cwiczyc) +
+      (t.blad_polakow ? `<div class="blad"><b>Na co uważać:</b> ${esc(t.blad_polakow)}</div>` : "") + `</details>`;
+    if (pp) bindPoPolsku(c.querySelector(".popl .mic"), c.querySelector(".popl .result"), t);
     const sl = c.querySelector(".slowa"); for (const s of t.slowa) sl.appendChild(wiersz(s));
     root.appendChild(c);
   }
@@ -356,7 +417,7 @@ $("tryby").addEventListener("click", (e) => {
   const b = e.target.closest("button"); if (!b) return;
   tryb = b.dataset.t; for (const x of $("tryby").children) x.classList.toggle("on", x === b);
   runda = { n: 0, ok: 0 }; $("q-body").innerHTML = ""; $("q-fb").textContent = ""; $("q-wynik").textContent = ""; $("q-start").hidden = false; $("q-dalej").innerHTML = "";
-  $("q-pyt").textContent = tryb === "ton" ? "Usłyszysz jedno słowo. Który to ton?" : tryb === "para" ? "Usłyszysz jedno z dwóch słów. Które?" : "Zobaczysz słowo. Powiedz je do mikrofonu.";
+  $("q-pyt").textContent = tryb === "ton" ? "Usłyszysz jedno słowo. Który to ton?" : tryb === "para" ? "Usłyszysz jedno z dwóch słów. Które?" : "Zobaczysz słowo. Powiedz je do mikrofonu i zobacz swoją linię.";
 });
 $("q-pyt").textContent = tryb === "ton" ? "Usłyszysz jedno słowo. Który to ton?" : "Usłyszysz jedno z dwóch słów. Które?";
 $("q-start").addEventListener("click", () => { $("q-start").hidden = true; nastepne(); });
@@ -376,8 +437,9 @@ function nastepne() {
       runda.n++; if (ok) runda.ok++; zapiszStat("ton" + s.ton, ok); wynikRundy();
       $("q-fb").className = "fb " + (ok ? "ok" : "bad");
       $("q-fb").innerHTML = (ok ? "✓ Tak. " : `✗ To był ${s.ton}. ton, jak ${KOTWICA[s.ton] || ""}. `) + `<b>${esc(s.znaki)}</b> ${esc(s.pinyin)} · ${esc(s.polski || "")} · ${esc(s.znaczenie)}`;
-      $("q-dalej").innerHTML = `<button class="btn" id="q-powt" type="button">🔊 posłuchaj</button> <button class="btn main" id="q-next" type="button">dalej ▶</button>`;
-      $("q-powt").addEventListener("click", () => graj(s.znaki)); $("q-next").addEventListener("click", nastepne);
+      $("q-dalej").innerHTML = `<button class="btn main" id="q-next" type="button">dalej ▶</button>`;
+      const w = wiersz(s); w.style.textAlign = "left"; w.style.marginTop = "8px"; body.appendChild(w);   // posłuchaj i powiedz sam, z linią
+      $("q-next").addEventListener("click", nastepne);
     });
   } else if (tryb === "para") {
     // "jedna grupa naraz": jeśli jakaś grupa dźwięków jest otwarta, pary tylko z niej
@@ -399,9 +461,9 @@ function nastepne() {
       $("q-next").addEventListener("click", nastepne);
     });
   } else {
-    // tylko słowa z dwóch i więcej części: pojedyncze telefon rozpoznaje losowo
-    const s = biezace = los(DLUZSZE);
-    body.innerHTML = `<div class="hint">Najpierw powiedz sam, potem sprawdź nagraniem.</div>`;
+    // dźwięki: tylko słowa z dwóch i więcej części (pojedyncze telefon rozpoznaje losowo); tony: wszystkie, bo liczy się sama melodia
+    const s = biezace = los(TRYB === "tony" ? JEDNO.concat(DLUZSZE) : DLUZSZE);
+    body.innerHTML = `<div class="hint">${TRYB === "tony" ? "Popatrz na melodię pod znakami i powiedz sam. Potem posłuchaj i powiedz jeszcze raz." : "Najpierw powiedz sam, potem sprawdź nagraniem."}</div>`;
     const w = wiersz(s); w.style.textAlign = "left"; body.appendChild(w);
     $("q-dalej").innerHTML = `<button class="btn main" id="q-next" type="button">dalej ▶</button>`;
     $("q-next").addEventListener("click", nastepne);
