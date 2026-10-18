@@ -1451,6 +1451,32 @@
   "obrazek": null
  },
  {
+  "id": "你周末过得好吗？",
+  "znaki": "你周末过得好吗？",
+  "pinyin": "Nǐ zhōumò guò de hǎo ma?",
+  "polski": "ni czoł-mo kło da chał ma",
+  "doslownie": "ty · weekend · spędzać · (jak) · dobry · (pytanie)",
+  "znaczenie": "How was your weekend? · Udał ci się weekend?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/7776bc0dd2",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你周末过得怎么样？",
+  "znaki": "你周末过得怎么样？",
+  "pinyin": "Nǐ zhōumò guò de zěnmeyàng?",
+  "polski": "ni czoł-mo kło da dzen-ma-jang",
+  "doslownie": "ty · weekend · spędzać · (jak) · jak",
+  "znaczenie": "How was your weekend? · Jak minął ci weekend?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/125866bc1e",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "不好。",
   "znaki": "不好。",
   "pinyin": "Bù hǎo.",
