@@ -291,7 +291,7 @@ function bindPoPolsku(btn, out, t) {
 // krok po polsku z ćwiczeń „z góry / z dołu”: polskie słowa z notatek na wzorze z wysokością (środek = twój zwykły głos)
 function bindKrok(btn, out, k) {
   Wymowa.bind(btn, {
-    tylkoGlos: true, wysokosc: true, bezZwyklego: true,
+    tylkoGlos: true, wysokosc: true,
     target: () => k.powiedz,
     tony: () => k.tony,
     wzor: () => Wymowa.wzorLinii(k.wzor, k.ramki),
@@ -374,6 +374,7 @@ function startGlosu(res) {
   return { start, podjazd: szczyt - start, koniec: st(med(v.slice(-Math.max(3, Math.round(v.length * 0.2))))) };
 }
 const KROTKO = "Za krótko. Trzymaj głos dłużej, ze dwie sekundy.";
+const BEZ_ZWYKLEGO = "Nie znam jeszcze twojego zwykłego głosu. Najpierw powiedz „Aaaa” zwykle (pierwszy guzik w „Głosem: trzy miejsca”).";
 function wynikGlosu(out, res, ok, rada, okTxt, zleTxt) {
   if (res && res.ocena) Object.assign(res.ocena.sylaby[0], { ok, jak: 0, rada });
   const r = Wymowa.renderTony(res, { polski: " ", wysokosc: true, ok: okTxt, zle: zleTxt });
@@ -394,7 +395,7 @@ function wynikGlosu(out, res, ok, rada, okTxt, zleTxt) {
     $("wn-poziomy").appendChild(d);
     const out = d.querySelector(".result");
     Wymowa.bind(d.querySelector(".mic"), {
-      tylkoGlos: true, wysokosc: true, bezZwyklego: p.st !== 0,
+      tylkoGlos: true, wysokosc: true, zwykly: p.st === 0,
       target: () => p.powiedz + " " + p.nazwa, tony: () => [1],
       wzor: () => Wymowa.wzorLinii([[0, p.st], [1, p.st]], 120),
       ekran: () => ({ polski: "„" + p.powiedz + "” " + p.nazwa }),
@@ -402,7 +403,8 @@ function wynikGlosu(out, res, ok, rada, okTxt, zleTxt) {
         if (!res) return;
         const w = wysokoscGlosu(res, 0.15, 0.85);
         if (!w) { wynikGlosu(out, res, false, KROTKO); return; }
-        if (!w.ref || p.st === 0) { wynikGlosu(out, res, true, "", "✓ Zapamiętałem twój zwykły głos. To środkowa linia na wykresie. Teraz „wysoko” i „nisko”."); return; }
+        if (!w.ref && p.st !== 0) { wynikGlosu(out, res, false, BEZ_ZWYKLEGO, "", "✗ Najpierw zwykły głos."); return; }
+        if (p.st === 0) { wynikGlosu(out, res, true, "", "✓ Zapamiętałem twój zwykły głos. To środkowa linia na wykresie. Teraz „wysoko” i „nisko”."); return; }
         const gdzie = w.st >= 3.5 ? 1 : w.st <= -2 ? -1 : 0, cel = Math.sign(p.st), dobrze = gdzie === cel && w.st < 15;
         const rada = w.st >= 15 ? "To już pisk. Trochę niżej: tam, gdzie kończy się zwykłe zdziwione „Cooo?”."
           : cel > 0 ? "Wyszło " + NAZWA[gdzie] + ". Wyżej: powiedz „Cooo?” i ciągnij „Aaaa” tam, gdzie „Cooo?” się skończyło. Głośniej nie pomoże."
@@ -419,7 +421,7 @@ function wynikGlosu(out, res, ok, rada, okTxt, zleTxt) {
     $("wn-start").appendChild(d);
     const out = d.querySelector(".result");
     Wymowa.bind(d.querySelector(".mic"), {
-      tylkoGlos: true, wysokosc: true, bezZwyklego: true,
+      tylkoGlos: true, wysokosc: true,
       target: () => k.powiedz, tony: () => [k.spadek ? 4 : 1],
       wzor: () => Wymowa.wzorLinii(k.wzor, k.ramki),
       ekran: () => ({ polski: "„" + k.powiedz + "”" }),
@@ -427,6 +429,7 @@ function wynikGlosu(out, res, ok, rada, okTxt, zleTxt) {
         if (!res) return;
         const s = startGlosu(res);
         if (!s) { wynikGlosu(out, res, false, KROTKO); return; }
+        if (!res.wys.ref) { wynikGlosu(out, res, false, BEZ_ZWYKLEGO, "", "✗ Najpierw zwykły głos."); return; }
         const rada = s.podjazd >= 1.5 ? "Podjechałeś od dołu: głos zaczął się niżej i dopiero potem wszedł w górę. Najpierw „hhh”, a głos od razu na górze, jak krótkie „Hej!”."
           : s.start < 3.5 ? "Zacząłeś za nisko, prawie zwykłym głosem. Usłysz w głowie koniec zdziwionego „Cooo?” i dopiero wtedy zacznij, od razu tam."
           : k.spadek && s.start - s.koniec < 5 ? "Start był dobry, na górze. Teraz na końcu zejdź niżej, tam, gdzie kończy się „Noooo…”." : "";

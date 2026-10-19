@@ -38,8 +38,15 @@ szara linia lektora i twoja niebieska rysowana na żywo. Strony podają treść 
 karta „powiedz po chińsku”: tylko znaczenie i wykres (`bezWymowy`), bo wymowa zdradziłaby odpowiedź. Po puszczeniu
 wraca zwykły ekran, a pod wynikiem jest ten sam wykres (obie linie rozciągnięte na całą szerokość, liczy się kształt). Wysokość liczy `wymowa.js` w przeglądarce (YIN na 16 kHz, ramka 25 ms co 10 ms),
 z tego samego nagrania getUserMedia co Whisper; linię lektora z mp3 karty (strony podają `audio` w `Wymowa.bind`).
+Każda ramka daje kilku kandydatów (dołki YIN), a `linia()` wybiera z nich ciągłą ścieżkę (Viterbi: głębokie dołki, bez skoków).
+Pojedyncza ramka, zwłaszcza pierwsza po wejściu głosu, często myli się o oktawę. Stary pomiar poprawiał każdą ramkę względem
+poprzedniej, więc zły początek przesuwał całą linię o oktawę: na próbach usera z 19.10.2026 było to 20% ramek i 7 z 51 startów.
+Nowy pomiar porównany z Praatem: 0,1% ramek z błędem ponad 2 półtony, 0 złych startów, u lektora 0,0%. Ocena tonów na nagraniach lektora
+bez zmian (zero fałszywych „źle”, ok. 64% podmienionych tonów wyłapane). Całych kawałków nie przesuwamy o oktawę, bo 4. ton lektorki naprawdę tyle spada.
 Półtony względem środka głosu mówiącego, więc niski męski głos i wysoki lektorki dają porównywalne kształty.
-Typowa wysokość twojego głosu w `localStorage kubus.wymowa.glos` (stała linia od pierwszej chwili mówienia).
+Twój zwykły głos: `localStorage kubus.wymowa.glosy`, mediana z ostatnich 9 prób (stała linia od pierwszej chwili mówienia). Uczy się z mowy
+(lekcje, powtórka) i z „Aaaa” zwykle (`zwykly` w `Wymowa.bind`); inne ćwiczenia melodii (`tylkoGlos`) nie, bo są celowo wysoko albo nisko.
+Stary klucz `kubus.wymowa.glos` (wysokie ćwiczenia i linie o oktawę obok wywindowały go ze 100 do ok. 230 Hz) jest kasowany.
 
 ## Podcast
 Strona `podcast/`: odcinek do każdej lekcji (`lekcje/NN/podcast.mp3`) i zbiorczy ze wszystkich zwrotów (`podcast/wszystko.mp3`).
@@ -88,7 +95,7 @@ Wynik: wykres (skala z linii na wykresie, źle powiedziana sylaba na pomarańczo
 workera (`/wymowa?zapis=1&ocena=`, KV „nagranie:”, 7 dni) do sprawdzania oceny na prawdziwym głosie.
 Sekcja „Wysoko i nisko” na początku (`wysoko_nisko` w `wymowa.json`): czym jest wysoko i nisko (tylko na polskich słowach z notatek: koniec „Cooo?” = wysoko, koniec „Noooo…” = nisko, „poproszę bułkę” = zwykle),
 „Aaaa” na trzech wysokościach (zwykle / wysoko ≥ 3,5 półtona / nisko ≤ −2 półtony względem zwykłego głosu) i „Start od razu na górze”
-(„Hej!”, „Heeej!”, „Nie!”: wydech „hhh” przed słowem, usłyszeć koniec „Cooo?” w głowie; mikrofon łapie podjeżdżanie od dołu, `startGlosu`). Próby celowo wysoko lub nisko (`bezZwyklego` w `Wymowa.bind`) nie zmieniają zapamiętanego zwykłego głosu.
+(„Hej!”, „Heeej!”, „Nie!”: wydech „hhh” przed słowem, usłyszeć koniec „Cooo?” w głowie; mikrofon łapie podjeżdżanie od dołu, `startGlosu`). Bez zapamiętanego zwykłego głosu „wysoko”, „nisko” i „Start od razu na górze” nie oceniają, tylko odsyłają do „Aaaa” zwykle.
 Sekcja „Nie!” z góry, „Noooo…” z dołu (`trudne_tony` w `wymowa.json`): kroki po polsku („Cooo? Nie!”, „Nie!”, „Nie! Noooo…”,
 „Noooo…”, wzór z punktów `wzor`/`ramki` przez `Wymowa.wzorLinii`), potem chińskie pary 2-4 / 4-3 i pojedyncze słowa. Mikrofon z opcją
 `wysokosc` ocenia oprócz kształtu wysokość względem twojego zwykłego głosu (`Wymowa.wysokoscTonow`): 4. ton ma zacząć ≥ 4 półtony

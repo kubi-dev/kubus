@@ -20,7 +20,8 @@
 //   Wymowa.bind(btn, { target: () => "朋友", audio: () => "audio/x.mp3", onStart(), onInterim(text), onDone(result) });
 //     audio = nagranie lektora (normalne tempo): z niego linia wysokości głosu, na której rysuje się twoja
 //     tylkoGlos: true = ćwiczenie melodii: samo nagranie, bez rozpoznawania; tony: () => [2, 3] (Wymowa.tonyMowione) = co oceniać,
-//       wynik ma pole ocena (Wymowa.renderTony); wzor: () => Wymowa.wzorTonu(2) = linia celu zamiast nagrania lektora
+//       wynik ma pole ocena (Wymowa.renderTony); wzor: () => Wymowa.wzorTonu(2) = linia celu zamiast nagrania lektora;
+//       zwykly: true = ta próba uczy zwykłego głosu (inne ćwiczenia melodii nie, mowa z lekcji zawsze)
 //     ekran: () => ({ polski, pinyin, znaczenie, bezWymowy }) = co widać nad guzikiem w trakcie mówienia (bezWymowy: bez polskiej wymowy i melodii)  wynik wstępny moduł pokazuje w przycisku; strony nie ruszają układu w trakcie mówienia
 //   Wymowa.graj(url, { onEnd(przerwane) }) -> Promise<bool>;  Wymowa.stopAudio();  Wymowa.preload(url)
 //   result = { alts: [...], gotFinal, error, heldMs, started, wys: { ty: [Hz], cel: [Hz] | null, ref }, ocena (tylkoGlos) }
@@ -498,40 +499,74 @@
   // ---- wysokość głosu: linia lektora (z mp3) i twoja (z mikrofonu, rysowana na żywo) ----
   // YIN na 16 kHz, ramka 25 ms co 10 ms. Linie w półtonach względem mediany mówiącego: liczy się kształt, nie to, czy głos niski.
   const F0_RATE = 16000, F0_WIN = 400, F0_TMIN = Math.floor(F0_RATE / 500), F0_TMAX = Math.ceil(F0_RATE / 70), F0_D = new Float32Array(F0_TMAX + 2);
-  const KLUCZ_GLOS = "kubus.wymowa.glos";   // typowa wysokość twojego głosu (Hz): stała linia od pierwszej chwili mówienia
+  // twój zwykły głos (Hz): mediana z ostatnich 9 prób (środek linii każdej), więc jedna dziwna próba go nie przesuwa.
+  // Stary klucz „kubus.wymowa.glos” był liczony z linii, która potrafiła być o oktawę obok, więc idzie do kosza.
+  const KLUCZ_GLOS = "kubus.wymowa.glosy";
+  try { localStorage.removeItem("kubus.wymowa.glos"); } catch (e) {}
+  function glosy() { try { const a = JSON.parse(localStorage.getItem(KLUCZ_GLOS) || "[]"); return Array.isArray(a) ? a.filter(x => x > 0) : []; } catch (e) { return []; } }
   function do16k(x, rate) {
     const ratio = rate / F0_RATE, n = Math.floor(x.length / ratio), out = new Float32Array(n);
     for (let i = 0; i < n; i++) { const a = Math.floor(i * ratio), b = Math.max(a + 1, Math.floor((i + 1) * ratio)); let s = 0; for (let j = a; j < b; j++) s += x[j]; out[i] = s / (b - a); }
     return out;
   }
-  function f0Ramka(x, o) {                    // Hz albo 0 (cisza, szum, spółgłoska bez głosu)
+  // kandydaci z ramki: dołki krzywej YIN (do 5 najgłębszych), [] = cisza, szum albo spółgłoska bez głosu. Który dołek to
+  // prawdziwy ton, rozstrzyga dopiero linia(): pojedyncza ramka (zwłaszcza pierwsza po wejściu głosu) często myli się o oktawę
+  function kandydaci(x, o) {
     let e = 0; for (let i = 0; i < F0_WIN; i++) e += x[o + i] * x[o + i];
-    if (e / F0_WIN < 1e-4) return 0;          // rms < 0,01: szum w cichym pokoju to ~0,007
+    if (e / F0_WIN < 1e-4) return [];         // rms < 0,01: szum w cichym pokoju to ~0,007
     const d = F0_D; let suma = 0; d[0] = 1;
     for (let t = 1; t <= F0_TMAX + 1; t++) {
       let s = 0; for (let i = 0; i < F0_WIN; i++) { const r = x[o + i] - x[o + i + t]; s += r * r; }
       suma += s; d[t] = suma ? s * t / suma : 1;
     }
-    // pierwszy dołek poniżej 0,2; bez niego najgłębszy, jeśli wyraźny (szybko opadający ton 4. psuje okresowość w ramce)
-    let t = F0_TMIN;
-    for (; t <= F0_TMAX; t++) if (d[t] < 0.2) { while (t < F0_TMAX && d[t + 1] < d[t]) t++; break; }
-    if (t > F0_TMAX) { t = F0_TMIN; for (let u = F0_TMIN + 1; u <= F0_TMAX; u++) if (d[u] < d[t]) t = u; if (d[t] > 0.65) return 0; }
-    const a = d[t - 1], b = d[t], c = d[t + 1], m = a - 2 * b + c;
-    return F0_RATE / (t + (m > 0 ? (a - c) / (2 * m) : 0));
-  }
-  function f0Ciagu(x) { const hz = []; for (let o = 0; o + F0_WIN + F0_TMAX + 1 <= x.length; o += 160) hz.push(f0Ramka(x, o)); return hz; }
-  const mediana = a => { const v = Array.from(a).filter(x => x > 0).sort((p, q) => p - q); return v.length ? v[v.length >> 1] : 0; };
-  // mediana z 5 ramek, kawałki krótsze niż 40 ms wypadają, skoki o oktawę (typowy błąd pomiaru) wracają na miejsce
-  function wygladz(hz) {
-    const n = hz.length, out = new Float32Array(n);
-    for (let i = 0; i < n; i++) { if (!hz[i]) continue; const w = []; for (let j = i - 2; j <= i + 2; j++) if (j >= 0 && j < n && hz[j]) w.push(hz[j]); w.sort((p, q) => p - q); out[i] = w[w.length >> 1]; }
-    for (let i = 0; i < n;) { if (!out[i]) { i++; continue; } let j = i; while (j < n && out[j]) j++; if (j - i < 4) out.fill(0, i, j); i = j; }
-    // oktawa względem poprzedniej ramki z głosem, nie mediany: 4. ton potrafi zjechać o całą oktawę
-    for (let i = 0, prev = 0, gdzie = -99; i < n; i++) if (out[i]) {
-      if (prev && i - gdzie < 10) { if (out[i] > prev * 1.7) out[i] /= 2; else if (out[i] < prev / 1.7) out[i] *= 2; }
-      prev = out[i]; gdzie = i;
+    let k = [];
+    for (let t = F0_TMIN; t <= F0_TMAX; t++) if (d[t] < 0.6 && d[t] < d[t - 1] && d[t] <= d[t + 1]) {
+      const a = d[t - 1], b = d[t], c = d[t + 1], m = a - 2 * b + c;
+      k.push({ t: t + (m > 0 ? (a - c) / (2 * m) : 0), d: b });
     }
-    return out;
+    k.sort((p, q) => p.d - q.d); k = k.slice(0, 5);
+    // okres 2 albo 3 razy dłuższy niż inny wyraźny dołek to zwykle ton o oktawę za nisko: mała kara (ciągłość i tak wygrywa)
+    const pod = c => k.some(o => o !== c && o.d < 0.45 && (Math.abs(c.t / o.t - 2) < 0.1 || Math.abs(c.t / o.t - 3) < 0.15));
+    return k.map(c => ({ hz: F0_RATE / c.t, d: c.d + (pod(c) ? 0.15 : 0) }));
+  }
+  function kandCiagu(x) { const k = []; for (let o = 0; o + F0_WIN + F0_TMAX + 1 <= x.length; o += 160) k.push(kandydaci(x, o)); return k; }
+  const mediana = a => { const v = Array.from(a).filter(x => x > 0).sort((p, q) => p - q); return v.length ? v[v.length >> 1] : 0; };
+  const odl = (p, q) => Math.abs(12 * Math.log2(p / q));
+  // linia głosu (Hz, 0 = brak głosu) z kandydatów: w każdym ciągu ramek z głosem wybór ścieżki (Viterbi) o najgłębszych
+  // dołkach i bez skoków (do 0,7 półtona na 10 ms za darmo, dalej kara), więc błąd o oktawę w jednej ramce nie przestawia
+  // linii, a cała linia nie idzie za złym początkiem. Potem: skok > 4 półtony = przerwa, kawałki krótsze niż 50 ms wypadają,
+  // mediana z 5 ramek w kawałku. Bez przesuwania całych kawałków o oktawę: 4. ton lektorki naprawdę spada o oktawę.
+  function linia(kand) {
+    const n = kand.length, out = new Float32Array(n), sm = new Float32Array(n);
+    for (let a = 0; a < n;) {
+      if (!kand[a].length) { a++; continue; }
+      let b = a; while (b < n && kand[b].length) b++;
+      let koszt = kand[a].map(c => c.d); const skad = [null];
+      for (let i = a + 1; i < b; i++) {
+        const pk = kand[i - 1], nk = [], sk = [];
+        for (const c of kand[i]) {
+          let best = Infinity, bj = 0;
+          for (let j = 0; j < pk.length; j++) { const v = koszt[j] + 0.08 * Math.max(0, odl(c.hz, pk[j].hz) - 0.7); if (v < best) { best = v; bj = j; } }
+          nk.push(best + c.d); sk.push(bj);
+        }
+        koszt = nk; skad.push(sk);
+      }
+      let j = koszt.indexOf(Math.min(...koszt));
+      for (let i = b - 1; i >= a; i--) { out[i] = kand[i][j].hz; if (i > a) j = skad[i - a][j]; }
+      a = b;
+    }
+    for (let i = 0; i < n;) {
+      if (!out[i]) { i++; continue; }
+      let j = i + 1; while (j < n && out[j] && odl(out[j], out[j - 1]) <= 4) j++;
+      if (j - i < 5) out.fill(0, i, j);
+      i = j;
+    }
+    for (let i = 0; i < n; i++) {
+      if (!out[i]) continue;
+      const w = []; for (let j = i - 2; j <= i + 2; j++) if (j >= 0 && j < n && out[j] && odl(out[j], out[i]) <= 4) w.push(out[j]);
+      w.sort((p, q) => p - q); sm[i] = w[w.length >> 1];
+    }
+    return sm;
   }
   // tylko główna wypowiedź: kawałki głosu oddzielone ciszą dłuższą niż 0,4 s to osobne grupy, zostaje ta z największą
   // liczbą ramek (stuk, oddech czy echo po słowie nie rozciągają wykresu)
@@ -559,7 +594,7 @@
   function lektor(url) {
     if (!url) return Promise.resolve(null);
     if (!liniaLektora.has(url)) {
-      liniaLektora.set(url, dekoduj(url).then(b => glowna(wygladz(f0Ciagu(do16k(b.getChannelData(0), b.sampleRate)))))
+      liniaLektora.set(url, dekoduj(url).then(b => glowna(linia(kandCiagu(do16k(b.getChannelData(0), b.sampleRate)))))
         .catch(e => { diag("linia lektora: " + e.message); liniaLektora.delete(url); return null; }));
       if (liniaLektora.size > MAX_BUFOROW) liniaLektora.delete(liniaLektora.keys().next().value);
     }
@@ -609,18 +644,6 @@
   // Linia dzielona na tyle kawałków, ile sylab (cięcie w przerwie w głosie blisko oczekiwanego miejsca, inaczej po czasie;
   // lekka końcówka liczy się za pół). Z każdego kawałka bierzemy środek (brzegi to przejścia między sylabami) i patrzymy
   // tylko na kształt: w górę, w dół, dołek, równo. Ocena łagodna: „źle” tylko przy wyraźnie innym kształcie.
-  function oktawy(hz) {                       // cały kawałek głosu o oktawę od reszty = błąd pomiaru, wraca na miejsce
-    const out = Float32Array.from(hz), med = mediana(out); if (!med) return out;
-    for (let i = 0; i < out.length;) {
-      if (!out[i]) { i++; continue; }
-      let j = i; while (j < out.length && out[j]) j++;
-      const m = mediana(out.subarray(i, j));
-      if (m > med * 1.7) for (let k = i; k < j; k++) out[k] /= 2;
-      else if (m < med / 1.7) for (let k = i; k < j; k++) out[k] *= 2;
-      i = j;
-    }
-    return out;
-  }
   // bez przerwy w głosie cięcie tam, gdzie kończy się poprzedni ton: po 2. na szczycie, po 3. i 4. w dołku, inaczej po czasie
   function kawalki(hz, wagi, tony) {
     let i0 = -1, i1 = -1;
@@ -689,7 +712,7 @@
   // „Noooo…” pod rząd ludzie mówią na oba sposoby); ref: typowy głos mówiącego (Hz), bez niego mediana tej linii.
   // Wynik: { h: linia po poprawce oktaw, kaw: granice sylab [od, do), sylaby: [{ ton, ok, jak, lekki }] } albo null (za mało głosu)
   function ocenTony(hz, tony, ref) {
-    const h = oktawy(hz), z = zakres(h);
+    const h = Float32Array.from(hz), z = zakres(h);
     if (!z || z.glosne < 12 || !tony || !tony.length) return null;
     const kaw = kawalki(h, tony.map(t => t === 5 ? 0.5 : 1), tony), r = ref || mediana(h);
     const c = kaw.map(([a, b, cel], i) => cechy(h, a, b, r, i > 0, i < tony.length - 1 && (cel ? "cel" : true)));
@@ -847,17 +870,18 @@
       if (w.len + x.length > w.buf.length) break;
       w.buf.set(x, w.len); w.len += x.length;
     }
-    while (w.pos + F0_WIN + F0_TMAX + 1 <= w.len) { w.hz.push(f0Ramka(w.buf, w.pos)); w.pos += 160; }
+    while (w.pos + F0_WIN + F0_TMAX + 1 <= w.len) { w.kand.push(kandydaci(w.buf, w.pos)); w.pos += 160; }
   }
   // błąd rysowania nigdy nie psuje nagrania: wtedy po prostu nie ma linii
   function glosStart(n, opts) {
     try { return glosStartDo(n, opts); } catch (e) { diag("linia głosu: " + e.message); return null; }
   }
   function glosStartDo(n, opts) {
-    // bezZwyklego: ćwiczenie celowo wysoko / nisko, więc ta próba nie zmienia zapamiętanego zwykłego głosu
-    const w = { n, idx: 0, buf: new Float32Array(F0_RATE * 32), len: 0, pos: 0, hz: [], cel: null, koniec: false, bezZwyklego: !!opts.bezZwyklego };
+    // zwykły głos uczy się z mowy (lekcje, powtórka); ćwiczenie melodii (tylkoGlos) tylko z opcją zwykly („Aaaa” zwykłym głosem),
+    // bo tony, „Fiiiiuuu” i zjazdy z góry są celowo wysoko albo nisko
+    const w = { n, idx: 0, buf: new Float32Array(F0_RATE * 32), len: 0, pos: 0, kand: [], cel: null, koniec: false, bezZwyklego: opts.tylkoGlos ? !opts.zwykly : false };
     liniaCelu(opts).then(c => { w.cel = c; }); w.wzor = !!wartosc(opts.wzor);
-    try { w.zapisany = Number(localStorage.getItem(KLUCZ_GLOS)) || 0; } catch (e) { w.zapisany = 0; }
+    w.zapisany = mediana(glosy());
     if (ekr) ekr.w = w;                       // ekran mówienia rysuje twoją linię z tego nagrania
     return w;
   }
@@ -869,7 +893,7 @@
     const kolor = getComputedStyle(cv.parentNode), P = 8;
     g.strokeStyle = kolor.getPropertyValue("--glos-siatka").trim(); g.lineWidth = 1;
     g.beginPath(); g.moveTo(P, ch / 2); g.lineTo(cw - P, ch / 2); g.stroke();
-    const ty = w && !w.koniec ? wygladz(w.hz) : [], zt = ty.length ? zakres(ty, w.zapisany || mediana(ty)) : null, zc = cel && zakres(cel, wys ? WZOR_HZ : 0);
+    const ty = w && !w.koniec ? linia(w.kand) : [], zt = ty.length ? zakres(ty, w.zapisany || mediana(ty)) : null, zc = cel && zakres(cel, wys ? WZOR_HZ : 0);
     const y = yNa(ch, P, skaluj && zc ? Math.min(ST_MAX, skalaSt(zc) * 1.3) : ST_MAX);   // z linii celu, żeby nie skakała w trakcie mówienia
     // oś czasu w ramkach: tyle, ile trwa słowo lektora (z zapasem), dłużej, gdy mówisz dłużej
     const T = Math.max(zc ? (zc.i1 - zc.i0) * 1.25 : 0, 80, zt ? ty.length - zt.i0 : 0), skala = (cw - 2 * P) / T;
@@ -884,8 +908,8 @@
     if (!w || w.koniec) return null;
     w.koniec = true;
     try { doczytaj(w); } catch (e) { return null; }
-    const ty = glowna(wygladz(w.hz)), z = zakres(ty), med = mediana(ty);
-    if (z && z.glosne >= 10 && !w.bezZwyklego) { try { localStorage.setItem(KLUCZ_GLOS, String(Math.round(w.zapisany ? w.zapisany * 0.7 + med * 0.3 : med))); } catch (e) {} }
+    const ty = glowna(linia(w.kand)), z = zakres(ty), med = mediana(ty);
+    if (z && z.glosne >= 10 && !w.bezZwyklego) { try { localStorage.setItem(KLUCZ_GLOS, JSON.stringify(glosy().concat(Math.round(med)).slice(-9))); } catch (e) {} }
     return { ty: Array.from(ty), cel: w.cel ? Array.from(w.cel) : null, ref: w.zapisany || 0, wzor: w.wzor };
   }
   // wykres pod wynikiem: obie linie rozciągnięte na całą szerokość, żeby porównać sam kształt
