@@ -197,15 +197,16 @@ def ensure_dwa_dzwieki(out, r):
     key = "wn-" + hashlib.md5(json.dumps(r, sort_keys=True).encode()).hexdigest()[:10]
     dest = out / "audio" / f"{key}.mp3"
     if dest.exists(): return key
+    # jasne brzmienie (12 alikwotów, łagodnie słabnących): głośnik telefonu gra głównie 1–4 kHz; szczyt głośniejszego dźwięku = 90% skali
     R, nuta, przerwa = 22050, 0.6, 0.3
+    fale = []
+    for hz, gl in zip(r["hz"], r["glosnosc"]):
+        m = int(R * nuta); fale.append([gl * min(1, i / R / 0.03, (nuta - i / R) / 0.08) * sum(math.sin(2 * math.pi * hz * h * i / R) / h ** 0.6 for h in range(1, 13) if hz * h < 5000) for i in range(m)])
+    szczyt = max(abs(v) for f in fale for v in f) or 1
     pcm = bytearray()
-    for k, (hz, gl) in enumerate(zip(r["hz"], r["glosnosc"])):
+    for k, f in enumerate(fale):
         if k: pcm += bytes(2 * int(R * przerwa))
-        m = int(R * nuta)
-        for i in range(m):
-            t = i / R; obw = min(1, t / 0.03, (nuta - t) / 0.08)
-            v = sum(math.sin(2 * math.pi * hz * h * t) / h ** 1.2 for h in range(1, 9))
-            pcm += struct.pack("<h", int(v * obw * gl * 9000))
+        for v in f: pcm += struct.pack("<h", int(v / szczyt * 29500))
     dest.parent.mkdir(exist_ok=True)
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "s16le", "-ac", "1", "-ar", str(R), "-i", "-", "-codec:a", "libmp3lame", "-b:a", "64k", str(dest)],
                    input=bytes(pcm), check=True)
