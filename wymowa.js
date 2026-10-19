@@ -833,7 +833,8 @@
     try { return glosStartDo(n, opts); } catch (e) { diag("linia głosu: " + e.message); return null; }
   }
   function glosStartDo(n, opts) {
-    const w = { n, idx: 0, buf: new Float32Array(F0_RATE * 32), len: 0, pos: 0, hz: [], cel: null, koniec: false };
+    // bezZwyklego: ćwiczenie celowo wysoko / nisko, więc ta próba nie zmienia zapamiętanego zwykłego głosu
+    const w = { n, idx: 0, buf: new Float32Array(F0_RATE * 32), len: 0, pos: 0, hz: [], cel: null, koniec: false, bezZwyklego: !!opts.bezZwyklego };
     liniaCelu(opts).then(c => { w.cel = c; }); w.wzor = !!wartosc(opts.wzor);
     try { w.zapisany = Number(localStorage.getItem(KLUCZ_GLOS)) || 0; } catch (e) { w.zapisany = 0; }
     if (ekr) ekr.w = w;                       // ekran mówienia rysuje twoją linię z tego nagrania
@@ -863,7 +864,7 @@
     w.koniec = true;
     try { doczytaj(w); } catch (e) { return null; }
     const ty = glowna(wygladz(w.hz)), z = zakres(ty), med = mediana(ty);
-    if (z && z.glosne >= 10) { try { localStorage.setItem(KLUCZ_GLOS, String(Math.round(w.zapisany ? w.zapisany * 0.7 + med * 0.3 : med))); } catch (e) {} }
+    if (z && z.glosne >= 10 && !w.bezZwyklego) { try { localStorage.setItem(KLUCZ_GLOS, String(Math.round(w.zapisany ? w.zapisany * 0.7 + med * 0.3 : med))); } catch (e) {} }
     return { ty: Array.from(ty), cel: w.cel ? Array.from(w.cel) : null, ref: w.zapisany || 0, wzor: w.wzor };
   }
   // wykres pod wynikiem: obie linie rozciągnięte na całą szerokość, żeby porównać sam kształt

@@ -1,4 +1,44 @@
 {
+ "wysoko_nisko": {
+  "opis": "Wysoko i nisko to nie głośno i cicho. Wysoki dźwięk jest cienki: głos małego dziecka, pisk myszy, gwizdek. Niski dźwięk jest gruby: niedźwiedź, basy z głośnika, lektor filmowy. Możesz krzyczeć nisko i szeptać wysoko.\nNuty i oktawy nie są ci potrzebne. Do tonów wystarczą trzy miejsca w twoim głosie: wysoko, zwykle i nisko, i umiejętność przejścia z jednego do drugiego.\n„Aaaa” u lekarza: wysoko. „Noooo…”: nisko. „Cooo?”: z dołu do góry. „Nie!”: z góry na dół.",
+  "ucho": {
+   "tytul": "1. Uszami: który dźwięk wyższy?",
+   "opis": "Usłyszysz dwa dźwięki, jeden po drugim. Który był cieńszy, jak głos dziecka? Uwaga: czasem wyższy jest cichszy. Głośniej to nie wyżej."
+  },
+  "glos": {
+   "tytul": "2. Głosem: trzy miejsca",
+   "opis": "Powiedz długie „Aaaa” na trzech wysokościach. Szara kreska to cel, środkowa linia to twój zwykły głos. Zacznij od „zwykle”: telefon zapamięta wtedy, jak mówisz na co dzień.",
+   "poziomy": [
+    {
+     "id": "zwykle",
+     "powiedz": "Aaaa",
+     "st": 0,
+     "nazwa": "zwykle",
+     "jak": "Twoim zwykłym głosem, jak „poproszę bułkę” w sklepie. Bez wysilania."
+    },
+    {
+     "id": "wysoko",
+     "powiedz": "Aaaa",
+     "st": 6,
+     "nazwa": "wysoko",
+     "jak": "Cienko, jak dziecko, które woła z daleka „mamaaa”. Wysoko, ale wygodnie, bez pisku."
+    },
+    {
+     "id": "nisko",
+     "powiedz": "Aaaa",
+     "st": -4,
+     "nazwa": "nisko",
+     "jak": "Grubo, jak niedźwiedź albo lektor filmowy. Nisko, ale bez chrypienia na siłę."
+    }
+   ]
+  },
+  "zjazd": {
+   "tytul": "3. Z góry na dół",
+   "opis": "Tego potrzebuje „Nie!”: zacząć wysoko i zjechać na dół.",
+   "powiedz": "Fiiiiuuu",
+   "jak": "Jak bomba spadająca w kreskówce: zaczynasz cienko, wysoko, i zjeżdżasz głosem coraz grubiej, aż na sam dół. Jednym ciągiem, wolno, przez dwie sekundy. Ręka zjeżdża razem z głosem."
+  }
+ },
  "wstep": [
   {
    "id": "zasada",

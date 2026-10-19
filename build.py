@@ -183,7 +183,7 @@ def build_powtorka(lessons):
 
 STRONY_WYMOWY = {
     # katalog: (klucze z wymowa.json, tytuł, nagłówek, wstęp, link w nagłówku)
-    "tony": (("wstep", "tony", "trudne_tony", "zmiany_tonow", "zdania", "pary_tonow", "minimalne_pary_tonow"), "Tony", "Tony dla Polaka",
+    "tony": (("wysoko_nisko", "wstep", "tony", "trudne_tony", "zmiany_tonow", "zdania", "pary_tonow", "minimalne_pary_tonow"), "Tony", "Tony dla Polaka",
              "Tu ćwiczysz tylko melodię słowa, a telefon rysuje ją jako linię. Wszystkie słowa na tej stronie mają dźwięki, które masz z polskiego, więc jak coś nie wychodzi, to melodia, nie dźwięk. Dotknij słowa, żeby je usłyszeć. Przytrzymaj 🎤 i mów: twoja linia rysuje się na linii lektora. Puść i zobacz, który kawałek wyszedł.",
              '<a href="../dzwieki/">dźwięki →</a>'),
     "dzwieki": (("dzwieki", "koniec"), "Dźwięki", "Dźwięki trudne dla Polaka",
