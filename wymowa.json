@@ -28,11 +28,63 @@
     }
    ]
   },
-  "zjazd": {
-   "tytul": "2. Z góry na dół",
-   "opis": "Tego potrzebuje „Nie!”: zacząć wysoko i zjechać na dół.",
-   "powiedz": "Aaaa, już rozumiem!",
-   "jak": "Ktoś długo ci coś tłumaczy i nagle łapiesz, o co chodzi: „Aaaa, już rozumiem!”. To „Aaaa” zaczyna się wysoko, jak koniec zdziwionego „Cooo?”, i zjeżdża na dół. Przeciągnij samo „Aaaa” na dwie sekundy, resztę możesz powiedzieć normalnie."
+  "start": {
+   "tytul": "2. Start od razu na górze",
+   "opis": "Twój głos zaczyna nisko i dopiero potem podjeżdża w górę. Widać to na wykresie: linia najpierw idzie w górę, a dopiero potem w dół. Przy „Nie!” to podjechanie psuje cały ton. Tu ćwiczysz start od pierwszej chwili na górze.\nDwa sposoby, które pomagają:\n1. Zanim powiesz, usłysz w głowie koniec zdziwionego „Cooo?”. Dopiero potem otwórz usta, od razu na tej wysokości.\n2. Zacznij od wydechu, jak w „Hej!”: najpierw samo powietrze „hhh”, a głos wchodzi od razu na górze, bez podjeżdżania.",
+   "kroki": [
+    {
+     "powiedz": "Hej!",
+     "spadek": false,
+     "ramki": 30,
+     "wzor": [
+      [
+       0,
+       6
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     "jak": "Wołasz kolegę po drugiej stronie ulicy: krótkie „Hej!”. Krótko, żeby głos nie zdążył podjechać. Najpierw „hhh”, potem od razu wysoko. Powtórz kilka razy: „Hej! Hej! Hej!”, każde od razu na górze."
+    },
+    {
+     "powiedz": "Heeej!",
+     "spadek": true,
+     "ramki": 90,
+     "wzor": [
+      [
+       0,
+       6
+      ],
+      [
+       0.25,
+       6
+      ],
+      [
+       1,
+       -3
+      ]
+     ],
+     "jak": "To samo wołanie, tylko dłuższe, z daleka: „Heeej!”. Start od razu na górze, jak w krótkim „Hej!”, potem głos opada na dół."
+    },
+    {
+     "powiedz": "Nie!",
+     "spadek": true,
+     "ramki": 35,
+     "wzor": [
+      [
+       0,
+       6
+      ],
+      [
+       1,
+       -6
+      ]
+     ],
+     "jak": "Teraz „Nie!” zaczęte jak „Hej!”: od pierwszej chwili na górze i od razu w dół. Pomaga przytrzymać na górze samo „nnn”, z zamkniętymi ustami, a potem otworzyć usta i rzucić „Nie!”: „nnnNie!”."
+    }
+   ]
   }
  },
  "wstep": [
