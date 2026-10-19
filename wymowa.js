@@ -1134,6 +1134,7 @@
 
   // ---- silnik "chmura" (tylko z wyboru): nagranie getUserMedia -> Whisper ----
   let nagranie = null; // { btn, opts, n, startedAt, released, done }
+  const START_MS = 5000;
   async function chmuraStart(btn, opts) {
     if (nagranie || przetwarzanie) return;
     stopAudio();
@@ -1146,10 +1147,15 @@
     ekranPokaz(btn, opts);
     btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
     if (opts.onStart) { try { opts.onStart(); } catch (e) {} }
+    let start = null;
     try {
       if (!c) throw new Error("brak AudioContext");
-      if (c.state !== "running") await obudz(c, 800);
-      const n = await otworzNagranie(c);
+      // iOS po powrocie z innej aplikacji: getUserMedia albo budzenie kontekstu potrafi nie wrócić nigdy; bez limitu guzik wisi
+      // na „uruchamiam…”, a ekran mówienia zasłania stronę. Po 5 s koniec, następny gest dostaje nowy kontekst.
+      start = (async () => { if (c.state !== "running") await obudz(c, 800); return otworzNagranie(c); })();
+      let limit;
+      const n = await Promise.race([start, new Promise((_, rej) => { limit = setTimeout(() => rej(Object.assign(new Error("mikrofon nie ruszył w 5 s"), { name: "Limit" })), START_MS); })])
+        .finally(() => clearTimeout(limit));
       if (nagranie !== g) { zamknijNagranie(n); return; }
       g.n = n; g.startedAt = Date.now(); g.wys = glosStart(n, opts);
       diag("chmura: nagrywam (" + n.rate + " Hz)");
@@ -1158,10 +1164,16 @@
       if (g.released) chmuraStop(g);
     } catch (e) {
       diag("chmura start błąd: " + e.name + " " + e.message);
+      if (e.name === "Limit") {               // spóźniony strumień zamknąć, kontekst uznać za martwy
+        ctxMartwy = true;
+        if (start) start.then(zamknijNagranie, () => {});
+      }
       if (nagranie === g) { nagranie = null; ekranUkryj(); }
       ustawSesje("playback", "błąd nagrania");
       btn.classList.remove("rec"); btn.textContent = LABEL_IDLE;
-      const msg = e.name === "NotAllowedError" ? "Brak zgody na mikrofon. Zezwól w ustawieniach strony / przeglądarki." : "Nie mogę uruchomić mikrofonu: " + e.message;
+      const msg = e.name === "NotAllowedError" ? "Brak zgody na mikrofon. Zezwól w ustawieniach strony / przeglądarki."
+        : e.name === "Limit" ? "Mikrofon się nie uruchomił (telefon go zablokował, zwykle po przełączeniu na inną aplikację). Przytrzymaj 🎤 jeszcze raz."
+        : "Nie mogę uruchomić mikrofonu: " + e.message;
       if (opts.onDone) opts.onDone({ alts: [], gotFinal: false, error: msg, heldMs: 0, started: false });
     }
   }
