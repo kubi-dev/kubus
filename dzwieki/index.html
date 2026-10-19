@@ -394,9 +394,9 @@ function wynikGlosu(out, res, ok, rada, okTxt, zleTxt) {
         if (!w) { wynikGlosu(out, res, false, KROTKO); return; }
         if (!w.ref || p.st === 0) { wynikGlosu(out, res, true, "", "✓ Zapamiętałem twój zwykły głos. To środkowa linia na wykresie. Teraz „wysoko” i „nisko”."); return; }
         const gdzie = w.st >= 3.5 ? 1 : w.st <= -2 ? -1 : 0, cel = Math.sign(p.st), dobrze = gdzie === cel && w.st < 15;
-        const rada = w.st >= 15 ? "To już pisk. Trochę niżej, wygodnie, jak dziecko wołające z daleka."
-          : cel > 0 ? "Wyszło " + NAZWA[gdzie] + ". Cieniej, jak dziecko wołające „mamaaa”. Głośniej nie pomoże, ma być cieniej."
-          : "Wyszło " + NAZWA[gdzie] + ". Grubiej, jak niedźwiedź. Ciszej albo głośniej nie pomoże, ma być grubiej.";
+        const rada = w.st >= 15 ? "To już pisk. Trochę niżej: tam, gdzie kończy się zwykłe zdziwione „Cooo?”."
+          : cel > 0 ? "Wyszło " + NAZWA[gdzie] + ". Wyżej: powiedz „Cooo?” i ciągnij „Aaaa” tam, gdzie „Cooo?” się skończyło. Głośniej nie pomoże."
+          : "Wyszło " + NAZWA[gdzie] + ". Niżej: powiedz „Noooo…” i ciągnij „Aaaa” tam, gdzie „Noooo…” dusi się w gardle. Ciszej nie pomoże.";
         wynikGlosu(out, res, dobrze, rada, `✓ Dobrze, ${p.nazwa}.`, `✗ Jeszcze nie ${p.nazwa}.`);
       }
     });
@@ -413,8 +413,8 @@ function wynikGlosu(out, res, ok, rada, okTxt, zleTxt) {
       if (!res) return;
       const a = wysokoscGlosu(res, 0, 0.2), b = wysokoscGlosu(res, 0.8, 1);
       if (!a || !b) { wynikGlosu(zout, res, false, KROTKO); return; }
-      const rada = a.st < 3.5 ? "Zacząłeś za nisko, prawie zwykłym głosem. Zacznij cienko, wysoko, jak gwizd bomby."
-        : b.st > -1 ? "Nie zjechałeś na dół. Na końcu ma być grubo, niżej niż twój zwykły głos."
+      const rada = a.st < 3.5 ? "Zacząłeś za nisko, prawie zwykłym głosem. Zacznij tam, gdzie kończy się zdziwione „Cooo?”."
+        : b.st > -1 ? "Nie zjechałeś na dół. Na końcu „Aaaa” ma być tam, gdzie kończy się „Noooo…”, niżej niż twój zwykły głos."
         : a.st - b.st < 6 ? "Za krótki zjazd. Zacznij wyżej albo skończ niżej." : "";
       wynikGlosu(zout, res, !rada, rada, "✓ Z góry na sam dół. Tak samo spada „Nie!”.", "✗ Jeszcze nie.");
     }
