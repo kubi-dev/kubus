@@ -397,7 +397,8 @@ function kartaA(c, w) {
   const polskiZapis = () => k.polski || (window.pinyinPro ? pinyinPro.pinyin(k.znaki, { toneType: "none", type: "array" }).map(Wymowa.pinyinPl).join("-") : k.pinyin);
   // znaczenie słowo po słowie tuż pod wymową; tekst jest od początku (niewidoczny), żeby guzik nie skoczył przy odsłonięciu
   const dosl = k.doslownie ? el("div", "dosl ukryte", k.doslownie) : null;
-  const pokazWymowe = () => { wym.textContent = polskiZapis(); if (dosl) dosl.classList.remove("ukryte"); };
+  let widac = false;   // wymowa już widziana (podpowiedź albo odsłonięcie): od tej chwili ekran mówienia pokazuje wszystko
+  const pokazWymowe = () => { widac = true; wym.textContent = polskiZapis(); if (dosl) dosl.classList.remove("ukryte"); };
   const pokazPodpowiedz = (n, zDzwiekiem) => {
     if (n === 1) { pokazWymowe(); hint.textContent = "posłuchaj"; }
     else if (zDzwiekiem) graj(k);
@@ -423,7 +424,8 @@ function kartaA(c, w) {
   Wymowa.bind(mic, {
     target: k.znaki,
     audio: () => k.audio ? "../" + k.audio + ".mp3" : "",
-    ekran: () => ({ znaczenie: polskie(k), bezWymowy: true }),   // karta „powiedz po chińsku”: wymowa zdradziłaby odpowiedź
+    ekran: () => widac ? { polski: k.polski, pinyin: k.pinyin, znaczenie: polskie(k) }
+                       : { znaczenie: polskie(k), bezWymowy: true },   // pierwsza próba: wymowa zdradziłaby odpowiedź
     onStart: () => {},
     onDone: zastosujWynik
   });
