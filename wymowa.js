@@ -567,13 +567,17 @@
   }
   // wzór melodii do ćwiczenia po polsku, gdy nie ma nagrania: gładka linia w Hz (punkt co 10 ms), półtony od środka głosu
   const WZOR = { 1: [[0, 3], [1, 3]], 2: [[0, -2], [0.25, -2.5], [1, 4]], 3: [[0, 0], [0.65, -6], [1, -3.5]], 4: [[0, 4], [1, -8]] };
+  const WZOR_HZ = 150;                         // 0 półtonów we wzorze = twój zwykły głos (wykres z wysokością)
   function wzorTonu(ton) {
-    const p = WZOR[ton]; if (!p) return null;
-    const n = ton === 4 ? 35 : ton === 3 ? 70 : 55, out = new Float32Array(n + 20);
+    const p = WZOR[ton]; return p ? wzorLinii(p, ton === 4 ? 35 : ton === 3 ? 70 : 55) : null;
+  }
+  // p = [[x 0..1, półtony od zwykłego głosu]], n = liczba ramek (10 ms); 10 ramek ciszy z obu stron
+  function wzorLinii(p, n) {
+    const out = new Float32Array(n + 20);
     for (let i = 0; i < n; i++) {
       const x = i / (n - 1); let k = 1; while (k < p.length - 1 && p[k][0] < x) k++;
       const [x0, y0] = p[k - 1], [x1, y1] = p[k];
-      out[i + 10] = 150 * Math.pow(2, (y0 + (y1 - y0) * (x - x0) / (x1 - x0)) / 12);
+      out[i + 10] = WZOR_HZ * Math.pow(2, (y0 + (y1 - y0) * (x - x0) / (x1 - x0)) / 12);
     }
     return out;
   }
@@ -656,9 +660,9 @@
     if (w.length < 4) return null;
     const sr = (x, y) => { let s = 0; for (let i = x; i < y; i++) s += w[i]; return s / (y - x); };
     const q = Math.max(1, Math.round(w.length * 0.2)), poc = sr(0, q), kon = sr(w.length - q, w.length);
-    let mn = Infinity, pmn = 0, mx = -Infinity;
-    for (let i = 1; i < w.length - 1; i++) { const m = (w[i - 1] + w[i] + w[i + 1]) / 3; if (m < mn) { mn = m; pmn = i / (w.length - 1); } if (m > mx) mx = m; }
-    return { poc, kon, mn, pmn, mx, sr: sr(0, w.length), n: v.length };
+    let mn = Infinity, pmn = 0, mx = -Infinity, pmx = 0;
+    for (let i = 1; i < w.length - 1; i++) { const m = (w[i - 1] + w[i] + w[i + 1]) / 3; if (m < mn) { mn = m; pmn = i / (w.length - 1); } if (m > mx) { mx = m; pmx = i / (w.length - 1); } }
+    return { poc, kon, mn, pmn, mx, pmx, sr: sr(0, w.length), n: v.length };
   }
   // kształt kawałka zapisany tonem, który tak brzmi (do komunikatu „wyszło jak …”), i czy pasuje do celu
   // kształt kawałka zapisany tonem, który tak brzmi (do komunikatu „wyszło jak …”), i czy pasuje do celu.
@@ -698,7 +702,35 @@
       const s = { nast: c[i + 1] ? c[i + 1].poc : null, nisko, sam: tony.length === 1 }, wyn = dobre.map(x => klasyfikuj(x, c[i], s)), traf = wyn.findIndex(w => w.ok);
       return Object.assign({ ton: traf >= 0 ? dobre[traf] : ton }, traf >= 0 ? wyn[traf] : wyn[0]);
     });
-    return { h, kaw, sylaby };
+    return { h, kaw, sylaby, c, ref: r };
+  }
+  // ćwiczenie „start z góry / start z dołu”: oprócz kształtu liczy się wysokość względem twojego zwykłego głosu (oc.ref).
+  // „Nie!” zaczyna się wyraźnie nad zwykłym głosem (po „Cooo?”: tam, gdzie „Cooo?” się skończyło) i spada od razu;
+  // „Noooo…” zaczyna się zwykłym głosem albo niżej (po „Nie!”: na dole) i nie podskakuje przed zejściem.
+  // Wynik: sylaby z ok = false i własną radą, gdy wysokość się nie zgadza (kształt ocenia dalej ocenTony).
+  function wysokoscTonow(oc) {
+    if (!oc || !oc.c) return oc;
+    oc.sylaby.forEach((s, i) => {
+      const c = oc.c[i], p = oc.c[i - 1], pt = i > 0 ? oc.sylaby[i - 1].ton : 0;
+      if (!c || s.lekki || s.brak || (s.ton !== 3 && s.ton !== 4)) return;
+      let rada = "";
+      if (s.ton === 4) {
+        const start = c.pmx < 0.3 ? Math.max(c.poc, c.mx) : c.poc, spadek = start - Math.min(c.kon, c.mn);
+        const poCooo = pt === 2 && p, prog = poCooo ? Math.max(3, p.kon - 3) : 4;
+        if (c.mx - c.poc >= 2 && c.pmx > 0.15 && c.pmx < 0.75) rada = "głos najpierw poszedł w górę. „Nie!” od pierwszej chwili leci w dół.";
+        else if (start < prog) rada = poCooo ? "„Nie!” zaczęło się niżej, niż skończyło się „Cooo?”. Nie schodź po drodze: rzuć „Nie!” prosto z tej góry."
+          : "zacząłeś z wysokości zwykłej mowy. Zacznij wyżej, tam, gdzie kończy się zdziwione „Cooo?”.";
+        else if (spadek < 5) rada = "spadło za mało. Rzuć głos na sam dół, jak siekierą.";
+      } else {
+        const poNie = pt === 4 && p;
+        if (c.mx - c.poc >= 2 && c.pmx < 0.7 && (c.pmx < c.pmn || c.pmn < 0.15)) rada = "głos najpierw poszedł w górę, a dopiero potem w dół. Tu od razu w dół, bez podskoku.";
+        else if (poNie ? c.poc > Math.max(p.kon + 4, -1) : c.poc > 1.5) rada = poNie ? "„Noooo…” zaczęło się za wysoko. Zacznij tam, gdzie skończyło się „Nie!”: na dole."
+          : "zacząłeś wysoko, więc wyszło jak „Nie!”. Zacznij zwykłym głosem albo niżej.";
+        else if (c.mn > c.poc - 1.5 && c.mn > -2) rada = "za mało nisko. Zejdź tam, gdzie dźwięk dusi się w gardle.";
+      }
+      if (rada) Object.assign(s, { ok: false, jak: 0, rada });
+    });
+    return oc;
   }
 
   // ekran mówienia: od naciśnięcia do puszczenia strona znika (warstwa w kolorze tła z „dziurą” na guzik, więc guzik
@@ -771,13 +803,13 @@
       for (const [sel, t] of pola) { const el = e.querySelector(sel); el.textContent = t; el.hidden = !t; }
       const d = e.firstChild, cs = getComputedStyle(btn);
       d.style.borderRadius = cs.borderRadius; d.style.boxShadow = "0 0 0 200vmax " + tloStrony();
-      const st = ekr = { btn, cel: null, w: null, koniec: false, skaluj: !!opts.tylkoGlos };
+      const st = ekr = { btn, cel: null, w: null, koniec: false, skaluj: !!opts.tylkoGlos, wys: !!opts.wysokosc && !!wartosc(opts.wzor) };
       liniaCelu(opts).then(c => { st.cel = c; });
       e.classList.add("on");
       const cv = e.querySelector("canvas");
       const petla = () => {
         if (st.koniec) return;
-        try { ulozEkran(e, btn); if (st.w) doczytaj(st.w); rysujPanel(cv, st.w, st.cel, st.skaluj); } catch (err) { diag("ekran mówienia: " + err.message); return; }
+        try { ulozEkran(e, btn); if (st.w) doczytaj(st.w); rysujPanel(cv, st.w, st.cel, st.skaluj, st.wys); } catch (err) { diag("ekran mówienia: " + err.message); return; }
         requestAnimationFrame(petla);
       };
       ulozEkran(e, btn); petla();
@@ -807,7 +839,7 @@
     if (ekr) ekr.w = w;                       // ekran mówienia rysuje twoją linię z tego nagrania
     return w;
   }
-  function rysujPanel(cv, w, cel, skaluj) {   // skaluj: skala z linii celu (strona tonów), inaczej stałe ±10 półtonów
+  function rysujPanel(cv, w, cel, skaluj, wys) {   // skaluj: skala z linii celu (strona tonów), inaczej stałe ±10 półtonów; wys: wzór na skali zwykłego głosu
     const dpr = window.devicePixelRatio || 1, cw = cv.clientWidth, ch = cv.clientHeight;
     if (!cw) return;
     if (cv.width !== Math.round(cw * dpr)) { cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr); }
@@ -815,7 +847,7 @@
     const kolor = getComputedStyle(cv.parentNode), P = 8;
     g.strokeStyle = kolor.getPropertyValue("--glos-siatka").trim(); g.lineWidth = 1;
     g.beginPath(); g.moveTo(P, ch / 2); g.lineTo(cw - P, ch / 2); g.stroke();
-    const ty = w && !w.koniec ? wygladz(w.hz) : [], zt = ty.length ? zakres(ty, w.zapisany || mediana(ty)) : null, zc = cel && zakres(cel);
+    const ty = w && !w.koniec ? wygladz(w.hz) : [], zt = ty.length ? zakres(ty, w.zapisany || mediana(ty)) : null, zc = cel && zakres(cel, wys ? WZOR_HZ : 0);
     const y = yNa(ch, P, skaluj && zc ? Math.min(ST_MAX, skalaSt(zc) * 1.3) : ST_MAX);   // z linii celu, żeby nie skakała w trakcie mówienia
     // oś czasu w ramkach: tyle, ile trwa słowo lektora (z zapasem), dłużej, gdy mówisz dłużej
     const T = Math.max(zc ? (zc.i1 - zc.i0) * 1.25 : 0, 80, zt ? ty.length - zt.i0 : 0), skala = (cw - 2 * P) / T;
@@ -836,10 +868,12 @@
   }
   // wykres pod wynikiem: obie linie rozciągnięte na całą szerokość, żeby porównać sam kształt
   // oc = wynik ocenTony (strona tonów): twoja linia po poprawce oktaw, źle powiedziana sylaba innym kolorem, skala z linii na wykresie
-  function wykresGlosu(w, oc) {
-    const zt = w && w.ty && zakres(oc ? oc.h : w.ty);
+  // wys: środkowa linia = twój zwykły głos (oc.ref), wzór na tej samej skali, więc widać, czy zaczynasz wysoko, czy nisko
+  function wykresGlosu(w, oc, wys) {
+    wys = wys && oc && oc.ref;
+    const zt = w && w.ty && zakres(oc ? oc.h : w.ty, wys ? oc.ref : 0);
     if (!zt || zt.glosne < 10) return "";
-    const zc = w.cel && zakres(w.cel), S = 300, H = 80, P = 6, y = yNa(H, P, oc ? skalaSt(zc, zt) : ST_MAX);
+    const zc = w.cel && zakres(w.cel, wys && w.wzor ? WZOR_HZ : 0), S = 300, H = 80, P = 6, y = yNa(H, P, oc ? skalaSt(zc, zt) : ST_MAX);
     const sciezka = (z, x0, skala) => punkty(z, x0, skala, y).map(s => s.map(([x, yy], i) => (i ? "L" : "M") + x.toFixed(1) + " " + yy.toFixed(1)).join("")).join("");
     const d = (z) => sciezka(z, P, (S - 2 * P) / Math.max(1, z.i1 - z.i0));
     let ty = `<path class="glos-ty" d="${d(zt)}"/>`;
@@ -855,7 +889,7 @@
     return `<div class="glos"><svg viewBox="0 0 ${S} ${H}" preserveAspectRatio="none" aria-label="wysokość głosu: lektor i ty">` +
       `<line x1="${P}" y1="${H / 2}" x2="${S - P}" y2="${H / 2}" class="glos-os"/>` +
       (zc ? `<path class="glos-lektor" d="${d(zc)}"/>` : "") + ty + `</svg>` +
-      `<div class="glos-pod">${zc ? `<span class="glos-l"></span>${w.wzor ? "wzór" : "lektor"} ` : ""}<span class="glos-t"></span>ty</div></div>`;
+      `<div class="glos-pod">${zc ? `<span class="glos-l"></span>${w.wzor ? "wzór" : "lektor"} ` : ""}<span class="glos-t"></span>ty${wys ? " · środkowa kreska: twój zwykły głos" : ""}</div></div>`;
   }
   // wynik ćwiczenia melodii (mikrofon z tylkoGlos): wykres i każda sylaba z polskim słowem z notatek.
   // info = { znaki, polski, ok, zle }: polski = zapis z karty, kawałki przez spację albo myślnik (gdy liczba się zgadza);
@@ -872,11 +906,11 @@
     const nazwa = (i) => (znaki.length === ile ? znaki[i] + " " : "") + (pl.length === ile ? pl[i] : "");
     const chip = (s, i) => `<span class="oc ${s.lekki ? "lekki" : s.ok ? "ok" : "zle"}">${esc(nazwa(i))}${s.lekki ? " · lekko" : s.ok ? " ✓ " + KOTW[s.ton] : " ✗"}</span>`;
     const rada = zle.map(s => { const i = syl.indexOf(s), n = nazwa(i).trim();
-      return `<div class="oc-rada">${n ? `<b>${esc(n)}</b>: ` : ""}ma być ${KOTWICA_TONU[s.ton]}, ${s.jak ? "wyszło jak " + KOTWICA_TONU[s.jak] : ZAMIAST[s.ton]}.</div>`; }).join("");
+      return `<div class="oc-rada">${n ? `<b>${esc(n)}</b>: ` : ""}${s.rada ? esc(s.rada) : `ma być ${KOTWICA_TONU[s.ton]}, ${s.jak ? "wyszło jak " + KOTWICA_TONU[s.jak] : ZAMIAST[s.ton]}.`}</div>`; }).join("");
     const head = !zle.length ? "✓ Melodia się zgadza." : zle.length === syl.filter(s => !s.lekki).length ? "✗ Melodia jeszcze nie ta."
       : `Prawie. ${zle.length === 1 ? "Jeden kawałek" : zle.length + " kawałki"} do poprawki.`;
     return { cls: zle.length ? (zle.length < ile ? "mid" : "bad") : "ok", ok: !zle.length,
-      html: `<div>${esc((zle.length ? info.zle : info.ok) || head)}</div>` + wykresGlosu(res.wys, oc) + (ile > 1 ? `<div class="ocena">${syl.map(chip).join("")}</div>` : "") + rada };
+      html: `<div>${esc((zle.length ? info.zle : info.ok) || head)}</div>` + wykresGlosu(res.wys, oc, info.wysokosc) + (ile > 1 ? `<div class="ocena">${syl.map(chip).join("")}</div>` : "") + rada };
   }
 
   // ---- głos systemowy: strony zgłaszają go tu (po nim odstęp przed mikrofonem) ----
@@ -1146,7 +1180,7 @@
     diag("chmura stop: " + heldMs + " ms, szczyt=" + lv.szczyt.toFixed(3) + " rms=" + lv.rms.toFixed(4));
     if (g.opts.tylkoGlos) {                     // ćwiczenie melodii: ocena z linii głosu, bez rozpoznawania mowy
       let ocena = null;
-      try { const tony = wartosc(g.opts.tony); if (wys && lv.glos && tony) ocena = ocenTony(Float32Array.from(wys.ty), tony, wys.ref); } catch (e) { diag("ocena tonów: " + e.message); }
+      try { const tony = wartosc(g.opts.tony); if (wys && lv.glos && tony) ocena = ocenTony(Float32Array.from(wys.ty), tony, wys.ref); if (g.opts.wysokosc) wysokoscTonow(ocena); } catch (e) { diag("ocena tonów: " + e.message); }
       diag("ocena tonów: " + (ocena ? ocena.sylaby.map(x => x.ton + (x.ok ? "" : "✗" + x.jak)).join(" ") : "brak głosu"));
       zapiszProbe(g.n, g.opts, ocena);
       fin({ alts: [], gotFinal: false, error: null, heldMs, started: true, ocena });
@@ -1183,6 +1217,6 @@
   }
 
   const W = { diag, supported: !!SR || GUM, iOS: !!IOS_VER, beforeStart: null, zapiszStan: null, bind, grade, render, strip, toPinyin, cfg, odbierzWynik, pinyinPl, podpowiedzDzwiek, podpowiedzTon, podpowiedzSylaby,
-              audioAktywne, graj, stopAudio, preload: dekoduj, kontekst, LABEL_IDLE, renderTony, tonyMowione, wzorTonu, KOTWICA_TONU };
+              audioAktywne, graj, stopAudio, preload: dekoduj, kontekst, LABEL_IDLE, renderTony, tonyMowione, wzorTonu, wzorLinii, wysokoscTonow, KOTWICA_TONU };
   window.Wymowa = W;
 })();

@@ -137,7 +137,7 @@
 <body>
 <header><a href="../">← lekcje</a><div class="ttl">{{TYTUL}}</div>{{LINK}}</header>
 <nav><div class="in">
-  <a href="#tony" data-tryb="tony">Tony</a><a href="#zmiany" data-tryb="tony">Zmiany</a><a href="#zdania" data-tryb="tony">W zdaniu</a><a href="#pary" data-tryb="tony">Pary tonów</a><a href="#uszy" data-tryb="tony">Ucho</a><a href="#dzwieki" data-tryb="dzwieki">Dźwięki</a><a href="#koniec" data-tryb="dzwieki">Na koniec</a><a href="#cwicz">Ćwicz</a>
+  <a href="#tony" data-tryb="tony">Tony</a><a href="#trudne" data-tryb="tony">Nie! i Noooo…</a><a href="#zmiany" data-tryb="tony">Zmiany</a><a href="#zdania" data-tryb="tony">W zdaniu</a><a href="#pary" data-tryb="tony">Pary tonów</a><a href="#uszy" data-tryb="tony">Ucho</a><a href="#dzwieki" data-tryb="dzwieki">Dźwięki</a><a href="#koniec" data-tryb="dzwieki">Na koniec</a><a href="#cwicz">Ćwicz</a>
   <label><input type="checkbox" id="slow"> wolniej</label>
 </div></nav>
 
@@ -150,6 +150,7 @@
   <p class="hint" data-tryb="dzwieki">Zapis polski: <b>ch</b> = polskie ch · <b>y</b> = polskie y · <b>ł</b> = polskie ł · <b>ü</b> = „i” z ustami ułożonymi do „u” · <b>kh, ph, th, czh, cch, ćh</b> = z mocnym wydechem · <b>dz, p, t, k</b> = bez wydechu (chińskie z, b, d, g)</p>
 
   <section id="tony" data-tryb="tony"><h2>Tony · co robi głos</h2><p class="intro">Cztery melodie plus jedna „bez melodii”. Każdą masz w polskim, tylko nie w słowie, a w sytuacji. Dlatego najpierw mówisz polskie słowo i patrzysz na swoją linię, potem chińskie tak samo.</p><div id="s-wstep"></div><div id="s-tony"></div></section>
+  <section id="trudne" data-tryb="tony"><h2>„Nie!” z góry, „Noooo…” z dołu · ćwiczenia</h2><p class="intro">Dwa tony, które Polakowi wychodzą najgorzej, krok po kroku: najpierw po polsku, potem po chińsku. Każdy krok powtarzaj, aż mikrofon kilka razy pod rząd powie „dobrze”, dopiero potem następny.</p><div id="s-trudne"></div></section>
   <section id="zmiany" data-tryb="tony"><h2>Zmiany tonów · kiedy słowo brzmi inaczej niż w słowniku</h2><div id="s-zmiany"></div></section>
   <section id="zdania" data-tryb="tony"><h2>W całym słowie i zdaniu · polskie nawyki</h2><div id="s-zdania"></div></section>
   <section id="pary" data-tryb="tony"><h2>Pary tonów · dwa słowa, jedna melodia</h2><p class="intro">Chiński mówi się parami. Wybierz parę, posłuchaj kilku słów z tą samą melodią, powtórz. <span id="pary-start"></span></p><div class="siatka" id="siatka"></div><div id="s-pary"></div></section>
@@ -225,11 +226,11 @@ function wiersz(s, opts) {
     <span class="info"><span class="py">${esc(s.pinyin)}</span>${s.polski ? ` · <span class="ppl">${esc(s.polski)}</span>` : ""}<br><span class="mn">${esc(s.znaczenie)}</span>${s.lekcja ? `<span class="lek" title="znasz z lekcji ${s.lekcja}">L${s.lekcja}</span>` : ""}</span>
     ${opts.bezMic ? "" : `<button class="mic" type="button"></button><div class="result" hidden></div>`}`;
   d.addEventListener("click", (e) => { if (e.target.closest(".mic, .result")) return; graj(s.znaki, d); });
-  if (!opts.bezMic) bindMic(d.querySelector(".mic"), d.querySelector(".result"), s.znaki, opts.para, s);
+  if (!opts.bezMic) bindMic(d.querySelector(".mic"), d.querySelector(".result"), s.znaki, opts.para, s, opts.wysokosc);
   return d;
 }
-function bindMic(btn, out, target, para, s) {
-  if (TRYB === "tony") { bindMelodia(btn, out, s || { znaki: target }); return; }
+function bindMic(btn, out, target, para, s, wysokosc) {
+  if (TRYB === "tony") { bindMelodia(btn, out, s || { znaki: target }, wysokosc); return; }
   Wymowa.bind(btn, {
     target: () => target,
     audio: () => AUDIO[target] ? "audio/" + AUDIO[target] + ".mp3" : "",
@@ -251,17 +252,18 @@ function etykieta(btn, tekst) {
   const obs = new MutationObserver(() => { if (btn.textContent === Wymowa.LABEL_IDLE) btn.textContent = tekst; });
   obs.observe(btn, { childList: true, characterData: true, subtree: true });
 }
-// strona tonów: mikrofon słucha samej melodii (bez rozpoznawania słów), ocena sylaba po sylabie z linii głosu
-function bindMelodia(btn, out, s) {
+// strona tonów: mikrofon słucha samej melodii (bez rozpoznawania słów), ocena sylaba po sylabie z linii głosu;
+// wysokosc: ćwiczenia „Nie!” z góry / „Noooo…” z dołu, ocena także wysokości względem twojego zwykłego głosu
+function bindMelodia(btn, out, s, wysokosc) {
   Wymowa.bind(btn, {
-    tylkoGlos: true,
+    tylkoGlos: true, wysokosc: !!wysokosc,
     target: () => s.znaki,
     tony: () => Wymowa.tonyMowione(s.znaki, s.pinyin),
     audio: () => AUDIO[s.znaki] ? "audio/" + AUDIO[s.znaki] + ".mp3" : "",
     ekran: () => ({ polski: s.polski, pinyin: s.pinyin, znaczenie: s.znaczenie }),
     onDone: (res) => {
       if (!res) return;
-      const r = Wymowa.renderTony(res, { znaki: s.znaki, polski: s.polski });
+      const r = Wymowa.renderTony(res, { znaki: s.znaki, polski: s.polski, wysokosc: !!wysokosc });
       out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
       if (res.ocena) for (const x of res.ocena.sylaby) if (!x.lekki && !x.brak) zapiszStat("ton" + x.ton, x.ok);
     }
@@ -280,6 +282,22 @@ function bindPoPolsku(btn, out, t) {
     onDone: (res) => {
       if (!res) return;
       const r = Wymowa.renderTony(res, { ok: `✓ Tak brzmi „${pp.powiedz}”. Teraz tak samo po chińsku, niżej.`, zle: `To jeszcze nie „${pp.powiedz}”. ${pp.jak}` });
+      out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
+    }
+  });
+  etykieta(btn, "🎤 powiedz");
+}
+// krok po polsku z ćwiczeń „z góry / z dołu”: polskie słowa z notatek na wzorze z wysokością (środek = twój zwykły głos)
+function bindKrok(btn, out, k) {
+  Wymowa.bind(btn, {
+    tylkoGlos: true, wysokosc: true,
+    target: () => k.powiedz,
+    tony: () => k.tony,
+    wzor: () => Wymowa.wzorLinii(k.wzor, k.ramki),
+    ekran: () => ({ polski: "„" + k.powiedz + "”" }),
+    onDone: (res) => {
+      if (!res) return;
+      const r = Wymowa.renderTony(res, { polski: k.powiedz, wysokosc: true, ok: `✓ Dobrze: „${k.powiedz}”. Jeszcze kilka razy, potem następny krok.` });
       out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
     }
   });
@@ -310,6 +328,27 @@ function blokEsc(lab, tekst) { return blok(lab, esc(tekst), true); }
       (t.blad_polakow ? `<div class="blad"><b>Na co uważać:</b> ${esc(t.blad_polakow)}</div>` : "") + `</details>`;
     if (pp) bindPoPolsku(c.querySelector(".popl .mic"), c.querySelector(".popl .result"), t);
     const sl = c.querySelector(".slowa"); for (const s of t.slowa) sl.appendChild(wiersz(s));
+    root.appendChild(c);
+  }
+})();
+// ---- ćwiczenia „Nie!” z góry, „Noooo…” z dołu: kroki po polsku (wzór z wysokością), potem chińskie słowa ----
+(function () {
+  const root = $("s-trudne"); if (!root) return;
+  for (const t of (DATA.trudne_tony || [])) {
+    const c = document.createElement("div"); c.className = "card"; c.id = "trudne-" + t.id;
+    c.innerHTML = `<h3>${svgTon(t.ton, "big")}<span>${esc(t.tytul)}</span></h3><div class="opis">${esc(t.opis)}</div>`;
+    t.kroki.forEach((k, i) => {
+      const d = document.createElement("div"); d.className = "krok";
+      if (k.powiedz) {
+        d.innerHTML = `<span class="lab">${i + 1}. Po polsku</span><div class="popl"><div class="txt">Powiedz <b>„${esc(k.powiedz)}”</b><br>${esc(k.jak)}</div>` +
+          `<button class="mic" type="button"></button><div class="result" hidden></div></div>`;
+        bindKrok(d.querySelector(".mic"), d.querySelector(".result"), k);
+      } else {
+        d.innerHTML = `<span class="lab">${i + 1}. ${esc(k.tytul)}</span><div class="slowa"></div>`;
+        const sl = d.querySelector(".slowa"); for (const s of k.slowa) sl.appendChild(wiersz(s, { wysokosc: true }));
+      }
+      c.appendChild(d);
+    });
     root.appendChild(c);
   }
 })();

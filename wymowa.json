@@ -394,6 +394,230 @@
    ]
   }
  ],
+ "trudne_tony": [
+  {
+   "id": "z-gory",
+   "ton": 4,
+   "tytul": "„Nie!” z góry",
+   "opis": "Głos masz: w zdziwionym „Cooo?” sam wchodzi wysoko. „Nie!” zaczynasz jednak z wysokości zwykłej mowy, więc nie ma skąd spadać i wychodzi płasko. Tu uczysz się zaczynać „Nie!” tam, gdzie kończy się „Cooo?”, i spadać od razu na sam dół.\nMikrofon sprawdza tu też wysokość: środkowa kreska na wykresie to twój zwykły głos. „Nie!” ma się zacząć wyraźnie nad nią.",
+   "kroki": [
+    {
+     "powiedz": "Cooo? Nie!",
+     "tony": [
+      2,
+      4
+     ],
+     "ramki": 90,
+     "wzor": [
+      [
+       0,
+       -2
+      ],
+      [
+       0.12,
+       -2.5
+      ],
+      [
+       0.5,
+       5
+      ],
+      [
+       0.55,
+       5
+      ],
+      [
+       1,
+       -7
+      ]
+     ],
+     "jak": "Jednym ciągiem, bez przerwy. Zdziwione „Cooo?” wynosi głos do góry, a „Nie!” spada prosto z tej góry na sam dół. Ręka: przy „Cooo?” w górę nad głowę, przy „Nie!” cięcie w dół, jak siekierą."
+    },
+    {
+     "powiedz": "Nie!",
+     "tony": [
+      4
+     ],
+     "ramki": 35,
+     "wzor": [
+      [
+       0,
+       5
+      ],
+      [
+       1,
+       -7
+      ]
+     ],
+     "jak": "Samo „Nie!”, ale z tej góry, na której skończyło się „Cooo?”. Jak nie wychodzi, powiedz „Cooo?” w myślach, a na głos tylko „Nie!”. Ręka dalej tnie z góry w dół."
+    },
+    {
+     "tytul": "Po chińsku, „Cooo? Nie!”",
+     "slowa": [
+      {
+       "znaki": "难过",
+       "pinyin": "nánguò",
+       "polski": "nan-kło",
+       "znaczenie": "smutny"
+      },
+      {
+       "znaki": "白饭",
+       "pinyin": "báifàn",
+       "polski": "paj-fan",
+       "znaczenie": "gotowany ryż"
+      },
+      {
+       "znaki": "拿到",
+       "pinyin": "nádào",
+       "polski": "na-tał",
+       "znaczenie": "dostać"
+      }
+     ]
+    },
+    {
+     "tytul": "Po chińsku, samo „Nie!”",
+     "slowa": [
+      {
+       "znaki": "不",
+       "pinyin": "bù",
+       "polski": "pu",
+       "znaczenie": "nie"
+      },
+      {
+       "znaki": "大",
+       "pinyin": "dà",
+       "polski": "ta",
+       "znaczenie": "duży"
+      },
+      {
+       "znaki": "爱",
+       "pinyin": "ài",
+       "polski": "aj",
+       "znaczenie": "kochać"
+      },
+      {
+       "znaki": "要",
+       "pinyin": "yào",
+       "polski": "jał",
+       "znaczenie": "chcieć"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "z-dolu",
+   "ton": 3,
+   "tytul": "„Noooo…” z dołu",
+   "opis": "Tu jest odwrotnie: wcale nie zaczynasz wysoko. W zwykłej mowie ten ton to prawie zawsze tylko niski, duszony dźwięk. W górę odbija tylko na końcu zdania albo gdy słowo stoi samo. Polak zaczyna go za wysoko albo najpierw podnosi głos, jak w polskim zastanowieniu, i Chińczyk słyszy „Nie!”.\nŚrodkowa kreska na wykresie to twój zwykły głos. „Noooo…” zaczyna się na niej albo pod nią i od razu schodzi w dół.",
+   "kroki": [
+    {
+     "powiedz": "Nie! Noooo…",
+     "tony": [
+      4,
+      3
+     ],
+     "ramki": 100,
+     "wzor": [
+      [
+       0,
+       5
+      ],
+      [
+       0.3,
+       -6
+      ],
+      [
+       0.36,
+       -5
+      ],
+      [
+       0.8,
+       -8
+      ],
+      [
+       1,
+       -6.5
+      ]
+     ],
+     "jak": "„Nie!” spada na dół i tam, na dole, zaczyna się „Noooo…”. Nie wracaj w górę. Ręka: cięcie w dół, potem dłoń zostaje nisko, przy brzuchu."
+    },
+    {
+     "powiedz": "Noooo…",
+     "tony": [
+      3
+     ],
+     "ramki": 70,
+     "wzor": [
+      [
+       0,
+       0
+      ],
+      [
+       0.65,
+       -6
+      ],
+      [
+       1,
+       -3.5
+      ]
+     ],
+     "jak": "Zacznij zwykłym głosem i od razu w dół, aż dźwięk zacznie się dusić w gardle. Bez podskoku na początku. Na sam koniec możesz lekko odbić w górę."
+    },
+    {
+     "tytul": "Po chińsku, „Nie! Noooo…”",
+     "slowa": [
+      {
+       "znaki": "大海",
+       "pinyin": "dàhǎi",
+       "polski": "ta-chaj",
+       "znaczenie": "morze"
+      },
+      {
+       "znaki": "大米",
+       "pinyin": "dàmǐ",
+       "polski": "ta-mi",
+       "znaczenie": "ryż (surowy)"
+      },
+      {
+       "znaki": "汉堡",
+       "pinyin": "hànbǎo",
+       "polski": "chan-pał",
+       "znaczenie": "hamburger"
+      }
+     ]
+    },
+    {
+     "tytul": "Po chińsku, samo „Noooo…”",
+     "slowa": [
+      {
+       "znaki": "好",
+       "pinyin": "hǎo",
+       "polski": "chał",
+       "znaczenie": "dobry"
+      },
+      {
+       "znaki": "我",
+       "pinyin": "wǒ",
+       "polski": "ło",
+       "znaczenie": "ja"
+      },
+      {
+       "znaki": "你",
+       "pinyin": "nǐ",
+       "polski": "ni",
+       "znaczenie": "ty"
+      },
+      {
+       "znaki": "美",
+       "pinyin": "měi",
+       "polski": "mej",
+       "znaczenie": "piękny"
+      }
+     ]
+    }
+   ]
+  }
+ ],
  "zmiany_tonow": [
   {
    "id": "z33",

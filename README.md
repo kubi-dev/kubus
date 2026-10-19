@@ -86,6 +86,12 @@ złych tonów; prawie nigdy: 3. powiedziany zamiast 4. i, w słowach, 4. zamiast
 na wzorze melodii (`po_polsku` w `wymowa.json`, `Wymowa.wzorTonu`), potem chińskie słowa tak samo; pod znakami melodia każdej sylaby.
 Wynik: wykres (skala z linii na wykresie, źle powiedziana sylaba na pomarańczowo) i sylaby ze znaczkiem. Próba z oceną idzie do
 workera (`/wymowa?zapis=1&ocena=`, KV „nagranie:”, 7 dni) do sprawdzania oceny na prawdziwym głosie.
+Sekcja „Nie!” z góry, „Noooo…” z dołu (`trudne_tony` w `wymowa.json`): kroki po polsku („Cooo? Nie!”, „Nie!”, „Nie! Noooo…”,
+„Noooo…”, wzór z punktów `wzor`/`ramki` przez `Wymowa.wzorLinii`), potem chińskie pary 2-4 / 4-3 i pojedyncze słowa. Mikrofon z opcją
+`wysokosc` ocenia oprócz kształtu wysokość względem twojego zwykłego głosu (`Wymowa.wysokoscTonow`): 4. ton ma zacząć ≥ 4 półtony
+nad zwykłym głosem (po 2. tonie: nie niżej niż 3 półtony pod końcem „Cooo?”), spaść ≥ 5 półtonów i nie iść najpierw w górę; 3. ton
+zaczyna zwykłym głosem albo niżej (po 4.: na dole), bez podskoku przed zejściem. Wykres: środkowa kreska = twój zwykły głos.
+Sprawdzone na nagraniach lektora (52 słowa, 1 fałszywe „źle”) i na próbach usera z 19.10.2026 (płaskie „Nie!” i „Noooo…” z podskokiem wyłapane).
 Licznik wpadek per ton/grupa w `localStorage kubus.wymowa.stat.<strona>`, lista „co ci najczęściej ucieka” linkuje do sekcji.
 Treść powstała z badania (tony i dźwięki trudne dla Polaków, metody ćwiczeń) i została sprawdzona pod kątem chińskiego i prostego polskiego.
 
