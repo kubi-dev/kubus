@@ -783,12 +783,33 @@
     }
     return matchMedia("(prefers-color-scheme: dark)").matches ? "#111" : "#fff";
   }
-  // co klatkę: dziura dokładnie na guziku, blok nad nim (pod nim, gdy guzik jest za wysoko na ekranie)
+  // co klatkę: dziura dokładnie na guziku, blok nad nim albo pod nim, tam, gdzie jest więcej widocznego miejsca.
+  // iOS: współrzędne guzika i „position: fixed” potrafią się rozjechać (powiększenie, paski przeglądarki), więc po ustawieniu
+  // mierzymy, gdzie element naprawdę stanął, i poprawiamy o różnicę; blok nigdy nie nachodzi na guzik (wtedy mniejszy wykres).
+  let ostatniaGeo = "";
+  function ustawFixed(el, left, top) {          // left null = poziomo zostaje z CSS (blok: środek ekranu)
+    if (left != null) el.style.left = left + "px"; el.style.top = top + "px";
+    const q = el.getBoundingClientRect(), dx = left != null ? q.left - left : 0, dy = q.top - top;
+    if (Math.abs(dx) > 1) el.style.left = (left - dx) + "px";
+    if (Math.abs(dy) > 1) el.style.top = (top - dy) + "px";
+  }
   function ulozEkran(e, btn) {
-    const r = btn.getBoundingClientRect(), d = e.firstChild, b = e.lastChild;
-    Object.assign(d.style, { left: r.left + "px", top: r.top + "px", width: r.width + "px", height: r.height + "px" });
-    const nad = r.top - 12 - b.offsetHeight;
-    b.style.top = (nad >= 8 ? nad : r.bottom + 12) + "px";
+    const r = btn.getBoundingClientRect(), d = e.firstChild, b = e.lastChild, cv = b.querySelector("canvas");
+    d.style.width = r.width + "px"; d.style.height = r.height + "px";
+    ustawFixed(d, r.left, r.top);
+    const vv = window.visualViewport, gora = vv ? vv.offsetTop : 0, wys = vv ? vv.height : window.innerHeight;
+    const nadMiejsce = r.top - 12 - (gora + 8), podMiejsce = gora + wys - 8 - (r.bottom + 12);
+    const naGorze = nadMiejsce >= b.offsetHeight || nadMiejsce >= podMiejsce;
+    // za mało miejsca po wybranej stronie: niższy wykres (min. 50 px), żeby blok zmieścił się obok guzika
+    const miejsce = naGorze ? nadMiejsce : podMiejsce, bezWykresu = b.offsetHeight - cv.offsetHeight;
+    const hw = Math.max(50, Math.min(110, miejsce - bezWykresu));
+    if (Math.abs(cv.offsetHeight - hw) > 2) cv.style.height = hw + "px";
+    const top = naGorze ? r.top - 12 - b.offsetHeight : r.bottom + 12;
+    ustawFixed(b, null, top);
+    const q = b.getBoundingClientRect();
+    if (q.bottom > r.top && q.top < r.bottom) ustawFixed(b, null, naGorze ? r.top - 12 - q.height : r.bottom + 12);
+    const q2 = b.getBoundingClientRect();
+    ostatniaGeo = `g${Math.round(r.top)}-${Math.round(r.bottom)} b${Math.round(q2.top)}-${Math.round(q2.bottom)} v${Math.round(gora)}/${Math.round(wys)}/${vv ? vv.scale.toFixed(2) : 1} h${window.innerHeight}`;
   }
   function ekranPokaz(btn, opts) {
     try {
@@ -973,7 +994,7 @@
   // sprawdzić ocenę na prawdziwym głosie; bez czekania na odpowiedź
   function zapiszProbe(n, opts, ocena) {
     const c = cfg(); if (!c.url || !c.klucz || !n || !n.chunks.length) return;
-    const oc = ocena ? ocena.sylaby.map(x => x.ton + (x.ok ? "ok" : "zle" + x.jak)).join(" ") : "brak";
+    const oc = (ocena ? ocena.sylaby.map(x => x.ton + (x.ok ? "ok" : "zle" + x.jak)).join(" ") : "brak") + (ostatniaGeo ? " | " + ostatniaGeo : "");
     fetch(c.url + "/wymowa?zapis=1&cel=" + encodeURIComponent(celZ(opts)) + "&strona=" + encodeURIComponent(location.pathname) + "&ocena=" + encodeURIComponent(oc),
       { method: "POST", headers: { "Authorization": "Bearer " + c.klucz, "Content-Type": "audio/wav" }, body: wav16k(n.chunks, n.rate) }).catch(e => diag("zapis próby: " + e.message));
   }
