@@ -354,23 +354,6 @@ function blokEsc(lab, tekst) { return blok(lab, esc(tekst), true); }
   }
 })();
 // ---- wysoko i nisko: ucho (dwa dźwięki, który wyższy), głos na trzech wysokościach, zjazd z góry na dół ----
-// dwa dźwięki jak nucenie (kilka alikwotów), jeden po drugim, jako WAV z blob:, grany przez Wymowa.graj (jedno audio na stronę)
-function dwaDzwieki(hzA, hzB, glA, glB) {
-  const R = 22050, nuta = 0.6, przerwa = 0.3, n = Math.round(R * (2 * nuta + przerwa)), x = new Int16Array(n);
-  [[hzA, glA, 0], [hzB, glB, nuta + przerwa]].forEach(([hz, gl, t0]) => {
-    const a = Math.round(t0 * R), m = Math.round(nuta * R);
-    for (let i = 0; i < m; i++) {
-      const t = i / R, obw = Math.min(1, t / 0.03, (nuta - t) / 0.08);
-      let v = 0; for (let k = 1; k <= 8; k++) v += Math.sin(2 * Math.PI * hz * k * t) / Math.pow(k, 1.2);
-      x[a + i] = Math.round(v * obw * gl * 9000);
-    }
-  });
-  const b = new DataView(new ArrayBuffer(44 + n * 2)), str = (o, s) => { for (let i = 0; i < s.length; i++) b.setUint8(o + i, s.charCodeAt(i)); };
-  str(0, "RIFF"); b.setUint32(4, 36 + n * 2, true); str(8, "WAVEfmt "); b.setUint32(16, 16, true); b.setUint16(20, 1, true); b.setUint16(22, 1, true);
-  b.setUint32(24, R, true); b.setUint32(28, R * 2, true); b.setUint16(32, 2, true); b.setUint16(34, 16, true); str(36, "data"); b.setUint32(40, n * 2, true);
-  for (let i = 0; i < n; i++) b.setInt16(44 + i * 2, x[i], true);
-  return URL.createObjectURL(new Blob([b.buffer], { type: "audio/wav" }));
-}
 // półtony twojego głosu względem zapamiętanego zwykłego (res.wys.ref); null = za mało głosu
 function wysokoscGlosu(res, od, doo) {
   const ty = res && res.wys && res.wys.ty, ref = res && res.wys && res.wys.ref; if (!ty) return null;
@@ -397,15 +380,12 @@ function wynikGlosu(out, res, ok, rada, okTxt, zleTxt) {
     `<div class="krok"><span class="lab">${esc(W.zjazd.tytul)}</span><div class="pl">${esc(W.zjazd.opis)}</div><div class="popl" id="wn-zjazd"><div class="txt">Powiedz <b>„${esc(W.zjazd.powiedz)}”</b><br>${esc(W.zjazd.jak)}</div>` +
     `<button class="mic" type="button"></button><div class="result" hidden></div></div></div>`;
   root.appendChild(c);
-  // ucho: różnica od dużej (7 półtonów) do małej (2), co trzecia runda z pułapką: wyższy dźwięk cichszy
+  // ucho: rundy z wymowa.json (różnica od 7 półtonów do 2, co trzecia z pułapką: wyższy dźwięk cichszy), mp3 z buildu w audio/
   let runda = null, url = null, ok = 0, ile = 0;
-  const odp = $("wn-odp"), fb = $("wn-fb");
+  const odp = $("wn-odp"), fb = $("wn-fb"), RUNDY = W.ucho.rundy;
   const nowa = () => {
-    const roz = [7, 5, 4, 3, 2][Math.min(4, Math.floor(ile / 3))], dol = 130 + Math.random() * 60, wyzej = Math.random() < 0.5 ? 0 : 1, pulapka = ile % 3 === 2;
-    const hz = [dol, dol]; hz[wyzej] = dol * Math.pow(2, roz / 12);
-    const gl = [1, 1]; if (pulapka) gl[wyzej] = 0.3;
-    if (url) URL.revokeObjectURL(url);
-    url = dwaDzwieki(hz[0], hz[1], gl[0], gl[1]); runda = { wyzej, pulapka, odp: false };
+    const r = RUNDY[ile % RUNDY.length], wyzej = r.hz[1] > r.hz[0] ? 1 : 0;
+    url = "audio/" + r.plik + ".mp3"; runda = { wyzej, pulapka: r.glosnosc[wyzej] < 1, odp: false };
   };
   $("wn-graj").addEventListener("click", () => {
     if (!runda || runda.odp) { nowa(); fb.textContent = ""; fb.className = "fb"; for (const b of odp.querySelectorAll("button")) b.className = ""; }

@@ -3,7 +3,159 @@
   "opis": "Wysoko i nisko to nie głośno i cicho. Wysoki dźwięk jest cienki: głos małego dziecka, pisk myszy, gwizdek. Niski dźwięk jest gruby: niedźwiedź, basy z głośnika, lektor filmowy. Możesz krzyczeć nisko i szeptać wysoko.\nNuty i oktawy nie są ci potrzebne. Do tonów wystarczą trzy miejsca w twoim głosie: wysoko, zwykle i nisko, i umiejętność przejścia z jednego do drugiego.\n„Aaaa” u lekarza: wysoko. „Noooo…”: nisko. „Cooo?”: z dołu do góry. „Nie!”: z góry na dół.",
   "ucho": {
    "tytul": "1. Uszami: który dźwięk wyższy?",
-   "opis": "Usłyszysz dwa dźwięki, jeden po drugim. Który był cieńszy, jak głos dziecka? Uwaga: czasem wyższy jest cichszy. Głośniej to nie wyżej."
+   "opis": "Usłyszysz dwa dźwięki, jeden po drugim. Który był cieńszy, jak głos dziecka? Uwaga: czasem wyższy jest cichszy. Głośniej to nie wyżej.",
+   "rundy": [
+    {
+     "hz": [
+      149,
+      223
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "hz": [
+      169,
+      253
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "hz": [
+      162,
+      243
+     ],
+     "glosnosc": [
+      1,
+      0.3
+     ]
+    },
+    {
+     "hz": [
+      178,
+      133
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "hz": [
+      132,
+      176
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "hz": [
+      134,
+      179
+     ],
+     "glosnosc": [
+      1,
+      0.3
+     ]
+    },
+    {
+     "hz": [
+      195,
+      155
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "hz": [
+      137,
+      173
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "hz": [
+      212,
+      168
+     ],
+     "glosnosc": [
+      0.3,
+      1
+     ]
+    },
+    {
+     "hz": [
+      165,
+      196
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "hz": [
+      189,
+      225
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "hz": [
+      182,
+      216
+     ],
+     "glosnosc": [
+      1,
+      0.3
+     ]
+    },
+    {
+     "hz": [
+      139,
+      156
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "hz": [
+      167,
+      149
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "hz": [
+      158,
+      141
+     ],
+     "glosnosc": [
+      0.3,
+      1
+     ]
+    }
+   ]
   },
   "glos": {
    "tytul": "2. Głosem: trzy miejsca",
