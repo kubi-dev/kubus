@@ -2,13 +2,13 @@
  "wysoko_nisko": {
   "opis": "Wysoko i nisko to nie głośno i cicho. Wysoki dźwięk jest cienki: głos małego dziecka, pisk myszy, gwizdek. Niski dźwięk jest gruby: niedźwiedź, basy z głośnika, lektor filmowy. Możesz krzyczeć nisko i szeptać wysoko.\nNuty i oktawy nie są ci potrzebne. Do tonów wystarczą trzy miejsca w twoim głosie: wysoko, zwykle i nisko, i umiejętność przejścia z jednego do drugiego.\n„Aaaa” u lekarza: wysoko. „Noooo…”: nisko. „Cooo?”: z dołu do góry. „Nie!”: z góry na dół.",
   "ucho": {
-   "tytul": "1. Uszami: który dźwięk wyższy?",
-   "opis": "Usłyszysz dwa dźwięki, jeden po drugim. Który był cieńszy, jak głos dziecka? Uwaga: czasem wyższy jest cichszy. Głośniej to nie wyżej.",
+   "tytul": "1. Uszami: które wyżej?",
+   "opis": "Najpierw posłuchaj, jak brzmi to samo słowo „mama” powiedziane wysoko, zwykle i nisko. Potem usłyszysz dwa razy „mama”, jedno po drugim. Które było wyżej, czyli cieniej? Uwaga: czasem wyższe jest cichsze. Głośniej to nie wyżej.",
    "rundy": [
     {
-     "hz": [
-      299,
-      448
+     "st": [
+      4,
+      -3
      ],
      "glosnosc": [
       1,
@@ -16,9 +16,9 @@
      ]
     },
     {
-     "hz": [
-      338,
-      506
+     "st": [
+      5,
+      -2
      ],
      "glosnosc": [
       1,
@@ -26,69 +26,9 @@
      ]
     },
     {
-     "hz": [
-      324,
-      485
-     ],
-     "glosnosc": [
-      1,
-      0.45
-     ]
-    },
-    {
-     "hz": [
-      356,
-      267
-     ],
-     "glosnosc": [
-      1,
-      1
-     ]
-    },
-    {
-     "hz": [
-      264,
-      352
-     ],
-     "glosnosc": [
-      1,
-      1
-     ]
-    },
-    {
-     "hz": [
-      268,
-      358
-     ],
-     "glosnosc": [
-      1,
-      0.45
-     ]
-    },
-    {
-     "hz": [
-      392,
-      311
-     ],
-     "glosnosc": [
-      1,
-      1
-     ]
-    },
-    {
-     "hz": [
-      275,
-      346
-     ],
-     "glosnosc": [
-      1,
-      1
-     ]
-    },
-    {
-     "hz": [
-      422,
-      335
+     "st": [
+      2,
+      -5
      ],
      "glosnosc": [
       0.45,
@@ -96,9 +36,9 @@
      ]
     },
     {
-     "hz": [
-      329,
-      391
+     "st": [
+      -5,
+      0
      ],
      "glosnosc": [
       1,
@@ -106,9 +46,9 @@
      ]
     },
     {
-     "hz": [
-      377,
-      448
+     "st": [
+      0,
+      -5
      ],
      "glosnosc": [
       1,
@@ -116,9 +56,9 @@
      ]
     },
     {
-     "hz": [
-      363,
-      432
+     "st": [
+      -4,
+      1
      ],
      "glosnosc": [
       1,
@@ -126,9 +66,9 @@
      ]
     },
     {
-     "hz": [
-      277,
-      311
+     "st": [
+      -2,
+      2
      ],
      "glosnosc": [
       1,
@@ -136,9 +76,9 @@
      ]
     },
     {
-     "hz": [
-      333,
-      297
+     "st": [
+      -4,
+      0
      ],
      "glosnosc": [
       1,
@@ -146,14 +86,89 @@
      ]
     },
     {
-     "hz": [
-      317,
-      282
+     "st": [
+      -2,
+      2
+     ],
+     "glosnosc": [
+      1,
+      0.45
+     ]
+    },
+    {
+     "st": [
+      -1,
+      2
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "st": [
+      -1,
+      -4
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "st": [
+      2,
+      -1
      ],
      "glosnosc": [
       0.45,
       1
      ]
+    },
+    {
+     "st": [
+      1,
+      -1
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "st": [
+      -3,
+      -5
+     ],
+     "glosnosc": [
+      1,
+      1
+     ]
+    },
+    {
+     "st": [
+      -3,
+      -5
+     ],
+     "glosnosc": [
+      0.45,
+      1
+     ]
+    }
+   ],
+   "slowo": "mama",
+   "przyklady": [
+    {
+     "nazwa": "wysoko: cienko, jak dziecko",
+     "st": 7
+    },
+    {
+     "nazwa": "zwykle",
+     "st": 0
+    },
+    {
+     "nazwa": "nisko: grubo, jak niedźwiedź",
+     "st": -7
     }
    ]
   },

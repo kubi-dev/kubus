@@ -191,26 +191,30 @@ STRONY_WYMOWY = {
                 '<a href="../tony/">← tony</a>'),
 }
 
-def ensure_dwa_dzwieki(out, r):
-    """Ucho „który wyżej?”: dwa nucone dźwięki (8 alikwotów), jeden po drugim, jako zwykłe mp3 w <strona>/audio/ (grane jak nagrania słów)."""
-    import hashlib, math, struct
-    key = "wn-" + hashlib.md5(json.dumps(r, sort_keys=True).encode()).hexdigest()[:10]
-    dest = out / "audio" / f"{key}.mp3"
-    if dest.exists(): return key
-    # jasne brzmienie (12 alikwotów, łagodnie słabnących): głośnik telefonu gra głównie 1–4 kHz; szczyt głośniejszego dźwięku = 90% skali
-    R, nuta, przerwa = 22050, 0.6, 0.3
-    fale = []
-    for hz, gl in zip(r["hz"], r["glosnosc"]):
-        m = int(R * nuta); fale.append([gl * min(1, i / R / 0.03, (nuta - i / R) / 0.08) * sum(math.sin(2 * math.pi * hz * h * i / R) / h ** 0.6 for h in range(1, 13) if hz * h < 5000) for i in range(m)])
-    szczyt = max(abs(v) for f in fale for v in f) or 1
-    pcm = bytearray()
-    for k, f in enumerate(fale):
-        if k: pcm += bytes(2 * int(R * przerwa))
-        for v in f: pcm += struct.pack("<h", int(v / szczyt * 29500))
-    dest.parent.mkdir(exist_ok=True)
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "s16le", "-ac", "1", "-ar", str(R), "-i", "-", "-codec:a", "libmp3lame", "-b:a", "64k", str(dest)],
-                   input=bytes(pcm), check=True)
-    print(f"  audio: dwa dźwięki {r['hz']} -> {dest.name}")
+def ensure_dzwiek_ucha(out, slowo, st, glosnosc=None):
+    """Ucho „który wyżej?”: polskie słowo (Google TTS, plik pl-<klucz>.mp3) przesunięte o st półtonów bez zmiany tempa; dwa st = dwa razy
+    to samo słowo, jedno po drugim (glosnosc: pułapka, wyższe ciszej). Zwykłe mp3 w <strona>/audio/, grane jak nagrania słów."""
+    import math
+    st = st if isinstance(st, list) else [st]; glosnosc = glosnosc or [1] * len(st)
+    key = "wn-" + hashlib.md5(json.dumps([slowo, st, glosnosc]).encode()).hexdigest()[:10]
+    adir = out / "audio"; adir.mkdir(exist_ok=True)
+    dest = adir / f"{key}.mp3"
+    if dest.exists() or NO_AUDIO: return key
+    src = adir / f"pl-{audio_key(slowo)}.mp3"
+    if not src.exists():
+        subprocess.run(["curl", "-sf", "-A", "Mozilla/5.0", "-o", str(src), podcast.TTS_PL.format(q=urllib.parse.quote(slowo))], check=True)
+    R, pcm = 24000, b""
+    for k, (s1, g) in enumerate(zip(st, glosnosc)):
+        f = 2 ** (s1 / 12)
+        if k: pcm += bytes(2 * int(R * 0.45))
+        pcm += subprocess.run(["ffmpeg", "-v", "error", "-i", str(src), "-af", f"asetrate={R}*{f:.5f},aresample={R},atempo={1 / f:.5f},volume={g}",
+                               "-f", "s16le", "-ac", "1", "-ar", str(R), "-"], capture_output=True, check=True).stdout
+    import array
+    x = array.array("h", pcm); szczyt = max(map(abs, x)) or 1   # głośno: szczyt na 90% skali (telefon gra cicho)
+    x = array.array("h", (int(v * 29500 / szczyt) for v in x))
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "s16le", "-ac", "1", "-ar", str(R), "-i", "-", "-af", "volume=6dB,alimiter=limit=0.9:level=disabled",
+                    "-codec:a", "libmp3lame", "-b:a", "64k", str(dest)], input=x.tobytes(), check=True)
+    print(f"  audio: {slowo} {st} -> {dest.name}")
     return key
 
 def build_wymowa(lessons):
@@ -244,7 +248,9 @@ def build_wymowa(lessons):
             except Exception as e: print(f"  ! {e}", file=sys.stderr)
         wn = data.get("wysoko_nisko")
         if wn:
-            for r in wn["ucho"]["rundy"]: r["plik"] = ensure_dwa_dzwieki(out, r)
+            u = wn["ucho"]
+            for r in u["rundy"]: r["plik"] = ensure_dzwiek_ucha(out, u["slowo"], r["st"], r["glosnosc"])
+            for r in u["przyklady"]: r["plik"] = ensure_dzwiek_ucha(out, u["slowo"], r["st"])
         data["audio"] = audio; data["tryb"] = tryb
         html = (WYMOWA.replace("{{DATA_JSON}}", json.dumps(data, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
                 .replace("{{TYTUL}}", tytul).replace("{{NAGLOWEK}}", naglowek).replace("{{WSTEP}}", wstep).replace("{{LINK}}", link))
