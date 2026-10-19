@@ -87,8 +87,7 @@ na wzorze melodii (`po_polsku` w `wymowa.json`, `Wymowa.wzorTonu`), potem chińs
 Wynik: wykres (skala z linii na wykresie, źle powiedziana sylaba na pomarańczowo) i sylaby ze znaczkiem. Próba z oceną idzie do
 workera (`/wymowa?zapis=1&ocena=`, KV „nagranie:”, 7 dni) do sprawdzania oceny na prawdziwym głosie.
 Sekcja „Wysoko i nisko” na początku (`wysoko_nisko` w `wymowa.json`): czym jest wysoki i niski dźwięk (cienki / gruby, nie głośny / cichy),
-ucho „który wyżej?” (to samo polskie słowo „mama” z Google TTS przesunięte o półtony bez zmiany tempa, `ensure_dzwiek_ucha`, przykłady wysoko / zwykle / nisko w `ucho.przyklady`, rundy w `ucho.rundy`, różnica od 7 do 2 półtonów, co trzecia runda
-wyższy cichszy), „Aaaa” na trzech wysokościach (zwykle / wysoko ≥ 3,5 półtona / nisko ≤ −2 półtony względem zwykłego głosu) i zjazd
+„Aaaa” na trzech wysokościach (zwykle / wysoko ≥ 3,5 półtona / nisko ≤ −2 półtony względem zwykłego głosu) i zjazd
 „Fiiiiuuu” z góry na dół. Próby celowo wysoko lub nisko (`bezZwyklego` w `Wymowa.bind`) nie zmieniają zapamiętanego zwykłego głosu.
 Sekcja „Nie!” z góry, „Noooo…” z dołu (`trudne_tony` w `wymowa.json`): kroki po polsku („Cooo? Nie!”, „Nie!”, „Nie! Noooo…”,
 „Noooo…”, wzór z punktów `wzor`/`ramki` przez `Wymowa.wzorLinii`), potem chińskie pary 2-4 / 4-3 i pojedyncze słowa. Mikrofon z opcją

@@ -353,7 +353,7 @@ function blokEsc(lab, tekst) { return blok(lab, esc(tekst), true); }
     root.appendChild(c);
   }
 })();
-// ---- wysoko i nisko: ucho (dwa dźwięki, który wyższy), głos na trzech wysokościach, zjazd z góry na dół ----
+// ---- wysoko i nisko: twój głos na trzech wysokościach, zjazd z góry na dół ----
 // półtony twojego głosu względem zapamiętanego zwykłego (res.wys.ref); null = za mało głosu
 function wysokoscGlosu(res, od, doo) {
   const ty = res && res.wys && res.wys.ty, ref = res && res.wys && res.wys.ref; if (!ty) return null;
@@ -372,43 +372,10 @@ function wynikGlosu(out, res, ok, rada, okTxt, zleTxt) {
   const root = $("s-wysoko"), W = DATA.wysoko_nisko; if (!root || !W) return;
   const c = document.createElement("div"); c.className = "card"; c.id = "wysoko-nisko";
   c.innerHTML = `<div class="opis">${esc(W.opis).replace(/„([^”]+)”/g, "„<b>$1</b>”")}</div>` +
-    `<div class="krok"><span class="lab">${esc(W.ucho.tytul)}</span><div class="pl">${esc(W.ucho.opis)}</div>` +
-    `<div class="tryby" id="wn-przyklady">${W.ucho.przyklady.map((x, i) => `<button type="button" data-i="${i}">▶ ${esc(x.nazwa)}</button>`).join("")}</div>` +
-    `<div class="quiz"><button class="btn main" type="button" id="wn-graj">▶ Posłuchaj dwóch</button>` +
-    `<div class="odp dwa" id="wn-odp" hidden><button type="button" data-k="0">pierwsze wyżej</button><button type="button" data-k="1">drugie wyżej</button></div>` +
-    `<div class="fb" id="wn-fb"></div><div class="wynik" id="wn-wynik"></div></div></div>` +
     `<div class="krok"><span class="lab">${esc(W.glos.tytul)}</span><div class="pl">${esc(W.glos.opis)}</div><div class="slowa" id="wn-poziomy"></div></div>` +
     `<div class="krok"><span class="lab">${esc(W.zjazd.tytul)}</span><div class="pl">${esc(W.zjazd.opis)}</div><div class="popl" id="wn-zjazd"><div class="txt">Powiedz <b>„${esc(W.zjazd.powiedz)}”</b><br>${esc(W.zjazd.jak)}</div>` +
     `<button class="mic" type="button"></button><div class="result" hidden></div></div></div>`;
   root.appendChild(c);
-  // ucho: rundy z wymowa.json (to samo polskie słowo dwa razy, różnica od 7 półtonów do 2, co trzecia z pułapką: wyższe ciszej), mp3 z buildu w audio/
-  let runda = null, url = null, ok = 0, ile = 0;
-  const odp = $("wn-odp"), fb = $("wn-fb"), RUNDY = W.ucho.rundy;
-  const nowa = () => {
-    const r = RUNDY[ile % RUNDY.length], wyzej = r.st[1] > r.st[0] ? 1 : 0;
-    url = "audio/" + r.plik + ".mp3"; runda = { wyzej, pulapka: r.glosnosc[wyzej] < 1, odp: false };
-  };
-  $("wn-przyklady").addEventListener("click", (e) => {
-    const b = e.target.closest("button"); if (!b) return;
-    Wymowa.graj("audio/" + W.ucho.przyklady[b.dataset.i].plik + ".mp3").catch(er => Wymowa.diag("przykład: " + er.message));
-  });
-  $("wn-graj").addEventListener("click", () => {
-    if (!runda || runda.odp) { nowa(); fb.textContent = ""; fb.className = "fb"; for (const b of odp.querySelectorAll("button")) b.className = ""; }
-    odp.hidden = false; $("wn-graj").textContent = "▶ Posłuchaj jeszcze raz";
-    Wymowa.graj(url).catch(e => Wymowa.diag("dwa dźwięki: " + e.message));
-  });
-  odp.addEventListener("click", (e) => {
-    const b = e.target.closest("button"); if (!b || !runda || runda.odp) return;
-    runda.odp = true; ile++;
-    const dobrze = Number(b.dataset.k) === runda.wyzej; if (dobrze) ok++;
-    odp.querySelectorAll("button")[runda.wyzej].className = "dobrze"; if (!dobrze) b.className = "zle";
-    fb.className = "fb " + (dobrze ? "ok" : "bad");
-    fb.textContent = dobrze ? "✓ Dobrze." + (runda.pulapka ? " Wyższe było cichsze, a i tak je usłyszałeś." : "")
-      : "✗ Wyżej było " + (runda.wyzej ? "drugie" : "pierwsze") + " „mama”." + (runda.pulapka ? " Uwaga, było cichsze: głośniej to nie wyżej. Słuchaj, które jest cieńsze." : " Posłuchaj jeszcze raz: wyższe jest cieńsze, jak głos dziecka.");
-    $("wn-graj").textContent = "▶ Następne"; runda.odp = true;
-    $("wn-wynik").textContent = `Dobrze ${ok} z ${ile}. Z każdą rundą różnica jest mniejsza.`;
-    if (!dobrze) { const u = url; setTimeout(() => Wymowa.graj(u).catch(() => {}), 400); }
-  });
   // głos: trzy wysokości „Aaaa”, cel = płaska kreska na skali zwykłego głosu
   const NAZWA = { 1: "wysoko", 0: "zwykle", "-1": "nisko" };
   for (const p of W.glos.poziomy) {
