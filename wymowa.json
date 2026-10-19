@@ -88,7 +88,7 @@
   },
   "gierka": {
    "tytul": "3. Gierka: wyżej / niżej",
-   "opis": "Przytrzymaj guzik i ciągnij „Aaaa”. Kropka to twój głos, przerywana kreska to twój zwykły głos. Doprowadź kropkę do zielonego pola i potrzymaj chwilę. Wtedy pole skacze w inne miejsce: wysoko, zwykle albo nisko. Napis mówi, w którą stronę iść. Możesz przerwać na oddech i ciągnąć dalej, guzika nie puszczaj. Jedna runda trwa do 30 sekund."
+   "opis": "Przytrzymaj guzik i ciągnij „Aaaa”. Napis mówi „wyżej” albo „niżej”: przesuń głos w tę stronę, aż pojawi się ✓. Potem następne polecenie. Na oddech możesz przerwać, guzika nie puszczaj. Jedna runda trwa do 30 sekund."
   }
  },
  "wstep": [

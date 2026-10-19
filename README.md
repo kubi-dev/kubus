@@ -99,10 +99,10 @@ workera (`/wymowa?zapis=1&ocena=`, KV „nagranie:”, 7 dni) do sprawdzania oce
 Sekcja „Wysoko i nisko” na początku (`wysoko_nisko` w `wymowa.json`): czym jest wysoko i nisko (tylko na polskich słowach z notatek: koniec „Cooo?” = wysoko, koniec „Noooo…” = nisko, „poproszę bułkę” = zwykle),
 „Aaaa” na trzech wysokościach (zwykle / wysoko ≥ 3,5 półtona / nisko ≤ −2 półtony względem zwykłego głosu) i „Start od razu na górze”
 („Hej!”, „Heeej!”, „Nie!”: wydech „hhh” przed słowem, usłyszeć koniec „Cooo?” w głowie; mikrofon łapie podjeżdżanie od dołu, `startGlosu`).
-Na końcu sekcji gierka „wyżej / niżej” (`gierka` w `wymowa.json`, `gierka()` w `wymowa.html`): zielone pole skacze między trzema miejscami
-z „Głosem: trzy miejsca” (wysoko / zwykle / nisko, ±2 półtony), kropka i ślad to twój głos na żywo, napis „↑ wyżej” / „↓ niżej” / „✓ trzymaj…”;
-0,7 s w polu = trafienie. Ten sam mikrofon co reszta (`Wymowa.bind` z `naZywo`: bez ekranu mówienia, co klatkę głos w półtonach od
-zwykłego, `maxMs: 30000`), próba idzie do KV jak inne ćwiczenia melodii. Bez zapamiętanego zwykłego głosu „wysoko”, „nisko” i „Start od razu na górze” nie oceniają, tylko odsyłają do „Aaaa” zwykle.
+Na końcu sekcji gierka „wyżej / niżej” (`gierka` w `wymowa.json`, `gierka()` w `wymowa.html`): tylko duży napis „↑ wyżej” / „↓ niżej”,
+bez wykresu i bez wyznaczonych wysokości. Liczy się ruch głosu od miejsca, w którym był przy poleceniu: o 2,5 półtona w tę stronę
+(mediana z ostatnich 250 ms) = „✓”, potem następne polecenie losowo (dalej niż 9 półtonów od startu = w drugą stronę). Ten sam mikrofon
+co reszta (`Wymowa.bind` z `naZywo`: bez ekranu mówienia, co klatkę głos na żywo, `maxMs: 30000`), próba idzie do KV jak inne ćwiczenia melodii. Bez zapamiętanego zwykłego głosu „wysoko”, „nisko” i „Start od razu na górze” nie oceniają, tylko odsyłają do „Aaaa” zwykle.
 Sekcja „Nie!” z góry, „Noooo…” z dołu (`trudne_tony` w `wymowa.json`): kroki po polsku („Cooo? Nie!”, „Nie!”, „Nie! Noooo…”,
 „Noooo…”, wzór z punktów `wzor`/`ramki` przez `Wymowa.wzorLinii`), potem chińskie pary 2-4 / 4-3 i pojedyncze słowa. Mikrofon z opcją
 `wysokosc` ocenia oprócz kształtu wysokość względem twojego zwykłego głosu (`Wymowa.wysokoscTonow`): 4. ton ma zacząć ≥ 4 półtony

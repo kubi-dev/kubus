@@ -121,13 +121,11 @@
   .popl { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "txt mic" "res res"; gap: 6px 10px; align-items: center; padding: 8px 10px; border-radius: 10px; background: var(--bg); }
   .popl .txt { grid-area: txt; font-size: 15px; line-height: 1.4; }
   .popl .txt b { color: var(--accent); font-size: 20px; }
-  .gra { margin-top: 8px; padding: 10px; border-radius: 10px; background: var(--bg); --gra-ty: #1d4ed8; --gra-cel: rgba(46,158,91,.28); }
-  @media (prefers-color-scheme: dark) { .gra { --gra-ty: #60a5fa; --gra-cel: rgba(74,222,128,.25); } }
-  .gra-napis { text-align: center; font-size: 26px; font-weight: 700; min-height: 36px; line-height: 36px; }
+  .gra { margin-top: 8px; padding: 10px; border-radius: 10px; background: var(--bg); }
+  .gra-napis { text-align: center; font-size: 44px; font-weight: 700; line-height: 1.2; min-height: 140px; display: flex; align-items: center; justify-content: center; }
   .gra-napis.wyzej, .gra-napis.nizej { color: var(--accent); }
   .gra-napis.jest { color: var(--ok-ink); }
   .gra-napis.cicho { color: var(--muted); font-size: 17px; font-weight: 400; }
-  .gra canvas { display: block; width: 100%; height: 240px; margin: 6px 0 10px; }
   .gra .mic { width: 100%; justify-content: center; font-size: 17px; padding: 14px 18px; }
   .gra-wynik { text-align: center; font-size: 14px; color: var(--muted); margin-top: 8px; min-height: 18px; }
   .popl .mic { grid-area: mic; }
@@ -396,7 +394,7 @@ function wynikGlosu(out, res, ok, rada, okTxt, zleTxt) {
     `<div class="krok"><span class="lab">${esc(W.glos.tytul)}</span><div class="pl">${esc(W.glos.opis)}</div><div class="slowa" id="wn-poziomy"></div></div>` +
     `<div class="krok"><span class="lab">${esc(W.start.tytul)}</span><div class="pl">${esc(W.start.opis)}</div><div class="slowa" id="wn-start"></div></div>` +
     (W.gierka ? `<div class="krok" id="wn-gierka"><span class="lab">${esc(W.gierka.tytul)}</span><div class="pl">${esc(W.gierka.opis)}</div>` +
-      `<div class="gra"><div class="gra-napis cicho"></div><canvas></canvas><button class="mic" type="button"></button><div class="gra-wynik"></div></div></div>` : "");
+      `<div class="gra"><div class="gra-napis cicho"></div><button class="mic" type="button"></button><div class="gra-wynik"></div></div></div>` : "");
   root.appendChild(c);
   // głos: trzy wysokości „Aaaa”, cel = płaska kreska na skali zwykłego głosu
   const NAZWA = { 1: "wysoko", 0: "zwykle", "-1": "nisko" };
@@ -449,73 +447,42 @@ function wynikGlosu(out, res, ok, rada, okTxt, zleTxt) {
     });
     etykieta(d.querySelector(".mic"), "🎤 powiedz");
   }
-  if (W.gierka) gierka($("wn-gierka").querySelector(".gra"), W.glos.poziomy);
+  if (W.gierka) gierka($("wn-gierka").querySelector(".gra"));
 })();
-// ---- gierka „wyżej / niżej”: zielone pole skacze między trzema miejscami z „Głosem: trzy miejsca” (wysoko / zwykle / nisko,
-// półtony od twojego zwykłego głosu), kropka = twój głos na żywo; trafienie = 0,7 s w polu, wtedy pole skacze gdzie indziej
-function gierka(el, poziomy) {
-  const napis = el.querySelector(".gra-napis"), cv = el.querySelector("canvas"), btn = el.querySelector(".mic"), wynik = el.querySelector(".gra-wynik");
-  const LO = -9, HI = 11, POLE = 2, TRAF_MS = 700, PRZERWA_MS = 300, SLAD_MS = 3000;
-  const miejsca = poziomy.map(p => p.st);
-  let cel = 0, slad = [], wPolu = 0, ostatnio = 0, ostGlos = 0, traf = 0, t0 = 0, blysk = 0;
-  const ustaw = (t, cls) => { napis.textContent = t; napis.className = "gra-napis " + cls; };
-  const nowyCel = () => { const inne = miejsca.filter(m => m !== cel); cel = inne[Math.floor(Math.random() * inne.length)]; };
-  function rysuj(teraz) {
-    const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight; if (!w) return;
-    if (cv.width !== Math.round(w * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
-    const g = cv.getContext("2d"), css = getComputedStyle(el), y = st => h - (Math.max(LO, Math.min(HI, st)) - LO) / (HI - LO) * h;
-    g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
-    g.fillStyle = css.getPropertyValue("--gra-cel").trim(); g.fillRect(0, y(cel + POLE), w, y(cel - POLE) - y(cel + POLE));
-    g.strokeStyle = css.getPropertyValue("--line").trim(); g.lineWidth = 1; g.setLineDash([5, 5]);
-    g.beginPath(); g.moveTo(0, y(0)); g.lineTo(w, y(0)); g.stroke(); g.setLineDash([]);
-    g.fillStyle = css.getPropertyValue("--muted").trim(); g.font = "12px -apple-system, sans-serif";
-    for (const p of poziomy) g.fillText(p.nazwa, 4, y(p.st) - 4);
-    const xK = w * 0.8, ty = css.getPropertyValue("--gra-ty").trim();
-    g.strokeStyle = ty; g.lineWidth = 3; g.lineCap = "round"; g.lineJoin = "round"; g.beginPath();
-    let prev = null;
-    for (const p of slad) {
-      const x = xK - (teraz - p.t) / SLAD_MS * xK;
-      if (p.st == null) { prev = null; continue; }
-      if (prev) g.lineTo(x, y(p.st)); else g.moveTo(x, y(p.st));
-      prev = p;
-    }
-    g.stroke();
-    const ost = slad[slad.length - 1];
-    if (ost && ost.st != null && teraz - ost.t < 200) { g.fillStyle = ty; g.beginPath(); g.arc(xK, y(ost.st), 9, 0, 2 * Math.PI); g.fill(); }
-  }
+// ---- gierka „wyżej / niżej”: polecenie „wyżej” albo „niżej”, liczy się tylko ruch głosu od miejsca, w którym był przy poleceniu
+// (o 2,5 półtona w tę stronę, mediana z ostatnich 250 ms), bez wyznaczonych wysokości i bez wykresu
+function gierka(el) {
+  const napis = el.querySelector(".gra-napis"), btn = el.querySelector(".mic"), wynik = el.querySelector(".gra-wynik");
+  const RUCH = 2.5, OKNO_MS = 250, BLYSK_MS = 500, ZA_DALEKO = 9;
+  let ost = [], start = 0, baza = 0, pol = 0, traf = 0, blysk = 0, t0 = 0;
+  const st = (hz, od) => 12 * Math.log2(hz / od);
+  const ustaw = (t, cls) => { if (napis.textContent !== t) napis.textContent = t; napis.className = "gra-napis " + cls; };
+  const pokazPolecenie = () => ustaw(pol > 0 ? "↑ wyżej" : "↓ niżej", pol > 0 ? "wyzej" : "nizej");
+  // następne polecenie losowo, ale głos za daleko od startu wraca w drugą stronę
+  const nastepne = (teraz) => { const od = st(teraz, start); pol = od > ZA_DALEKO ? -1 : od < -ZA_DALEKO ? 1 : Math.random() < 0.5 ? 1 : -1; baza = teraz; };
   const naZywo = (gl) => {
-    const teraz = performance.now(), dt = ostatnio ? Math.min(100, teraz - ostatnio) : 0; ostatnio = teraz;
-    if (gl && gl.st == null) { ustaw("Najpierw „Aaaa” zwykle (1. wyżej)", "cicho"); return; }
-    slad.push({ t: teraz, st: gl ? gl.st : null });
-    while (slad.length && teraz - slad[0].t > SLAD_MS) slad.shift();
-    if (gl) {
-      ostGlos = teraz;
-      if (Math.abs(gl.st - cel) <= POLE) {
-        wPolu += dt;
-        if (wPolu >= TRAF_MS) { traf++; wPolu = 0; blysk = teraz; nowyCel(); }
-      } else wPolu = 0;
-    } else if (teraz - ostGlos > PRZERWA_MS) wPolu = 0;
-    if (teraz - blysk < 600) ustaw("✓ jest! " + traf, "jest");
-    else if (!gl) ustaw("ciągnij „Aaaa”", "cicho");
-    else if (Math.abs(gl.st - cel) <= POLE) ustaw("✓ trzymaj…", "jest");
-    else ustaw(gl.st < cel ? "↑ wyżej" : "↓ niżej", gl.st < cel ? "wyzej" : "nizej");
-    rysuj(teraz);
+    const t = performance.now();
+    if (gl) ost.push({ t, hz: gl.hz });
+    while (ost.length && t - ost[0].t > OKNO_MS) ost.shift();
+    if (t - blysk < BLYSK_MS) return;
+    if (ost.length < 5) { ustaw(pol ? (pol > 0 ? "↑ wyżej" : "↓ niżej") : "ciągnij „Aaaa”", pol ? (pol > 0 ? "wyzej" : "nizej") : "cicho"); return; }
+    const teraz = ost.map(x => x.hz).sort((p, q) => p - q)[ost.length >> 1];
+    if (!start) { start = teraz; nastepne(teraz); pokazPolecenie(); return; }
+    if (pol * st(teraz, baza) >= RUCH) { traf++; blysk = t; ustaw("✓ " + traf, "jest"); nastepne(teraz); setTimeout(pokazPolecenie, BLYSK_MS); return; }
+    pokazPolecenie();
   };
   Wymowa.bind(btn, {
     tylkoGlos: true, naZywo, maxMs: 30000,
     target: () => "gierka wyżej/niżej", tony: () => [1],
-    onStart: () => { slad = []; wPolu = 0; ostatnio = 0; traf = 0; blysk = 0; t0 = Date.now(); wynik.textContent = ""; ustaw("ciągnij „Aaaa”", "cicho"); },
+    onStart: () => { ost = []; start = 0; baza = 0; pol = 0; traf = 0; blysk = 0; t0 = Date.now(); wynik.textContent = ""; ustaw("ciągnij „Aaaa”", "cicho"); },
     onDone: (res) => {
       if (res && res.error) { ustaw("", "cicho"); wynik.textContent = res.error; return; }
-      const sek = Math.round((Date.now() - t0) / 1000);
-      ustaw(Wymowa.zwyklyGlos() ? "Trafione: " + traf : "Najpierw „Aaaa” zwykle (1. wyżej)", "cicho");
-      wynik.textContent = Wymowa.zwyklyGlos() ? "w " + sek + " s. Przytrzymaj guzik, żeby zagrać jeszcze raz." : "";
-      slad = []; rysuj(performance.now());
+      ustaw("Trafione: " + traf, "cicho");
+      wynik.textContent = "w " + Math.round((Date.now() - t0) / 1000) + " s. Przytrzymaj guzik, żeby zagrać jeszcze raz.";
     }
   });
   etykieta(btn, "🎤 trzymaj i graj");
-  ustaw(Wymowa.zwyklyGlos() ? "Przytrzymaj guzik" : "Najpierw „Aaaa” zwykle (1. wyżej)", "cicho");
-  requestAnimationFrame(() => rysuj(performance.now()));
+  ustaw("Przytrzymaj guzik", "cicho");
 }
 // ---- karty z tytułem, opisem i słowami: wstęp, zmiany tonów, zdania ----
 function karty(rootId, lista) {
