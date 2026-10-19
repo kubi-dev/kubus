@@ -22,6 +22,8 @@
 //     tylkoGlos: true = ćwiczenie melodii: samo nagranie, bez rozpoznawania; tony: () => [2, 3] (Wymowa.tonyMowione) = co oceniać,
 //       wynik ma pole ocena (Wymowa.renderTony); wzor: () => Wymowa.wzorTonu(2) = linia celu zamiast nagrania lektora;
 //       zwykly: true = ta próba uczy zwykłego głosu (inne ćwiczenia melodii nie, mowa z lekcji zawsze)
+//       naZywo: (g) => {} = gierka: bez ekranu mówienia, co klatkę g = { hz, st (półtony od zwykłego głosu) } albo null (cisza);
+//       maxMs = najdłuższe nagranie (domyślnie 15 s, bufor mieści 32 s)
 //     ekran: () => ({ polski, pinyin, znaczenie, bezWymowy }) = co widać nad guzikiem w trakcie mówienia (bezWymowy: bez polskiej wymowy i melodii)  wynik wstępny moduł pokazuje w przycisku; strony nie ruszają układu w trakcie mówienia
 //   Wymowa.graj(url, { onEnd(przerwane) }) -> Promise<bool>;  Wymowa.stopAudio();  Wymowa.preload(url)
 //   result = { alts: [...], gotFinal, error, heldMs, started, wys: { ty: [Hz], cel: [Hz] | null, ref }, ocena (tylkoGlos) }
@@ -35,6 +37,7 @@
   // Dziennik zdarzeń mikrofonu widoczny na stronie (na telefonie nie ma konsoli).
   let diagEl = null;
   const KLUCZ_DIAG = "kubus.wymowa.diag";
+  const dziennik = [];                        // ostatnie linie dziennika: idą do workera, gdy mikrofon nie ruszy (zglos)
   function diag(msg) {
     if (!diagEl) {
       diagEl = document.getElementById("diag-log");
@@ -43,6 +46,7 @@
       if (diagEl) dodajKopiuj(diagEl);
     }
     const line = new Date().toISOString().slice(11, 23) + " " + msg;
+    dziennik.push(line); if (dziennik.length > 80) dziennik.shift();
     console.log("[wymowa] " + msg);
     if (diagEl) { diagEl.textContent += line + "\n"; diagEl.scrollTop = diagEl.scrollHeight; }
   }
@@ -885,6 +889,13 @@
     if (ekr) ekr.w = w;                       // ekran mówienia rysuje twoją linię z tego nagrania
     return w;
   }
+  // głos w tej chwili (gierka): ostatnie 2 s linii, ostatnia ramka z głosem nie starsza niż 60 ms;
+  // st = półtony od twojego zwykłego głosu (null, gdy go jeszcze nie znamy)
+  function teraz(w) {
+    const l = linia(w.kand.slice(-200));
+    for (let i = l.length - 1; i >= Math.max(0, l.length - 6); i--) if (l[i]) return { hz: l[i], st: w.zapisany ? 12 * Math.log2(l[i] / w.zapisany) : null };
+    return null;
+  }
   function rysujPanel(cv, w, cel, skaluj, wys) {   // skaluj: skala z linii celu (strona tonów), inaczej stałe ±10 półtonów; wys: wzór na skali zwykłego głosu
     const dpr = window.devicePixelRatio || 1, cw = cv.clientWidth, ch = cv.clientHeight;
     if (!cw) return;
@@ -964,8 +975,9 @@
   function audioAktywne() { ostatnieAudio = Date.now(); }
 
   // ---- nagranie getUserMedia: pomiar, czy mikrofon naprawdę coś słyszy, i WAV dla Whispera ----
-  async function otworzNagranie(c) {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+  const prosba = () => navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+  async function otworzNagranie(c, sp) {        // sp: prośba o mikrofon wysłana już w geście (chmura)
+    const stream = await (sp || prosba());
     const n = { stream, chunks: [], rate: c.sampleRate, stop: false };
     try {
       n.src = c.createMediaStreamSource(stream);
@@ -1021,6 +1033,14 @@
     const oc = (ocena ? ocena.sylaby.map(x => x.ton + (x.ok ? "ok" : "zle" + x.jak)).join(" ") : "brak") + (ostatniaGeo ? " | " + ostatniaGeo : "");
     fetch(c.url + "/wymowa?zapis=1&cel=" + encodeURIComponent(celZ(opts)) + "&strona=" + encodeURIComponent(location.pathname) + "&ocena=" + encodeURIComponent(oc),
       { method: "POST", headers: { "Authorization": "Bearer " + c.klucz, "Content-Type": "audio/wav" }, body: wav16k(n.chunks, n.rate) }).catch(e => diag("zapis próby: " + e.message));
+  }
+  // mikrofon nie ruszył: dziennik (bez nagrania) idzie do workera (KV „dziennik:”, 7 dni), żeby przyczynę dało się
+  // zobaczyć bez proszenia usera o kopiowanie dziennika z telefonu
+  function zglos(powod) {
+    const c = cfg(); if (!c.url || !c.klucz) return;
+    fetch(c.url + "/dziennik?powod=" + encodeURIComponent(powod) + "&strona=" + encodeURIComponent(location.pathname),
+      { method: "POST", keepalive: true, headers: { "Authorization": "Bearer " + c.klucz, "Content-Type": "text/plain" }, body: "UA: " + navigator.userAgent + "\n" + dziennik.join("\n") })
+      .catch(e => console.log("[wymowa] zgłoszenie: " + e.message));
   }
   async function whisper(n, cel) {
     const c = cfg(), t0 = Date.now();
@@ -1189,7 +1209,7 @@
     if ("speechSynthesis" in window) speechSynthesis.cancel();
     const g = { btn, opts, n: null, startedAt: 0, released: false, done: false };
     nagranie = g;
-    ekranPokaz(btn, opts);
+    if (!opts.naZywo) ekranPokaz(btn, opts);
     btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
     if (opts.onStart) { try { opts.onStart(); } catch (e) {} }
     let start = null;
@@ -1197,7 +1217,10 @@
       if (!c) throw new Error("brak AudioContext");
       // iOS po powrocie z innej aplikacji: getUserMedia albo budzenie kontekstu potrafi nie wrócić nigdy; bez limitu guzik wisi
       // na „uruchamiam…”, a ekran mówienia zasłania stronę. Po 5 s koniec, następny gest dostaje nowy kontekst.
-      start = (async () => { if (c.state !== "running") await obudz(c, 800); return otworzNagranie(c); })();
+      // prośba o mikrofon od razu w geście (przed budzeniem kontekstu, które czeka), potem dopiero kontekst
+      const t0 = Date.now(), sp = prosba();
+      sp.then(() => diag("getUserMedia po " + (Date.now() - t0) + " ms"), e => diag("getUserMedia błąd po " + (Date.now() - t0) + " ms: " + e.name));
+      start = (async () => { if (c.state !== "running" && !(await obudz(c, 800))) diag("kontekst nie wstał w 800 ms: " + c.state); return otworzNagranie(c, sp); })();
       let limit;
       const n = await Promise.race([start, new Promise((_, rej) => { limit = setTimeout(() => rej(Object.assign(new Error("mikrofon nie ruszył w 5 s"), { name: "Limit" })), START_MS); })])
         .finally(() => clearTimeout(limit));
@@ -1205,14 +1228,27 @@
       g.n = n; g.startedAt = Date.now(); g.wys = glosStart(n, opts);
       diag("chmura: nagrywam (" + n.rate + " Hz)");
       btn.textContent = MOW;
-      g.watchdog = setTimeout(() => { if (nagranie === g) { diag("chmura watchdog 15 s"); chmuraStop(g); } }, 15000);
+      const maxMs = opts.maxMs || 15000;
+      g.watchdog = setTimeout(() => { if (nagranie === g) { diag("chmura watchdog " + maxMs / 1000 + " s"); chmuraStop(g); } }, maxMs);
+      if (opts.naZywo && g.wys) {
+        const zywo = () => {
+          if (nagranie !== g || g.done) return;
+          try { doczytaj(g.wys); opts.naZywo(teraz(g.wys)); } catch (e) { diag("na żywo: " + e.message); return; }
+          requestAnimationFrame(zywo);
+        };
+        zywo();
+      }
       if (g.released) chmuraStop(g);
     } catch (e) {
       diag("chmura start błąd: " + e.name + " " + e.message);
       if (e.name === "Limit") {               // spóźniony strumień zamknąć, kontekst uznać za martwy
         ctxMartwy = true;
-        if (start) start.then(zamknijNagranie, () => {});
-      }
+        diag("limit: kontekst " + (c ? c.state : "brak") + ", sesja " + (AS ? AS.type : "-") + ", strona " + (document.hidden ? "ukryta" : "widoczna"));
+        const t1 = Date.now();
+        // zgłoszenie po rozstrzygnięciu (najdłużej 10 s): czy mikrofon ruszył później (np. po zgodzie), czy wcale
+        Promise.race([start.then(n => { zamknijNagranie(n); return "ruszył " + (Date.now() - t1) + " ms po limicie"; }, x => "błąd po limicie: " + x.name + " " + x.message),
+          sleep(10000).then(() => "nie ruszył przez kolejne 10 s")]).then(w => { diag("po limicie: " + w); zglos("limit"); });
+      } else zglos("start: " + e.name);
       if (nagranie === g) { nagranie = null; ekranUkryj(); }
       ustawSesje("playback", "błąd nagrania");
       btn.classList.remove("rec"); btn.textContent = LABEL_IDLE;
@@ -1275,6 +1311,7 @@
   }
 
   const W = { diag, supported: !!SR || GUM, iOS: !!IOS_VER, beforeStart: null, zapiszStan: null, bind, grade, render, strip, toPinyin, cfg, odbierzWynik, pinyinPl, podpowiedzDzwiek, podpowiedzTon, podpowiedzSylaby,
-              audioAktywne, graj, stopAudio, preload: dekoduj, kontekst, LABEL_IDLE, renderTony, tonyMowione, wzorTonu, wzorLinii, wysokoscTonow, KOTWICA_TONU };
+              audioAktywne, graj, stopAudio, preload: dekoduj, kontekst, LABEL_IDLE, renderTony, tonyMowione, wzorTonu, wzorLinii, wysokoscTonow, KOTWICA_TONU,
+              zwyklyGlos: () => mediana(glosy()) };
   window.Wymowa = W;
 })();

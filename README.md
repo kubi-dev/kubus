@@ -21,6 +21,9 @@ nasłuchu (ustawiane przed `recognition.start()`, inaczej na iOS mikrofon Web Sp
 `getUserMedia` nagrywa równolegle: w dzienniku widać poziom nagrania, a gdy Web Speech nic nie zwróci mimo głosu,
 tekst rozpoznaje Whisper (worker `/wymowa`). Domyślny silnik to tylko-Whisper (`chmura`, gdy strona ma adres workera i klucz), bo Web Speech
 na iOS zgaduje krótkie słowa (nagranie 愿意 puszczone do mikrofonu: Web Speech 1 na 3, Whisper 3 na 3). Web Speech: `?silnik=auto`, powrót: `?silnik=chmura`.
+Silnik chmura prosi o mikrofon (`getUserMedia`) od razu w geście, przed budzeniem kontekstu. Gdy mikrofon nie ruszy w 5 s albo start
+się nie uda, strona sama wysyła dziennik mikrofonu do workera (`/dziennik`, KV „dziennik:”, 7 dni), razem z tym, czy mikrofon ruszył
+później. Sprawdzanie: `npx wrangler kv key list --namespace-id 7448e16e7ce244db8bb779f8cdc58a08 --prefix dziennik: --remote` (z `worker/`).
 
 ## Trener tonów
 Po każdym wyniku mikrofonu (poza idealnym) strona rysuje wykres tonów sylaba po sylabie: kontur celu na górze, usłyszany na dole,
@@ -95,7 +98,11 @@ Wynik: wykres (skala z linii na wykresie, źle powiedziana sylaba na pomarańczo
 workera (`/wymowa?zapis=1&ocena=`, KV „nagranie:”, 7 dni) do sprawdzania oceny na prawdziwym głosie.
 Sekcja „Wysoko i nisko” na początku (`wysoko_nisko` w `wymowa.json`): czym jest wysoko i nisko (tylko na polskich słowach z notatek: koniec „Cooo?” = wysoko, koniec „Noooo…” = nisko, „poproszę bułkę” = zwykle),
 „Aaaa” na trzech wysokościach (zwykle / wysoko ≥ 3,5 półtona / nisko ≤ −2 półtony względem zwykłego głosu) i „Start od razu na górze”
-(„Hej!”, „Heeej!”, „Nie!”: wydech „hhh” przed słowem, usłyszeć koniec „Cooo?” w głowie; mikrofon łapie podjeżdżanie od dołu, `startGlosu`). Bez zapamiętanego zwykłego głosu „wysoko”, „nisko” i „Start od razu na górze” nie oceniają, tylko odsyłają do „Aaaa” zwykle.
+(„Hej!”, „Heeej!”, „Nie!”: wydech „hhh” przed słowem, usłyszeć koniec „Cooo?” w głowie; mikrofon łapie podjeżdżanie od dołu, `startGlosu`).
+Na końcu sekcji gierka „wyżej / niżej” (`gierka` w `wymowa.json`, `gierka()` w `wymowa.html`): zielone pole skacze między trzema miejscami
+z „Głosem: trzy miejsca” (wysoko / zwykle / nisko, ±2 półtony), kropka i ślad to twój głos na żywo, napis „↑ wyżej” / „↓ niżej” / „✓ trzymaj…”;
+0,7 s w polu = trafienie. Ten sam mikrofon co reszta (`Wymowa.bind` z `naZywo`: bez ekranu mówienia, co klatkę głos w półtonach od
+zwykłego, `maxMs: 30000`), próba idzie do KV jak inne ćwiczenia melodii. Bez zapamiętanego zwykłego głosu „wysoko”, „nisko” i „Start od razu na górze” nie oceniają, tylko odsyłają do „Aaaa” zwykle.
 Sekcja „Nie!” z góry, „Noooo…” z dołu (`trudne_tony` w `wymowa.json`): kroki po polsku („Cooo? Nie!”, „Nie!”, „Nie! Noooo…”,
 „Noooo…”, wzór z punktów `wzor`/`ramki` przez `Wymowa.wzorLinii`), potem chińskie pary 2-4 / 4-3 i pojedyncze słowa. Mikrofon z opcją
 `wysokosc` ocenia oprócz kształtu wysokość względem twojego zwykłego głosu (`Wymowa.wysokoscTonow`): 4. ton ma zacząć ≥ 4 półtony

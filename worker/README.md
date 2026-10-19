@@ -11,6 +11,10 @@ Cloudflare Worker: synchronizacja postępu powtórek (KV) + rozpoznawanie mowy (
   Silnik "chmura": strony nagrywają mikrofon przez getUserMedia na wspólnym AudioContext strony (tym samym,
   który gra mp3 — nigdy nie zamykanym) i wysyłają WAV tutaj. Zapasowy wobec silnika "system" (Web Speech), który na iOS zawodzi.
 
+- `POST /dziennik?powod=<powód>&strona=<ścieżka>` — body: tekst (UA + ostatnie 80 linii dziennika mikrofonu). Strony wysyłają go same,
+  gdy mikrofon nie ruszy (limit 5 s albo błąd startu). Zostaje 7 dni w KV pod `dziennik:<czas>`:
+  `npx wrangler kv key list --namespace-id <id STAN> --prefix dziennik: --remote`.
+
 - `POST /trener` — body: JSON `{cel:{znaki,pinyin}, uslyszane:{znaki,pinyin}, poziom, sylaby:[{znak,cel,celTon,usl,uslTon}]}` → `{diagnoza, wskazowka, cwiczenie:{znaki,pinyin,polski,wymowa,ton}}`.
   Claude Opus 5 przez `@anthropic-ai/sdk` (structured output, fallbacki `default`). Sekret `ANTHROPIC_API_KEY`.
 - `GET /tts?q=<znaki>&slow=1` — mp3 z Google TTS (zh-CN), proxy z CORS i cache 30 dni; nagrania ćwiczeń trenera.
