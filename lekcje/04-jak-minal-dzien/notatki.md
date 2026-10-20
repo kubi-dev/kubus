@@ -54,7 +54,7 @@ Data: 2026-10-15
 | 对不起 | duìbuqǐ | tłej-pu-ćhi | DUEJ-PU-CI · SORRY | sorry · przepraszam |
 | 没关系 | méi guānxi | mej kłan-si | MEJ GŁAN-SI · NO PROBLEM | no problem · nic nie szkodzi |
 | 不要辣椒。 | Bú yào làjiāo. | pu jał la-dział | PU JAŁ LA DZIAŁ · NO SPICY | No chili, please. · Bez chili. |
-| 辣不辣？ | Là bu là? | la pu la |  | Is it spicy? · Czy to jest ostre? |
+| 这个辣不辣？ | Zhège là bu là? | czy-ka la pu la |  | Is this spicy? · Czy to jest ostre? |
 | 不好意思 | bù hǎoyìsi | pu-chał-i-sy | PU HAŁ I SY · EXCUSE ME | excuse me · przepraszam (że przeszkadzam) |
 | 容易 | róngyì | rong-i | ZON-NI · EASY | easy · łatwy |
 | 说慢一点。 | Shuō màn yìdiǎn. | szło man i-tien | SŁO-MA I TIEN · SPEAK SLOWER | Speak a bit slower. · Mów trochę wolniej. |
