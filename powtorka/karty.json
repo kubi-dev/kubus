@@ -1842,6 +1842,19 @@
   "obrazek": null
  },
  {
+  "id": "辣不辣？",
+  "znaki": "辣不辣？",
+  "pinyin": "Là bu là?",
+  "polski": "la pu la",
+  "doslownie": "ostry · nie · ostry",
+  "znaczenie": "Is it spicy? · Czy to jest ostre?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/08b6396ef7",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "不好意思",
   "znaki": "不好意思",
   "pinyin": "bù hǎoyìsi",
