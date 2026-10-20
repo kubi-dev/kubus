@@ -121,8 +121,11 @@
   .popl { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "txt mic" "res res"; gap: 6px 10px; align-items: center; padding: 8px 10px; border-radius: 10px; background: var(--bg); }
   .popl .txt { grid-area: txt; font-size: 15px; line-height: 1.4; }
   .popl .txt b { color: var(--accent); font-size: 20px; }
-  .gra { margin-top: 8px; padding: 10px; border-radius: 10px; background: var(--bg); }
-  .gra-napis { text-align: center; font-size: 44px; font-weight: 700; line-height: 1.2; min-height: 140px; display: flex; align-items: center; justify-content: center; }
+  .gra { margin-top: 8px; padding: 10px; border-radius: 10px; background: var(--bg); --gra-ty: 29,78,216; }
+  @media (prefers-color-scheme: dark) { .gra { --gra-ty: 96,165,250; } }
+  .gra-pole { position: relative; height: 220px; margin-bottom: 10px; }
+  .gra-pole canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .gra-napis { position: relative; height: 100%; text-align: center; font-size: 44px; font-weight: 700; line-height: 1.2; display: flex; align-items: center; justify-content: center; }
   .gra-napis.wyzej, .gra-napis.nizej { color: var(--accent); }
   .gra-napis.jest { color: var(--ok-ink); }
   .gra-napis.cicho { color: var(--muted); font-size: 17px; font-weight: 400; }
@@ -394,7 +397,7 @@ function wynikGlosu(out, res, ok, rada, okTxt, zleTxt) {
     `<div class="krok"><span class="lab">${esc(W.glos.tytul)}</span><div class="pl">${esc(W.glos.opis)}</div><div class="slowa" id="wn-poziomy"></div></div>` +
     `<div class="krok"><span class="lab">${esc(W.start.tytul)}</span><div class="pl">${esc(W.start.opis)}</div><div class="slowa" id="wn-start"></div></div>` +
     (W.gierka ? `<div class="krok" id="wn-gierka"><span class="lab">${esc(W.gierka.tytul)}</span><div class="pl">${esc(W.gierka.opis)}</div>` +
-      `<div class="gra"><div class="gra-napis cicho"></div><button class="mic" type="button"></button><div class="gra-wynik"></div></div></div>` : "");
+      `<div class="gra"><div class="gra-pole"><canvas></canvas><div class="gra-napis cicho"></div></div><button class="mic" type="button"></button><div class="gra-wynik"></div></div></div>` : "");
   root.appendChild(c);
   // głos: trzy wysokości „Aaaa”, cel = płaska kreska na skali zwykłego głosu
   const NAZWA = { 1: "wysoko", 0: "zwykle", "-1": "nisko" };
@@ -451,10 +454,30 @@ function wynikGlosu(out, res, ok, rada, okTxt, zleTxt) {
 })();
 // ---- gierka „wyżej / niżej”: polecenie „wyżej” albo „niżej”, liczy się tylko ruch głosu od miejsca, w którym był przy poleceniu
 // (o 2,5 półtona w tę stronę, mediana z ostatnich 250 ms), bez wyznaczonych wysokości i bez wykresu
+// w tle napisu: twój głos z ostatnich 3 s (przygaszona linia) i kropka tam, gdzie jest teraz; środek = głos na starcie, ±12 półtonów
 function gierka(el) {
-  const napis = el.querySelector(".gra-napis"), btn = el.querySelector(".mic"), wynik = el.querySelector(".gra-wynik");
-  const RUCH = 2.5, OKNO_MS = 250, BLYSK_MS = 500, ZA_DALEKO = 9;
-  let ost = [], start = 0, baza = 0, pol = 0, traf = 0, blysk = 0, t0 = 0;
+  const napis = el.querySelector(".gra-napis"), btn = el.querySelector(".mic"), wynik = el.querySelector(".gra-wynik"), cv = el.querySelector("canvas");
+  const RUCH = 2.5, OKNO_MS = 250, BLYSK_MS = 500, ZA_DALEKO = 9, SLAD_MS = 3000, ZAKRES = 12;
+  let ost = [], start = 0, baza = 0, pol = 0, traf = 0, blysk = 0, t0 = 0, slad = [], srodek = 0;
+  function rysuj(t) {
+    const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight; if (!w) return;
+    if (cv.width !== Math.round(w * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+    const g = cv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
+    if (!srodek) return;
+    const kol = getComputedStyle(el).getPropertyValue("--gra-ty").trim(), xK = w * 0.88, P = 10;
+    const y = hz => h / 2 - Math.max(-ZAKRES, Math.min(ZAKRES, 12 * Math.log2(hz / srodek))) / ZAKRES * (h / 2 - P);
+    g.strokeStyle = `rgba(${kol},.3)`; g.lineWidth = 4; g.lineCap = "round"; g.lineJoin = "round"; g.beginPath();
+    let prev = false;
+    for (const p of slad) {
+      if (!p.hz) { prev = false; continue; }
+      const x = xK - (t - p.t) / SLAD_MS * xK;
+      if (prev) g.lineTo(x, y(p.hz)); else g.moveTo(x, y(p.hz));
+      prev = true;
+    }
+    g.stroke();
+    const k = slad[slad.length - 1];
+    if (k && k.hz) { g.fillStyle = `rgba(${kol},.6)`; g.beginPath(); g.arc(xK, y(k.hz), 10, 0, 2 * Math.PI); g.fill(); }
+  }
   const st = (hz, od) => 12 * Math.log2(hz / od);
   const ustaw = (t, cls) => { if (napis.textContent !== t) napis.textContent = t; napis.className = "gra-napis " + cls; };
   const pokazPolecenie = () => ustaw(pol > 0 ? "↑ wyżej" : "↓ niżej", pol > 0 ? "wyzej" : "nizej");
@@ -462,19 +485,23 @@ function gierka(el) {
   const nastepne = (teraz) => { const od = st(teraz, start); pol = od > ZA_DALEKO ? -1 : od < -ZA_DALEKO ? 1 : Math.random() < 0.5 ? 1 : -1; baza = teraz; };
   const naZywo = (gl) => {
     const t = performance.now();
+    if (gl && !srodek) srodek = gl.hz;
+    slad.push({ t, hz: gl ? gl.hz : 0 });
+    while (slad.length && t - slad[0].t > SLAD_MS) slad.shift();
+    rysuj(t);
     if (gl) ost.push({ t, hz: gl.hz });
     while (ost.length && t - ost[0].t > OKNO_MS) ost.shift();
     if (t - blysk < BLYSK_MS) return;
     if (ost.length < 5) { ustaw(pol ? (pol > 0 ? "↑ wyżej" : "↓ niżej") : "ciągnij „Aaaa”", pol ? (pol > 0 ? "wyzej" : "nizej") : "cicho"); return; }
     const teraz = ost.map(x => x.hz).sort((p, q) => p - q)[ost.length >> 1];
-    if (!start) { start = teraz; nastepne(teraz); pokazPolecenie(); return; }
+    if (!start) { start = srodek = teraz; nastepne(teraz); pokazPolecenie(); return; }
     if (pol * st(teraz, baza) >= RUCH) { traf++; blysk = t; ustaw("✓ " + traf, "jest"); nastepne(teraz); setTimeout(pokazPolecenie, BLYSK_MS); return; }
     pokazPolecenie();
   };
   Wymowa.bind(btn, {
     tylkoGlos: true, naZywo, maxMs: 30000,
     target: () => "gierka wyżej/niżej", tony: () => [1],
-    onStart: () => { ost = []; start = 0; baza = 0; pol = 0; traf = 0; blysk = 0; t0 = Date.now(); wynik.textContent = ""; ustaw("ciągnij „Aaaa”", "cicho"); },
+    onStart: () => { ost = []; slad = []; srodek = 0; rysuj(0); start = 0; baza = 0; pol = 0; traf = 0; blysk = 0; t0 = Date.now(); wynik.textContent = ""; ustaw("ciągnij „Aaaa”", "cicho"); },
     onDone: (res) => {
       if (res && res.error) { ustaw("", "cicho"); wynik.textContent = res.error; return; }
       ustaw("Trafione: " + traf, "cicho");

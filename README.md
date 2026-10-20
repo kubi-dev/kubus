@@ -100,7 +100,7 @@ Sekcja „Wysoko i nisko” na początku (`wysoko_nisko` w `wymowa.json`): czym 
 „Aaaa” na trzech wysokościach (zwykle / wysoko ≥ 3,5 półtona / nisko ≤ −2 półtony względem zwykłego głosu) i „Start od razu na górze”
 („Hej!”, „Heeej!”, „Nie!”: wydech „hhh” przed słowem, usłyszeć koniec „Cooo?” w głowie; mikrofon łapie podjeżdżanie od dołu, `startGlosu`).
 Na końcu sekcji gierka „wyżej / niżej” (`gierka` w `wymowa.json`, `gierka()` w `wymowa.html`): tylko duży napis „↑ wyżej” / „↓ niżej”,
-bez wykresu i bez wyznaczonych wysokości. Liczy się ruch głosu od miejsca, w którym był przy poleceniu: o 2,5 półtona w tę stronę
+bez wyznaczonych wysokości; w tle napisu przygaszona linia głosu z ostatnich 3 s i kropka tam, gdzie głos jest teraz (środek = głos na starcie, ±12 półtonów). Liczy się ruch głosu od miejsca, w którym był przy poleceniu: o 2,5 półtona w tę stronę
 (mediana z ostatnich 250 ms) = „✓”, potem następne polecenie losowo (dalej niż 9 półtonów od startu = w drugą stronę). Ten sam mikrofon
 co reszta (`Wymowa.bind` z `naZywo`: bez ekranu mówienia, co klatkę głos na żywo, `maxMs: 30000`), próba idzie do KV jak inne ćwiczenia melodii. Bez zapamiętanego zwykłego głosu „wysoko”, „nisko” i „Start od razu na górze” nie oceniają, tylko odsyłają do „Aaaa” zwykle.
 Sekcja „Nie!” z góry, „Noooo…” z dołu (`trudne_tony` w `wymowa.json`): kroki po polsku („Cooo? Nie!”, „Nie!”, „Nie! Noooo…”,
