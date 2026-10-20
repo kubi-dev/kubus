@@ -117,9 +117,11 @@ Druga ścieżka słówek obok lekcji: `materialy/<slug>/lekcja.json` w tym samym
 i `"zrodlo"` (link do oryginału na stronie). Build robi z niej stronę jak lekcję (bez podcastu i scenek) i dokłada karty do talii
 po lekcjach; zwrot, który jest już na karcie z lekcji, zostaje tylko na stronie materiału. Nagrania i obrazki pochodzą z oryginału
 i leżą w repo (`audio/`, `obrazki/`, pole `obrazek.plik`), build niczego nie pobiera z Google TTS: brak pliku = błąd `!`.
-`materialy/hsk1/`: 65 zwrotów HSK 1 z filmu https://www.youtube.com/watch?v=6ozVFwyxvio (Andy and Sarah Mandarin). Na każdy zwrot
+`materialy/hsk1/`: 64 zwroty HSK 1 z filmu https://www.youtube.com/watch?v=6ozVFwyxvio (Andy and Sarah Mandarin). Na każdy zwrot
 w filmie jest kobieta mówiąca normalnie i mężczyzna mówiący wolno: `<klucz>.mp3` = kobieta, `<klucz>-slow.mp3` („wolniej”) = mężczyzna.
 Obrazki to kadry z filmu z rozmytym miejscem na napisy (chiński na obrazku zdradzałby odpowiedź na karcie).
+Wyjątek: sekcja „Ty jesteś…” (你很漂亮。, 你很苗条。, 你很性感。) była w filmie o „niej” (她很…); nagrania tych trzech kart
+są z Google TTS (pobrane raz ręcznie przez `ensure_audio`, leżą w repo), obrazki zostały z filmu.
 
 ## Zapis polski (słownik sylab)
 `zapis.json`: każda sylaba pinyin -> zapis po polsku (z lekkim tonem osobno: 了 la, 们 men) i kilka wyjątków według ucha (什么 szen-ma,

@@ -1,7 +1,7 @@
 {
   "numer": 101,
   "sciezka": "hsk",
-  "tytul": "HSK 1 · 65 zwrotów",
+  "tytul": "HSK 1 · 64 zwroty",
   "opis": "nagrania i obrazki z filmu Andy and Sarah Mandarin",
   "zrodlo": {"tytul": "film na YouTube (Andy and Sarah Mandarin)", "url": "https://www.youtube.com/watch?v=6ozVFwyxvio"},
   "data": "2026-10-18",
@@ -37,11 +37,10 @@
       {"znaki": "我准备好了。", "pinyin": "Wǒ zhǔnbèi hǎo le.", "polski": "ło człen-pej chał la", "doslownie": "ja · przygotować · dobry · (już)", "notatki": "", "znaczenie": "I'm ready. · Jestem gotowy.", "obrazek": {"plik": true, "autor": "Andy and Sarah Mandarin", "licencja": "youtube", "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"}},
       {"znaki": "玩得开心。", "pinyin": "Wán de kāixīn.", "polski": "łan da khaj-sin", "doslownie": "bawić się · (jak) · wesoły", "notatki": "", "znaczenie": "Have a good time. · Baw się dobrze.", "obrazek": {"plik": true, "autor": "Andy and Sarah Mandarin", "licencja": "youtube", "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"}}
     ]},
-    {"nazwa": "Ona jest…", "pozycje": [
-      {"znaki": "她很漂亮。", "pinyin": "Tā hěn piàoliang.", "polski": "tha chen phiał-liang", "doslownie": "ona · bardzo · ładny", "notatki": "", "znaczenie": "She's pretty. · Ona jest ładna.", "obrazek": {"plik": true, "autor": "Andy and Sarah Mandarin", "licencja": "youtube", "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"}},
-      {"znaki": "她很苗条。", "pinyin": "Tā hěn miáotiao.", "polski": "tha chen miał-thiał", "doslownie": "ona · bardzo · szczupły", "notatki": "", "znaczenie": "She's slim. · Ona jest szczupła.", "obrazek": {"plik": true, "autor": "Andy and Sarah Mandarin", "licencja": "youtube", "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"}},
-      {"znaki": "她很性感。", "pinyin": "Tā hěn xìnggǎn.", "polski": "tha chen sing-kan", "doslownie": "ona · bardzo · seksowny", "notatki": "", "znaczenie": "She's hot. · Ona jest seksowna.", "obrazek": {"plik": true, "autor": "Andy and Sarah Mandarin", "licencja": "youtube", "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"}},
-      {"znaki": "她很胖。", "pinyin": "Tā hěn pàng.", "polski": "tha chen phang", "doslownie": "ona · bardzo · gruby", "notatki": "", "znaczenie": "She's fat. · Ona jest gruba.", "obrazek": {"plik": true, "autor": "Andy and Sarah Mandarin", "licencja": "youtube", "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"}}
+    {"nazwa": "Ty jesteś…", "pozycje": [
+      {"znaki": "你很漂亮。", "pinyin": "Nǐ hěn piàoliang.", "polski": "ni chen phiał-liang", "doslownie": "ty · bardzo · ładny", "notatki": "", "znaczenie": "You're pretty. · Jesteś ładna.", "obrazek": {"plik": true, "autor": "Andy and Sarah Mandarin", "licencja": "youtube", "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"}},
+      {"znaki": "你很苗条。", "pinyin": "Nǐ hěn miáotiao.", "polski": "ni chen miał-thiał", "doslownie": "ty · bardzo · szczupły", "notatki": "", "znaczenie": "You're slim. · Jesteś szczupła.", "obrazek": {"plik": true, "autor": "Andy and Sarah Mandarin", "licencja": "youtube", "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"}},
+      {"znaki": "你很性感。", "pinyin": "Nǐ hěn xìnggǎn.", "polski": "ni chen sing-kan", "doslownie": "ty · bardzo · seksowny", "notatki": "", "znaczenie": "You're hot. · Jesteś seksowna.", "obrazek": {"plik": true, "autor": "Andy and Sarah Mandarin", "licencja": "youtube", "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"}}
     ]},
     {"nazwa": "Pytania", "pozycje": [
       {"znaki": "你是做什么的？", "pinyin": "Nǐ shì zuò shénme de?", "polski": "ni szy dzło szen-ma da", "doslownie": "ty · być · robić · co · (ten, co)", "notatki": "", "znaczenie": "What do you do? · Czym się zajmujesz?", "obrazek": {"plik": true, "autor": "Andy and Sarah Mandarin", "licencja": "youtube", "zrodlo": "https://www.youtube.com/watch?v=6ozVFwyxvio"}},

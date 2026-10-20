@@ -1,4 +1,4 @@
-# HSK 1 · 65 zwrotów
+# HSK 1 · 64 zwroty
 
 Data: 2026-10-18
 
@@ -45,14 +45,13 @@ Data: 2026-10-18
 | 我准备好了。 | Wǒ zhǔnbèi hǎo le. | ło człen-pej chał la |  | I'm ready. · Jestem gotowy. |
 | 玩得开心。 | Wán de kāixīn. | łan da khaj-sin |  | Have a good time. · Baw się dobrze. |
 
-## Ona jest…
+## Ty jesteś…
 
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
-| 她很漂亮。 | Tā hěn piàoliang. | tha chen phiał-liang |  | She's pretty. · Ona jest ładna. |
-| 她很苗条。 | Tā hěn miáotiao. | tha chen miał-thiał |  | She's slim. · Ona jest szczupła. |
-| 她很性感。 | Tā hěn xìnggǎn. | tha chen sing-kan |  | She's hot. · Ona jest seksowna. |
-| 她很胖。 | Tā hěn pàng. | tha chen phang |  | She's fat. · Ona jest gruba. |
+| 你很漂亮。 | Nǐ hěn piàoliang. | ni chen phiał-liang |  | You're pretty. · Jesteś ładna. |
+| 你很苗条。 | Nǐ hěn miáotiao. | ni chen miał-thiał |  | You're slim. · Jesteś szczupła. |
+| 你很性感。 | Nǐ hěn xìnggǎn. | ni chen sing-kan |  | You're hot. · Jesteś seksowna. |
 
 ## Pytania
 
