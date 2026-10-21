@@ -262,7 +262,7 @@ function bindMic(btn, target, card, p) {
     target,
     audio: () => AUDIO[target] ? "audio/" + AUDIO[target] + ".mp3" : "",
     // znaczenie bywa „angielskie · polskie”: na ekranie mówienia tylko polskie
-    ekran: () => ({ polski: p.polski, pinyin: p.pinyin, znaczenie: (m => m.length > 1 ? m.slice(1).join("·") : m[0])(p.znaczenie.split("·")).trim() }),
+    ekran: () => ({ polski: p.polski, pinyin: p.pinyin, doslownie: p.doslownie, znaczenie: (m => m.length > 1 ? m.slice(1).join("·") : m[0])(p.znaczenie.split("·")).trim() }),
     onStart: () => {},
     onDone: (res) => { const r = Wymowa.render(res, target); out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html; }
   });

@@ -24,7 +24,7 @@
 //       zwykly: true = ta próba uczy zwykłego głosu (inne ćwiczenia melodii nie, mowa z lekcji zawsze)
 //       naZywo: (g) => {} = gierka: bez ekranu mówienia, co klatkę g = { hz, st (półtony od zwykłego głosu) } albo null (cisza);
 //       maxMs = najdłuższe nagranie (domyślnie 15 s, bufor mieści 32 s)
-//     ekran: () => ({ polski, pinyin, znaczenie, bezWymowy }) = co widać nad guzikiem w trakcie mówienia (bezWymowy: bez polskiej wymowy i melodii)  wynik wstępny moduł pokazuje w przycisku; strony nie ruszają układu w trakcie mówienia
+//     ekran: () => ({ polski, pinyin, znaczenie, doslownie, bezWymowy }) = co widać nad guzikiem w trakcie mówienia (bezWymowy: bez polskiej wymowy i znaczenia słowo po słowie; doslownie: „dobry · przyjaciel”)  wynik wstępny moduł pokazuje w przycisku; strony nie ruszają układu w trakcie mówienia
 //   Wymowa.graj(url, { onEnd(przerwane) }) -> Promise<bool>;  Wymowa.stopAudio();  Wymowa.preload(url)
 //   result = { alts: [...], gotFinal, error, heldMs, started, wys: { ty: [Hz], cel: [Hz] | null, ref }, ocena (tylkoGlos) }
 //   Wymowa.render(result, target) -> { cls, html, grade }
@@ -359,6 +359,8 @@
 .glos-ekran .ge-blok { position: fixed; left: 50%; transform: translateX(-50%); width: min(92vw, 420px); box-sizing: border-box; padding: 10px 12px 8px; border-radius: 14px; background: #fff; color: #111; box-shadow: 0 2px 14px rgba(0,0,0,.14); text-align: center; }
 .glos-ekran .ge-pl { font-size: 30px; font-weight: 600; line-height: 1.15; }
 .glos-ekran .ge-mel { font-size: 15px; margin-top: 3px; opacity: .75; }
+.glos-ekran .ge-sl { display: inline-flex; flex-direction: column; vertical-align: top; margin-right: .45em; }
+.glos-ekran .ge-sz { font-size: 15px; font-weight: 400; opacity: .75; margin-top: 2px; }
 .glos-ekran .ge-zn { font-size: 17px; margin-top: 4px; }
 .glos-ekran canvas { display: block; width: 100%; height: 110px; margin-top: 6px; }
 @media (prefers-color-scheme: dark) { .glos, .glos-ekran, .ocena, .oc-rada { --glos-lektor: rgba(255,255,255,.22); --glos-ty: #60a5fa; --glos-zle: #fb923c; --glos-siatka: rgba(255,255,255,.12); } .glos-ekran .ge-blok { background: #202020; color: #eee; } }
@@ -761,7 +763,7 @@
   }
 
   // ekran mówienia: od naciśnięcia do puszczenia strona znika (warstwa w kolorze tła z „dziurą” na guzik, więc guzik
-  // się nie rusza), nad guzikiem zostaje blok: polska wymowa, melodia sylab, znaczenie, linia lektora i twoja na żywo
+  // się nie rusza), nad guzikiem zostaje blok: polska wymowa ze znaczeniem słowo po słowie, znaczenie, linia lektora i twoja na żywo
   let ekrEl = null, ekr = null;               // ekr = { btn, cel, w, koniec }
   function ekranEl() {
     if (ekrEl) return ekrEl;
@@ -771,7 +773,6 @@
     document.body.appendChild(ekrEl);
     return ekrEl;
   }
-  const MELODIA = { 1: "Aaaa", 2: "Cooo?", 3: "Noooo…", 4: "Nie!", 5: "końcówka" };
   // tony z zapisu na karcie, gdy się da („péngyou”: 友 bez znaczka = lekka końcówka, tak jak w nagraniu), inaczej z pinyin-pro
   const TON_ZNAK = { "\u0304": 1, "\u0301": 2, "\u030C": 3, "\u0300": 4 };
   const bezTonu = s => Array.from(s.normalize("NFD").toLowerCase()).filter(c => !TON_ZNAK[c]);
@@ -790,11 +791,6 @@
       return ton;
     });
     return tony.includes(null) || j !== k.length ? null : tony;
-  }
-  function melodia(znaki, pinyin) {
-    const s0 = sylabyZTonami(strip(znaki)), tk = tonyKarty(s0, pinyin);
-    const syl = s0.map((x, i) => ({ celTon: tk ? tk[i] : x.ton }));
-    return syl.map((x, i) => MELODIA[tonMowiony(syl, i)] || "").filter(Boolean).join(" · ");
   }
   // tony do powiedzenia, sylaba po sylabie (do oceny z linii głosu): dwa „Noooo…” pod rząd = pierwsze „Cooo?”;
   // z trzech pod rząd pierwsze może być jednym albo drugim ([2, 3]), bo 我很好 mówi się na oba sposoby
@@ -842,13 +838,19 @@
     try {
       ekranUkryj();
       const e = ekranEl(), info = wartosc(opts.ekran) || {}, znaki = wartosc(opts.target);
-      let pl = "", mel = "";
+      let pl = "", dosl = "";
       if (!info.bezWymowy) {
         pl = info.polski || (window.pinyinPro ? pinyinPro.pinyin(strip(znaki), { toneType: "none", type: "array" }).map(pinyinPl).join("-") : "");
-        mel = melodia(znaki, info.pinyin);
+        dosl = info.doslownie || "";
       }
-      const pola = [[".ge-pl", pl], [".ge-mel", mel ? "melodia: " + mel : ""], [".ge-zn", info.znaczenie || ""]];
+      const pola = [[".ge-pl", pl], [".ge-mel", dosl ? "dosłownie: " + dosl : ""], [".ge-zn", info.znaczenie || ""]];
       for (const [sel, t] of pola) { const el = e.querySelector(sel); el.textContent = t; el.hidden = !t; }
+      // znaczenie słowo po słowie: pod każdym słowem wymowy jego polskie znaczenie (gdy liczba słów się zgadza)
+      const slowa = pl.split(/\s+/).filter(Boolean), znacz = dosl.split("·").map(x => x.trim()).filter(Boolean);
+      if (slowa.length > 1 && slowa.length === znacz.length) {
+        e.querySelector(".ge-pl").innerHTML = slowa.map((w, i) => `<span class="ge-sl"><span>${esc(w)}</span><span class="ge-sz">${esc(znacz[i])}</span></span>`).join("");
+        e.querySelector(".ge-mel").hidden = true;
+      }
       const d = e.firstChild, cs = getComputedStyle(btn);
       d.style.borderRadius = cs.borderRadius; d.style.boxShadow = "0 0 0 200vmax " + tloStrony();
       const st = ekr = { btn, cel: null, w: null, koniec: false, skaluj: !!opts.tylkoGlos, wys: !!opts.wysokosc && !!wartosc(opts.wzor) };
