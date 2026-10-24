@@ -7,8 +7,8 @@
 //     wie: przy "playback" jednostka nagrywająca dostaje ciszę (onstart/onaudiostart przychodzą i tak, nie dowodzą niczego).
 //  3. Po onstart (nigdy przed start(): głuche sesje) getUserMedia nagrywa równolegle: widać, czy mikrofon coś słyszy,
 //     a gdy Web Speech nic nie zwróci mimo głosu w nagraniu, tekst daje Whisper (worker /wymowa).
-//  3a. Ukryta strona usypia kontekst, po powrocie uśpij + obudź (bez nowego kontekstu): po mikrofonie na innej stronie
-//     iOS grał dalej przez słuchawkę przy uchu.
+//  3a. Wyjście ze strony (ukrycie, pagehide) zamyka kontekst i mikrofon; wejście zaczyna od zera (sesja audio jest wspólna
+//     dla stron i kart: stary kontekst po mikrofonie na innej stronie grał przez słuchawkę przy uchu).
 //  4. Nowa instancja SpeechRecognition na sesję, zdarzenia starych ignorowane; użytkownik kończy, puszczając przycisk;
 //     strona ukryta = sesja porzucona.
 //
@@ -380,7 +380,8 @@
   //             świeża strona, mp3, potem 2,6 s nasłuchu bez jednego dźwięku).
   function ustawSesje(typ, powod) {
     if (!AS) return;
-    try { if (AS.type !== typ) AS.type = typ; diag("audioSession = " + AS.type + " (" + powod + ")"); }
+    // zawsze zapis, także gdy ta strona ma już ten typ: sesja audio iOS jest wspólna dla stron i kart, inna strona mogła ją zmienić
+    try { AS.type = typ; diag("audioSession = " + AS.type + " (" + powod + ")"); }
     catch (e) { diag("audioSession błąd: " + e.message); }
   }
   ustawSesje("playback", "start strony");
@@ -399,25 +400,22 @@
     return c;
   }
   // Wołać w geście użytkownika: tworzy, wymienia martwy albo budzi kontekst.
-  function kontekst() {
+  // Uśpiony kontekst (suspended/interrupted) w geście jest wymieniany, nie budzony: na iPhonie resume() potrafi nie wrócić nigdy
+  // (dziennik 24.10 00:43: kontekst z pierwszego dotyku został "suspended", mikrofon wisiał 5 s; nowy kontekst w geście ruszył od razu).
+  // bezWymiany: Web Speech (silnik system), tam nowy kontekst tuż przed start() nie jest sprawdzony, zostaje stare budzenie.
+  const wGescie = () => !navigator.userActivation || navigator.userActivation.isActive;
+  function kontekst(o) {
     if (!AC) return null;
     if (!ctx) return nowyKontekst("pierwszy gest");
     if (ctx.state === "closed" || ctxMartwy) return nowyKontekst(ctx.state === "closed" ? "stary zamknięty" : "stary martwy");
-    if (ctx.state !== "running") ctx.resume().catch(e => diag("resume: " + e.message));
+    if (ctx.state !== "running") {
+      if (!(o && o.bezWymiany) && wGescie()) return nowyKontekst("stary " + ctx.state);
+      ctx.resume().catch(e => diag("resume: " + e.message));
+    }
     return ctx;
   }
-  for (const ev of ["pointerup", "touchend", "click", "keydown"]) document.addEventListener(ev, () => { if (!session && !nagranie) kontekst(); }, { capture: true, passive: true });
-  // Po powrocie na stronę: czy zegar kontekstu idzie? Stoi = martwy, następny gest tworzy nowy.
-  function sprawdzZycie(powod) {
-    const c = ctx; if (!c) return;
-    if (c.state !== "running") c.resume().catch(() => {});
-    const t = c.currentTime;
-    setTimeout(() => {
-      if (ctx !== c) return;
-      if (c.state === "running" && c.currentTime === t) { ctxMartwy = true; diag("kontekst martwy (" + powod + "): zegar stoi"); }
-      else diag("kontekst po powrocie (" + powod + "): " + c.state + ", zegar " + (c.currentTime > t ? "idzie" : "stoi"));
-    }, 500);
-  }
+  // bez "touchend": kończy też przewijanie, a kontekst z takiego dotyku zostaje "suspended" (to nie jest gest dla iOS)
+  for (const ev of ["pointerup", "click", "keydown"]) document.addEventListener(ev, () => { if (!session && !nagranie) kontekst(); }, { capture: true, passive: true });
   function czekajNaRunning(c, ms) {
     return new Promise(res => {
       if (c.state === "running") return res(true);
@@ -486,6 +484,7 @@
       diag("AudioContext " + c.state + " – nie gram");
       ctxMartwy = true;                       // następne dotknięcie tworzy nowy kontekst w geście
       komunikat("Dźwięk nie zagrał: system zablokował audio. Dotknij jeszcze raz.");
+      zglos("granie: " + c.state);
       throw new Error("AudioContext " + c.state);
     }
     if (nr !== nrGrania) return false;
@@ -983,6 +982,11 @@
   async function otworzNagranie(c, sp) {        // sp: prośba o mikrofon wysłana już w geście (chmura)
     const stream = await (sp || prosba());
     const n = { stream, chunks: [], rate: c.sampleRate, stop: false };
+    const tr = stream.getAudioTracks()[0];
+    if (tr) {
+      diag("mikrofon: " + tr.readyState + (tr.muted ? ", WYCISZONY" : "") + ", kontekst " + c.state + ", sesja " + (AS ? AS.type : "-"));
+      tr.onmute = () => diag("mikrofon wyciszony przez system"); tr.onunmute = () => diag("mikrofon znów słyszy");
+    }
     try {
       n.src = c.createMediaStreamSource(stream);
       n.proc = c.createScriptProcessor(4096, 1, 1);
@@ -1004,7 +1008,7 @@
     let probek = 0, szczyt = 0, suma = 0;
     for (const c of n.chunks) { probek += c.length; for (let i = 0; i < c.length; i++) { const v = Math.abs(c[i]); if (v > szczyt) szczyt = v; suma += v * v; } }
     const rms = probek ? Math.sqrt(suma / probek) : 0;
-    return { probek, szczyt, rms, sekund: n.rate ? probek / n.rate : 0, glos: probek > n.rate * 0.3 && szczyt >= 0.08 && rms >= 0.01 };
+    return { probek, szczyt, rms, sekund: n.rate ? probek / n.rate : 0, glos: probek > n.rate * 0.3 && szczyt >= 0.08 && rms >= 0.01, zera: probek > 0 && szczyt === 0 };
   }
   function wav16k(chunks, rate) {
     let n = 0; for (const c of chunks) n += c.length;
@@ -1040,6 +1044,14 @@
   }
   // mikrofon nie ruszył: dziennik (bez nagrania) idzie do workera (KV „dziennik:”, 7 dni), żeby przyczynę dało się
   // zobaczyć bez proszenia usera o kopiowanie dziennika z telefonu
+  // Same zera (nie szum) = telefon nie dał stronie dźwięku z mikrofonu (24.10: dwie próby na tonach po przejściu z powtórki).
+  // Następne naciśnięcie dostaje nowy kontekst w geście (tak mikrofon ruszył po limicie 24.10 00:43), dziennik idzie do workera.
+  // chmura: tylko nagranie, więc komunikat i wymiana; system: Web Speech mógł usłyszeć, tylko dziennik (bez nowego kontekstu przed start())
+  function cyfrowaCisza(chmura) {
+    diag("mikrofon dał samą ciszę (same zera)" + (chmura ? ": następne naciśnięcie z nowym kontekstem" : ""));
+    if (chmura) { ctxMartwy = true; komunikat("Telefon nie dał dźwięku z mikrofonu. Przytrzymaj 🎤 jeszcze raz."); }
+    zglos("cisza");
+  }
   function zglos(powod) {
     const c = cfg(); if (!c.url || !c.klucz) return;
     fetch(c.url + "/dziennik?powod=" + encodeURIComponent(powod) + "&strona=" + encodeURIComponent(location.pathname),
@@ -1072,6 +1084,7 @@
     const wys = glosStop(s.wys);
     ustawSesje("playback", "koniec nasłuchu");
     const lv = n ? poziom(n) : null;
+    if (lv && lv.zera) cyfrowaCisza(false);
     diag("koniec (" + why + "): final=" + gotFinal + " interim=" + JSON.stringify(s.interim || "") + " trzymane " + heldMs + " ms" +
       (lv ? ", nagranie " + lv.sekund.toFixed(1) + " s szczyt=" + lv.szczyt.toFixed(3) + " rms=" + lv.rms.toFixed(4) : ", bez nagrania"));
     if (!alts.length && !error && !s.porzuc && lv && lv.glos && cfg().chmuraOk) {
@@ -1102,7 +1115,7 @@
     s.hardLimit = setTimeout(() => forceFinish(s, "limit 30 s"), 30000);
     btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
     stopAudio();
-    const c = kontekst();                       // w geście: potrzebny do nagrania
+    const c = kontekst({ bezWymiany: true });   // w geście: potrzebny do nagrania
     ustawSesje("play-and-record", "nasłuch");   // PRZED start(), patrz góra sekcji
     if (W.beforeStart) { try { W.beforeStart(); } catch (e) {} }
     if ("speechSynthesis" in window) { if (speechSynthesis.speaking || speechSynthesis.pending) audioAktywne(); speechSynthesis.cancel(); }
@@ -1195,27 +1208,25 @@
   // tryb "system-reload" usunięty; strony nadal wołają odbierzWynik() po starcie
   function odbierzWynik() { return null; }
 
-  // Inna strona (karta przeglądarki, strona tonów) mogła w międzyczasie używać mikrofonu: wtedy iOS przełącza dźwięk na
-  // słuchawkę przy uchu, a kontekst tej strony, który cały czas działał, dalej gra przez słuchawkę (na tej samej stronie
-  // po mikrofonie wraca głośnik, po powrocie z tonów nie). Dlatego ukryta strona usypia swój kontekst, a po powrocie
-  // kontekst jest usypiany i budzony: wyjście startuje od nowa przy obecnej sesji "playback". Kontekst się nie zmienia
-  // (nowy kontekst przy mikrofonie psuje nagrywanie, 41e4d05, e32521d); gdy w tym czasie ruszy mikrofon, sam go budzi.
-  function uspij(c, powod) {
-    if (!c || c.state !== "running") return Promise.resolve();
-    return Promise.race([c.suspend().then(() => diag("kontekst uśpiony (" + powod + ")")), sleep(300)]).catch(e => diag("suspend: " + e.message));
+  // ---- wejście na stronę i wyjście z niej ----
+  // Sesja audio iOS jest wspólna dla wszystkich stron i kart przeglądarki. Każda strona przy wyjściu (inna karta, inna strona,
+  // blokada) zwalnia wszystko: mikrofon, granie, zamyka kontekst. Przy wejściu (także z bfcache i z innej karty) zaczyna od
+  // zera: ustawia "playback", a kontekst powstaje w pierwszym geście, już przy obecnym stanie telefonu. Stary kontekst, który
+  // przeżył mikrofon na innej stronie, grał przez słuchawkę przy uchu (powtórka po tonach), a uśpiony i budzony psuł mikrofon (826546f).
+  function wyjscie(powod) {
+    if (session) forceFinish(session, powod, true);
+    if (nagranie) chmuraStop(nagranie, true);
+    stopAudio();
+    if (ctx) { const c = ctx; ctx = null; zrodlo = null; ctxMartwy = false; try { c.close().catch(() => {}); } catch (e) {} diag("kontekst zamknięty (" + powod + ")"); }
   }
-  async function poPowrocie(powod) {
+  function wejscie(powod) {
+    session = null; nagranie = null; zrodlo = null; przetwarzanie = false;
+    if (ctx) wyjscie(powod);                  // nie powinno się zdarzyć, ale wtedy też od zera
     ustawSesje("playback", powod);
-    const c = ctx; if (!c) return;
-    await uspij(c, powod);
-    if (ctx !== c || session || nagranie) return;
-    sprawdzZycie(powod);
   }
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) { if (session) forceFinish(session, "strona ukryta", true); if (nagranie) chmuraStop(nagranie, true); stopAudio(); uspij(ctx, "strona ukryta"); }
-    else poPowrocie("powrót na stronę");
-  });
-  window.addEventListener("pageshow", (e) => { if (e.persisted) { session = null; nagranie = null; zrodlo = null; przetwarzanie = false; poPowrocie("bfcache"); } });
+  document.addEventListener("visibilitychange", () => { if (document.hidden) wyjscie("strona ukryta"); else wejscie("powrót na stronę"); });
+  window.addEventListener("pagehide", () => wyjscie("wyjście ze strony"));
+  window.addEventListener("pageshow", (e) => { if (e.persisted) wejscie("bfcache"); });
 
   // ---- silnik "chmura" (tylko z wyboru): nagranie getUserMedia -> Whisper ----
   let nagranie = null; // { btn, opts, n, startedAt, released, done }
@@ -1292,6 +1303,7 @@
     if (porzuc || !g.n) { fin(null); return; }
     const lv = poziom(g.n);
     diag("chmura stop: " + heldMs + " ms, szczyt=" + lv.szczyt.toFixed(3) + " rms=" + lv.rms.toFixed(4));
+    if (lv.zera) cyfrowaCisza(true);
     if (g.opts.tylkoGlos) {                     // ćwiczenie melodii: ocena z linii głosu, bez rozpoznawania mowy
       let ocena = null;
       try { const tony = wartosc(g.opts.tony); if (wys && lv.glos && tony) ocena = ocenTony(Float32Array.from(wys.ty), tony, wys.ref); if (g.opts.wysokosc) wysokoscTonow(ocena); } catch (e) { diag("ocena tonów: " + e.message); }
