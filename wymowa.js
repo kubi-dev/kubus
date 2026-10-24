@@ -7,6 +7,8 @@
 //     wie: przy "playback" jednostka nagrywająca dostaje ciszę (onstart/onaudiostart przychodzą i tak, nie dowodzą niczego).
 //  3. Po onstart (nigdy przed start(): głuche sesje) getUserMedia nagrywa równolegle: widać, czy mikrofon coś słyszy,
 //     a gdy Web Speech nic nie zwróci mimo głosu w nagraniu, tekst daje Whisper (worker /wymowa).
+//  3a. Ukryta strona usypia kontekst, po powrocie uśpij + obudź (bez nowego kontekstu): po mikrofonie na innej stronie
+//     iOS grał dalej przez słuchawkę przy uchu.
 //  4. Nowa instancja SpeechRecognition na sesję, zdarzenia starych ignorowane; użytkownik kończy, puszczając przycisk;
 //     strona ukryta = sesja porzucona.
 //
@@ -1193,11 +1195,27 @@
   // tryb "system-reload" usunięty; strony nadal wołają odbierzWynik() po starcie
   function odbierzWynik() { return null; }
 
+  // Inna strona (karta przeglądarki, strona tonów) mogła w międzyczasie używać mikrofonu: wtedy iOS przełącza dźwięk na
+  // słuchawkę przy uchu, a kontekst tej strony, który cały czas działał, dalej gra przez słuchawkę (na tej samej stronie
+  // po mikrofonie wraca głośnik, po powrocie z tonów nie). Dlatego ukryta strona usypia swój kontekst, a po powrocie
+  // kontekst jest usypiany i budzony: wyjście startuje od nowa przy obecnej sesji "playback". Kontekst się nie zmienia
+  // (nowy kontekst przy mikrofonie psuje nagrywanie, 41e4d05, e32521d); gdy w tym czasie ruszy mikrofon, sam go budzi.
+  function uspij(c, powod) {
+    if (!c || c.state !== "running") return Promise.resolve();
+    return Promise.race([c.suspend().then(() => diag("kontekst uśpiony (" + powod + ")")), sleep(300)]).catch(e => diag("suspend: " + e.message));
+  }
+  async function poPowrocie(powod) {
+    ustawSesje("playback", powod);
+    const c = ctx; if (!c) return;
+    await uspij(c, powod);
+    if (ctx !== c || session || nagranie) return;
+    sprawdzZycie(powod);
+  }
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) { if (session) forceFinish(session, "strona ukryta", true); if (nagranie) chmuraStop(nagranie, true); stopAudio(); }
-    else { ustawSesje("playback", "powrót na stronę"); sprawdzZycie("powrót na stronę"); }
+    if (document.hidden) { if (session) forceFinish(session, "strona ukryta", true); if (nagranie) chmuraStop(nagranie, true); stopAudio(); uspij(ctx, "strona ukryta"); }
+    else poPowrocie("powrót na stronę");
   });
-  window.addEventListener("pageshow", (e) => { if (e.persisted) { session = null; nagranie = null; zrodlo = null; przetwarzanie = false; ustawSesje("playback", "bfcache"); sprawdzZycie("bfcache"); } });
+  window.addEventListener("pageshow", (e) => { if (e.persisted) { session = null; nagranie = null; zrodlo = null; przetwarzanie = false; poPowrocie("bfcache"); } });
 
   // ---- silnik "chmura" (tylko z wyboru): nagranie getUserMedia -> Whisper ----
   let nagranie = null; // { btn, opts, n, startedAt, released, done }

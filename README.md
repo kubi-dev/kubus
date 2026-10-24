@@ -24,6 +24,9 @@ na iOS zgaduje krótkie słowa (nagranie 愿意 puszczone do mikrofonu: Web Spee
 Silnik chmura prosi o mikrofon (`getUserMedia`) od razu w geście, przed budzeniem kontekstu. Gdy mikrofon nie ruszy w 5 s albo start
 się nie uda, strona sama wysyła dziennik mikrofonu do workera (`/dziennik`, KV „dziennik:”, 7 dni), razem z tym, czy mikrofon ruszył
 później. Sprawdzanie: `npx wrangler kv key list --namespace-id 7448e16e7ce244db8bb779f8cdc58a08 --prefix dziennik: --remote` (z `worker/`).
+Ukryta strona (inna karta przeglądarki, przejście na inną stronę, blokada) usypia swój kontekst, a po powrocie kontekst jest usypiany
+i budzony, bez tworzenia nowego. Powód: po mikrofonie na innej stronie (np. tony) powtórka grała przez słuchawkę przy uchu, bo jej kontekst
+działał cały czas i nie przełączył się z powrotem na głośnik. Nie tworzyć tu nowego kontekstu: psuje mikrofon (41e4d05, e32521d).
 
 ## Trener tonów
 Po każdym wyniku mikrofonu (poza idealnym) strona rysuje wykres tonów sylaba po sylabie: kontur celu na górze, usłyszany na dole,

@@ -38,3 +38,12 @@ Gdy user pyta o cokolwiek po chińsku (słowo, zwrot, wymowę, „jak się mówi
 - Szukaj po polskim znaczeniu i po nazwach sekcji, nie tylko po znakach. Jedno polskie słowo może mieć kilka chińskich odpowiedników (np. „chcę”: 想 siang w lekcji 2, 愿意 jüen-i w lekcji 3, 要 jał tylko na stronie wymowy). Gdy pasuje kilka, pokaż wszystkie albo zapytaj, o które chodzi.
 - `wymowa.json` (strony tony/dźwięki) to przykłady do ćwiczeń wymowy, nie karty z lekcji. Nie traktuj ich jako pierwszego źródła.
 - W odpowiedzi używaj słowa i zapisu dokładnie takiego, jak na karcie.
+
+## Zanim zmienisz dźwięk albo mikrofon
+
+`wymowa.js` ma za sobą kilkadziesiąt poprawek pod iOS i kilka cofniętych. Zanim coś w nim zmienisz:
+
+- Przeczytaj `git log -- wymowa.js` (szczególnie revert-y: 41e4d05, e32521d), komentarz na górze `wymowa.js` i dział „Dźwięk i mikrofon” w `README.md`. Sprawdź, czy to, co chcesz zrobić, nie było już próbowane.
+- Stałe zasady, za którymi stoją zepsute wdrożenia: jeden AudioContext na stronę, wymieniany tylko gdy martwy, nigdy nowy kontekst przy starcie mikrofonu ani tuż przed nim (iOS: mikrofon nagrywa ciszę); bez elementu `<audio>`; `navigator.audioSession` tylko w istniejących punktach `ustawSesje`.
+- Napisz userowi prostymi słowami, co zmiana zmienia w obecnym działaniu, jakie przepływy dotyka (wszystkie strony, przejścia między stronami i kartami, powrót z tła, pierwsza i kolejna karta powtórki) i co może zepsuć.
+- Test na komputerze (headless Chrome) nie zastępuje iPhone'a. Mów to wprost.
