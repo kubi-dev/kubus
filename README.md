@@ -24,9 +24,6 @@ na iOS zgaduje krótkie słowa (nagranie 愿意 puszczone do mikrofonu: Web Spee
 Silnik chmura prosi o mikrofon (`getUserMedia`) od razu w geście, przed budzeniem kontekstu. Gdy mikrofon nie ruszy w 5 s albo start
 się nie uda, strona sama wysyła dziennik mikrofonu do workera (`/dziennik`, KV „dziennik:”, 7 dni), razem z tym, czy mikrofon ruszył
 później. Sprawdzanie: `npx wrangler kv key list --namespace-id 7448e16e7ce244db8bb779f8cdc58a08 --prefix dziennik: --remote` (z `worker/`).
-Nagranie z mikrofonu idzie przez osobny `AudioContext` (tworzony po zgodzie na mikrofon, zamykany po nagraniu), nie przez kontekst grania mp3.
-Po każdym nasłuchu pierwsze dotknięcie (gdy nic nie gra) tworzy świeży kontekst grania: stary, działający w trybie `play-and-record`,
-potrafił dalej grać przez słuchawkę przy uchu zamiast głośnika.
 
 ## Trener tonów
 Po każdym wyniku mikrofonu (poza idealnym) strona rysuje wykres tonów sylaba po sylabie: kontur celu na górze, usłyszany na dole,

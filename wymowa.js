@@ -7,8 +7,6 @@
 //     wie: przy "playback" jednostka nagrywająca dostaje ciszę (onstart/onaudiostart przychodzą i tak, nie dowodzą niczego).
 //  3. Po onstart (nigdy przed start(): głuche sesje) getUserMedia nagrywa równolegle: widać, czy mikrofon coś słyszy,
 //     a gdy Web Speech nic nie zwróci mimo głosu w nagraniu, tekst daje Whisper (worker /wymowa).
-//  3a. Nagranie ma własny AudioContext (zamykany po nagraniu); kontekst grania po nasłuchu wymieniany przy pierwszym geście,
-//     bo po trybie play-and-record iOS potrafi dalej grać nim przez słuchawkę przy uchu zamiast głośnika.
 //  4. Nowa instancja SpeechRecognition na sesję, zdarzenia starych ignorowane; użytkownik kończy, puszczając przycisk;
 //     strona ukryta = sesja porzucona.
 //
@@ -406,14 +404,7 @@
     if (ctx.state !== "running") ctx.resume().catch(e => diag("resume: " + e.message));
     return ctx;
   }
-  // Po mikrofonie kontekst grania zostaje w trybie rozmowy iOS i potrafi grać przez słuchawkę przy uchu zamiast głośnika.
-  // Dlatego pierwszy gest po nasłuchu (nie w trakcie i nie podczas grania) dostaje świeży kontekst, już w sesji "playback".
-  let poMikrofonie = false;
-  for (const ev of ["pointerup", "touchend", "click", "keydown"]) document.addEventListener(ev, () => {
-    if (session || nagranie || przetwarzanie) return;
-    if (poMikrofonie && ctx && !zrodlo) { poMikrofonie = false; nowyKontekst("po mikrofonie"); }
-    else kontekst();
-  }, { capture: true, passive: true });
+  for (const ev of ["pointerup", "touchend", "click", "keydown"]) document.addEventListener(ev, () => { if (!session && !nagranie) kontekst(); }, { capture: true, passive: true });
   // Po powrocie na stronę: czy zegar kontekstu idzie? Stoi = martwy, następny gest tworzy nowy.
   function sprawdzZycie(powod) {
     const c = ctx; if (!c) return;
@@ -989,19 +980,8 @@
   const prosba = () => navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
   async function otworzNagranie(c, sp) {        // sp: prośba o mikrofon wysłana już w geście (chmura)
     const stream = await (sp || prosba());
-    // Osobny kontekst tylko do nagrania (tworzony po zgodzie na mikrofon, zamykany razem z nagraniem), żeby kontekst
-    // grania mp3 nigdy nie miał podpiętego mikrofonu. Gdy nie wstanie, nagrywa jak dawniej na kontekście grania.
-    let rc = null;
+    const n = { stream, chunks: [], rate: c.sampleRate, stop: false };
     try {
-      rc = new AC();
-      if (!(await obudz(rc, 800))) { diag("kontekst nagrania nie wstał (" + rc.state + "), nagrywam na kontekście grania"); rc.close().catch(() => {}); rc = null; }
-      else diag("kontekst nagrania: " + rc.state + ", " + rc.sampleRate + " Hz");
-    } catch (e) { diag("kontekst nagrania błąd: " + e.message); rc = null; }
-    const k = rc || c;
-    if (!k) { try { stream.getTracks().forEach(t => t.stop()); } catch (e) {} throw new Error("brak AudioContext"); }
-    const n = { stream, chunks: [], rate: k.sampleRate, stop: false, ctx: rc };
-    try {
-      c = k;
       n.src = c.createMediaStreamSource(stream);
       n.proc = c.createScriptProcessor(4096, 1, 1);
       n.proc.onaudioprocess = (e) => { if (!n.stop) n.chunks.push(new Float32Array(e.inputBuffer.getChannelData(0))); };
@@ -1016,7 +996,6 @@
     try { if (n.src) n.src.disconnect(); } catch (e) {}
     try { if (n.cisza) n.cisza.disconnect(); } catch (e) {}
     try { n.stream.getTracks().forEach(t => t.stop()); } catch (e) {}
-    if (n.ctx) { try { n.ctx.close().catch(() => {}); } catch (e) {} }
   }
   // szum w cichym pokoju: szczyt ~0.05, rms ~0.007; mowa z AGC: szczyt > 0.2, rms > 0.02
   function poziom(n) {
@@ -1122,7 +1101,7 @@
     btn.classList.add("rec"); btn.textContent = "⏳ uruchamiam…";
     stopAudio();
     const c = kontekst();                       // w geście: potrzebny do nagrania
-    ustawSesje("play-and-record", "nasłuch"); poMikrofonie = true;   // PRZED start(), patrz góra sekcji
+    ustawSesje("play-and-record", "nasłuch");   // PRZED start(), patrz góra sekcji
     if (W.beforeStart) { try { W.beforeStart(); } catch (e) {} }
     if ("speechSynthesis" in window) { if (speechSynthesis.speaking || speechSynthesis.pending) audioAktywne(); speechSynthesis.cancel(); }
     let target = ""; try { target = typeof opts.target === "function" ? opts.target() : opts.target; } catch (e) {}
@@ -1227,7 +1206,7 @@
     if (nagranie || przetwarzanie) return;
     stopAudio();
     const c = kontekst();
-    ustawSesje("play-and-record", "nagranie (chmura)"); poMikrofonie = true;
+    ustawSesje("play-and-record", "nagranie (chmura)");
     if (W.beforeStart) { try { W.beforeStart(); } catch (e) {} }
     if ("speechSynthesis" in window) speechSynthesis.cancel();
     const g = { btn, opts, n: null, startedAt: 0, released: false, done: false };
