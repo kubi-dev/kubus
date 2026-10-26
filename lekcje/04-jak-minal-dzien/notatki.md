@@ -42,7 +42,7 @@ Data: 2026-10-15
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
 | 厕所在哪里？ | Cèsuǒ zài nǎlǐ? | cchy-sło dzaj na-li | TY-SŁO-DZAI-NA-LI · WHERE IS RESTROOM | Where is the toilet? · Gdzie jest toaleta? |
-| 风景好漂亮。 | Fēngjǐng hǎo piàoliang. | fang-dzing chał phiał-liang | FUN-DZI-HAŁ PIAŁ LIANG · THE VIEW IS BEAUTIFUL (HAŁ PIAŁ LIANG = TO JEST PIĘKNE) | The view is so beautiful. · Jaki piękny widok. |
+| 风景好漂亮。 | Fēngjǐng hǎo piàoliang. | fung-dzing chał phiał-liang | FUN-DZI-HAŁ PIAŁ LIANG · THE VIEW IS BEAUTIFUL (HAŁ PIAŁ LIANG = TO JEST PIĘKNE) | The view is so beautiful. · Jaki piękny widok. |
 | 直走 | zhí zǒu | czy dzoł | DZY-COŁ · PROSTO | go straight · prosto |
 | 左转 | zuǒ zhuǎn | dzło człan | DZŁO-DZŁAN · PRAWO | turn left · w lewo |
 | 右转 | yòu zhuǎn | joł człan | JU DZŁAN · LEWO | turn right · w prawo |
@@ -85,7 +85,7 @@ Data: 2026-10-15
 | 都 | dōu | toł |  | all · wszystko, wszyscy |
 | 有 | yǒu | joł |  | have · mieć |
 | 厕所 | cèsuǒ | cchy-sło |  | toilet · toaleta |
-| 风景 | fēngjǐng | fang-dzing |  | view, scenery · widok |
+| 风景 | fēngjǐng | fung-dzing |  | view, scenery · widok |
 | 眼睛 | yǎnjing | jen-dzing |  | eyes · oczy |
 | 今晚 | jīnwǎn | dzin-łan |  | tonight · dziś wieczorem |
 | 有空 | yǒu kòng | joł khong |  | have free time · mieć wolny czas |

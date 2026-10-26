@@ -2417,7 +2417,7 @@
    "trudnosc": 3,
    "opis": "Na końcu słowa chiński ma dwa różne 'n'. Zwykłe -n: język dotyka za zębami, jak w 'ten'. A -ng: język z tyłu, jak w 'bank' tuż przed 'k'. Po polsku takie -ng słyszysz tylko przed k albo g. Nigdy na końcu słowa.",
    "przyklad_pl": "Powiedz 'bank' i zatrzymaj się tuż przed 'k'. To, co słyszysz, to chińskie -ng. Teraz powiedz powoli 'ten' i trzymaj język za zębami. To jest -n.",
-   "jak_cwiczyc": "1. Powiedz „bank” i utnij „k”: „bang”. Zauważ: na końcu czubek języka wisi w powietrzu, nie dotyka zębów.\n2. Tak samo „fang” (风, wiatr). Język na końcu nie dotyka zębów.\n3. Powiedz „ten” i na końcu przytrzymaj: czubek języka dotyka za górnymi zębami. Tak samo „fen” (分, minuta).\n4. Test bez ucha: na końcu słowa sprawdź język. Dotyka zębów: -n. Wisi w powietrzu: -ng. Nie mów przez nos jak w „ę”.",
+   "jak_cwiczyc": "1. Powiedz „bank” i utnij „k”: „bang”. Zauważ: na końcu czubek języka wisi w powietrzu, nie dotyka zębów.\n2. Tak samo „fung” (风, wiatr). Język na końcu nie dotyka zębów.\n3. Powiedz „ten” i na końcu przytrzymaj: czubek języka dotyka za górnymi zębami. Tak samo „fen” (分, minuta).\n4. Test bez ucha: na końcu słowa sprawdź język. Dotyka zębów: -n. Wisi w powietrzu: -ng. Nie mów przez nos jak w „ę”.",
    "blad_polakow": "Mówisz -ng jak zwykłe n i 风 (wiatr) brzmi jak 分 (minuta). Albo mówisz -n przez nos, jak polskie 'ę', i wychodzi 'fę'. To mniej groźne niż tony i dmuchnięcie. Sami Chińczycy z południa to mieszają.",
    "pary": [
     {
@@ -2430,7 +2430,7 @@
      "b": {
       "znaki": "风",
       "pinyin": "fēng",
-      "polski": "fang",
+      "polski": "fung",
       "znaczenie": "wiatr"
      },
      "roznica": "język za zębami (minuta) albo język z tyłu jak w 'bank' (wiatr)"

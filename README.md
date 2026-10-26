@@ -132,7 +132,7 @@ są z Google TTS (pobrane raz ręcznie przez `ensure_audio`, leżą w repo), obr
 `zapis.json`: każda sylaba pinyin -> zapis po polsku (z lekkim tonem osobno: 了 la, 们 men) i kilka wyjątków według ucha (什么 szen-ma,
 的/得 da, 哪儿 nar). Odtwarza zapis wszystkich kart z lekcji i słów ze stron tonów i dźwięków. `python3 zapis.py sprawdz` pokazuje karty
 niezgodne ze słownikiem, `wpisz` je poprawia, `zapisz "znaki" "pinyin"` daje zapis nowej karty. Sprawdzone na nagraniach HSK (pomiar
-samogłosek obu lektorów i ucho usera, 2026-10-18): lekkie e = „a”, -en = „en” (很 chen, 人 żen, 吻 łen, 春 czhłen; wcześniej „yn”), -eng = „ang” (朋友 phang-joł, 生 szang, 冷 lang; wcześniej „yng”), 而/二 = „ar”.
+samogłosek obu lektorów i ucho usera, 2026-10-18): lekkie e = „a”, -en = „en” (很 chen, 人 żen, 吻 łen, 春 czhłen; wcześniej „yn”), -eng = „ang” (朋友 phang-joł, 生 szang, 冷 lang; wcześniej „yng”), 而/二 = „ar”. Wyjątek według ucha usera (2026-10-27): feng = „fung” (风景 fung-dzing; wcześniej „fang”).
 
 ## Powtórki
 - Nowe karty dziennie: najpierw z lekcji, po kolei (ustawienie „Nowych kart dziennie”, domyślnie 10), do tego 5 z materiałów dodatkowych (`HSK_DZIENNIE` w `powtorka.html`). Gdy nowych z lekcji brakuje, materiały dopełniają do limitu. Materiały idą w losowej kolejności (ziarno = data, więc w ciągu dnia ta sama), bo kolejne zwroty często powtarzają ten sam schemat. Licznik dnia: `dzien.nowe` (lekcje) i `dzien.hsk` (materiały).
