@@ -75,6 +75,7 @@
   .rate button small { display: block; color: var(--muted); font-size: 11px; margin-top: 3px; }
   .rate button.sug { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
   .rate button:active { transform: scale(.96); }
+  .rate button.jeszcze { grid-column: 1 / -1; padding: 10px 4px; }
   .start { padding: 16px 28px; border-radius: 999px; border: none; background: var(--accent); color: #fff; font-size: 18px; cursor: pointer; }
   .sum { font-size: 15px; color: var(--muted); line-height: 1.6; }
   .hint { color: var(--muted); font-size: 13px; }
@@ -106,10 +107,11 @@
 <main>
   <div class="card" id="card"></div>
   <div class="rate" id="rate" hidden>
-    <button type="button" data-q="0">nie wiem<small>dziś jeszcze raz</small></button>
+    <button type="button" data-q="0">nie wiem<small>od nowa</small></button>
     <button type="button" data-q="1">trudno<small id="d1"></small></button>
     <button type="button" data-q="2">dobrze<small id="d2"></small></button>
     <button type="button" data-q="3">łatwo<small id="d3"></small></button>
+    <button type="button" data-q="r" class="jeszcze">jeszcze raz dziś<small>bez oceny, postęp bez zmian</small></button>
   </div>
   <div class="sync" id="sync"></div>
   <details class="diag"><summary>diagnostyka mikrofonu</summary><pre id="diag-log"></pre></details>
@@ -169,8 +171,8 @@ function zapiszLokalnie() { try { localStorage.setItem(KLUCZ_LS, JSON.stringify(
 let syncTimer = null, syncBusy = false, syncDirty = false;
 function pokazSync(msg, err) { const el = $("sync"); el.textContent = msg; el.className = "sync" + (err ? " err" : ""); }
 async function syncTeraz(pobierzTylko) {
-  if (!cfg.url || !cfg.klucz) { pokazSync("bez synchronizacji (ustaw adres i klucz w ⚙)"); return; }
-  if (syncBusy) { syncDirty = true; return; }
+  if (!cfg.url || !cfg.klucz) { pokazSync("bez synchronizacji (ustaw adres i klucz w ⚙)"); return false; }
+  if (syncBusy) { syncDirty = true; return false; }
   syncBusy = true;
   try {
     const r = await fetch(cfg.url.replace(/\/$/, "") + "/stan", {
@@ -182,7 +184,8 @@ async function syncTeraz(pobierzTylko) {
     const zdalny = await r.json();
     stan = scal(stan, zdalny); zapiszLokalnie();
     pokazSync("zsynchronizowano " + new Date().toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" }));
-  } catch (e) { pokazSync("synchronizacja nie działa: " + e.message, true); }
+    return true;
+  } catch (e) { pokazSync("synchronizacja nie działa: " + e.message, true); return false; }
   finally { syncBusy = false; if (syncDirty) { syncDirty = false; zaplanujSync(); } }
 }
 function zaplanujSync() { clearTimeout(syncTimer); syncTimer = setTimeout(() => syncTeraz(false), 3000); }
@@ -191,15 +194,26 @@ document.addEventListener("visibilitychange", () => { if (document.hidden && syn
 // ---------- SM-2 ----------
 function dzis() { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); }
 function dataStr(t) { const d = new Date(t); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
-function nowyStan() { return { iv: 0, ef: 2.5, termin: 0, reps: 0, seria: 0, z: 0 }; }
+function nowyStan() { return { iv: 0, ef: 2.5, termin: 0, reps: 0, seria: 0, z: 0, kara: "" }; }
 function ocen(s, q) {
   // q: 0 nie wiem, 1 trudno, 2 dobrze, 3 łatwo
+  // Kara (obniżenie mnożnika ef) najwyżej raz dziennie: kolejne „nie wiem” albo „trudno” tego samego dnia już nie odejmują.
+  // Karta po przerwie: trudno zawsze dłużej niż dotąd, dobrze dłużej niż trudno, łatwo dłużej niż dobrze
+  // (bez tego 1 dzień × ef 1,3 zaokrąglało się do 1 dnia i karta wracała jutro w nieskończoność).
+  // Nowa karta i karta po „nie wiem”: trudno i dobrze 1 dzień, łatwo 3 dni.
   s = Object.assign({}, s);
-  if (q === 0) { s.reps = 0; s.seria = 0; s.iv = 0; s.ef = Math.max(1.3, s.ef - 0.2); }
+  const d = dataStr(dzis()), kara = (ile) => { if (s.kara !== d) { s.ef = Math.max(1.3, s.ef - ile); s.kara = d; } };
+  if (q === 0) { s.reps = 0; s.seria = 0; s.iv = 0; kara(0.2); }
   else {
-    if (q === 1) { s.iv = s.reps === 0 ? 1 : Math.max(1, Math.round(s.iv * 1.2)); s.ef = Math.max(1.3, s.ef - 0.15); }
-    else if (q === 2) { s.iv = s.reps === 0 ? 1 : s.reps === 1 ? 3 : Math.round(s.iv * s.ef); }
-    else { s.iv = s.reps === 0 ? 3 : s.reps === 1 ? 5 : Math.round(s.iv * s.ef * 1.3); s.ef = Math.min(3.0, s.ef + 0.15); }
+    if (s.reps === 0) s.iv = q === 3 ? 3 : 1;
+    else {
+      const trudno = Math.max(s.iv + 1, Math.round(s.iv * 1.2));
+      const dobrze = Math.max(trudno + 1, s.reps === 1 ? 3 : Math.round(s.iv * s.ef));
+      const latwo = Math.max(dobrze + 1, s.reps === 1 ? 5 : Math.round(s.iv * s.ef * 1.3));
+      s.iv = q === 1 ? trudno : q === 2 ? dobrze : latwo;
+    }
+    if (q === 1) kara(0.15);
+    if (q === 3) s.ef = Math.min(3.0, s.ef + 0.15);
     s.reps++; s.seria++;
   }
   s.termin = dzis() + s.iv * DZIEN;
@@ -513,13 +527,19 @@ function kartaB(c, w) {
   else graj(k);
 }
 
+// nowe karty już policzone do dziennego limitu (po „jeszcze raz dziś” karta jest dalej nowa, ale drugi raz się nie liczy)
+const policzoneNowe = new Set();
 rate.addEventListener("click", (e) => {
   const b = e.target.closest("button"); if (!b || !biezaca || !odpowiedziano) return;
-  const q = Number(b.dataset.q);
+  const jeszcze = b.dataset.q === "r", q = Number(b.dataset.q);
   const byloNowe = !stanKarty(biezaca.id);
-  stan.karty[biezaca.id] = ocen(stanKarty(biezaca.id) || nowyStan(), q);
-  if (byloNowe) { if (biezaca.k.sciezka) stan.dzien.hsk = (stan.dzien.hsk || 0) + 1; else stan.dzien.nowe++; }
-  if (q === 0) { kolejka.push(biezaca); razem++; }
+  // „jeszcze raz dziś”: karta wraca na koniec sesji, jej stan (przerwa, mnożnik, seria) bez zmian; liczy się ocena przy powrocie
+  if (!jeszcze) stan.karty[biezaca.id] = ocen(stanKarty(biezaca.id) || nowyStan(), q);
+  if (byloNowe && !policzoneNowe.has(biezaca.id)) {
+    policzoneNowe.add(biezaca.id);
+    if (biezaca.k.sciezka) stan.dzien.hsk = (stan.dzien.hsk || 0) + 1; else stan.dzien.nowe++;
+  }
+  if (q === 0 || jeszcze) { kolejka.push(biezaca); razem++; }
   zrobione++;
   zapiszLokalnie(); zaplanujSync();
   nastepna();
@@ -567,8 +587,23 @@ $("s-ok").addEventListener("click", () => {
   zapiszLokalnie(); $("dlg").close(); syncTeraz(false).then(() => { if (!wSesji) ekranStartowy(); });
 });
 
+// Jednorazowa naprawa kart zablokowanych na „jutro” (stary błąd zaokrąglania, do 2026-10-26): karta z co najmniej
+// 3 dobrymi/trudnymi odpowiedziami z rzędu i mnożnikiem na dnie dostaje mnożnik 2,0. Po synchronizacji, żeby nie nadpisać
+// nowszej oceny z innego urządzenia starą wersją z tego telefonu; zmiana z nowym z rozchodzi się przez worker.
+const NAPRAWA = KLUCZ_LS + ".naprawa-1";
+function naprawZablokowane() {
+  try { if (localStorage.getItem(NAPRAWA)) return; } catch (e) { return; }
+  let n = 0;
+  for (const id in stan.karty) {
+    const s = stan.karty[id];
+    if (s.reps >= 3 && s.ef <= 1.3) { stan.karty[id] = Object.assign({}, s, { ef: 2.0, z: Date.now() }); n++; }
+  }
+  try { localStorage.setItem(NAPRAWA, new Date().toISOString() + " " + n); } catch (e) {}
+  if (n) { zapiszLokalnie(); syncTeraz(false); }
+}
+
 if (!odtworzPoPrzeladowaniu()) ekranStartowy();
-syncTeraz(true).then(() => { if (!wSesji) ekranStartowy(); });
+syncTeraz(true).then((ok) => { if (ok || !cfg.url || !cfg.klucz) naprawZablokowane(); if (!wSesji) ekranStartowy(); });
 </script>
 </body>
 </html>
