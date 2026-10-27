@@ -257,6 +257,19 @@
   "obrazek": null
  },
  {
+  "id": "我喜欢……",
+  "znaki": "我喜欢……",
+  "pinyin": "Wǒ xǐhuan…",
+  "polski": "ło si-chłan",
+  "doslownie": "ja · lubić",
+  "znaczenie": "I like… · Lubię…",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/01f49854c3",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "我喜欢你。",
   "znaki": "我喜欢你。",
   "pinyin": "Wǒ xǐhuan nǐ.",
@@ -624,19 +637,6 @@
   "obrazek": null
  },
  {
-  "id": "我喜欢……",
-  "znaki": "我喜欢……",
-  "pinyin": "Wǒ xǐhuan…",
-  "polski": "ło si-chłan",
-  "doslownie": "ja · lubić",
-  "znaczenie": "I like… · Lubię…",
-  "lekcja": 2,
-  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
-  "audio": "lekcje/02-jedzenie-i-napoje/audio/01f49854c3",
-  "img": "",
-  "obrazek": null
- },
- {
   "id": "我想吃……",
   "znaki": "我想吃……",
   "pinyin": "Wǒ xiǎng chī…",
@@ -702,6 +702,23 @@
   "obrazek": null
  },
  {
+  "id": "果汁",
+  "znaki": "果汁",
+  "pinyin": "guǒzhī",
+  "polski": "kło-czy",
+  "doslownie": "",
+  "znaczenie": "juice · sok",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/94a755afe7",
+  "img": "lekcje/02-jedzenie-i-napoje/obrazki/94a755afe7.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/5913187/image-background-public-domain-fruit"
+  }
+ },
+ {
   "id": "我想喝果汁。",
   "znaki": "我想喝果汁。",
   "pinyin": "Wǒ xiǎng hē guǒzhī.",
@@ -713,6 +730,23 @@
   "audio": "lekcje/02-jedzenie-i-napoje/audio/a0fdbf34a5",
   "img": "",
   "obrazek": null
+ },
+ {
+  "id": "啤酒",
+  "znaki": "啤酒",
+  "pinyin": "píjiǔ",
+  "polski": "phi-dzioł",
+  "doslownie": "",
+  "znaczenie": "beer · piwo",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/5fbf343679",
+  "img": "lekcje/02-jedzenie-i-napoje/obrazki/5fbf343679.jpg",
+  "obrazek": {
+   "autor": "Little Visuals",
+   "licencja": "cc0",
+   "zrodlo": "https://stocksnap.io/photo/beer-brew-F15A241D0A"
+  }
  },
  {
   "id": "我想喝啤酒。",
@@ -789,40 +823,6 @@
    "autor": "",
    "licencja": "cc0",
    "zrodlo": "https://www.rawpixel.com/image/6031450/photo-image-public-domain-floral-bubbles"
-  }
- },
- {
-  "id": "果汁",
-  "znaki": "果汁",
-  "pinyin": "guǒzhī",
-  "polski": "kło-czy",
-  "doslownie": "",
-  "znaczenie": "juice · sok",
-  "lekcja": 2,
-  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
-  "audio": "lekcje/02-jedzenie-i-napoje/audio/94a755afe7",
-  "img": "lekcje/02-jedzenie-i-napoje/obrazki/94a755afe7.jpg",
-  "obrazek": {
-   "autor": "",
-   "licencja": "cc0",
-   "zrodlo": "https://www.rawpixel.com/image/5913187/image-background-public-domain-fruit"
-  }
- },
- {
-  "id": "啤酒",
-  "znaki": "啤酒",
-  "pinyin": "píjiǔ",
-  "polski": "phi-dzioł",
-  "doslownie": "",
-  "znaczenie": "beer · piwo",
-  "lekcja": 2,
-  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
-  "audio": "lekcje/02-jedzenie-i-napoje/audio/5fbf343679",
-  "img": "lekcje/02-jedzenie-i-napoje/obrazki/5fbf343679.jpg",
-  "obrazek": {
-   "autor": "Little Visuals",
-   "licencja": "cc0",
-   "zrodlo": "https://stocksnap.io/photo/beer-brew-F15A241D0A"
   }
  },
  {
@@ -916,6 +916,19 @@
   "lekcja": 2,
   "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
   "audio": "lekcje/02-jedzenie-i-napoje/audio/c5c38478cd",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "会",
+  "znaki": "会",
+  "pinyin": "huì",
+  "polski": "chłej",
+  "doslownie": "",
+  "znaczenie": "will; can · będzie (o przyszłości); umieć",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/647477bbc5",
   "img": "",
   "obrazek": null
  },
@@ -1054,6 +1067,23 @@
   }
  },
  {
+  "id": "旅游",
+  "znaki": "旅游",
+  "pinyin": "lǚyóu",
+  "polski": "lü-joł",
+  "doslownie": "",
+  "znaczenie": "travel · podróżować",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/0ebbd85f68",
+  "img": "lekcje/03-poznajemy-sie/obrazki/0ebbd85f68.jpg",
+  "obrazek": {
+   "autor": "",
+   "licencja": "cc0",
+   "zrodlo": "https://www.rawpixel.com/image/5918537/image-public-domain-person-red"
+  }
+ },
+ {
   "id": "来旅游的吗？",
   "znaki": "来旅游的吗？",
   "pinyin": "Lái lǚyóu de ma?",
@@ -1069,6 +1099,19 @@
    "licencja": "cc0",
    "zrodlo": "https://www.rawpixel.com/image/3282472/free-photo-image-road-bicycle-crossing-busy-street"
   }
+ },
+ {
+  "id": "做",
+  "znaki": "做",
+  "pinyin": "zuò",
+  "polski": "dzło",
+  "doslownie": "",
+  "znaczenie": "do · robić",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/7105106a36",
+  "img": "",
+  "obrazek": null
  },
  {
   "id": "做朋友吧！",
@@ -1146,6 +1189,19 @@
    "licencja": "cc0",
    "zrodlo": "https://www.rawpixel.com/image/6449513/vector-sticker-public-domain-stars"
   }
+ },
+ {
+  "id": "去",
+  "znaki": "去",
+  "pinyin": "qù",
+  "polski": "ćhü",
+  "doslownie": "",
+  "znaczenie": "go · iść, jechać",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/dfb9366c91",
+  "img": "",
+  "obrazek": null
  },
  {
   "id": "下一站去哪？",
@@ -1246,6 +1302,19 @@
   "obrazek": null
  },
  {
+  "id": "一起",
+  "znaki": "一起",
+  "pinyin": "yìqǐ",
+  "polski": "i-ćhi",
+  "doslownie": "",
+  "znaczenie": "together · razem",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/3efffd5f35",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "一起吃饭吗？",
   "znaki": "一起吃饭吗？",
   "pinyin": "Yìqǐ chīfàn ma?",
@@ -1324,23 +1393,6 @@
    "autor": "",
    "licencja": "cc0",
    "zrodlo": "https://www.rawpixel.com/image/5907944/image-public-domain-free-worship"
-  }
- },
- {
-  "id": "旅游",
-  "znaki": "旅游",
-  "pinyin": "lǚyóu",
-  "polski": "lü-joł",
-  "doslownie": "",
-  "znaczenie": "travel · podróżować",
-  "lekcja": 3,
-  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
-  "audio": "lekcje/03-poznajemy-sie/audio/0ebbd85f68",
-  "img": "lekcje/03-poznajemy-sie/obrazki/0ebbd85f68.jpg",
-  "obrazek": {
-   "autor": "",
-   "licencja": "cc0",
-   "zrodlo": "https://www.rawpixel.com/image/5918537/image-public-domain-person-red"
   }
  },
  {
@@ -1438,6 +1490,19 @@
   "obrazek": null
  },
  {
+  "id": "今天",
+  "znaki": "今天",
+  "pinyin": "jīntiān",
+  "polski": "dzin-thien",
+  "doslownie": "",
+  "znaczenie": "today · dzisiaj",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/800dfdd902",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "你今天过得好吗？",
   "znaki": "你今天过得好吗？",
   "pinyin": "Nǐ jīntiān guò de hǎo ma?",
@@ -1447,6 +1512,19 @@
   "lekcja": 4,
   "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
   "audio": "lekcje/04-jak-minal-dzien/audio/9b7c82f2f1",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "周末",
+  "znaki": "周末",
+  "pinyin": "zhōumò",
+  "polski": "czoł-mo",
+  "doslownie": "",
+  "znaczenie": "weekend · weekend",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/c17375d125",
   "img": "",
   "obrazek": null
  },
@@ -1692,6 +1770,19 @@
   "obrazek": null
  },
  {
+  "id": "都",
+  "znaki": "都",
+  "pinyin": "dōu",
+  "polski": "toł",
+  "doslownie": "",
+  "znaczenie": "all · wszystko, wszyscy",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/de44f194cf",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "我都喜欢。",
   "znaki": "我都喜欢。",
   "pinyin": "Wǒ dōu xǐhuan.",
@@ -1705,6 +1796,19 @@
   "obrazek": null
  },
  {
+  "id": "有",
+  "znaki": "有",
+  "pinyin": "yǒu",
+  "polski": "joł",
+  "doslownie": "",
+  "znaczenie": "have · mieć",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/cc4ad2fd27",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "我有一个新的中国朋友。",
   "znaki": "我有一个新的中国朋友。",
   "pinyin": "Wǒ yǒu yí ge xīn de Zhōngguó péngyou.",
@@ -1714,6 +1818,19 @@
   "lekcja": 4,
   "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
   "audio": "lekcje/04-jak-minal-dzien/audio/ced2fdc3fe",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "厕所",
+  "znaki": "厕所",
+  "pinyin": "cèsuǒ",
+  "polski": "cchy-sło",
+  "doslownie": "",
+  "znaczenie": "toilet · toaleta",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/d87186a259",
   "img": "",
   "obrazek": null
  },
@@ -1733,6 +1850,19 @@
    "licencja": "cc0",
    "zrodlo": "https://www.rawpixel.com/image/431805/free-photo-image-toilet-bathroom-public"
   }
+ },
+ {
+  "id": "风景",
+  "znaki": "风景",
+  "pinyin": "fēngjǐng",
+  "polski": "fung-dzing",
+  "doslownie": "",
+  "znaczenie": "view, scenery · widok",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/fc30335a73",
+  "img": "",
+  "obrazek": null
  },
  {
   "id": "风景好漂亮。",
@@ -1894,6 +2024,19 @@
   "obrazek": null
  },
  {
+  "id": "眼睛",
+  "znaki": "眼睛",
+  "pinyin": "yǎnjing",
+  "polski": "jen-dzing",
+  "doslownie": "",
+  "znaczenie": "eyes · oczy",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/946f5c8c69",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "你的眼睛好漂亮。",
   "znaki": "你的眼睛好漂亮。",
   "pinyin": "Nǐ de yǎnjing hǎo piàoliang.",
@@ -1909,175 +2052,6 @@
    "licencja": "by",
    "zrodlo": "https://www.flickr.com/photos/21314760@N00/518956588"
   }
- },
- {
-  "id": "今晚有空吗？",
-  "znaki": "今晚有空吗？",
-  "pinyin": "Jīnwǎn yǒu kòng ma?",
-  "polski": "dzin-łan joł khong ma",
-  "doslownie": "dziś wieczorem · mieć · wolny czas · (pytanie)",
-  "znaczenie": "Are you free tonight? · Masz czas dziś wieczorem?",
-  "lekcja": 4,
-  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/1fb7c624b0",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "你周末有什么计划？",
-  "znaki": "你周末有什么计划？",
-  "pinyin": "Nǐ zhōumò yǒu shénme jìhuà?",
-  "polski": "ni czoł-mo joł szen-ma dzi-chła",
-  "doslownie": "ty · weekend · mieć · co · plan",
-  "znaczenie": "Any plans for the weekend? · Jakie masz plany na weekend?",
-  "lekcja": 4,
-  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/a5873e48c7",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "下次见。",
-  "znaki": "下次见。",
-  "pinyin": "Xià cì jiàn.",
-  "polski": "sia-cchy dzien",
-  "doslownie": "następny raz · widzieć",
-  "znaczenie": "See you next time. · Do zobaczenia następnym razem.",
-  "lekcja": 4,
-  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/a18dd4b65a",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "今天",
-  "znaki": "今天",
-  "pinyin": "jīntiān",
-  "polski": "dzin-thien",
-  "doslownie": "",
-  "znaczenie": "today · dzisiaj",
-  "lekcja": 4,
-  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/800dfdd902",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "做",
-  "znaki": "做",
-  "pinyin": "zuò",
-  "polski": "dzło",
-  "doslownie": "",
-  "znaczenie": "do · robić",
-  "lekcja": 4,
-  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/7105106a36",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "一起",
-  "znaki": "一起",
-  "pinyin": "yìqǐ",
-  "polski": "i-ćhi",
-  "doslownie": "",
-  "znaczenie": "together · razem",
-  "lekcja": 4,
-  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/3efffd5f35",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "会",
-  "znaki": "会",
-  "pinyin": "huì",
-  "polski": "chłej",
-  "doslownie": "",
-  "znaczenie": "will; can · będzie (o przyszłości); umieć",
-  "lekcja": 4,
-  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/647477bbc5",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "去",
-  "znaki": "去",
-  "pinyin": "qù",
-  "polski": "ćhü",
-  "doslownie": "",
-  "znaczenie": "go · iść, jechać",
-  "lekcja": 4,
-  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/dfb9366c91",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "都",
-  "znaki": "都",
-  "pinyin": "dōu",
-  "polski": "toł",
-  "doslownie": "",
-  "znaczenie": "all · wszystko, wszyscy",
-  "lekcja": 4,
-  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/de44f194cf",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "有",
-  "znaki": "有",
-  "pinyin": "yǒu",
-  "polski": "joł",
-  "doslownie": "",
-  "znaczenie": "have · mieć",
-  "lekcja": 4,
-  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/cc4ad2fd27",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "厕所",
-  "znaki": "厕所",
-  "pinyin": "cèsuǒ",
-  "polski": "cchy-sło",
-  "doslownie": "",
-  "znaczenie": "toilet · toaleta",
-  "lekcja": 4,
-  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/d87186a259",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "风景",
-  "znaki": "风景",
-  "pinyin": "fēngjǐng",
-  "polski": "fung-dzing",
-  "doslownie": "",
-  "znaczenie": "view, scenery · widok",
-  "lekcja": 4,
-  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/fc30335a73",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "眼睛",
-  "znaki": "眼睛",
-  "pinyin": "yǎnjing",
-  "polski": "jen-dzing",
-  "doslownie": "",
-  "znaczenie": "eyes · oczy",
-  "lekcja": 4,
-  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/946f5c8c69",
-  "img": "",
-  "obrazek": null
  },
  {
   "id": "今晚",
@@ -2106,15 +2080,15 @@
   "obrazek": null
  },
  {
-  "id": "周末",
-  "znaki": "周末",
-  "pinyin": "zhōumò",
-  "polski": "czoł-mo",
-  "doslownie": "",
-  "znaczenie": "weekend · weekend",
+  "id": "今晚有空吗？",
+  "znaki": "今晚有空吗？",
+  "pinyin": "Jīnwǎn yǒu kòng ma?",
+  "polski": "dzin-łan joł khong ma",
+  "doslownie": "dziś wieczorem · mieć · wolny czas · (pytanie)",
+  "znaczenie": "Are you free tonight? · Masz czas dziś wieczorem?",
   "lekcja": 4,
   "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
-  "audio": "lekcje/04-jak-minal-dzien/audio/c17375d125",
+  "audio": "lekcje/04-jak-minal-dzien/audio/1fb7c624b0",
   "img": "",
   "obrazek": null
  },
@@ -2128,6 +2102,32 @@
   "lekcja": 4,
   "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
   "audio": "lekcje/04-jak-minal-dzien/audio/0debf521ea",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "你周末有什么计划？",
+  "znaki": "你周末有什么计划？",
+  "pinyin": "Nǐ zhōumò yǒu shénme jìhuà?",
+  "polski": "ni czoł-mo joł szen-ma dzi-chła",
+  "doslownie": "ty · weekend · mieć · co · plan",
+  "znaczenie": "Any plans for the weekend? · Jakie masz plany na weekend?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/a5873e48c7",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "下次见。",
+  "znaki": "下次见。",
+  "pinyin": "Xià cì jiàn.",
+  "polski": "sia-cchy dzien",
+  "doslownie": "następny raz · widzieć",
+  "znaczenie": "See you next time. · Do zobaczenia następnym razem.",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/a18dd4b65a",
   "img": "",
   "obrazek": null
  },

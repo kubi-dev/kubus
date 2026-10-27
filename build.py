@@ -161,6 +161,24 @@ def build_podcast(lessons):
     (out / "index.html").write_text(SCENKI.replace("{{SCENKI_JSON}}", json.dumps(lek, ensure_ascii=False)), encoding="utf-8")
     print(f"scenki: {sum(len(l['scenki']) for l in lek)} scenek")
 
+def slowka_przed_zdaniami(karty):
+    """Karta-słówko z lekcji idzie tuż przed pierwszą kartę z lekcji, która je zawiera (周末 przed 你周末过得好吗？), bo powtórka
+    wydaje nowe karty w kolejności talii. Bez tego słówka dopisane na końcu lekcji przychodziły dni po zdaniach. Materiały
+    dodatkowe (HSK) bez zmian: idą na końcu i powtórka i tak losuje ich kolejność."""
+    czyste = lambda k: re.sub(r"[。？！，、…?!,. A-Za-z]", "", k["znaki"])
+    lekcje = [k for k in karty if not k.get("sciezka")]
+    wynik, dane = [], set()
+    def wstaw(k):
+        if k["id"] in dane: return
+        dane.add(k["id"])
+        z = czyste(k)
+        for w in lekcje:  # najpierw słówka zawarte w tej karcie (rekurencyjnie: 有 przed 有空 przed 今晚有空吗？)
+            cw = czyste(w)
+            if cw and cw != z and cw in z: wstaw(w)
+        wynik.append(k)
+    for k in lekcje: wstaw(k)
+    return wynik + [k for k in karty if k.get("sciezka")]
+
 def build_powtorka(lessons):
     """Talia do powtórek ze wszystkich lekcji, potem materiały dodatkowe (pierwsze wystąpienie znaków wygrywa, więc karta z lekcji
     ma pierwszeństwo przed tą samą z materiału) + strona powtorka/index.html."""
@@ -170,6 +188,7 @@ def build_powtorka(lessons):
             klucz = re.sub(r"[。？！，、…?!,. ]", "", k["id"])  # 我喜欢你！ i 我喜欢你。 to ta sama karta
             if klucz in seen: continue
             seen.add(klucz); karty.append(k)
+    karty = slowka_przed_zdaniami(karty)
     out = ROOT / "powtorka"; out.mkdir(exist_ok=True)
     (out / "karty.json").write_text(json.dumps(karty, ensure_ascii=False, indent=1), encoding="utf-8")
     html = POWTORKA.replace("{{KARTY_JSON}}", json.dumps(karty, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
