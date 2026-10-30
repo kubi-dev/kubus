@@ -276,7 +276,12 @@ function zbudujKolejke(dodatkoweNowe) {
   let ziarno = [...d].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7);
   const los = () => ((ziarno = (ziarno * 1664525 + 1013904223) >>> 0) / 4294967296);
   for (let i = grupy.length - 1; i > 0; i--) { const j = Math.floor(los() * (i + 1)); [grupy[i], grupy[j]] = [grupy[j], grupy[i]]; }
-  const nowe = wybrane.concat(grupy.flat().slice(0, limHsk)), limit = nowe.length;
+  // Zwrot z HSK wchodzi w całości (obie karty), nigdy połowa: limit kart zaokrąglony w górę do pełnego zwrotu.
+  // Zwroty, którym brakuje drugiej karty (połowy z dni, gdy limit dzielił parę), idą pierwsze.
+  grupy.sort((a, b) => (a.length === 1 ? 0 : 1) - (b.length === 1 ? 0 : 1));
+  const wybraneHsk = [];
+  for (const g of grupy) { if (wybraneHsk.length >= limHsk) break; wybraneHsk.push(...g); }
+  const nowe = wybrane.concat(wybraneHsk), limit = nowe.length;
   for (let i = zalegle.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [zalegle[i], zalegle[j]] = [zalegle[j], zalegle[i]]; }
   // nowe słówka rozłożone równomiernie między zaległe (nie na końcu); para B+A jednego słówka zostaje razem
   const paczki = [];
