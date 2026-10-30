@@ -75,7 +75,7 @@
   .rate button small { display: block; color: var(--muted); font-size: 11px; margin-top: 3px; }
   .rate button.sug { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
   .rate button:active { transform: scale(.96); }
-  .rate button.jeszcze { grid-column: 1 / -1; padding: 10px 4px; }
+  .rate button.jeszcze, .rate button.jutro { grid-column: span 2; padding: 10px 4px; }
   .start { padding: 16px 28px; border-radius: 999px; border: none; background: var(--accent); color: #fff; font-size: 18px; cursor: pointer; }
   .sum { font-size: 15px; color: var(--muted); line-height: 1.6; }
   .hint { color: var(--muted); font-size: 13px; }
@@ -112,6 +112,7 @@
     <button type="button" data-q="2">dobrze<small id="d2"></small></button>
     <button type="button" data-q="3">łatwo<small id="d3"></small></button>
     <button type="button" data-q="r" class="jeszcze">jeszcze raz dziś<small>bez oceny, postęp bez zmian</small></button>
+    <button type="button" data-q="4" class="jutro">jutro<small>słabo, nie dziś</small></button>
   </div>
   <div class="sync" id="sync"></div>
   <details class="diag"><summary>diagnostyka mikrofonu</summary><pre id="diag-log"></pre></details>
@@ -196,7 +197,9 @@ function dzis() { const d = new Date(); return new Date(d.getFullYear(), d.getMo
 function dataStr(t) { const d = new Date(t); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
 function nowyStan() { return { iv: 0, ef: 2.5, termin: 0, reps: 0, seria: 0, z: 0, kara: "" }; }
 function ocen(s, q) {
-  // q: 0 nie wiem, 1 trudno, 2 dobrze, 3 łatwo
+  // q: 0 nie wiem, 1 trudno, 2 dobrze, 3 łatwo, 4 jutro
+  // „Jutro” (jak Again w Anki bez powtórki tego samego dnia): przerwa 1 dzień, kara jak „nie wiem”, seria od zera;
+  // reps = 1, więc jutrzejsze „dobrze” daje 3 dni, a nie znowu 1.
   // Kara (obniżenie mnożnika ef) najwyżej raz dziennie: kolejne „nie wiem” albo „trudno” tego samego dnia już nie odejmują.
   // Karta po przerwie: trudno zawsze dłużej niż dotąd, dobrze dłużej niż trudno, łatwo dłużej niż dobrze
   // (bez tego 1 dzień × ef 1,3 zaokrąglało się do 1 dnia i karta wracała jutro w nieskończoność).
@@ -204,6 +207,7 @@ function ocen(s, q) {
   s = Object.assign({}, s);
   const d = dataStr(dzis()), kara = (ile) => { if (s.kara !== d) { s.ef = Math.max(1.3, s.ef - ile); s.kara = d; } };
   if (q === 0) { s.reps = 0; s.seria = 0; s.iv = 0; kara(0.2); }
+  else if (q === 4) { s.reps = 1; s.seria = 0; s.iv = 1; kara(0.2); }
   else {
     if (s.reps === 0) s.iv = q === 3 ? 3 : 1;
     else {
