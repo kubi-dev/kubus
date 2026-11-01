@@ -204,9 +204,10 @@ function ocen(s, q) {
   // Karta po przerwie: trudno zawsze dłużej niż dotąd, dobrze dłużej niż trudno, łatwo dłużej niż dobrze
   // (bez tego 1 dzień × ef 1,3 zaokrąglało się do 1 dnia i karta wracała jutro w nieskończoność).
   // Nowa karta i karta po „nie wiem”: trudno i dobrze 1 dzień, łatwo 3 dni.
+  // nwDzien/nwIle: ile razy dziś „nie wiem”; po NIE_WIEM_MAX karta nie wraca już dziś (patrz wyczerpanaDzis).
   s = Object.assign({}, s);
   const d = dataStr(dzis()), kara = (ile) => { if (s.kara !== d) { s.ef = Math.max(1.3, s.ef - ile); s.kara = d; } };
-  if (q === 0) { s.reps = 0; s.seria = 0; s.iv = 0; kara(0.2); }
+  if (q === 0) { s.reps = 0; s.seria = 0; s.iv = 0; kara(0.2); s.nwIle = s.nwDzien === d ? (s.nwIle || 0) + 1 : 1; s.nwDzien = d; }
   else if (q === 4) { s.reps = 1; s.seria = 0; s.iv = 1; kara(0.2); }
   else {
     if (s.reps === 0) s.iv = q === 3 ? 3 : 1;
@@ -224,6 +225,10 @@ function ocen(s, q) {
   s.z = Date.now();
   return s;
 }
+// „Nie wiem” odsyła kartę na koniec sesji najwyżej tyle razy, żeby dziś zobaczyć ją najwyżej 3 razy;
+// po trzecim „nie wiem” karta czeka do jutra (także po przeładowaniu strony i w nowej sesji tego dnia).
+const NIE_WIEM_MAX = 3;
+function wyczerpanaDzis(s) { return !!s && s.nwDzien === dataStr(dzis()) && (s.nwIle || 0) >= NIE_WIEM_MAX; }
 function podgladIv(s, q) { const n = ocen(s, q); return n.iv === 0 ? "dziś" : n.iv === 1 ? "1 dzień" : n.iv + " dni"; }
 
 // ---------- talia ----------
@@ -261,7 +266,7 @@ function zbudujKolejke(dodatkoweNowe) {
   for (const k of karty) for (const typ of ["B", "A"]) {
     const id = k.id + "|" + typ, s = stanKarty(id);
     if (!s) (k.sciezka ? hsk : nasze).push({ id, k, typ });
-    else if (s.termin <= teraz) zalegle.push({ id, k, typ });
+    else if (s.termin <= teraz && !wyczerpanaDzis(s)) zalegle.push({ id, k, typ });
   }
   const d = dataStr(dzis());
   if (stan.dzien.data !== d) stan.dzien = { data: d, nowe: 0, hsk: 0 };
@@ -548,7 +553,7 @@ rate.addEventListener("click", (e) => {
     policzoneNowe.add(biezaca.id);
     if (biezaca.k.sciezka) stan.dzien.hsk = (stan.dzien.hsk || 0) + 1; else stan.dzien.nowe++;
   }
-  if (q === 0 || jeszcze) { kolejka.push(biezaca); razem++; }
+  if ((q === 0 && !wyczerpanaDzis(stan.karty[biezaca.id])) || jeszcze) { kolejka.push(biezaca); razem++; }
   zrobione++;
   zapiszLokalnie(); zaplanujSync();
   nastepna();
@@ -559,7 +564,7 @@ function koniec() {
   card.innerHTML = "";
   const jutro = dzis() + DZIEN, pojutrze = jutro + DZIEN;
   const f = $("filtr").value;
-  const naJutro = Object.entries(stan.karty).filter(([id, s]) => s.termin < pojutrze && s.termin >= jutro && (!f || String((KARTY_MAP[id.split("|")[0]] || {}).lekcja) === f)).length;
+  const naJutro = Object.entries(stan.karty).filter(([id, s]) => s.termin < pojutrze && (s.termin >= jutro || wyczerpanaDzis(s)) && (!f || String((KARTY_MAP[id.split("|")[0]] || {}).lekcja) === f)).length;
   const nieRuszone = KARTY.filter(k => (!f || String(k.lekcja) === f) && (!stanKarty(k.id + "|A") || !stanKarty(k.id + "|B"))).length;
   card.appendChild(el("div", "q", razem ? "Koniec na dziś 🎉" : "Nic do powtórki"));
   card.appendChild(el("div", "sum", `Jutro: ${naJutro} kart.<br>Słów jeszcze nie zaczętych: ${nieRuszone}.`));
