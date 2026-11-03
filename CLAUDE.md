@@ -14,6 +14,10 @@ Strona do nauki chińskiego dla Polaka: statyczny HTML na GitHub Pages (https://
 - Worker: `cd worker && npx wrangler deploy` (endpointy i pierwsze wdrożenie w `worker/README.md`).
 - Build wymaga `curl`, `ffmpeg` (podcast) i Pillow (obrazki).
 
+## Sesja w chmurze (telefon, aplikacja Claude, claude.ai/code)
+
+Gdy `CLAUDE_CODE_REMOTE=true`, sesja działa na gałęzi `claude/...`, a strona odświeża się tylko z `main`. Hook `.claude/hooks/chmura-start.sh` instaluje na starcie ffmpeg i Pillow. Deploy w chmurze: po buildzie `git add -A && git commit -m "opis"`, potem `git pull --rebase origin main` i `git push origin HEAD:main` (nie samo `./deploy.sh`, bo pcha gałąź sesji). Zdjęć notatek dołączonych do wiadomości nie ma jako plików: karty przepisz z obrazu, katalog `zdjecia/` zostaw pusty i napisz to userowi. Na końcu podaj link do zmienionej strony.
+
 ## Architektura
 
 **Źródła prawdy (edytuj tylko je):** `lekcje/NN-slug/lekcja.json`, `lekcje/NN-slug/scenki.json`, `materialy/*/lekcja.json` (z gotowymi `audio/` i `obrazki/`, bo tych nie da się pobrać ponownie), `wymowa.json`, `zapis.json`, szablony `*.html` w katalogu głównym, `wymowa.js`, `lista.js`, `lista.css`, skrypty `.py`.
