@@ -1852,6 +1852,19 @@
   }
  },
  {
+  "id": "你可以带我去吗？",
+  "znaki": "你可以带我去吗？",
+  "pinyin": "Nǐ kěyǐ dài wǒ qù ma?",
+  "polski": "ni khy-i taj ło ćhü ma",
+  "doslownie": "ty · móc · zaprowadzić · ja · iść · (pytanie)",
+  "znaczenie": "Can you take me there? · Możesz mnie zaprowadzić?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/76ec600ebd",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "风景",
   "znaki": "风景",
   "pinyin": "fēngjǐng",
