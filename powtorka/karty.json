@@ -1396,6 +1396,45 @@
   }
  },
  {
+  "id": "我刚学中文。",
+  "znaki": "我刚学中文。",
+  "pinyin": "Wǒ gāng xué Zhōngwén.",
+  "polski": "ło kang süe czong-łen",
+  "doslownie": "ja · dopiero co · uczyć się · chiński",
+  "znaczenie": "I've just started learning Chinese. · Dopiero uczę się chińskiego.",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/cbfec012cd",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "一起练习吗？",
+  "znaki": "一起练习吗？",
+  "pinyin": "Yìqǐ liànxí ma?",
+  "polski": "i-ćhi lien-si ma",
+  "doslownie": "razem · ćwiczyć · (pytanie)",
+  "znaczenie": "Shall we practise together? · Poćwiczymy razem?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/13191bb25b",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "我刚学中文，一起练习吗？",
+  "znaki": "我刚学中文，一起练习吗？",
+  "pinyin": "Wǒ gāng xué Zhōngwén, yìqǐ liànxí ma?",
+  "polski": "ło kang süe czong-łen i-ćhi lien-si ma",
+  "doslownie": "ja · dopiero co · uczyć się · chiński · razem · ćwiczyć · (pytanie)",
+  "znaczenie": "I've just started learning Chinese, shall we practise together? · Dopiero uczę się chińskiego, poćwiczymy razem?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/a6c34bb75e",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "当然啦！",
   "znaki": "当然啦！",
   "pinyin": "Dāngrán la!",

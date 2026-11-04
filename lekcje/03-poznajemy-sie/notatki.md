@@ -46,6 +46,9 @@ Data: 2026-09-19
 | 我叫Kubi。 | Wǒ jiào Kubi. | ło dział Kubi | ŁO DZIAŁ KUBI | My name is Kubi. · Mam na imię Kubi. |
 | 我来自波兰。 | Wǒ láizì Bōlán. | ło laj-dzy po-lan | ŁO LAJ DZY PO-LAND | I'm from Poland. · Jestem z Polski. |
 | 我住在清迈。 | Wǒ zhù zài Qīngmài. | ło czu dzaj ćhing-maj | krótko zamiast: 我一个人在清迈旅居。 (Wǒ yí ge rén zài Qīngmài lǚjū.) | I live in Chiang Mai. · Mieszkam w Chiang Mai. |
+| 我刚学中文。 | Wǒ gāng xué Zhōngwén. | ło kang süe czong-łen |  | I've just started learning Chinese. · Dopiero uczę się chińskiego. |
+| 一起练习吗？ | Yìqǐ liànxí ma? | i-ćhi lien-si ma | jak 一起吃饭吗？ | Shall we practise together? · Poćwiczymy razem? |
+| 我刚学中文，一起练习吗？ | Wǒ gāng xué Zhōngwén, yìqǐ liànxí ma? | ło kang süe czong-łen i-ćhi lien-si ma |  | I've just started learning Chinese, shall we practise together? · Dopiero uczę się chińskiego, poćwiczymy razem? |
 
 ## Słówka i zwroty
 

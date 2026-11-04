@@ -75,7 +75,10 @@
         },
         {"znaki": "我住在清迈。", "pinyin": "Wǒ zhù zài Qīngmài.", "polski": "ło czu dzaj ćhing-maj", "doslownie": "ja · mieszkać · w · Chiang Mai", "notatki": "krótko zamiast: 我一个人在清迈旅居。 (Wǒ yí ge rén zài Qīngmài lǚjū.)", "znaczenie": "I live in Chiang Mai. · Mieszkam w Chiang Mai.", "obrazek": {
             "id": "5d0b850c-6c43-4f32-af04-4f2d4704f78a", "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL3B4NDkyMjMxLWltYWdlLWt3dnZkZDY4LmpwZw.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5907944/image-public-domain-free-worship"}
-        }
+        },
+        {"znaki": "我刚学中文。", "pinyin": "Wǒ gāng xué Zhōngwén.", "polski": "ło kang süe czong-łen", "doslownie": "ja · dopiero co · uczyć się · chiński", "notatki": "", "znaczenie": "I've just started learning Chinese. · Dopiero uczę się chińskiego."},
+        {"znaki": "一起练习吗？", "pinyin": "Yìqǐ liànxí ma?", "polski": "i-ćhi lien-si ma", "doslownie": "razem · ćwiczyć · (pytanie)", "notatki": "jak 一起吃饭吗？", "znaczenie": "Shall we practise together? · Poćwiczymy razem?"},
+        {"znaki": "我刚学中文，一起练习吗？", "pinyin": "Wǒ gāng xué Zhōngwén, yìqǐ liànxí ma?", "polski": "ło kang süe czong-łen i-ćhi lien-si ma", "doslownie": "ja · dopiero co · uczyć się · chiński · razem · ćwiczyć · (pytanie)", "notatki": "", "znaczenie": "I've just started learning Chinese, shall we practise together? · Dopiero uczę się chińskiego, poćwiczymy razem?"}
       ]
     },
     {
