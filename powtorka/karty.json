@@ -1904,6 +1904,19 @@
   "obrazek": null
  },
  {
+  "id": "早餐在哪里？",
+  "znaki": "早餐在哪里？",
+  "pinyin": "Zǎocān zài nǎlǐ?",
+  "polski": "dzał-cchan dzaj na-li",
+  "doslownie": "śniadanie · w · gdzie",
+  "znaczenie": "Where is breakfast? · Gdzie jest śniadanie?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/e3683ea2d3",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "风景",
   "znaki": "风景",
   "pinyin": "fēngjǐng",
