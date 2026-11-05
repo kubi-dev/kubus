@@ -91,7 +91,10 @@
         {"znaki": "抹茶", "pinyin": "mǒchá", "polski": "mo-czha", "notatki": "MU-CZA", "znaczenie": "matcha · matcha", "obrazek": {
             "id": "08d2e910-caec-4b87-8b52-8af083290eb3", "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZmYzOTA1LWltYWdlLWt3dnlqajYxLmpwZw.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5927810/photo-image-public-domain-chocolate-free"}
         },
-        {"znaki": "热卡布奇诺，打包。", "pinyin": "Rè kǎbùqínuò, dǎbāo.", "polski": "ży kha-pu-ćhi-nuo ta-pał", "doslownie": "gorący · cappuccino · pakować (na wynos)", "notatki": "pełniej: 一杯热卡布奇诺，打包。 (Yì bēi …, i pej …)", "znaczenie": "Hot cappuccino to go. · Gorące cappuccino na wynos."}
+        {"znaki": "热咖啡", "pinyin": "rè kāfēi", "polski": "ży kha-fej", "doslownie": "gorący · kawa", "notatki": "", "znaczenie": "hot coffee · gorąca kawa"},
+        {"znaki": "冰咖啡", "pinyin": "bīng kāfēi", "polski": "ping kha-fej", "doslownie": "lód · kawa", "notatki": "冰 jak w 冰淇淋 (lody)", "znaczenie": "iced coffee · zimna kawa"},
+        {"znaki": "打包", "pinyin": "dǎbāo", "polski": "ta-pał", "doslownie": "zapakować", "notatki": "", "znaczenie": "to go · na wynos"},
+        {"znaki": "在这儿喝", "pinyin": "zài zhèr hē", "polski": "dzaj czar chy", "doslownie": "w · tutaj · pić", "notatki": "", "znaczenie": "for here · na miejscu (do picia)"}
       ]
     },
     {
