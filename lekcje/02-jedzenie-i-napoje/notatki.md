@@ -44,6 +44,7 @@ Data: 2026-09-09
 | 威士忌 | wēishìjì | łej-szy-dzi | ŁYS-DZI | whiskey · whisky |
 | 牛奶 | niúnǎi | nioł-naj | NIU NA | milk · mleko |
 | 抹茶 | mǒchá | mo-czha | MU-CZA | matcha · matcha |
+| 热卡布奇诺，打包。 | Rè kǎbùqínuò, dǎbāo. | ży kha-pu-ćhi-nuo ta-pał | pełniej: 一杯热卡布奇诺，打包。 (Yì bēi …, i pej …) | Hot cappuccino to go. · Gorące cappuccino na wynos. |
 
 ## Zdania
 
