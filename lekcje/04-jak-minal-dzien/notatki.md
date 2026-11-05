@@ -44,6 +44,7 @@ Data: 2026-10-15
 | 厕所在哪里？ | Cèsuǒ zài nǎlǐ? | cchy-sło dzaj na-li | TY-SŁO-DZAI-NA-LI · WHERE IS RESTROOM | Where is the toilet? · Gdzie jest toaleta? |
 | 你可以带我去吗？ | Nǐ kěyǐ dài wǒ qù ma? | ni khy-i taj ło ćhü ma | gdy nie rozumiesz wskazówek drogi | Can you take me there? · Możesz mnie zaprowadzić? |
 | 早餐在哪里？ | Zǎocān zài nǎlǐ? | dzał-cchan dzaj na-li | w hotelu; w domu częściej 早饭 (zǎofàn) | Where is breakfast? · Gdzie jest śniadanie? |
+| 可以帮我拍张照吗？ | Kěyǐ bāng wǒ pāi zhāng zhào ma? | khy-i pang ło phaj czang czał ma |  | Can you take a photo of me? · Możesz zrobić mi zdjęcie? |
 | 风景好漂亮。 | Fēngjǐng hǎo piàoliang. | fung-dzing chał phiał-liang | FUN-DZI-HAŁ PIAŁ LIANG · THE VIEW IS BEAUTIFUL (HAŁ PIAŁ LIANG = TO JEST PIĘKNE) | The view is so beautiful. · Jaki piękny widok. |
 | 直走 | zhí zǒu | czy dzoł | DZY-COŁ · PROSTO | go straight · prosto |
 | 左转 | zuǒ zhuǎn | dzło człan | DZŁO-DZŁAN · PRAWO | turn left · w lewo |
