@@ -62,6 +62,7 @@ Data: 2026-09-09
 | 你想吃什么？ | Nǐ xiǎng chī shénme? | ni siang czhy szen-ma | NI-SIA-CZY-SZA-MA | What do you want to eat? · Co chcesz zjeść? |
 | 你吃什么？ | Nǐ chī shénme? | ni czhy szen-ma |  | What are you eating? · Co jesz? |
 | 你喝什么？ | Nǐ hē shénme? | ni chy szen-ma |  | What are you drinking? · Co pijesz? |
+| 慢慢吃！ | Mànmàn chī! | man-man czhy | kelner mówi grzecznie: 请慢用 (qǐng màn yòng, ćhing man jong) | Enjoy your food! · Smacznego! |
 
 ## Ze scenek
 

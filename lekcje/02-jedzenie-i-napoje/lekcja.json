@@ -107,7 +107,8 @@
         {"znaki": "你想喝什么？", "pinyin": "Nǐ xiǎng hē shénme?", "polski": "ni siang chy szen-ma", "doslownie": "ty · chcieć · pić · co", "notatki": "NI-SIA-HYA-SZA-MA", "znaczenie": "What do you want to drink? · Czego się napijesz?"},
         {"znaki": "你想吃什么？", "pinyin": "Nǐ xiǎng chī shénme?", "polski": "ni siang czhy szen-ma", "doslownie": "ty · chcieć · jeść · co", "notatki": "NI-SIA-CZY-SZA-MA", "znaczenie": "What do you want to eat? · Co chcesz zjeść?"},
         {"znaki": "你吃什么？", "pinyin": "Nǐ chī shénme?", "polski": "ni czhy szen-ma", "doslownie": "ty · jeść · co", "notatki": "", "znaczenie": "What are you eating? · Co jesz?"},
-        {"znaki": "你喝什么？", "pinyin": "Nǐ hē shénme?", "polski": "ni chy szen-ma", "doslownie": "ty · pić · co", "notatki": "", "znaczenie": "What are you drinking? · Co pijesz?"}
+        {"znaki": "你喝什么？", "pinyin": "Nǐ hē shénme?", "polski": "ni chy szen-ma", "doslownie": "ty · pić · co", "notatki": "", "znaczenie": "What are you drinking? · Co pijesz?"},
+        {"znaki": "慢慢吃！", "pinyin": "Mànmàn chī!", "polski": "man-man czhy", "doslownie": "powoli · powoli · jeść", "notatki": "kelner mówi grzecznie: 请慢用 (qǐng màn yòng, ćhing man jong)", "znaczenie": "Enjoy your food! · Smacznego!"}
       ]
     },
     {

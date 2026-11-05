@@ -1076,6 +1076,19 @@
   "obrazek": null
  },
  {
+  "id": "慢慢吃！",
+  "znaki": "慢慢吃！",
+  "pinyin": "Mànmàn chī!",
+  "polski": "man-man czhy",
+  "doslownie": "powoli · powoli · jeść",
+  "znaczenie": "Enjoy your food! · Smacznego!",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/55cf66deb5",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "请",
   "znaki": "请",
   "pinyin": "qǐng",
