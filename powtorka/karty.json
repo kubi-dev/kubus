@@ -573,6 +573,19 @@
   }
  },
  {
+  "id": "芝士蛋糕",
+  "znaki": "芝士蛋糕",
+  "pinyin": "zhīshì dàngāo",
+  "polski": "czy-szy tan-kał",
+  "doslownie": "ser (cheese) · ciasto",
+  "znaczenie": "cheesecake · sernik",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/c624aad6ba",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "饺子",
   "znaki": "饺子",
   "pinyin": "jiǎozi",

@@ -39,6 +39,7 @@
         {"znaki": "蛋糕", "pinyin": "dàngāo", "polski": "tan-kał", "notatki": "DAN-GO", "znaczenie": "cake · ciasto", "obrazek": {
             "id": "2b3da623-fe4f-4a36-9388-56987ce31747", "url": "https://cdn.stocksnap.io/img-thumbs/960w/R9EK2G0ADL.jpg", "autor": "Robin C Samuel", "licencja": "cc0", "zrodlo": "https://stocksnap.io/photo/cakes-cake-R9EK2G0ADL"}
         },
+        {"znaki": "芝士蛋糕", "pinyin": "zhīshì dàngāo", "polski": "czy-szy tan-kał", "doslownie": "ser (cheese) · ciasto", "notatki": "", "znaczenie": "cheesecake · sernik"},
         {"znaki": "饺子", "pinyin": "jiǎozi", "polski": "dział-dzy", "notatki": "DZIAŁ-ZY", "znaczenie": "dumplings · pierogi", "obrazek": {
             "id": "13430332-d81e-46cd-badd-b89a1bf4b282", "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA0L3Vwd2s2MTczMDMzOS13aWtpbWVkaWEtaW1hZ2Uta293cXZqcmsuanBn.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/3303453/free-photo-image-bread-cc0-cracker"}
         },

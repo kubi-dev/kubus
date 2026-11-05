@@ -17,6 +17,7 @@ Data: 2026-09-09
 | 米线 | mǐxiàn | mi-sien | MI-SIE | rice noodles · makaron ryżowy |
 | 冰淇淋 | bīngqílín | ping-ćhi-lin | PING-QI-LING | ice cream · lody |
 | 蛋糕 | dàngāo | tan-kał | DAN-GO | cake · ciasto |
+| 芝士蛋糕 | zhīshì dàngāo | czy-szy tan-kał |  | cheesecake · sernik |
 | 饺子 | jiǎozi | dział-dzy | DZIAŁ-ZY | dumplings · pierogi |
 | 炒饭 | chǎofàn | czhał-fan | CZOP-FA | fried rice · smażony ryż |
 | 粥 | zhōu | czoł | DZOŁ | congee · kleik ryżowy |
