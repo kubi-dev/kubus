@@ -63,6 +63,7 @@ Data: 2026-09-09
 | 你吃什么？ | Nǐ chī shénme? | ni czhy szen-ma |  | What are you eating? · Co jesz? |
 | 你喝什么？ | Nǐ hē shénme? | ni chy szen-ma |  | What are you drinking? · Co pijesz? |
 | 慢慢吃！ | Mànmàn chī! | man-man czhy | kelner mówi grzecznie: 请慢用 (qǐng màn yòng, ćhing man jong) | Enjoy your food! · Smacznego! |
+| 上海菜很好吃！ | Shànghǎi cài hěn hǎochī! | szang-chaj cchaj chen chał-czhy |  | Shanghai food is very good! · Szanghajskie jedzenie jest bardzo dobre! |
 
 ## Ze scenek
 
