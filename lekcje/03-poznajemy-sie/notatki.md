@@ -13,6 +13,7 @@ Data: 2026-09-19
 | 教我中文吧！ | Jiāo wǒ Zhōngwén ba! | dział ło czong-łen pa | krótko zamiast: 你可以教我中文吗？ (Nǐ kěyǐ jiāo wǒ Zhōngwén ma?) | Teach me Chinese! · Naucz mnie chińskiego! |
 | 你做什么的？ | Nǐ zuò shénme de? | ni dzło szen-ma da | krótko zamiast: 你是做什么工作的？ (Nǐ shì zuò shénme gōngzuò de?) | What do you do? · Czym się zajmujesz? |
 | 你是哪里人？ | Nǐ shì nǎlǐ rén? | ni szy na-li żen | krótko zamiast: 你来自中国哪里？ (Nǐ láizì Zhōngguó nǎlǐ?) | Where are you from (which city)? · Skąd jesteś (z jakiego miasta)? |
+| 你是台湾人吗？ | Nǐ shì Táiwān rén ma? | ni szy thaj-łan żen ma |  | Are you from Taiwan? · Jesteś z Tajwanu? |
 | 下一站去哪？ | Xià yí zhàn qù nǎ? | sia-i-czan ćhü na | krótko zamiast: 你后面会去哪里？ (Nǐ hòumiàn huì qù nǎlǐ?) | Where is your next stop? · Gdzie jedziesz dalej? |
 
 ## Chcę / nie chcę

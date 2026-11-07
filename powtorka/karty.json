@@ -1282,6 +1282,19 @@
   }
  },
  {
+  "id": "你是台湾人吗？",
+  "znaki": "你是台湾人吗？",
+  "pinyin": "Nǐ shì Táiwān rén ma?",
+  "polski": "ni szy thaj-łan żen ma",
+  "doslownie": "ty · być · Tajwan · człowiek · (pytanie)",
+  "znaczenie": "Are you from Taiwan? · Jesteś z Tajwanu?",
+  "lekcja": 3,
+  "lekcjaTytul": "Lekcja 3 · Poznajemy się",
+  "audio": "lekcje/03-poznajemy-sie/audio/e1ce64f4a8",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "去",
   "znaki": "去",
   "pinyin": "qù",
