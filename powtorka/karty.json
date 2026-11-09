@@ -1102,6 +1102,32 @@
   "obrazek": null
  },
  {
+  "id": "买单！",
+  "znaki": "买单！",
+  "pinyin": "Mǎidān!",
+  "polski": "maj-tan",
+  "doslownie": "rachunek (płacić)",
+  "znaczenie": "The bill, please! · Poproszę rachunek!",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/9bbd654d0d",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "我们要买单。",
+  "znaki": "我们要买单。",
+  "pinyin": "Wǒmen yào mǎidān.",
+  "polski": "ło-men jał maj-tan",
+  "doslownie": "my · chcieć · rachunek (płacić)",
+  "znaczenie": "We'd like to pay. · Chcemy zapłacić.",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/184040f9be",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "请",
   "znaki": "请",
   "pinyin": "qǐng",

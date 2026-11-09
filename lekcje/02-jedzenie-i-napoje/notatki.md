@@ -64,6 +64,8 @@ Data: 2026-09-09
 | 你喝什么？ | Nǐ hē shénme? | ni chy szen-ma |  | What are you drinking? · Co pijesz? |
 | 慢慢吃！ | Mànmàn chī! | man-man czhy | kelner mówi grzecznie: 请慢用 (qǐng màn yòng, ćhing man jong) | Enjoy your food! · Smacznego! |
 | 上海菜很好吃！ | Shànghǎi cài hěn hǎochī! | szang-chaj cchaj chen chał-czhy |  | Shanghai food is very good! · Szanghajskie jedzenie jest bardzo dobre! |
+| 我们要买单。 | Wǒmen yào mǎidān. | ło-men jał maj-tan |  | We'd like to pay. · Chcemy zapłacić. |
+| 买单！ | Mǎidān! | maj-tan | przywołanie kelnera: 服务员，买单！ (fúwùyuán, fu-łu-jüan maj-tan) | The bill, please! · Poproszę rachunek! |
 
 ## Ze scenek
 
