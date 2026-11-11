@@ -66,6 +66,7 @@ Data: 2026-09-09
 | 上海菜很好吃！ | Shànghǎi cài hěn hǎochī! | szang-chaj cchaj chen chał-czhy |  | Shanghai food is very good! · Szanghajskie jedzenie jest bardzo dobre! |
 | 我们要买单。 | Wǒmen yào mǎidān. | ło-men jał maj-tan |  | We'd like to pay. · Chcemy zapłacić. |
 | 买单！ | Mǎidān! | maj-tan | przywołanie kelnera: 服务员，买单！ (fúwùyuán, fu-łu-jüan maj-tan) | The bill, please! · Poproszę rachunek! |
+| 刷卡。 | Shuākǎ. | szła-kha | pytanie: 可以刷卡吗？ (Kěyǐ shuākǎ ma?, khy-i szła-kha ma) – można kartą? | By card. · Kartą (płacę kartą). |
 
 ## Ze scenek
 

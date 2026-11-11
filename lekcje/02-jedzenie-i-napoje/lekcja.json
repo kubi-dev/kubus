@@ -111,7 +111,8 @@
         {"znaki": "慢慢吃！", "pinyin": "Mànmàn chī!", "polski": "man-man czhy", "doslownie": "powoli · powoli · jeść", "notatki": "kelner mówi grzecznie: 请慢用 (qǐng màn yòng, ćhing man jong)", "znaczenie": "Enjoy your food! · Smacznego!"},
         {"znaki": "上海菜很好吃！", "pinyin": "Shànghǎi cài hěn hǎochī!", "polski": "szang-chaj cchaj chen chał-czhy", "doslownie": "Szanghaj · kuchnia (dania) · bardzo · smaczny", "notatki": "", "znaczenie": "Shanghai food is very good! · Szanghajskie jedzenie jest bardzo dobre!"},
         {"znaki": "我们要买单。", "pinyin": "Wǒmen yào mǎidān.", "polski": "ło-men jał maj-tan", "doslownie": "my · chcieć · rachunek (płacić)", "notatki": "", "znaczenie": "We'd like to pay. · Chcemy zapłacić."},
-        {"znaki": "买单！", "pinyin": "Mǎidān!", "polski": "maj-tan", "doslownie": "rachunek (płacić)", "notatki": "przywołanie kelnera: 服务员，买单！ (fúwùyuán, fu-łu-jüan maj-tan)", "znaczenie": "The bill, please! · Poproszę rachunek!"}
+        {"znaki": "买单！", "pinyin": "Mǎidān!", "polski": "maj-tan", "doslownie": "rachunek (płacić)", "notatki": "przywołanie kelnera: 服务员，买单！ (fúwùyuán, fu-łu-jüan maj-tan)", "znaczenie": "The bill, please! · Poproszę rachunek!"},
+        {"znaki": "刷卡。", "pinyin": "Shuākǎ.", "polski": "szła-kha", "doslownie": "przeciągnąć · karta", "notatki": "pytanie: 可以刷卡吗？ (Kěyǐ shuākǎ ma?, khy-i szła-kha ma) – można kartą?", "znaczenie": "By card. · Kartą (płacę kartą)."}
       ]
     },
     {

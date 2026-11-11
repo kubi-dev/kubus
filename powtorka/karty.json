@@ -1128,6 +1128,19 @@
   "obrazek": null
  },
  {
+  "id": "刷卡。",
+  "znaki": "刷卡。",
+  "pinyin": "Shuākǎ.",
+  "polski": "szła-kha",
+  "doslownie": "przeciągnąć · karta",
+  "znaczenie": "By card. · Kartą (płacę kartą).",
+  "lekcja": 2,
+  "lekcjaTytul": "Lekcja 2 · Jedzenie i napoje",
+  "audio": "lekcje/02-jedzenie-i-napoje/audio/714a344c70",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "请",
   "znaki": "请",
   "pinyin": "qǐng",
@@ -2056,6 +2069,19 @@
   "lekcja": 4,
   "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
   "audio": "lekcje/04-jak-minal-dzien/audio/68c81a4349",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "帮我拍一下！",
+  "znaki": "帮我拍一下！",
+  "pinyin": "Bāng wǒ pāi yíxià!",
+  "polski": "pang ło phaj i-sia",
+  "doslownie": "pomóc · ja · pstrykać · (na chwilę)",
+  "znaczenie": "Could you snap one for me? · Pstrykniesz mi?",
+  "lekcja": 4,
+  "lekcjaTytul": "Lekcja 4 · Jak minął dzień",
+  "audio": "lekcje/04-jak-minal-dzien/audio/ee3c351e8f",
   "img": "",
   "obrazek": null
  },
