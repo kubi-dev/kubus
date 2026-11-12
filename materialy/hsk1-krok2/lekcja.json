@@ -2,7 +2,7 @@
  "numer": 102,
  "sciezka": "hsk",
  "tytul": "HSK 1 · krok 2",
- "opis": "22 kart: liczby, czas, zakupy, miasto; słowa HSK 1 na znanych schematach",
+ "opis": "40 kart: liczby, zakupy, miasto, rozmowa, gdy nie rozumiesz; słowa HSK 1 na znanych schematach",
  "data": "2026-11-12",
  "sekcje": [
   {
@@ -122,6 +122,14 @@
      "doslownie": "dziesięć · (juan, potocznie)",
      "notatki": "块 to potoczne „juan”",
      "znaczenie": "Ten yuan. · Dziesięć juanów."
+    },
+    {
+     "znaki": "水果",
+     "pinyin": "shuǐguǒ",
+     "polski": "szłej-kło",
+     "doslownie": "woda · owoc",
+     "notatki": "",
+     "znaczenie": "fruit · owoce"
     }
    ]
   },
@@ -162,6 +170,46 @@
      "doslownie": "ja · chcieć · iść · pociąg (ogień-wóz) · stacja",
      "notatki": "taksówkarzowi wystarczy: 火车站。",
      "znaczenie": "I need to go to the train station. · Muszę jechać na dworzec."
+    },
+    {
+     "znaki": "我迷路了。",
+     "pinyin": "Wǒ mílù le.",
+     "polski": "ło mi-lu la",
+     "doslownie": "ja · zgubić drogę · (już)",
+     "notatki": "",
+     "znaczenie": "I'm lost. · Zgubiłem się."
+    },
+    {
+     "znaki": "小心！",
+     "pinyin": "Xiǎoxīn!",
+     "polski": "siał-sin",
+     "doslownie": "uważać",
+     "notatki": "",
+     "znaczenie": "Careful! · Uważaj!"
+    },
+    {
+     "znaki": "等一下。",
+     "pinyin": "Děng yíxià.",
+     "polski": "tang i-sia",
+     "doslownie": "czekać · (na chwilę)",
+     "notatki": "",
+     "znaczenie": "Wait a moment. · Chwileczkę."
+    },
+    {
+     "znaki": "我们走吧！",
+     "pinyin": "Wǒmen zǒu ba!",
+     "polski": "ło-men dzoł pa",
+     "doslownie": "my · iść · (propozycja)",
+     "notatki": "",
+     "znaczenie": "Let's go! · Chodźmy!"
+    },
+    {
+     "znaki": "我能坐这儿吗？",
+     "pinyin": "Wǒ néng zuò zhèr ma?",
+     "polski": "ło nang dzło czar ma",
+     "doslownie": "ja · móc · siedzieć · tutaj · (pytanie)",
+     "notatki": "",
+     "znaczenie": "Can I sit here? · Mogę tu usiąść?"
     }
    ]
   },
@@ -197,6 +245,107 @@
      "polski": "ni dzia joł dzi ka żen",
      "doslownie": "ty · rodzina · mieć · ile · (sztuka) · osoba",
      "znaczenie": "How many people are in your family? · Ilu was jest w rodzinie?"
+    },
+    {
+     "znaki": "喂？",
+     "pinyin": "Wéi?",
+     "polski": "łej",
+     "doslownie": "halo (przez telefon)",
+     "notatki": "tylko przez telefon; na ulicy 你好",
+     "znaczenie": "Hello? (on the phone) · Halo?"
+    },
+    {
+     "znaki": "今天天气怎么样？",
+     "pinyin": "Jīntiān tiānqì zěnmeyàng?",
+     "polski": "dzin-thien thien-ćhi dzen-ma-jang",
+     "doslownie": "dziś · pogoda · jak",
+     "notatki": "",
+     "znaczenie": "What's the weather like today? · Jaka dziś pogoda?"
+    },
+    {
+     "znaki": "下雨了。",
+     "pinyin": "Xià yǔ le.",
+     "polski": "sia ü la",
+     "doslownie": "spada · deszcz · (już)",
+     "notatki": "",
+     "znaczenie": "It's raining. · Pada deszcz."
+    },
+    {
+     "znaki": "真的吗？",
+     "pinyin": "Zhēn de ma?",
+     "polski": "czen da ma",
+     "doslownie": "prawdziwe · (pytanie)",
+     "notatki": "",
+     "znaczenie": "Really? · Naprawdę?"
+    },
+    {
+     "znaki": "为什么？",
+     "pinyin": "Wèishénme?",
+     "polski": "łej-szen-ma",
+     "doslownie": "dlaczego",
+     "notatki": "",
+     "znaczenie": "Why? · Dlaczego?"
+    },
+    {
+     "znaki": "我饿了。",
+     "pinyin": "Wǒ è le.",
+     "polski": "ło y la",
+     "doslownie": "ja · głodny · (już)",
+     "notatki": "",
+     "znaczenie": "I'm hungry. · Jestem głodny."
+    },
+    {
+     "znaki": "我不舒服。",
+     "pinyin": "Wǒ bù shūfu.",
+     "polski": "ło pu szu-fu",
+     "doslownie": "ja · nie · dobrze się czuć",
+     "notatki": "",
+     "znaczenie": "I don't feel well. · Źle się czuję."
+    },
+    {
+     "znaki": "干杯！",
+     "pinyin": "Gānbēi!",
+     "polski": "kan-pej",
+     "doslownie": "do dna · kieliszek",
+     "notatki": "",
+     "znaczenie": "Cheers! · Na zdrowie!"
+    }
+   ]
+  },
+  {
+   "nazwa": "Gdy nie rozumiesz",
+   "pozycje": [
+    {
+     "znaki": "这是什么？",
+     "pinyin": "Zhè shì shénme?",
+     "polski": "czy szy szen-ma",
+     "doslownie": "to · jest · co",
+     "notatki": "",
+     "znaczenie": "What is this? · Co to jest?"
+    },
+    {
+     "znaki": "中文怎么说？",
+     "pinyin": "Zhōngwén zěnme shuō?",
+     "polski": "czong-łen dzen-ma szło",
+     "doslownie": "chiński · jak · mówić",
+     "notatki": "pokaż palcem rzecz albo powiedz słowo po angielsku",
+     "znaczenie": "How do you say it in Chinese? · Jak to jest po chińsku?"
+    },
+    {
+     "znaki": "请再说一遍。",
+     "pinyin": "Qǐng zài shuō yí biàn.",
+     "polski": "ćhing dzaj szło i-pien",
+     "doslownie": "proszę · jeszcze raz · powiedzieć · jeden raz",
+     "notatki": "",
+     "znaczenie": "Please say it again. · Powtórz, proszę."
+    },
+    {
+     "znaki": "请写一下。",
+     "pinyin": "Qǐng xiě yíxià.",
+     "polski": "ćhing sie i-sia",
+     "doslownie": "proszę · napisać · (na chwilę)",
+     "notatki": "np. w telefonie, żeby potem przetłumaczyć",
+     "znaczenie": "Please write it down. · Napisz to, proszę."
     }
    ]
   }
