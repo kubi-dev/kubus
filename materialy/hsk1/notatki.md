@@ -123,5 +123,5 @@ Data: 2026-10-18
 |---|---|---|---|---|
 | 别傻了。 | Bié shǎ le. | pie sza la |  | Don't be silly. · Nie bądź głupia. |
 | 我怀疑。 | Wǒ huáiyí. | ło chłaj-i |  | I doubt it. · Wątpię. |
-| 该你了。 | Gāi nǐ le. | kaj ni la |  | It's your turn. · Twoja kolej. |
+| 该你了。 | Gāi nǐ le. | gaj ni la |  | It's your turn. · Twoja kolej. |
 | 太遗憾了。 | Tài yíhàn le. | thaj i-chan la |  | What a pity! · Jaka szkoda! |
