@@ -42,6 +42,7 @@ Gdy user pyta o cokolwiek po chińsku (słowo, zwrot, wymowę, „jak się mówi
 - Szukaj po polskim znaczeniu i po nazwach sekcji, nie tylko po znakach. Jedno polskie słowo może mieć kilka chińskich odpowiedników (np. „chcę”: 想 w lekcji 2, 愿意 w lekcji 3, 要 tylko na stronie wymowy). Gdy pasuje kilka, pokaż wszystkie albo zapytaj, o które chodzi.
 - `wymowa.json` (strony tony/dźwięki) to przykłady do ćwiczeń wymowy, nie karty z lekcji. Nie traktuj ich jako pierwszego źródła.
 - W odpowiedzi używaj słowa i zapisu dokładnie takiego, jak na karcie.
+- User nie czyta znaków ani pinyinu. Gdy wymieniasz karty w odpowiedzi, zawsze pisz polskie znaczenie i zapis polski z karty (np. „Ile to kosztuje? (czy-ka tło-szał ćhien)”), nigdy same znaki.
 
 ## Nowe karty (lekcje i materiały): bez dubli i bez zbędnych
 
