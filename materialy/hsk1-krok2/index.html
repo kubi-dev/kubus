@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HSK 1 · krok 2 · Notatki z chińskiego</title>
+<style>
+  :root {
+    --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62;
+    --accent: #b8362d; --accent-soft: #f3d9d5; --line: #e6dccd; --star: #d99a1c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #171412; --card: #221e1a; --ink: #f1e9dd; --muted: #a2968a;
+            --accent: #e0574c; --accent-soft: #3a2320; --line: #332c26; --star: #f0c04a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  header { padding: 32px 20px 12px; max-width: 900px; margin: 0 auto; }
+  h1 { margin: 0 0 6px; font-size: 28px; }
+  .sub { color: var(--muted); font-size: 14px; margin: 0; }
+  .controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 14px; font-size: 14px; }
+  .controls label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+  .controls select { font: inherit; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
+  main { max-width: 900px; margin: 0 auto; padding: 8px 20px 60px; }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 28px 0 12px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px;
+          cursor: pointer; transition: transform .08s, border-color .15s, box-shadow .15s; user-select: none; position: relative; }
+  .card:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+  .card:active { transform: scale(.98); }
+  .card.playing { border-color: var(--accent); background: var(--accent-soft); }
+  .hanzi { font-size: 34px; line-height: 1.2; font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif; }
+  .pinyin { font-size: 17px; color: var(--accent); margin-top: 4px; }
+  .pl { font-size: 15px; margin-top: 4px; }
+  .pl::before { content: "po polsku: "; color: var(--muted); font-size: 13px; }
+  .dosl { font-size: 12px; color: var(--muted); margin-top: 2px; }   /* znaczenie słowo po słowie */
+  .dosl::before { content: "dosłownie: "; }
+  .fon { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .fon::before { content: "moje: "; }
+  .mean { font-size: 15px; margin-top: 8px; }
+  .obr { display: block; width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; background: var(--line); }
+  .kred { font-size: 11px; color: var(--muted); margin-top: 6px; }
+  .kred a { color: inherit; }
+  .spk { position: absolute; top: 14px; right: 14px; font-size: 18px; opacity: .5; background: var(--card); border-radius: 999px; padding: 1px 6px; }
+  .card:hover .spk { opacity: 1; }
+  .star { position: absolute; top: 14px; right: 50px; background: var(--card); border: none; border-radius: 999px; font-size: 18px; line-height: 1; cursor: pointer; color: var(--muted); padding: 3px 7px 2px; }
+  .star.on { color: var(--star); }
+  .mic { margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 13px;
+         padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer;
+         touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  .mic:hover { border-color: var(--accent); }
+  .mic.rec { background: var(--accent); color: #fff; border-color: var(--accent); animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { opacity: .6; } }
+  .diag { font-size: 12px; color: var(--muted, #888); margin: 4px 0 10px; }
+  .diag pre { max-height: 220px; overflow: auto; font-size: 11px; white-space: pre-wrap; word-break: break-all; background: var(--bg); padding: 8px; border-radius: 8px; }
+  .result { font-size: 13px; margin-top: 8px; padding: 8px 10px; border-radius: 8px; background: var(--bg); line-height: 1.4; }
+  .result.ok { background: #dff3e3; color: #14532d; }
+  .result.mid { background: #fdf0d5; color: #7c4a03; }
+  .result.bad { background: var(--accent-soft); color: var(--accent); }
+  @media (prefers-color-scheme: dark) { .result.ok { background: #14351f; color: #9be2b0; } .result.mid { background: #3a2c10; color: #f0c674; } }
+  .hint { color: var(--muted); font-size: 13px; margin-top: 8px; }
+  .linki { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .linki a { display: inline-block; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); text-decoration: none; font-size: 14px; }
+  .linki a:hover { border-color: var(--accent); }
+  .auto { position: absolute; top: 14px; left: 14px; font-size: 11px; color: var(--muted); background: var(--bg); border-radius: 999px; padding: 2px 8px; }
+  .card:has(.auto) .obr { margin-top: 18px; }
+</style>
+</head>
+<body>
+<header>
+  <p class="sub"><a href="../../" style="color:var(--accent)">← wszystkie lekcje</a></p>
+  <h1>HSK 1 · krok 2</h1>
+  <div class="linki" id="linki"></div>
+  <p class="sub">Kliknij kartę, żeby usłyszeć wymowę. Gwiazdka ☆ dodaje zwrot do <a href="../../ulubione/" style="color:var(--accent)">ulubionych</a>.</p>
+  <p class="hint">Zapis polski: <b>ch</b> = polskie ch · <b>y</b> = polskie y · <b>ł</b> = polskie ł · <b>ü</b> = „i” z ustami ułożonymi do „u” · <b>kh, ph, th</b> = z przydechem (mocny wydech) · <b>dz, p</b> = bez przydechu (chińskie z, b) · <b>czh</b> = cz z przydechem (chińskie ch)</p>
+  <div class="controls">
+    <label>Silnik:
+      <select id="engine">
+        <option value="google">Nagrania Google (wbudowane)</option>
+        <option value="system">Głos systemowy (offline)</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="slow"> wolniej</label>
+  </div>
+  <p class="hint">Sprawdzanie wymowy: <b>przytrzymaj</b> przycisk 🎤 na karcie, poczekaj na „mów teraz”, powiedz słowo, puść. Zielone = rozpoznało dokładnie to, co miałeś powiedzieć. Silnik rozpoznawania ustawisz w <a href="../../powtorka/" style="color:var(--accent)">powtórce</a> (⚙).</p>
+  <p class="hint" id="status"></p>
+  <details class="diag"><summary>diagnostyka mikrofonu</summary><pre id="diag-log"></pre></details>
+</header>
+
+<main id="main"></main>
+
+<script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
+<script>window.SYNC_URL = "https://kubus-sync.dark-mud-b74c.workers.dev";</script>
+<script src="../../wymowa.js?v=2e82f7d4"></script>
+<script>
+const DATA = {"numer": 102, "sciezka": "hsk", "tytul": "HSK 1 · krok 2", "opis": "30 kart: liczby, czas, zakupy, miasto; słowa HSK 1 na znanych schematach", "data": "2026-11-12", "sekcje": [{"nazwa": "Liczby", "pozycje": [{"znaki": "一", "pinyin": "yī", "polski": "i", "doslownie": "", "notatki": "przed 4. tonem yí (一下 i-sia), przed innymi yì (一起 i-ćhi)", "znaczenie": "one · jeden", "audio": "7941da94db"}, {"znaki": "二", "pinyin": "èr", "polski": "ar", "doslownie": "", "notatki": "przy liczeniu rzeczy 两 (liǎng)", "znaczenie": "two · dwa", "audio": "2d8be272c9"}, {"znaki": "三", "pinyin": "sān", "polski": "san", "doslownie": "", "znaczenie": "three · trzy", "audio": "e662ff59a0"}, {"znaki": "四", "pinyin": "sì", "polski": "sy", "doslownie": "", "znaczenie": "four · cztery", "audio": "21716cf311"}, {"znaki": "五", "pinyin": "wǔ", "polski": "łu", "doslownie": "", "znaczenie": "five · pięć", "audio": "1fcc29d077"}, {"znaki": "六", "pinyin": "liù", "polski": "lioł", "doslownie": "", "znaczenie": "six · sześć", "audio": "61b453523d"}, {"znaki": "七", "pinyin": "qī", "polski": "ćhi", "doslownie": "", "znaczenie": "seven · siedem", "audio": "aad6914f8f"}, {"znaki": "八", "pinyin": "bā", "polski": "pa", "doslownie": "", "znaczenie": "eight · osiem", "audio": "edf1acd5c6"}, {"znaki": "九", "pinyin": "jiǔ", "polski": "dzioł", "doslownie": "", "znaczenie": "nine · dziewięć", "audio": "9b4851f85d"}, {"znaki": "十", "pinyin": "shí", "polski": "szy", "doslownie": "", "notatki": "dalej łączysz: 十一 = 11, 二十 = 20, 三十 = 30", "znaczenie": "ten · dziesięć", "audio": "181245720b"}]}, {"nazwa": "Grzecznie", "pozycje": [{"znaki": "不客气", "pinyin": "bú kèqi", "polski": "pu khy-ćhi", "doslownie": "nie · grzeczność", "notatki": "odpowiedź na 谢谢", "znaczenie": "you're welcome · nie ma za co", "audio": "be672ad548"}, {"znaki": "再见", "pinyin": "zàijiàn", "polski": "dzaj-dzien", "doslownie": "znowu · widzieć", "notatki": "jak 拜拜, tylko grzeczniej", "znaczenie": "goodbye · do widzenia", "audio": "8e5c0a1e46"}, {"znaki": "没有。", "pinyin": "Méiyǒu.", "polski": "mej-joł", "doslownie": "nie · mieć", "notatki": "przeczenie 有 zawsze przez 没", "znaczenie": "No. / There isn't. · Nie ma. / Nie mam.", "audio": "8f2aec2602"}]}, {"nazwa": "Zakupy", "pozycje": [{"znaki": "我要这个。", "pinyin": "Wǒ yào zhège.", "polski": "ło jał czy-ka", "doslownie": "ja · chcieć · to", "notatki": "pokazując palcem; 这个 jak w 这个辣不辣？", "znaczenie": "I'll take this one. · Poproszę to.", "audio": "df70d1a1f8"}, {"znaki": "这个多少钱？", "pinyin": "Zhège duōshao qián?", "polski": "czy-ka tło-szał ćhien", "doslownie": "to · ile · pieniądze", "znaczenie": "How much is this? · Ile to kosztuje?", "audio": "7ffc317d98"}, {"znaki": "十块。", "pinyin": "Shí kuài.", "polski": "szy khłaj", "doslownie": "dziesięć · (juan, potocznie)", "notatki": "块 to potoczne „juan”", "znaczenie": "Ten yuan. · Dziesięć juanów.", "audio": "5d745f9d9b"}]}, {"nazwa": "Czas", "pozycje": [{"znaki": "昨天", "pinyin": "zuótiān", "polski": "dzło-thien", "doslownie": "wczoraj · dzień", "znaczenie": "yesterday · wczoraj", "audio": "2f8d6f1584"}, {"znaki": "明天", "pinyin": "míngtiān", "polski": "ming-thien", "doslownie": "jasny · dzień", "notatki": "jak w 我们明天见。", "znaczenie": "tomorrow · jutro", "audio": "8bcbd77d1f"}, {"znaki": "现在几点？", "pinyin": "Xiànzài jǐ diǎn?", "polski": "sien-dzaj dzi tien", "doslownie": "teraz · ile · godzina", "znaczenie": "What time is it now? · Która teraz godzina?", "audio": "0ad267da55"}, {"znaki": "三点。", "pinyin": "Sān diǎn.", "polski": "san tien", "doslownie": "trzy · godzina", "notatki": "两点 (liǎng diǎn) = druga", "znaczenie": "Three o'clock. · Trzecia (godzina).", "audio": "95b9f577d5"}, {"znaki": "明天几点见？", "pinyin": "Míngtiān jǐ diǎn jiàn?", "polski": "ming-thien dzi tien dzien", "doslownie": "jutro · ile · godzina · widzieć się", "znaczenie": "What time tomorrow? · O której jutro się widzimy?", "audio": "071c16bf5a"}]}, {"nazwa": "W mieście", "pozycje": [{"znaki": "出租车", "pinyin": "chūzūchē", "polski": "czhu-dzu-czhy", "doslownie": "wynajem · samochód", "znaczenie": "taxi · taksówka", "audio": "4f5289fad3"}, {"znaki": "我要去火车站。", "pinyin": "Wǒ yào qù huǒchēzhàn.", "polski": "ło jał ćhü chło-czhy-czan", "doslownie": "ja · chcieć · iść · pociąg (ogień-wóz) · stacja", "notatki": "taksówkarzowi wystarczy: 火车站。", "znaczenie": "I need to go to the train station. · Muszę jechać na dworzec.", "audio": "cdbb0fae1c"}, {"znaki": "医院在哪里？", "pinyin": "Yīyuàn zài nǎlǐ?", "polski": "i-jüan dzaj na-li", "doslownie": "szpital · w · gdzie", "notatki": "jak 厕所在哪里？", "znaczenie": "Where is the hospital? · Gdzie jest szpital?", "audio": "5fcb436843"}]}, {"nazwa": "Rozmowa", "pozycje": [{"znaki": "今天很热。", "pinyin": "Jīntiān hěn rè.", "polski": "dzin-thien chen ży", "doslownie": "dziś · bardzo · gorąco", "notatki": "热 jak w 热咖啡", "znaczenie": "It's hot today. · Dziś jest gorąco.", "audio": "419a15073a"}, {"znaki": "我喜欢看电影。", "pinyin": "Wǒ xǐhuan kàn diànyǐng.", "polski": "ło si-chłan khan tien-ing", "doslownie": "ja · lubić · oglądać · film", "notatki": "jak 我喜欢看书。", "znaczenie": "I like watching movies. · Lubię oglądać filmy.", "audio": "e1b26f32b8"}, {"znaki": "你多大了？", "pinyin": "Nǐ duō dà le?", "polski": "ni tło ta la", "doslownie": "ty · jak · duży · (już)", "znaczenie": "How old are you? · Ile masz lat?", "audio": "ff1749b232"}, {"znaki": "我……岁。", "pinyin": "Wǒ … suì.", "polski": "ło … słej", "doslownie": "ja · … · lat", "notatki": "np. 我三十岁。 (ło san-szy słej) = mam 30 lat", "znaczenie": "I'm … years old. · Mam … lat.", "audio": "7dc82c347e"}, {"znaki": "你家有几个人？", "pinyin": "Nǐ jiā yǒu jǐ ge rén?", "polski": "ni dzia joł dzi ka żen", "doslownie": "ty · rodzina · mieć · ile · (sztuka) · osoba", "znaczenie": "How many people are in your family? · Ilu was jest w rodzinie?", "audio": "02864d63a4"}, {"znaki": "我会说一点中文。", "pinyin": "Wǒ huì shuō yìdiǎn Zhōngwén.", "polski": "ło chłej szło i-tien czong-łen", "doslownie": "ja · umieć · mówić · trochę · chiński", "notatki": "一点 jak w 说慢一点。", "znaczenie": "I speak a little Chinese. · Mówię trochę po chińsku.", "audio": "0deaf079c9"}]}], "podcast": null, "scenki": 0};
+
+const status = document.getElementById("status");
+const engineSel = document.getElementById("engine");
+const slowCb = document.getElementById("slow");
+// mp3 gra wymowa.js przez Web Audio (jeden AudioContext na stronę) — bez elementu <audio>, który na iOS
+// zapisuje do sesji audio i zabija mikrofon. Tu zostaje tylko podświetlanie karty.
+let current = null;
+
+function setPlaying(card) {
+  if (current) current.classList.remove("playing");
+  current = card;
+  if (card) card.classList.add("playing");
+}
+
+function speakSystem(text) {
+  if (!("speechSynthesis" in window)) { status.textContent = "Brak syntezy mowy w tej przeglądarce."; return; }
+  speechSynthesis.cancel();
+  Wymowa.audioAktywne();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "zh-CN";
+  u.rate = slowCb.checked ? 0.6 : 0.9;
+  const voices = speechSynthesis.getVoices();
+  const zh = voices.find(v => /^zh[-_]CN/i.test(v.lang)) || voices.find(v => /^zh/i.test(v.lang));
+  if (zh) u.voice = zh; else status.textContent = "Brak chińskiego głosu w systemie (macOS: Ustawienia → Dostępność → Zawartość mówiona → dodaj chiński).";
+  u.onend = () => { setPlaying(null); Wymowa.audioAktywne(); };
+  speechSynthesis.speak(u);
+}
+
+const AUDIO = {};
+let nrOdtworzenia = 0;
+function speakGoogle(text, card) {
+  const f = AUDIO[text];
+  // adres translate_tts jest cross-origin: fetch/Web Audio go nie przeczyta, więc od razu głos systemowy
+  if (!f) { status.textContent = "Brak nagrania dla tej pozycji — głos systemowy."; speakSystem(text); return; }
+  const moje = ++nrOdtworzenia;
+  Wymowa.graj("audio/" + f + (slowCb.checked ? "-slow" : "") + ".mp3", { onEnd: () => { if (moje === nrOdtworzenia) setPlaying(null); } })
+    .then(ok => { if (!ok && moje === nrOdtworzenia) setPlaying(null); })
+    .catch(e => {
+      if (moje !== nrOdtworzenia) return;
+      Wymowa.diag("mp3 błąd: " + e.message);
+      status.textContent = "Nagranie niedostępne — używam głosu systemowego.";
+      speakSystem(text);
+    });
+}
+
+function play(text, card) {
+  status.textContent = "";
+  setPlaying(card);
+  if (engineSel.value === "google") speakGoogle(text, card); else speakSystem(text);
+}
+
+// podpis zdjęcia: wymagany tylko przy CC BY (StockSnap/Rawpixel są CC0)
+function kredyt(o) {
+  if (!o || o.licencja !== "by") return "";
+  const a = o.autor || "autor nieznany";
+  return `<div class="kred">fot. ${o.zrodlo ? `<a href="${o.zrodlo}" target="_blank" rel="noopener">${a}</a>` : a} · CC BY</div>`;
+}
+
+// ---- ulubione: ten sam stan co powtórka (localStorage "kubus.powtorka" + worker), tu tylko pole "ulubione" ----
+const KLUCZ_LS = "kubus.powtorka";
+let stan = { karty: {}, ustawienia: { nowe: 10, z: 0 }, dzien: { data: "", nowe: 0 }, ulubione: {} };
+try { const s = JSON.parse(localStorage.getItem(KLUCZ_LS) || "null"); if (s && s.karty) stan = scal(stan, s); } catch (e) {}
+const cfg = { url: "", klucz: "" };
+try { Object.assign(cfg, JSON.parse(localStorage.getItem(KLUCZ_LS + ".sync") || "{}")); } catch (e) {}
+if (!cfg.url && window.SYNC_URL) cfg.url = window.SYNC_URL;
+function scal(a, b) {
+  // nowsza wersja wygrywa (pole z = czas zmiany); to samo w powtórce i w workerze
+  const out = { karty: Object.assign({}, a.karty), ustawienia: a.ustawienia, dzien: a.dzien, ulubione: Object.assign({}, a.ulubione || {}) };
+  for (const k in (b.karty || {})) { const x = out.karty[k], y = b.karty[k]; if (!x || (y.z || 0) > (x.z || 0)) out.karty[k] = y; }
+  for (const k in (b.ulubione || {})) { const x = out.ulubione[k], y = b.ulubione[k]; if (!x || (y.z || 0) > (x.z || 0)) out.ulubione[k] = y; }
+  if (b.ustawienia && (b.ustawienia.z || 0) > (a.ustawienia.z || 0)) out.ustawienia = b.ustawienia;
+  if (b.dzien && b.dzien.data > (a.dzien.data || "")) out.dzien = b.dzien;
+  else if (b.dzien && b.dzien.data === a.dzien.data) out.dzien = { data: a.dzien.data, nowe: Math.max(a.dzien.nowe || 0, b.dzien.nowe || 0), hsk: Math.max(a.dzien.hsk || 0, b.dzien.hsk || 0) };
+  return out;
+}
+function zapiszLokalnie() { try { localStorage.setItem(KLUCZ_LS, JSON.stringify(stan)); } catch (e) {} }
+let syncTimer = null, syncBusy = false, syncDirty = false;
+async function syncTeraz(pobierzTylko) {
+  if (!cfg.url || !cfg.klucz) return;
+  if (syncBusy) { syncDirty = true; return; }
+  syncBusy = true;
+  try {
+    const r = await fetch(cfg.url.replace(/\/$/, "") + "/stan", {
+      method: pobierzTylko ? "GET" : "PUT",
+      headers: { "Authorization": "Bearer " + cfg.klucz, "Content-Type": "application/json" },
+      body: pobierzTylko ? undefined : JSON.stringify(stan)
+    });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    stan = scal(stan, await r.json()); zapiszLokalnie(); odswiezGwiazdki();
+  } catch (e) { Wymowa.diag("synchronizacja ulubionych: " + e.message); }
+  finally { syncBusy = false; if (syncDirty) { syncDirty = false; zaplanujSync(); } }
+}
+function zaplanujSync() { clearTimeout(syncTimer); syncTimer = setTimeout(() => syncTeraz(false), 3000); }
+document.addEventListener("visibilitychange", () => { if (document.hidden && syncTimer) { clearTimeout(syncTimer); syncTeraz(false); } });
+function ulubiona(znaki) { const u = stan.ulubione[znaki]; return !!(u && u.on); }
+function przelaczUlubiona(znaki) { stan.ulubione[znaki] = { on: !ulubiona(znaki), z: Date.now() }; zapiszLokalnie(); zaplanujSync(); }
+function odswiezGwiazdki() {
+  for (const b of document.querySelectorAll(".star")) {
+    const on = ulubiona(b.dataset.znaki);
+    b.textContent = on ? "★" : "☆"; b.classList.toggle("on", on); b.title = on ? "usuń z ulubionych" : "dodaj do ulubionych";
+  }
+}
+
+function render(sekcje) {
+  const main = document.getElementById("main");
+  for (const sek of sekcje) {
+    const h = document.createElement("h2"); h.textContent = sek.nazwa; main.appendChild(h);
+    const el = document.createElement("div"); el.className = "grid"; main.appendChild(el);
+    for (const p of sek.pozycje) {
+      if (p.audio) AUDIO[p.znaki] = p.audio;
+      const c = document.createElement("div");
+      c.className = "card";
+      c.innerHTML = `<span class="spk">🔊</span><button class="star" type="button"></button>
+        ${p.auto ? `<span class="auto" title="dodane przez system ze scenki">✦ ze scenki</span>` : ""}
+        ${p.img ? `<img class="obr" src="${p.img}" alt="" loading="lazy">` : ""}
+        <div class="hanzi">${p.znaki}</div>
+        <div class="pinyin">${p.pinyin}</div>
+        ${p.polski ? `<div class="pl">${p.polski}</div>` : ""}
+        ${p.doslownie ? `<div class="dosl">${p.doslownie}</div>` : ""}
+        ${p.notatki ? `<div class="fon">${p.notatki}</div>` : ""}
+        <div class="mean">${p.znaczenie}</div>
+        ${kredyt(p.img ? p.obrazek : null)}
+        <button class="mic" type="button">🎤 przytrzymaj i mów</button>
+        <div class="result" hidden></div>`;
+      c.addEventListener("click", (e) => { if (e.target.closest(".mic, .result, .kred a, .star")) return; play(p.znaki, c); });
+      bindMic(c.querySelector(".mic"), p.znaki, c, p);
+      const star = c.querySelector(".star");
+      star.dataset.znaki = p.znaki;
+      star.addEventListener("click", () => { przelaczUlubiona(p.znaki); odswiezGwiazdki(); });
+      el.appendChild(c);
+    }
+  }
+}
+render(DATA.sekcje);
+odswiezGwiazdki();
+(function () {
+  const l = document.getElementById("linki"), dir = location.pathname.split("/").filter(Boolean).pop();
+  if (DATA.podcast) l.insertAdjacentHTML("beforeend", `<a href="../../podcast/#${dir}">🎧 Podcast lekcji · ${Math.round(DATA.podcast.sekund / 60)} min</a>`);
+  if (DATA.scenki) l.insertAdjacentHTML("beforeend", `<a href="../../scenki/#${dir}">🎭 Scenki · ${DATA.scenki}</a>`);
+  if (DATA.zrodlo) l.insertAdjacentHTML("beforeend", `<a href="${DATA.zrodlo.url}" target="_blank" rel="noopener">▶ ${DATA.zrodlo.tytul}</a>`);
+  if (DATA.sciezka) document.querySelector('#engine option[value="google"]').textContent = "Nagrania z oryginału (wbudowane)";
+})();
+syncTeraz(true);
+
+if ("speechSynthesis" in window) speechSynthesis.getVoices();
+
+// ---- sprawdzanie wymowy: wspólny moduł wymowa.js ----
+Wymowa.beforeStart = () => setPlaying(null);   // audio zatrzymuje sam moduł (stopAudio) przed start()
+// tryb "system-reload": po przeładowaniu pokaż wynik na właściwej karcie i wróć do miejsca na stronie
+(function () {
+  const w = Wymowa.odbierzWynik();
+  if (!w) return;
+  for (const c of document.querySelectorAll(".card")) {
+    if (c.querySelector(".hanzi") && c.querySelector(".hanzi").textContent === w.target) {
+      const out = c.querySelector(".result"), r = Wymowa.render(w.res, w.target);
+      out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
+    }
+  }
+  requestAnimationFrame(() => window.scrollTo(0, w.scrollY || 0));
+})();
+function bindMic(btn, target, card, p) {
+  const out = card.querySelector(".result");
+  Wymowa.bind(btn, {
+    target,
+    audio: () => AUDIO[target] ? "audio/" + AUDIO[target] + ".mp3" : "",
+    // znaczenie bywa „angielskie · polskie”: na ekranie mówienia tylko polskie
+    ekran: () => ({ polski: p.polski, pinyin: p.pinyin, doslownie: p.doslownie, znaczenie: (m => m.length > 1 ? m.slice(1).join("·") : m[0])(p.znaczenie.split("·")).trim() }),
+    onStart: () => {},
+    onDone: (res) => { const r = Wymowa.render(res, target); out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html; }
+  });
+}
+</script>
+</body>
+</html>
