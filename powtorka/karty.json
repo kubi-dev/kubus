@@ -3600,20 +3600,6 @@
   "obrazek": null
  },
  {
-  "id": "再见",
-  "znaki": "再见",
-  "pinyin": "zàijiàn",
-  "polski": "dzaj-dzien",
-  "doslownie": "znowu · widzieć",
-  "znaczenie": "goodbye · do widzenia",
-  "lekcja": 102,
-  "lekcjaTytul": "HSK 1 · krok 2",
-  "sciezka": "hsk",
-  "audio": "materialy/hsk1-krok2/audio/8e5c0a1e46",
-  "img": "",
-  "obrazek": null
- },
- {
   "id": "没有。",
   "znaki": "没有。",
   "pinyin": "Méiyǒu.",
@@ -3638,20 +3624,6 @@
   "lekcjaTytul": "HSK 1 · krok 2",
   "sciezka": "hsk",
   "audio": "materialy/hsk1-krok2/audio/df70d1a1f8",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "这个多少钱？",
-  "znaki": "这个多少钱？",
-  "pinyin": "Zhège duōshao qián?",
-  "polski": "czy-ka tło-szał ćhien",
-  "doslownie": "to · ile · pieniądze",
-  "znaczenie": "How much is this? · Ile to kosztuje?",
-  "lekcja": 102,
-  "lekcjaTytul": "HSK 1 · krok 2",
-  "sciezka": "hsk",
-  "audio": "materialy/hsk1-krok2/audio/7ffc317d98",
   "img": "",
   "obrazek": null
  },
@@ -3698,48 +3670,6 @@
   "obrazek": null
  },
  {
-  "id": "现在几点？",
-  "znaki": "现在几点？",
-  "pinyin": "Xiànzài jǐ diǎn?",
-  "polski": "sien-dzaj dzi tien",
-  "doslownie": "teraz · ile · godzina",
-  "znaczenie": "What time is it now? · Która teraz godzina?",
-  "lekcja": 102,
-  "lekcjaTytul": "HSK 1 · krok 2",
-  "sciezka": "hsk",
-  "audio": "materialy/hsk1-krok2/audio/0ad267da55",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "三点。",
-  "znaki": "三点。",
-  "pinyin": "Sān diǎn.",
-  "polski": "san tien",
-  "doslownie": "trzy · godzina",
-  "znaczenie": "Three o'clock. · Trzecia (godzina).",
-  "lekcja": 102,
-  "lekcjaTytul": "HSK 1 · krok 2",
-  "sciezka": "hsk",
-  "audio": "materialy/hsk1-krok2/audio/95b9f577d5",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "明天几点见？",
-  "znaki": "明天几点见？",
-  "pinyin": "Míngtiān jǐ diǎn jiàn?",
-  "polski": "ming-thien dzi tien dzien",
-  "doslownie": "jutro · ile · godzina · widzieć się",
-  "znaczenie": "What time tomorrow? · O której jutro się widzimy?",
-  "lekcja": 102,
-  "lekcjaTytul": "HSK 1 · krok 2",
-  "sciezka": "hsk",
-  "audio": "materialy/hsk1-krok2/audio/071c16bf5a",
-  "img": "",
-  "obrazek": null
- },
- {
   "id": "出租车",
   "znaki": "出租车",
   "pinyin": "chūzūchē",
@@ -3768,20 +3698,6 @@
   "obrazek": null
  },
  {
-  "id": "医院在哪里？",
-  "znaki": "医院在哪里？",
-  "pinyin": "Yīyuàn zài nǎlǐ?",
-  "polski": "i-jüan dzaj na-li",
-  "doslownie": "szpital · w · gdzie",
-  "znaczenie": "Where is the hospital? · Gdzie jest szpital?",
-  "lekcja": 102,
-  "lekcjaTytul": "HSK 1 · krok 2",
-  "sciezka": "hsk",
-  "audio": "materialy/hsk1-krok2/audio/5fcb436843",
-  "img": "",
-  "obrazek": null
- },
- {
   "id": "今天很热。",
   "znaki": "今天很热。",
   "pinyin": "Jīntiān hěn rè.",
@@ -3792,20 +3708,6 @@
   "lekcjaTytul": "HSK 1 · krok 2",
   "sciezka": "hsk",
   "audio": "materialy/hsk1-krok2/audio/419a15073a",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "我喜欢看电影。",
-  "znaki": "我喜欢看电影。",
-  "pinyin": "Wǒ xǐhuan kàn diànyǐng.",
-  "polski": "ło si-chłan khan tien-ing",
-  "doslownie": "ja · lubić · oglądać · film",
-  "znaczenie": "I like watching movies. · Lubię oglądać filmy.",
-  "lekcja": 102,
-  "lekcjaTytul": "HSK 1 · krok 2",
-  "sciezka": "hsk",
-  "audio": "materialy/hsk1-krok2/audio/e1b26f32b8",
   "img": "",
   "obrazek": null
  },
@@ -3848,20 +3750,6 @@
   "lekcjaTytul": "HSK 1 · krok 2",
   "sciezka": "hsk",
   "audio": "materialy/hsk1-krok2/audio/02864d63a4",
-  "img": "",
-  "obrazek": null
- },
- {
-  "id": "我会说一点中文。",
-  "znaki": "我会说一点中文。",
-  "pinyin": "Wǒ huì shuō yìdiǎn Zhōngwén.",
-  "polski": "ło chłej szło i-tien czong-łen",
-  "doslownie": "ja · umieć · mówić · trochę · chiński",
-  "znaczenie": "I speak a little Chinese. · Mówię trochę po chińsku.",
-  "lekcja": 102,
-  "lekcjaTytul": "HSK 1 · krok 2",
-  "sciezka": "hsk",
-  "audio": "materialy/hsk1-krok2/audio/0deaf079c9",
   "img": "",
   "obrazek": null
  }

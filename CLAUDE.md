@@ -43,6 +43,15 @@ Gdy user pyta o cokolwiek po chińsku (słowo, zwrot, wymowę, „jak się mówi
 - `wymowa.json` (strony tony/dźwięki) to przykłady do ćwiczeń wymowy, nie karty z lekcji. Nie traktuj ich jako pierwszego źródła.
 - W odpowiedzi używaj słowa i zapisu dokładnie takiego, jak na karcie.
 
+## Nowe karty (lekcje i materiały): bez dubli i bez zbędnych
+
+Zanim dodasz kartę, porównaj ją z całą talią (`powtorka/karty.json`) po znaczeniu i po schemacie, nie tylko po znakach. Nie dodawaj:
+
+- kart, które już właściwie są, tylko trochę inne: to samo pytanie z dodanym słowem (这个多少钱 przy 多少钱), inny sposób powiedzenia tego samego (再见 przy 拜拜 i 下次见, 我会说一点中文 przy 我刚学中文), ten sam schemat z innym rzeczownikiem (医院在哪里 przy 厕所在哪里, 我喜欢看电影 przy 我喜欢看书);
+- pytań o godzinę i odpowiedzi z godziną (现在几点, 三点, 几点见): nikt o to nie pyta w dobie smartfonów.
+
+Why: 2026-11-12 HSK 1 · krok 2 dostał 30 kart, z czego 8 trzeba było usunąć; user wcześniej prosił, żeby nie dodawać prawie takich samych kart, i był wściekły.
+
 ## Zanim zmienisz dźwięk albo mikrofon
 
 `wymowa.js` ma za sobą kilkadziesiąt poprawek pod iOS i kilka cofniętych. Zanim coś w nim zmienisz:

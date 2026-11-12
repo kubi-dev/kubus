@@ -2,7 +2,7 @@
  "numer": 102,
  "sciezka": "hsk",
  "tytul": "HSK 1 · krok 2",
- "opis": "30 kart: liczby, czas, zakupy, miasto; słowa HSK 1 na znanych schematach",
+ "opis": "22 kart: liczby, czas, zakupy, miasto; słowa HSK 1 na znanych schematach",
  "data": "2026-11-12",
  "sekcje": [
   {
@@ -95,14 +95,6 @@
      "znaczenie": "you're welcome · nie ma za co"
     },
     {
-     "znaki": "再见",
-     "pinyin": "zàijiàn",
-     "polski": "dzaj-dzien",
-     "doslownie": "znowu · widzieć",
-     "notatki": "jak 拜拜, tylko grzeczniej",
-     "znaczenie": "goodbye · do widzenia"
-    },
-    {
      "znaki": "没有。",
      "pinyin": "Méiyǒu.",
      "polski": "mej-joł",
@@ -122,13 +114,6 @@
      "doslownie": "ja · chcieć · to",
      "notatki": "pokazując palcem; 这个 jak w 这个辣不辣？",
      "znaczenie": "I'll take this one. · Poproszę to."
-    },
-    {
-     "znaki": "这个多少钱？",
-     "pinyin": "Zhège duōshao qián?",
-     "polski": "czy-ka tło-szał ćhien",
-     "doslownie": "to · ile · pieniądze",
-     "znaczenie": "How much is this? · Ile to kosztuje?"
     },
     {
      "znaki": "十块。",
@@ -157,28 +142,6 @@
      "doslownie": "jasny · dzień",
      "notatki": "jak w 我们明天见。",
      "znaczenie": "tomorrow · jutro"
-    },
-    {
-     "znaki": "现在几点？",
-     "pinyin": "Xiànzài jǐ diǎn?",
-     "polski": "sien-dzaj dzi tien",
-     "doslownie": "teraz · ile · godzina",
-     "znaczenie": "What time is it now? · Która teraz godzina?"
-    },
-    {
-     "znaki": "三点。",
-     "pinyin": "Sān diǎn.",
-     "polski": "san tien",
-     "doslownie": "trzy · godzina",
-     "notatki": "两点 (liǎng diǎn) = druga",
-     "znaczenie": "Three o'clock. · Trzecia (godzina)."
-    },
-    {
-     "znaki": "明天几点见？",
-     "pinyin": "Míngtiān jǐ diǎn jiàn?",
-     "polski": "ming-thien dzi tien dzien",
-     "doslownie": "jutro · ile · godzina · widzieć się",
-     "znaczenie": "What time tomorrow? · O której jutro się widzimy?"
     }
    ]
   },
@@ -199,14 +162,6 @@
      "doslownie": "ja · chcieć · iść · pociąg (ogień-wóz) · stacja",
      "notatki": "taksówkarzowi wystarczy: 火车站。",
      "znaczenie": "I need to go to the train station. · Muszę jechać na dworzec."
-    },
-    {
-     "znaki": "医院在哪里？",
-     "pinyin": "Yīyuàn zài nǎlǐ?",
-     "polski": "i-jüan dzaj na-li",
-     "doslownie": "szpital · w · gdzie",
-     "notatki": "jak 厕所在哪里？",
-     "znaczenie": "Where is the hospital? · Gdzie jest szpital?"
     }
    ]
   },
@@ -220,14 +175,6 @@
      "doslownie": "dziś · bardzo · gorąco",
      "notatki": "热 jak w 热咖啡",
      "znaczenie": "It's hot today. · Dziś jest gorąco."
-    },
-    {
-     "znaki": "我喜欢看电影。",
-     "pinyin": "Wǒ xǐhuan kàn diànyǐng.",
-     "polski": "ło si-chłan khan tien-ing",
-     "doslownie": "ja · lubić · oglądać · film",
-     "notatki": "jak 我喜欢看书。",
-     "znaczenie": "I like watching movies. · Lubię oglądać filmy."
     },
     {
      "znaki": "你多大了？",
@@ -250,14 +197,6 @@
      "polski": "ni dzia joł dzi ka żen",
      "doslownie": "ty · rodzina · mieć · ile · (sztuka) · osoba",
      "znaczenie": "How many people are in your family? · Ilu was jest w rodzinie?"
-    },
-    {
-     "znaki": "我会说一点中文。",
-     "pinyin": "Wǒ huì shuō yìdiǎn Zhōngwén.",
-     "polski": "ło chłej szło i-tien czong-łen",
-     "doslownie": "ja · umieć · mówić · trochę · chiński",
-     "notatki": "一点 jak w 说慢一点。",
-     "znaczenie": "I speak a little Chinese. · Mówię trochę po chińsku."
     }
    ]
   }
