@@ -2,7 +2,7 @@
  "numer": 102,
  "sciezka": "hsk",
  "tytul": "HSK 1 · krok 2",
- "opis": "40 kart: liczby, zakupy, miasto, rozmowa, gdy nie rozumiesz; słowa HSK 1 na znanych schematach",
+ "opis": "40 kart: liczby, z dziewczyną, rozmowa, gdy nie rozumiesz; słowa HSK 1 na znanych schematach",
  "data": "2026-11-12",
  "sekcje": [
   {
@@ -105,35 +105,6 @@
    ]
   },
   {
-   "nazwa": "Zakupy",
-   "pozycje": [
-    {
-     "znaki": "我要这个。",
-     "pinyin": "Wǒ yào zhège.",
-     "polski": "ło jał czy-ka",
-     "doslownie": "ja · chcieć · to",
-     "notatki": "pokazując palcem; 这个 jak w 这个辣不辣？",
-     "znaczenie": "I'll take this one. · Poproszę to."
-    },
-    {
-     "znaki": "十块。",
-     "pinyin": "Shí kuài.",
-     "polski": "szy khłaj",
-     "doslownie": "dziesięć · (juan, potocznie)",
-     "notatki": "块 to potoczne „juan”",
-     "znaczenie": "Ten yuan. · Dziesięć juanów."
-    },
-    {
-     "znaki": "水果",
-     "pinyin": "shuǐguǒ",
-     "polski": "szłej-kło",
-     "doslownie": "woda · owoc",
-     "notatki": "",
-     "znaczenie": "fruit · owoce"
-    }
-   ]
-  },
-  {
    "nazwa": "Czas",
    "pozycje": [
     {
@@ -156,37 +127,6 @@
   {
    "nazwa": "W mieście",
    "pozycje": [
-    {
-     "znaki": "出租车",
-     "pinyin": "chūzūchē",
-     "polski": "czhu-dzu-czhy",
-     "doslownie": "wynajem · samochód",
-     "znaczenie": "taxi · taksówka"
-    },
-    {
-     "znaki": "我要去火车站。",
-     "pinyin": "Wǒ yào qù huǒchēzhàn.",
-     "polski": "ło jał ćhü chło-czhy-czan",
-     "doslownie": "ja · chcieć · iść · pociąg (ogień-wóz) · stacja",
-     "notatki": "taksówkarzowi wystarczy: 火车站。",
-     "znaczenie": "I need to go to the train station. · Muszę jechać na dworzec."
-    },
-    {
-     "znaki": "我迷路了。",
-     "pinyin": "Wǒ mílù le.",
-     "polski": "ło mi-lu la",
-     "doslownie": "ja · zgubić drogę · (już)",
-     "notatki": "",
-     "znaczenie": "I'm lost. · Zgubiłem się."
-    },
-    {
-     "znaki": "小心！",
-     "pinyin": "Xiǎoxīn!",
-     "polski": "siał-sin",
-     "doslownie": "uważać",
-     "notatki": "",
-     "znaczenie": "Careful! · Uważaj!"
-    },
     {
      "znaki": "等一下。",
      "pinyin": "Děng yíxià.",
@@ -245,22 +185,6 @@
      "polski": "ni dzia joł dzi ka żen",
      "doslownie": "ty · rodzina · mieć · ile · (sztuka) · osoba",
      "znaczenie": "How many people are in your family? · Ilu was jest w rodzinie?"
-    },
-    {
-     "znaki": "喂？",
-     "pinyin": "Wéi?",
-     "polski": "łej",
-     "doslownie": "halo (przez telefon)",
-     "notatki": "tylko przez telefon; na ulicy 你好",
-     "znaczenie": "Hello? (on the phone) · Halo?"
-    },
-    {
-     "znaki": "今天天气怎么样？",
-     "pinyin": "Jīntiān tiānqì zěnmeyàng?",
-     "polski": "dzin-thien thien-ćhi dzen-ma-jang",
-     "doslownie": "dziś · pogoda · jak",
-     "notatki": "",
-     "znaczenie": "What's the weather like today? · Jaka dziś pogoda?"
     },
     {
      "znaki": "下雨了。",
@@ -346,6 +270,83 @@
      "doslownie": "proszę · napisać · (na chwilę)",
      "notatki": "np. w telefonie, żeby potem przetłumaczyć",
      "znaczenie": "Please write it down. · Napisz to, proszę."
+    }
+   ]
+  },
+  {
+   "nazwa": "Z dziewczyną",
+   "pozycje": [
+    {
+     "znaki": "你笑起来很好看。",
+     "pinyin": "Nǐ xiào qǐlai hěn hǎokàn.",
+     "polski": "ni siał-ćhi-laj chen chał-khan",
+     "doslownie": "ty · uśmiechać się · bardzo · ładnie",
+     "notatki": "",
+     "znaczenie": "You have a beautiful smile. · Ładnie się uśmiechasz."
+    },
+    {
+     "znaki": "我请你喝咖啡吧。",
+     "pinyin": "Wǒ qǐng nǐ hē kāfēi ba.",
+     "polski": "ło ćhing ni chy kha-fej pa",
+     "doslownie": "ja · zapraszać (stawiam) · ty · pić · kawa · (propozycja)",
+     "notatki": "请 = ja stawiam",
+     "znaczenie": "Let me buy you a coffee. · Zapraszam cię na kawę."
+    },
+    {
+     "znaki": "你喜欢清迈吗？",
+     "pinyin": "Nǐ xǐhuan Qīngmài ma?",
+     "polski": "ni si-chłan ćhing-maj ma",
+     "doslownie": "ty · lubić · Chiang Mai · (pytanie)",
+     "notatki": "",
+     "znaczenie": "Do you like Chiang Mai? · Podoba ci się Chiang Mai?"
+    },
+    {
+     "znaki": "我们去哪儿？",
+     "pinyin": "Wǒmen qù nǎr?",
+     "polski": "ło-men ćhü nar",
+     "doslownie": "my · iść · gdzie",
+     "notatki": "",
+     "znaczenie": "Where are we going? · Gdzie idziemy?"
+    },
+    {
+     "znaki": "我送你回家。",
+     "pinyin": "Wǒ sòng nǐ huí jiā.",
+     "polski": "ło song ni chłej-dzia",
+     "doslownie": "ja · odprowadzić · ty · wrócić · dom",
+     "notatki": "",
+     "znaczenie": "I'll walk you home. · Odprowadzę cię do domu."
+    },
+    {
+     "znaki": "你真有意思。",
+     "pinyin": "Nǐ zhēn yǒu yìsi.",
+     "polski": "ni czen joł-i-sy",
+     "doslownie": "ty · naprawdę · ciekawy",
+     "notatki": "",
+     "znaczenie": "You're really fun. · Fajna jesteś (zabawna, ciekawa)."
+    },
+    {
+     "znaki": "开玩笑的！",
+     "pinyin": "Kāi wánxiào de!",
+     "polski": "khaj-łan-siał da",
+     "doslownie": "żartować · (tak jest)",
+     "notatki": "",
+     "znaczenie": "Just kidding! · Żartuję!"
+    },
+    {
+     "znaki": "你到家了吗？",
+     "pinyin": "Nǐ dào jiā le ma?",
+     "polski": "ni tał dzia la ma",
+     "doslownie": "ty · dotrzeć · dom · (już) · (pytanie)",
+     "notatki": "na WeChacie po randce",
+     "znaczenie": "Are you home yet? · Dotarłaś do domu?"
+    },
+    {
+     "znaki": "你说得对。",
+     "pinyin": "Nǐ shuō de duì.",
+     "polski": "ni szło da tłej",
+     "doslownie": "ty · mówić · (jak) · słusznie",
+     "notatki": "",
+     "znaczenie": "You're right. · Masz rację."
     }
    ]
   }

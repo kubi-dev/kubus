@@ -127,7 +127,7 @@ w filmie jest kobieta mówiąca normalnie i mężczyzna mówiący wolno: `<klucz
 Obrazki to kadry z filmu z rozmytym miejscem na napisy (chiński na obrazku zdradzałby odpowiedź na karcie).
 Wyjątek: sekcja „Ty jesteś…” (你很漂亮。, 你很苗条。, 你很性感。) była w filmie o „niej” (她很…); nagrania tych trzech kart
 są z Google TTS (pobrane raz ręcznie przez `ensure_audio`, leżą w repo), obrazki zostały z filmu.
-`materialy/hsk1-krok2/`: 40 kart ułożonych ręcznie (słowa HSK 1: liczby, zakupy, miasto, rozmowa, gdy nie rozumiesz; bez dubli talii i bez godzin). Bez obrazków;
+`materialy/hsk1-krok2/`: 40 kart ułożonych ręcznie (słowa HSK 1: liczby, rozmowa, gdy nie rozumiesz, z dziewczyną; bez dubli talii, bez godzin, bez taksówek i zakupów). Bez obrazków;
 nagrania z Google TTS pobrane raz ręcznie przez `ensure_audio(..., tts=True)` i leżą w repo, więc nowa karta tutaj wymaga tego samego kroku.
 
 ## Zapis polski (słownik sylab)
