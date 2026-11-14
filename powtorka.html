@@ -195,6 +195,9 @@ document.addEventListener("visibilitychange", () => { if (document.hidden && syn
 // ---------- SM-2 ----------
 function dzis() { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); }
 function dataStr(t) { const d = new Date(t); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+// Termin liczony w dniach, nie w milisekundach: termin to północ lokalna z dnia oceny, a po zmianie strefy czasowej
+// (podróż na zachód) jutrzejsza północ wypadała przed końcem dzisiejszego dnia i wszystkie karty na jutro robiły się na dziś.
+function zaIleDni(s) { return Math.round((s.termin - dzis()) / DZIEN); }
 function nowyStan() { return { iv: 0, ef: 2.5, termin: 0, reps: 0, seria: 0, z: 0, kara: "" }; }
 function ocen(s, q) {
   // q: 0 nie wiem, 1 trudno, 2 dobrze, 3 łatwo, 4 jutro
@@ -261,12 +264,11 @@ function stanKarty(id) { return stan.karty[id] || null; }
 function zbudujKolejke(dodatkoweNowe) {
   const f = $("filtr").value;
   const karty = KARTY.filter(k => !f || String(k.lekcja) === f);
-  const teraz = dzis() + DZIEN - 1;
   const zalegle = [], nasze = [], hsk = [];
   for (const k of karty) for (const typ of ["B", "A"]) {
     const id = k.id + "|" + typ, s = stanKarty(id);
     if (!s) (k.sciezka ? hsk : nasze).push({ id, k, typ });
-    else if (s.termin <= teraz && !wyczerpanaDzis(s)) zalegle.push({ id, k, typ });
+    else if (zaIleDni(s) <= 0 && !wyczerpanaDzis(s)) zalegle.push({ id, k, typ });
   }
   const d = dataStr(dzis());
   if (stan.dzien.data !== d) stan.dzien = { data: d, nowe: 0, hsk: 0 };
@@ -562,9 +564,8 @@ rate.addEventListener("click", (e) => {
 function koniec() {
   wSesji = false;
   card.innerHTML = "";
-  const jutro = dzis() + DZIEN, pojutrze = jutro + DZIEN;
   const f = $("filtr").value;
-  const naJutro = Object.entries(stan.karty).filter(([id, s]) => s.termin < pojutrze && (s.termin >= jutro || wyczerpanaDzis(s)) && (!f || String((KARTY_MAP[id.split("|")[0]] || {}).lekcja) === f)).length;
+  const naJutro = Object.entries(stan.karty).filter(([id, s]) => (zaIleDni(s) === 1 || (zaIleDni(s) < 1 && wyczerpanaDzis(s))) && (!f || String((KARTY_MAP[id.split("|")[0]] || {}).lekcja) === f)).length;
   const nieRuszone = KARTY.filter(k => (!f || String(k.lekcja) === f) && (!stanKarty(k.id + "|A") || !stanKarty(k.id + "|B"))).length;
   card.appendChild(el("div", "q", razem ? "Koniec na dziś 🎉" : "Nic do powtórki"));
   card.appendChild(el("div", "sum", `Jutro: ${naJutro} kart.<br>Słów jeszcze nie zaczętych: ${nieRuszone}.`));
