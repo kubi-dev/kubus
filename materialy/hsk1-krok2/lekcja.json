@@ -2,7 +2,7 @@
  "numer": 102,
  "sciezka": "hsk",
  "tytul": "HSK 1 · krok 2",
- "opis": "41 kart: liczby, z dziewczyną, rozmowa, gdy nie rozumiesz; słowa HSK 1 na znanych schematach",
+ "opis": "42 karty: liczby, z dziewczyną, rozmowa, gdy nie rozumiesz; słowa HSK 1 na znanych schematach",
  "data": "2026-11-12",
  "sekcje": [
   {
@@ -355,6 +355,14 @@
      "doslownie": "ty · mówić · (jak) · słusznie",
      "notatki": "",
      "znaczenie": "You're right. · Masz rację."
+    },
+    {
+     "znaki": "对",
+     "pinyin": "duì",
+     "polski": "tłej",
+     "doslownie": "słusznie",
+     "notatki": "„tak” na zgadywanie: Wróciłeś już? – tłej. Inaczej niż szy (是), które znaczy „jest, jestem”",
+     "znaczenie": "right · zgadza się, tak"
     }
    ]
   }

@@ -4018,5 +4018,19 @@
   "audio": "materialy/hsk1-krok2/audio/f334ed2a10",
   "img": "",
   "obrazek": null
+ },
+ {
+  "id": "对",
+  "znaki": "对",
+  "pinyin": "duì",
+  "polski": "tłej",
+  "doslownie": "słusznie",
+  "znaczenie": "right · zgadza się, tak",
+  "lekcja": 102,
+  "lekcjaTytul": "HSK 1 · krok 2",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1-krok2/audio/00447bbe5e",
+  "img": "",
+  "obrazek": null
  }
 ]

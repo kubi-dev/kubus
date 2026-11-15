@@ -77,3 +77,4 @@ Data: 2026-11-12
 | 开玩笑的！ | Kāi wánxiào de! | khaj-łan-siał da |  | Just kidding! · Żartuję! |
 | 你到家了吗？ | Nǐ dào jiā le ma? | ni tał dzia la ma | na WeChacie po randce | Are you home yet? · Dotarłaś do domu? |
 | 你说得对。 | Nǐ shuō de duì. | ni szło da tłej |  | You're right. · Masz rację. |
+| 对 | duì | tłej | „tak” na zgadywanie: Wróciłeś już? – tłej. Inaczej niż szy (是), które znaczy „jest, jestem” | right · zgadza się, tak |
