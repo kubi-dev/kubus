@@ -67,6 +67,7 @@ Data: 2026-11-12
 
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
+| 见到你很高兴。 | Jiàndào nǐ hěn gāoxìng. | dzien-tał ni chen kał-sing | na powitanie kogoś, kogo już znasz; przy pierwszym spotkaniu 很高兴认识你。 | Happy to see you. · Cieszę się, że cię widzę. |
 | 你笑起来很好看。 | Nǐ xiào qǐlai hěn hǎokàn. | ni siał-ćhi-laj chen chał-khan |  | You have a beautiful smile. · Ładnie się uśmiechasz. |
 | 我请你喝咖啡吧。 | Wǒ qǐng nǐ hē kāfēi ba. | ło ćhing ni chy kha-fej pa | 请 = ja stawiam | Let me buy you a coffee. · Zapraszam cię na kawę. |
 | 今晚我请你喝一杯吧。 | Jīnwǎn wǒ qǐng nǐ hē yì bēi ba. | dzin-łan ło ćhing ni chy i-pej pa | 喝一杯 = iść na drinka; pasuje po 今晚有空吗？ | Let me buy you a drink tonight. · Zapraszam cię dziś wieczorem na drinka. |
