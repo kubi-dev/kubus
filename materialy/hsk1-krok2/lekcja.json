@@ -2,7 +2,7 @@
  "numer": 102,
  "sciezka": "hsk",
  "tytul": "HSK 1 · krok 2",
- "opis": "43 karty: liczby, z dziewczyną, rozmowa, gdy nie rozumiesz; słowa HSK 1 na znanych schematach",
+ "opis": "44 kart: liczby, z dziewczyną, rozmowa, gdy nie rozumiesz; słowa HSK 1 na znanych schematach",
  "data": "2026-11-12",
  "sekcje": [
   {
@@ -217,6 +217,14 @@
      "doslownie": "ja · głodny · (już)",
      "notatki": "",
      "znaczenie": "I'm hungry. · Jestem głodny."
+    },
+    {
+     "znaki": "我吃饱了。",
+     "pinyin": "Wǒ chī bǎo le.",
+     "polski": "ło czhy-pał la",
+     "doslownie": "ja · jeść · syty · (już)",
+     "notatki": "też grzecznie odmawiasz dokładki",
+     "znaczenie": "I'm full. · Jestem najedzony."
     },
     {
      "znaki": "我不舒服。",

@@ -51,6 +51,7 @@ Data: 2026-11-12
 | 真的吗？ | Zhēn de ma? | czen da ma |  | Really? · Naprawdę? |
 | 为什么？ | Wèishénme? | łej-szen-ma |  | Why? · Dlaczego? |
 | 我饿了。 | Wǒ è le. | ło y la |  | I'm hungry. · Jestem głodny. |
+| 我吃饱了。 | Wǒ chī bǎo le. | ło czhy-pał la | też grzecznie odmawiasz dokładki | I'm full. · Jestem najedzony. |
 | 我不舒服。 | Wǒ bù shūfu. | ło pu szu-fu |  | I don't feel well. · Źle się czuję. |
 | 干杯！ | Gānbēi! | kan-pej |  | Cheers! · Na zdrowie! |
 

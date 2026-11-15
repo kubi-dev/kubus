@@ -3796,6 +3796,20 @@
   "obrazek": null
  },
  {
+  "id": "我吃饱了。",
+  "znaki": "我吃饱了。",
+  "pinyin": "Wǒ chī bǎo le.",
+  "polski": "ło czhy-pał la",
+  "doslownie": "ja · jeść · syty · (już)",
+  "znaczenie": "I'm full. · Jestem najedzony.",
+  "lekcja": 102,
+  "lekcjaTytul": "HSK 1 · krok 2",
+  "sciezka": "hsk",
+  "audio": "materialy/hsk1-krok2/audio/1c22f4272a",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "我不舒服。",
   "znaki": "我不舒服。",
   "pinyin": "Wǒ bù shūfu.",
