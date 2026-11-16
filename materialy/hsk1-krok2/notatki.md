@@ -71,7 +71,7 @@ Data: 2026-11-12
 | 见到你很高兴。 | Jiàndào nǐ hěn gāoxìng. | dzien-tał ni chen kał-sing | na powitanie kogoś, kogo już znasz; przy pierwszym spotkaniu 很高兴认识你。 | Happy to see you. · Cieszę się, że cię widzę. |
 | 你笑起来很好看。 | Nǐ xiào qǐlai hěn hǎokàn. | ni siał-ćhi-laj chen chał-khan |  | You have a beautiful smile. · Ładnie się uśmiechasz. |
 | 我请你喝咖啡吧。 | Wǒ qǐng nǐ hē kāfēi ba. | ło ćhing ni chy kha-fej pa | 请 = ja stawiam | Let me buy you a coffee. · Zapraszam cię na kawę. |
-| 今晚我请你喝一杯吧。 | Jīnwǎn wǒ qǐng nǐ hē yì bēi ba. | dzin-łan ło ćhing ni chy i-pej pa | 喝一杯 = iść na drinka; pasuje po 今晚有空吗？ | Let me buy you a drink tonight. · Zapraszam cię dziś wieczorem na drinka. |
+| 今晚喝一杯吧！ | Jīnwǎn hē yì bēi ba! | dzin-łan chy i-pej pa | 喝一杯 = iść na drinka; pasuje po 今晚有空吗？ Gdy chcesz dodać, że stawiasz: 我请你 (ło ćhing ni). | Let's grab a drink tonight! · Chodźmy dziś wieczorem na drinka! |
 | 你喜欢清迈吗？ | Nǐ xǐhuan Qīngmài ma? | ni si-chłan ćhing-maj ma |  | Do you like Chiang Mai? · Podoba ci się Chiang Mai? |
 | 我们去哪儿？ | Wǒmen qù nǎr? | ło-men ćhü nar |  | Where are we going? · Gdzie idziemy? |
 | 我送你回家。 | Wǒ sòng nǐ huí jiā. | ło song ni chłej-dzia |  | I'll walk you home. · Odprowadzę cię do domu. |
