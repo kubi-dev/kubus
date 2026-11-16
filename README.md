@@ -117,6 +117,13 @@ Sprawdzone na nagraniach lektora (52 słowa, 1 fałszywe „źle”) i na próba
 Licznik wpadek per ton/grupa w `localStorage kubus.wymowa.stat.<strona>`, lista „co ci najczęściej ucieka” linkuje do sekcji.
 Treść powstała z badania (tony i dźwięki trudne dla Polaków, metody ćwiczeń) i została sprawdzona pod kątem chińskiego i prostego polskiego.
 
+## Liczby
+Strona `liczby/` z szablonu `liczby.html`, dane w `liczby.json` (źródło prawdy: grupy 0–10, 11–20, dziesiątki do 100; każda liczba: `liczba`,
+`znaki`, `pinyin`, `polski` ze słownika sylab `zapis.py zapisz`, `znaczenie`). `build_liczby` nagrywa mp3 (wolno i normalnie, Google TTS) do `liczby/audio/`.
+Na górze „Odliczaj”: liczba po liczbie od 1 (1–10, 11–20, 10–100 co dziesięć), wymowa ukryta do „podpowiedzi” albo pierwszej pomyłki,
+dobrze = po 1,5 s następna, źle = ta sama jeszcze raz. Pod spodem lista: każda liczba ▶ i 🎤. Mikrofon jak w lekcjach (Whisper z celem);
+cyfry w wyniku („4”, „100”) strona zamienia na znaki przed porównaniem. Karty z liczbami 1–10 zostają w talii (materiał HSK 1 · krok 2).
+
 ## Materiały dodatkowe (HSK)
 Druga ścieżka słówek obok lekcji: `materialy/<slug>/lekcja.json` w tym samym formacie co lekcja, plus `"sciezka": "hsk"`, `"opis"`
 i `"zrodlo"` (link do oryginału na stronie). Build robi z niej stronę jak lekcję (bez podcastu i scenek) i dokłada karty do talii

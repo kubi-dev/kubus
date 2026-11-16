@@ -17,6 +17,7 @@ PODCAST = (ROOT / "podcast.html").read_text(encoding="utf-8")
 SCENKI = (ROOT / "scenki.html").read_text(encoding="utf-8")
 WYMOWA = (ROOT / "wymowa.html").read_text(encoding="utf-8")
 GLOWNA = (ROOT / "glowna.html").read_text(encoding="utf-8")
+LICZBY = (ROOT / "liczby.html").read_text(encoding="utf-8")
 # Wersja do cache-bustingu wspólnych plików (hash wymowa.js + lista.js + lista.css)
 WERSJA = hashlib.md5(b"".join((ROOT / f).read_bytes() for f in ("wymowa.js", "lista.js", "lista.css"))).hexdigest()[:8]
 # Adres workera synchronizacji (plik sync.url, jedna linia); pusty = tylko localStorage
@@ -245,6 +246,24 @@ def build_wymowa(lessons):
         (out / "index.html").write_text(html, encoding="utf-8")
         print(f"{tryb}: {n} słów, {len(audio)} nagrań")
 
+def build_liczby():
+    """Strona liczby/ (szablon liczby.html, dane liczby.json): lista liczb z nagraniem i mikrofonem plus odliczanie po kolei.
+    Nagrania (wolno i normalnie) z Google TTS do liczby/audio/."""
+    f = ROOT / "liczby.json"
+    if not f.exists(): return
+    data = json.loads(f.read_text(encoding="utf-8"))
+    out = ROOT / "liczby"; out.mkdir(exist_ok=True)
+    audio = {}
+    for g in data["grupy"]:
+        for s in g["liczby"]:
+            if s["znaki"] in audio: continue
+            try: audio[s["znaki"]] = ensure_audio(out, s["znaki"])
+            except Exception as e: print(f"  ! {e}", file=sys.stderr)
+    data["audio"] = audio
+    html = LICZBY.replace("{{DATA_JSON}}", json.dumps(data, ensure_ascii=False)).replace("{{WERSJA}}", WERSJA).replace("{{SYNC_URL}}", SYNC_URL)
+    (out / "index.html").write_text(html, encoding="utf-8")
+    print(f"liczby: {len(audio)} nagrań")
+
 def build_index(lessons, materialy, karty):
     """Strona główna (glowna.html): linki + wyszukiwarka po polsku we wszystkich zwrotach (ta sama talia i karta co ulubione/)."""
     items = "\n".join(
@@ -265,4 +284,5 @@ if __name__ == "__main__":
     build_index(lessons, materialy, karty)
     build_podcast(lessons)
     build_wymowa(lessons)
+    build_liczby()
     print("index.html OK")

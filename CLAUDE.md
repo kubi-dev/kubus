@@ -20,9 +20,9 @@ Gdy `CLAUDE_CODE_REMOTE=true`, sesja działa na gałęzi `claude/...`, a strona 
 
 ## Architektura
 
-**Źródła prawdy (edytuj tylko je):** `lekcje/NN-slug/lekcja.json`, `lekcje/NN-slug/scenki.json`, `materialy/*/lekcja.json` (z gotowymi `audio/` i `obrazki/`, bo tych nie da się pobrać ponownie), `wymowa.json`, `zapis.json`, szablony `*.html` w katalogu głównym, `wymowa.js`, `lista.js`, `lista.css`, skrypty `.py`.
+**Źródła prawdy (edytuj tylko je):** `lekcje/NN-slug/lekcja.json`, `lekcje/NN-slug/scenki.json`, `materialy/*/lekcja.json` (z gotowymi `audio/` i `obrazki/`, bo tych nie da się pobrać ponownie), `wymowa.json`, `liczby.json`, `zapis.json`, szablony `*.html` w katalogu głównym, `wymowa.js`, `lista.js`, `lista.css`, skrypty `.py`.
 
-**Wszystko inne generuje `build.py`** i jest commitowane, bo GitHub Pages serwuje repo wprost: każdy `index.html` (główny, `lekcje/*/`, `powtorka/`, `ulubione/`, `podcast/`, `scenki/`, `tony/`, `dzwieki/`), `notatki.md`, `powtorka/karty.json`, katalogi `audio/` i `obrazki/`, pliki `*.mp3` i ich manifesty (`podcast.json`, `scenka-*.json`, `wszystko.json`). Nie poprawiaj ich ręcznie: zmień szablon lub dane i przebuduj.
+**Wszystko inne generuje `build.py`** i jest commitowane, bo GitHub Pages serwuje repo wprost: każdy `index.html` (główny, `lekcje/*/`, `powtorka/`, `ulubione/`, `podcast/`, `scenki/`, `tony/`, `dzwieki/`, `liczby/`), `notatki.md`, `powtorka/karty.json`, katalogi `audio/` i `obrazki/`, pliki `*.mp3` i ich manifesty (`podcast.json`, `scenka-*.json`, `wszystko.json`). Nie poprawiaj ich ręcznie: zmień szablon lub dane i przebuduj.
 
 **Jak działa build:** szablony mają znaczniki `{{DATA_JSON}}`, `{{KARTY_JSON}}`, `{{SYNC_URL}}`, `{{WERSJA}}` itd., a build wstrzykuje dane jako JSON prosto w stronę (strony nie pobierają danych w runtime). `{{WERSJA}}` to hash `wymowa.js` + `lista.js` + `lista.css` do cache-bustingu, więc po zmianie tych plików zawsze przebuduj. Nazwa nagrania to md5 znaków, więc zmiana znaków w karcie oznacza nowe nagranie.
 

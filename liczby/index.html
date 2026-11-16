@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liczby · Notatki z chińskiego</title>
+<style>
+  :root {
+    --bg: #f6f1e8; --card: #fffdf8; --ink: #1f1a14; --muted: #7a6f62;
+    --accent: #b8362d; --accent-soft: #f3d9d5; --line: #e6dccd;
+    --ok-bg: #dff3e3; --ok-ink: #14532d; --mid-bg: #fdf0d5; --mid-ink: #7c4a03;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #171412; --card: #221e1a; --ink: #f1e9dd; --muted: #a2968a;
+            --accent: #e0574c; --accent-soft: #3a2320; --line: #332c26;
+            --ok-bg: #14351f; --ok-ink: #9be2b0; --mid-bg: #3a2c10; --mid-ink: #f0c674; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  header { padding: 14px 18px 8px; max-width: 760px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
+  header a { color: var(--accent); text-decoration: none; font-size: 14px; }
+  header label { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--muted); }
+  .ttl { flex: 1; text-align: center; font-size: 16px; font-weight: 600; }
+  main { max-width: 760px; margin: 0 auto; padding: 8px 16px 80px; }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 26px 0 8px; }
+  .intro { color: var(--muted); font-size: 14px; margin: 0 0 6px; line-height: 1.45; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
+  /* odliczanie */
+  .tryby { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+  .tryby button, .btn { font: inherit; font-size: 14px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+  .tryby button.on { border-color: var(--accent); background: var(--accent-soft); }
+  .licz { text-align: center; padding: 6px 0 2px; }
+  .licz .cyfra { font-size: 72px; font-weight: 700; line-height: 1.1; margin: 10px 0 2px; }
+  .licz .pod { font-size: 18px; min-height: 26px; color: var(--muted); }
+  .licz .pod b { color: var(--ink); }
+  .licz .guziki { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 10px 0; }
+  .licz .mic { font-size: 16px; padding: 12px 22px; }
+  .licz .result { text-align: left; margin-top: 8px; }
+  .licz .stan { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  /* lista */
+  .slowa { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  .w { display: grid; grid-template-columns: auto 2.1em 1fr auto; grid-template-areas: "play nr info mic" "res res res res"; align-items: center; gap: 4px 10px; padding: 6px 8px; border-radius: 10px; background: var(--bg); }
+  .w.playing { outline: 2px solid var(--accent); }
+  .w .play { grid-area: play; font: inherit; font-size: 16px; width: 36px; height: 36px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+  .w .nr { grid-area: nr; font-size: 26px; font-weight: 700; text-align: right; cursor: pointer; }
+  .w .info { grid-area: info; min-width: 0; cursor: pointer; }
+  .w .ppl { font-size: 17px; font-weight: 600; }
+  .w .mn { font-size: 13px; color: var(--muted); }
+  .w .zn { font-size: 13px; color: var(--muted); margin-left: 6px; }
+  .w .mic { grid-area: mic; }
+  .w .result { grid-area: res; }
+  .mic { display: inline-flex; align-items: center; gap: 4px; font: inherit; font-size: 12px; padding: 6px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer;
+         touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; white-space: nowrap; }
+  .mic.rec { background: var(--accent); color: #fff; border-color: var(--accent); animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { opacity: .6; } }
+  .result { font-size: 13px; padding: 8px 10px; border-radius: 8px; background: var(--card); line-height: 1.4; }
+  .result.ok { background: var(--ok-bg); color: var(--ok-ink); }
+  .result.mid { background: var(--mid-bg); color: var(--mid-ink); }
+  .result.bad { background: var(--accent-soft); color: var(--accent); }
+  .diag { font-size: 12px; color: var(--muted); margin: 24px 0 0; }
+  .diag pre { max-height: 200px; overflow: auto; font-size: 11px; white-space: pre-wrap; word-break: break-all; background: var(--card); padding: 8px; border-radius: 8px; }
+</style>
+</head>
+<body>
+<header>
+  <a href="../">← lekcje</a>
+  <span class="ttl">🔢 Liczby</span>
+  <label><input type="checkbox" id="slow"> wolno</label>
+</header>
+<main>
+  <p class="intro">Dotknij liczby, żeby ją usłyszeć. Przytrzymaj 🎤, powiedz i puść: zobaczysz, co usłyszał telefon.</p>
+
+  <h2>Odliczaj</h2>
+  <div class="card licz">
+    <div class="tryby" id="tryby"></div>
+    <div class="cyfra" id="l-cyfra"></div>
+    <div class="pod" id="l-pod"></div>
+    <div class="guziki">
+      <button class="btn" type="button" id="l-podp">podpowiedź</button>
+      <button class="mic" type="button" id="l-mic"></button>
+      <button class="btn" type="button" id="l-dalej">dalej ▶</button>
+    </div>
+    <div class="result" id="l-res" hidden></div>
+    <div class="stan" id="l-stan"></div>
+  </div>
+
+  <div id="lista"></div>
+  <details class="diag"><summary>diagnostyka mikrofonu</summary><pre id="diag-log"></pre></details>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.0/dist/index.js"></script>
+<script>window.SYNC_URL = "https://kubus-sync.dark-mud-b74c.workers.dev";</script>
+<script src="../wymowa.js?v=2e82f7d4"></script>
+<script>
+const DATA = {"grupy": [{"nazwa": "0–10", "opis": "Para do ucha: 4 „sy” to twarde s, 10 „szy” to sz. Przy cenach mylą się najczęściej.", "liczby": [{"liczba": "0", "znaki": "零", "pinyin": "líng", "polski": "ling", "znaczenie": "zero"}, {"liczba": "1", "znaki": "一", "pinyin": "yī", "polski": "i", "znaczenie": "jeden"}, {"liczba": "2", "znaki": "二", "pinyin": "èr", "polski": "ar", "znaczenie": "dwa"}, {"liczba": "3", "znaki": "三", "pinyin": "sān", "polski": "san", "znaczenie": "trzy"}, {"liczba": "4", "znaki": "四", "pinyin": "sì", "polski": "sy", "znaczenie": "cztery"}, {"liczba": "5", "znaki": "五", "pinyin": "wǔ", "polski": "łu", "znaczenie": "pięć"}, {"liczba": "6", "znaki": "六", "pinyin": "liù", "polski": "lioł", "znaczenie": "sześć"}, {"liczba": "7", "znaki": "七", "pinyin": "qī", "polski": "ćhi", "znaczenie": "siedem"}, {"liczba": "8", "znaki": "八", "pinyin": "bā", "polski": "pa", "znaczenie": "osiem"}, {"liczba": "9", "znaki": "九", "pinyin": "jiǔ", "polski": "dzioł", "znaczenie": "dziewięć"}, {"liczba": "10", "znaki": "十", "pinyin": "shí", "polski": "szy", "znaczenie": "dziesięć"}]}, {"nazwa": "11–20", "opis": "Dziesięć i liczba: 11 = 10 + 1 = szy-i.", "liczby": [{"liczba": "11", "znaki": "十一", "pinyin": "shíyī", "polski": "szy-i", "znaczenie": "jedenaście"}, {"liczba": "12", "znaki": "十二", "pinyin": "shí'èr", "polski": "szy-ar", "znaczenie": "dwanaście"}, {"liczba": "13", "znaki": "十三", "pinyin": "shísān", "polski": "szy-san", "znaczenie": "trzynaście"}, {"liczba": "14", "znaki": "十四", "pinyin": "shísì", "polski": "szy-sy", "znaczenie": "czternaście"}, {"liczba": "15", "znaki": "十五", "pinyin": "shíwǔ", "polski": "szy-łu", "znaczenie": "piętnaście"}, {"liczba": "16", "znaki": "十六", "pinyin": "shíliù", "polski": "szy-lioł", "znaczenie": "szesnaście"}, {"liczba": "17", "znaki": "十七", "pinyin": "shíqī", "polski": "szy-ćhi", "znaczenie": "siedemnaście"}, {"liczba": "18", "znaki": "十八", "pinyin": "shíbā", "polski": "szy-pa", "znaczenie": "osiemnaście"}, {"liczba": "19", "znaki": "十九", "pinyin": "shíjiǔ", "polski": "szy-dzioł", "znaczenie": "dziewiętnaście"}, {"liczba": "20", "znaki": "二十", "pinyin": "èrshí", "polski": "ar-szy", "znaczenie": "dwadzieścia"}]}, {"nazwa": "Dziesiątki", "opis": "Liczba i dziesięć: 30 = 3 × 10 = san-szy. Reszta to składanie: 35 = 30 + 5 = san-szy łu.", "liczby": [{"liczba": "10", "znaki": "十", "pinyin": "shí", "polski": "szy", "znaczenie": "dziesięć"}, {"liczba": "20", "znaki": "二十", "pinyin": "èrshí", "polski": "ar-szy", "znaczenie": "dwadzieścia"}, {"liczba": "30", "znaki": "三十", "pinyin": "sānshí", "polski": "san-szy", "znaczenie": "trzydzieści"}, {"liczba": "40", "znaki": "四十", "pinyin": "sìshí", "polski": "sy-szy", "znaczenie": "czterdzieści"}, {"liczba": "50", "znaki": "五十", "pinyin": "wǔshí", "polski": "łu-szy", "znaczenie": "pięćdziesiąt"}, {"liczba": "60", "znaki": "六十", "pinyin": "liùshí", "polski": "lioł-szy", "znaczenie": "sześćdziesiąt"}, {"liczba": "70", "znaki": "七十", "pinyin": "qīshí", "polski": "ćhi-szy", "znaczenie": "siedemdziesiąt"}, {"liczba": "80", "znaki": "八十", "pinyin": "bāshí", "polski": "pa-szy", "znaczenie": "osiemdziesiąt"}, {"liczba": "90", "znaki": "九十", "pinyin": "jiǔshí", "polski": "dzioł-szy", "znaczenie": "dziewięćdziesiąt"}, {"liczba": "100", "znaki": "一百", "pinyin": "yìbǎi", "polski": "i-paj", "znaczenie": "sto"}]}], "audio": {"零": "777fda6c51", "一": "7941da94db", "二": "2d8be272c9", "三": "e662ff59a0", "四": "21716cf311", "五": "1fcc29d077", "六": "61b453523d", "七": "aad6914f8f", "八": "edf1acd5c6", "九": "9b4851f85d", "十": "181245720b", "十一": "6863d827d8", "十二": "c04fc25ea7", "十三": "4a1cecc838", "十四": "a9019bd013", "十五": "5260c1f701", "十六": "f15bd14b07", "十七": "f44be04f47", "十八": "83b67cd817", "十九": "be192d36eb", "二十": "39f55a21eb", "三十": "74968da48b", "四十": "988adf6969", "五十": "8adffdaa4c", "六十": "549e1523d4", "七十": "bddfc61e69", "八十": "009ba510c7", "九十": "e17953c9c5", "一百": "61b0509932"}};
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const AUDIO = DATA.audio || {};
+const slowCb = $("slow");
+try { slowCb.checked = localStorage.getItem("kubus.wymowa.wolno") === "1"; } catch (e) {}
+slowCb.addEventListener("change", () => { try { localStorage.setItem("kubus.wymowa.wolno", slowCb.checked ? "1" : "0"); } catch (e) {} });
+
+// ---- audio: mp3 z liczby/audio/ przez Wymowa.graj (Web Audio, bez <audio>) ----
+let grajacy = null, nrOdtworzenia = 0;
+function graj(znaki, el) {
+  const f = AUDIO[znaki];
+  if (grajacy) grajacy.classList.remove("playing");
+  grajacy = el || null; if (el) el.classList.add("playing");
+  if (!f) { Wymowa.diag("brak mp3 dla " + znaki); return Promise.resolve(false); }
+  const moje = ++nrOdtworzenia;
+  return Wymowa.graj("audio/" + f + (slowCb.checked ? "-slow" : "") + ".mp3", { onEnd: () => { if (moje === nrOdtworzenia && grajacy) { grajacy.classList.remove("playing"); grajacy = null; } } })
+    .catch(e => { Wymowa.diag("mp3 błąd: " + e.message); return false; });
+}
+Wymowa.beforeStart = () => { if (grajacy) { grajacy.classList.remove("playing"); grajacy = null; } };
+
+// Whisper czasem pisze liczbę cyframi („4”, „100”): zamiana na znaki, zanim strona porówna z celem.
+const ZN = "零一二三四五六七八九";
+function naZnaki(n) {
+  if (n < 10) return ZN[n];
+  if (n === 100) return "一百";
+  if (n > 100) return null;
+  const d = Math.floor(n / 10), j = n % 10;
+  return (d > 1 ? ZN[d] : "") + "十" + (j ? ZN[j] : "");
+}
+const cyfryNaZnaki = s => String(s || "").replace(/\d+/g, m => naZnaki(Number(m)) || m);
+
+// mikrofon: ten sam co na innych stronach (Whisper z celem), ekran mówienia z polską wymową
+function bindMic(btn, out, s, opcje) {
+  opcje = opcje || {};
+  Wymowa.bind(btn, {
+    target: () => s().znaki,
+    audio: () => AUDIO[s().znaki] ? "audio/" + AUDIO[s().znaki] + ".mp3" : "",
+    ekran: () => ({ polski: s().polski, pinyin: s().pinyin, znaczenie: s().liczba + " · " + s().znaczenie, bezWymowy: opcje.bezWymowy ? opcje.bezWymowy() : false }),
+    onStart: () => {},
+    onDone: (res) => {
+      if (res && res.alts) res.alts = res.alts.map(cyfryNaZnaki);
+      const r = Wymowa.render(res, s().znaki);
+      out.hidden = false; out.className = "result " + r.cls; out.innerHTML = r.html;
+      if (opcje.onWynik) opcje.onWynik(r);
+    }
+  });
+  etykieta(btn, opcje.etykieta || "🎤 mów");
+}
+function etykieta(btn, tekst) {
+  btn.textContent = tekst;
+  const obs = new MutationObserver(() => { if (btn.textContent === Wymowa.LABEL_IDLE) btn.textContent = tekst; });
+  obs.observe(btn, { childList: true, characterData: true, subtree: true });
+}
+
+// ---- lista: grupa po grupie, każda liczba ▶ i 🎤 ----
+for (const g of DATA.grupy) {
+  const h = document.createElement("h2"); h.textContent = g.nazwa; $("lista").appendChild(h);
+  if (g.opis) { const p = document.createElement("p"); p.className = "intro"; p.textContent = g.opis; $("lista").appendChild(p); }
+  const box = document.createElement("div"); box.className = "slowa"; $("lista").appendChild(box);
+  for (const s of g.liczby) {
+    const d = document.createElement("div"); d.className = "w";
+    d.innerHTML = `<button class="play" type="button" aria-label="posłuchaj">▶</button><span class="nr">${esc(s.liczba)}</span>
+      <span class="info"><span class="ppl">${esc(s.polski)}</span><span class="zn">${esc(s.znaki)}</span><br><span class="mn">${esc(s.znaczenie)}</span></span>
+      <button class="mic" type="button"></button><div class="result" hidden></div>`;
+    d.addEventListener("click", (e) => { if (e.target.closest(".mic, .result")) return; graj(s.znaki, d); });
+    bindMic(d.querySelector(".mic"), d.querySelector(".result"), () => s);
+    box.appendChild(d);
+  }
+}
+
+// ---- odliczanie: liczba po liczbie; dobrze = od razu następna, źle = ta sama jeszcze raz ----
+// Wymowy nie widać od razu (masz ją powiedzieć sam); „podpowiedź” pokazuje ją i puszcza nagranie.
+// odliczanie od 1, nie od 0
+const ODLICZ = DATA.grupy.map(g => { const l = g.liczby.filter(s => s.liczba !== "0"); return { nazwa: l[0].liczba + "–" + l[l.length - 1].liczba, liczby: l }; });
+let grupa = ODLICZ[0], i = 0, pokazana = false, dobrze = 0, timer = null;
+const biez = () => grupa.liczby[i];
+function pokaz() {
+  clearTimeout(timer);
+  const s = biez();
+  $("l-cyfra").textContent = s.liczba;
+  $("l-pod").innerHTML = pokazana ? `<b>${esc(s.polski)}</b> · ${esc(s.znaczenie)}` : "";
+  $("l-res").hidden = true;
+  $("l-stan").textContent = `${i + 1} z ${grupa.liczby.length}` + (dobrze ? ` · dobrze za pierwszym razem: ${dobrze}` : "");
+}
+let pierwszaProba = true;
+function nastepna() {
+  pokazana = false; pierwszaProba = true;
+  if (i + 1 < grupa.liczby.length) i++;
+  else { i = 0; dobrze = 0; }
+  pokaz();
+}
+for (const g of ODLICZ) {
+  const b = document.createElement("button"); b.type = "button"; b.textContent = g.nazwa;
+  if (g === grupa) b.classList.add("on");
+  b.addEventListener("click", () => { grupa = g; i = 0; dobrze = 0; pokazana = false; pierwszaProba = true; for (const x of $("tryby").children) x.classList.toggle("on", x === b); pokaz(); });
+  $("tryby").appendChild(b);
+}
+$("l-podp").addEventListener("click", () => { pokazana = true; pokaz(); graj(biez().znaki); });
+$("l-dalej").addEventListener("click", nastepna);
+bindMic($("l-mic"), $("l-res"), biez, {
+  etykieta: "🎤 przytrzymaj i powiedz",
+  bezWymowy: () => !pokazana,
+  onWynik: (r) => {
+    const ok = r.cls === "ok";
+    if (ok && pierwszaProba) dobrze++;
+    pierwszaProba = false;
+    if (ok) { $("l-stan").textContent = "✓ następna za chwilę…"; timer = setTimeout(nastepna, 1500); }
+    else { pokazana = true; $("l-pod").innerHTML = `<b>${esc(biez().polski)}</b> · ${esc(biez().znaczenie)}`; }
+  }
+});
+pokaz();
+</script>
+</body>
+</html>
