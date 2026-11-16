@@ -2,7 +2,7 @@
  "numer": 102,
  "sciezka": "hsk",
  "tytul": "HSK 1 · krok 2",
- "opis": "44 karty: liczby, z dziewczyną, rozmowa, gdy nie rozumiesz; słowa HSK 1 na znanych schematach",
+ "opis": "45 kart: liczby, z dziewczyną, rozmowa, gdy nie rozumiesz; słowa HSK 1 na znanych schematach",
  "data": "2026-11-12",
  "sekcje": [
   {
@@ -379,6 +379,14 @@
      "doslownie": "słusznie",
      "notatki": "„tak” na zgadywanie: Wróciłeś już? – tłej. Inaczej niż szy (是), które znaczy „jest, jestem”",
      "znaczenie": "right · zgadza się, tak"
+    },
+    {
+     "znaki": "去我家吧！",
+     "pinyin": "Qù wǒ jiā ba!",
+     "polski": "ćhü ło dzia pa",
+     "doslownie": "iść · ja · dom · (propozycja)",
+     "notatki": "po komplemencie, pod koniec wieczoru",
+     "znaczenie": "Let's go to my place! · Chodźmy do mnie!"
     }
    ]
   }
