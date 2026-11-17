@@ -12,3 +12,13 @@ Data: 2026-11-16
 | 你喜欢我吗？ | Nǐ xǐhuan wǒ ma? | ni si-chłan ło ma |  | Do you like me? · Lubisz mnie? |
 | 谢谢你教我中文，很有趣。 | Xièxie nǐ jiāo wǒ Zhōngwén, hěn yǒuqù. | sie-sie ni dział ło czong-łen chen joł-ćhü | SIE SIE NI DZIAŁ ŁO CHUŁEN. CHEN JOŁ CHÜ | Thanks for teaching me Chinese, it's fun. · Dzięki, że uczysz mnie chińskiego, to fajne. |
 | 今晚来我家吗？ | Jīnwǎn lái wǒ jiā ma? | dzin-łan laj ło dzia ma | DZIN-ŁAN-LA-ŁO-DZIA-MA · LAI / PU LAI | Will you come to my place tonight? · Przyjdziesz dziś wieczorem do mnie? |
+
+## Słówka ze zdań
+
+| Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
+|---|---|---|---|---|
+| 外国人 | wàiguórén | łaj-kło-żen |  | foreigner · obcokrajowiec |
+| 什么时候 | shénme shíhou | szen-ma szy-choł | SZEMA-SZY-HOŁ | when? · kiedy? |
+| 有趣 | yǒuqù | joł-ćhü | JOŁ CHÜ | fun, interesting · ciekawy, fajny |
+| 来 | lái | laj | LAI | come / yes · przyjść / tak, przyjdę |
+| 家 | jiā | dzia |  | home · dom |

@@ -171,6 +171,19 @@
   }
  },
  {
+  "id": "来",
+  "znaki": "来",
+  "pinyin": "lái",
+  "polski": "laj",
+  "doslownie": "",
+  "znaczenie": "come / yes · przyjść / tak, przyjdę",
+  "lekcja": 5,
+  "lekcjaTytul": "Lekcja 5 · Randka",
+  "audio": "lekcje/05-randka/audio/f7b0a3bd20",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "你来自哪里？",
   "znaki": "你来自哪里？",
   "pinyin": "Nǐ láizì nǎlǐ?",
@@ -2379,6 +2392,19 @@
   "obrazek": null
  },
  {
+  "id": "什么时候",
+  "znaki": "什么时候",
+  "pinyin": "shénme shíhou",
+  "polski": "szen-ma szy-choł",
+  "doslownie": "co · czas",
+  "znaczenie": "when? · kiedy?",
+  "lekcja": 5,
+  "lekcjaTytul": "Lekcja 5 · Randka",
+  "audio": "lekcje/05-randka/audio/c0d56a93de",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "你什么时候再见我？",
   "znaki": "你什么时候再见我？",
   "pinyin": "Nǐ shénme shíhou zài jiàn wǒ?",
@@ -2388,6 +2414,19 @@
   "lekcja": 5,
   "lekcjaTytul": "Lekcja 5 · Randka",
   "audio": "lekcje/05-randka/audio/5fb2380233",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "外国人",
+  "znaki": "外国人",
+  "pinyin": "wàiguórén",
+  "polski": "łaj-kło-żen",
+  "doslownie": "zagraniczny · kraj · człowiek",
+  "znaczenie": "foreigner · obcokrajowiec",
+  "lekcja": 5,
+  "lekcjaTytul": "Lekcja 5 · Randka",
+  "audio": "lekcje/05-randka/audio/bd3a9d4979",
   "img": "",
   "obrazek": null
  },
@@ -2418,6 +2457,19 @@
   "obrazek": null
  },
  {
+  "id": "有趣",
+  "znaki": "有趣",
+  "pinyin": "yǒuqù",
+  "polski": "joł-ćhü",
+  "doslownie": "mieć · zainteresowanie",
+  "znaczenie": "fun, interesting · ciekawy, fajny",
+  "lekcja": 5,
+  "lekcjaTytul": "Lekcja 5 · Randka",
+  "audio": "lekcje/05-randka/audio/457bb7cb3c",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "谢谢你教我中文，很有趣。",
   "znaki": "谢谢你教我中文，很有趣。",
   "pinyin": "Xièxie nǐ jiāo wǒ Zhōngwén, hěn yǒuqù.",
@@ -2427,6 +2479,19 @@
   "lekcja": 5,
   "lekcjaTytul": "Lekcja 5 · Randka",
   "audio": "lekcje/05-randka/audio/df7a0f36e8",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "家",
+  "znaki": "家",
+  "pinyin": "jiā",
+  "polski": "dzia",
+  "doslownie": "",
+  "znaczenie": "home · dom",
+  "lekcja": 5,
+  "lekcjaTytul": "Lekcja 5 · Randka",
+  "audio": "lekcje/05-randka/audio/a6cdd2a00b",
   "img": "",
   "obrazek": null
  },

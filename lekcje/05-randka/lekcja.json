@@ -55,6 +55,49 @@
           "znaczenie": "Will you come to my place tonight? · Przyjdziesz dziś wieczorem do mnie?"
         }
       ]
+    },
+    {
+      "nazwa": "Słówka ze zdań",
+      "pozycje": [
+        {
+          "znaki": "外国人",
+          "pinyin": "wàiguórén",
+          "polski": "łaj-kło-żen",
+          "doslownie": "zagraniczny · kraj · człowiek",
+          "notatki": "",
+          "znaczenie": "foreigner · obcokrajowiec"
+        },
+        {
+          "znaki": "什么时候",
+          "pinyin": "shénme shíhou",
+          "polski": "szen-ma szy-choł",
+          "doslownie": "co · czas",
+          "notatki": "SZEMA-SZY-HOŁ",
+          "znaczenie": "when? · kiedy?"
+        },
+        {
+          "znaki": "有趣",
+          "pinyin": "yǒuqù",
+          "polski": "joł-ćhü",
+          "doslownie": "mieć · zainteresowanie",
+          "notatki": "JOŁ CHÜ",
+          "znaczenie": "fun, interesting · ciekawy, fajny"
+        },
+        {
+          "znaki": "来",
+          "pinyin": "lái",
+          "polski": "laj",
+          "notatki": "LAI",
+          "znaczenie": "come / yes · przyjść / tak, przyjdę"
+        },
+        {
+          "znaki": "家",
+          "pinyin": "jiā",
+          "polski": "dzia",
+          "notatki": "",
+          "znaczenie": "home · dom"
+        }
+      ]
     }
   ]
 }
