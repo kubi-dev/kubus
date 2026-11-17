@@ -11,6 +11,7 @@ Data: 2026-11-16
 | 你喜欢外国人吗？ | Nǐ xǐhuan wàiguórén ma? | ni si-chłan łaj-kło-żen ma | NI SI-CHAN ŁAJ… MA? | Do you like foreigners? · Lubisz obcokrajowców? |
 | 你喜欢我吗？ | Nǐ xǐhuan wǒ ma? | ni si-chłan ło ma |  | Do you like me? · Lubisz mnie? |
 | 谢谢你教我中文，很有趣。 | Xièxie nǐ jiāo wǒ Zhōngwén, hěn yǒuqù. | sie-sie ni dział ło czong-łen chen joł-ćhü | SIE SIE NI DZIAŁ ŁO CHUŁEN. CHEN JOŁ CHÜ | Thanks for teaching me Chinese, it's fun. · Dzięki, że uczysz mnie chińskiego, to fajne. |
+| 聊得很开心！ | Liáo de hěn kāixīn! | liał da chen khaj-sin | na WeChacie po spotkaniu; jak 玩得开心。 | It was fun talking! · Fajnie się gadało! |
 | 今晚来我家吗？ | Jīnwǎn lái wǒ jiā ma? | dzin-łan laj ło dzia ma | DZIN-ŁAN-LA-ŁO-DZIA-MA · LAI / PU LAI | Will you come to my place tonight? · Przyjdziesz dziś wieczorem do mnie? |
 
 ## Słówka ze zdań
