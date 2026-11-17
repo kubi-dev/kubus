@@ -2613,6 +2613,19 @@
   "obrazek": null
  },
  {
+  "id": "客气客气。",
+  "znaki": "客气客气。",
+  "pinyin": "Kèqi kèqi.",
+  "polski": "khy-ćhi khy-ćhi",
+  "doslownie": "grzeczność · grzeczność",
+  "znaczenie": "No worries. · Drobiazg, nie ma sprawy.",
+  "lekcja": 5,
+  "lekcjaTytul": "Lekcja 5 · Randka",
+  "audio": "lekcje/05-randka/audio/53ba3112f3",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "手机",
   "znaki": "手机",
   "pinyin": "shǒujī",
