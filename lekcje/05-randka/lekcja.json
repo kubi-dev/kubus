@@ -69,6 +69,38 @@
           "doslownie": "grzeczność · grzeczność",
           "notatki": "luźna odpowiedź na podziękowanie, swobodniejsza niż pu khy-ćhi",
           "znaczenie": "No worries. · Drobiazg, nie ma sprawy."
+        },
+        {
+          "znaki": "我先忙一下，等下找你玩！",
+          "pinyin": "Wǒ xiān máng yíxià, děng xià zhǎo nǐ wán!",
+          "polski": "ło sien mang i-sia tang sia czał ni łan",
+          "doslownie": "ja · najpierw · zajęty · chwilkę · zaraz · szukać · ty · bawić się",
+          "notatki": "wiadomość na WeChacie",
+          "znaczenie": "Let me get some work done, then I'll come hang out with you! · Chwilę się ogarnę z robotą, a zaraz potem przychodzę do ciebie się pobawić!"
+        },
+        {
+          "znaki": "我先忙一下。",
+          "pinyin": "Wǒ xiān máng yíxià.",
+          "polski": "ło sien mang i-sia",
+          "doslownie": "ja · najpierw · zajęty · chwilkę",
+          "notatki": "mang = zajęty; o pracy mówi się tak częściej niż kong-dzło",
+          "znaczenie": "I'm busy for a bit first. · Najpierw chwilę jestem zajęty."
+        },
+        {
+          "znaki": "等下",
+          "pinyin": "děng xià",
+          "polski": "tang sia",
+          "doslownie": "czekać · chwila",
+          "notatki": "krócej niż tang i-sia",
+          "znaczenie": "in a moment · zaraz, za chwilę"
+        },
+        {
+          "znaki": "找你玩",
+          "pinyin": "zhǎo nǐ wán",
+          "polski": "czał ni łan",
+          "doslownie": "szukać · ty · bawić się",
+          "notatki": "przyjść do kogoś, spędzić razem czas",
+          "znaczenie": "come hang out with you · wpaść do ciebie się pobawić"
         }
       ]
     },

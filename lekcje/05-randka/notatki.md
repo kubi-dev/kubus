@@ -14,6 +14,10 @@ Data: 2026-11-16
 | 聊得很开心！ | Liáo de hěn kāixīn! | liał da chen khaj-sin | na WeChacie po spotkaniu; jak 玩得开心。 | It was fun talking! · Fajnie się gadało! |
 | 今晚来我家吗？ | Jīnwǎn lái wǒ jiā ma? | dzin-łan laj ło dzia ma | DZIN-ŁAN-LA-ŁO-DZIA-MA · LAI / PU LAI | Will you come to my place tonight? · Przyjdziesz dziś wieczorem do mnie? |
 | 客气客气。 | Kèqi kèqi. | khy-ćhi khy-ćhi | luźna odpowiedź na podziękowanie, swobodniejsza niż pu khy-ćhi | No worries. · Drobiazg, nie ma sprawy. |
+| 我先忙一下，等下找你玩！ | Wǒ xiān máng yíxià, děng xià zhǎo nǐ wán! | ło sien mang i-sia tang sia czał ni łan | wiadomość na WeChacie | Let me get some work done, then I'll come hang out with you! · Chwilę się ogarnę z robotą, a zaraz potem przychodzę do ciebie się pobawić! |
+| 我先忙一下。 | Wǒ xiān máng yíxià. | ło sien mang i-sia | mang = zajęty; o pracy mówi się tak częściej niż kong-dzło | I'm busy for a bit first. · Najpierw chwilę jestem zajęty. |
+| 等下 | děng xià | tang sia | krócej niż tang i-sia | in a moment · zaraz, za chwilę |
+| 找你玩 | zhǎo nǐ wán | czał ni łan | przyjść do kogoś, spędzić razem czas | come hang out with you · wpaść do ciebie się pobawić |
 
 ## Słówka ze zdań
 

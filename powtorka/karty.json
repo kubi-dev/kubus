@@ -2626,6 +2626,58 @@
   "obrazek": null
  },
  {
+  "id": "我先忙一下。",
+  "znaki": "我先忙一下。",
+  "pinyin": "Wǒ xiān máng yíxià.",
+  "polski": "ło sien mang i-sia",
+  "doslownie": "ja · najpierw · zajęty · chwilkę",
+  "znaczenie": "I'm busy for a bit first. · Najpierw chwilę jestem zajęty.",
+  "lekcja": 5,
+  "lekcjaTytul": "Lekcja 5 · Randka",
+  "audio": "lekcje/05-randka/audio/b990f30190",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "等下",
+  "znaki": "等下",
+  "pinyin": "děng xià",
+  "polski": "tang sia",
+  "doslownie": "czekać · chwila",
+  "znaczenie": "in a moment · zaraz, za chwilę",
+  "lekcja": 5,
+  "lekcjaTytul": "Lekcja 5 · Randka",
+  "audio": "lekcje/05-randka/audio/df98f7b5b8",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "找你玩",
+  "znaki": "找你玩",
+  "pinyin": "zhǎo nǐ wán",
+  "polski": "czał ni łan",
+  "doslownie": "szukać · ty · bawić się",
+  "znaczenie": "come hang out with you · wpaść do ciebie się pobawić",
+  "lekcja": 5,
+  "lekcjaTytul": "Lekcja 5 · Randka",
+  "audio": "lekcje/05-randka/audio/65d7040e42",
+  "img": "",
+  "obrazek": null
+ },
+ {
+  "id": "我先忙一下，等下找你玩！",
+  "znaki": "我先忙一下，等下找你玩！",
+  "pinyin": "Wǒ xiān máng yíxià, děng xià zhǎo nǐ wán!",
+  "polski": "ło sien mang i-sia tang sia czał ni łan",
+  "doslownie": "ja · najpierw · zajęty · chwilkę · zaraz · szukać · ty · bawić się",
+  "znaczenie": "Let me get some work done, then I'll come hang out with you! · Chwilę się ogarnę z robotą, a zaraz potem przychodzę do ciebie się pobawić!",
+  "lekcja": 5,
+  "lekcjaTytul": "Lekcja 5 · Randka",
+  "audio": "lekcje/05-randka/audio/eda13d8cb0",
+  "img": "",
+  "obrazek": null
+ },
+ {
   "id": "手机",
   "znaki": "手机",
   "pinyin": "shǒujī",
