@@ -98,6 +98,111 @@
           "znaczenie": "home · dom"
         }
       ]
+    },
+    {
+      "nazwa": "Słówka z kart HSK 1",
+      "pozycje": [
+        {
+          "znaki": "手机",
+          "pinyin": "shǒujī",
+          "polski": "szoł-dzi",
+          "doslownie": "ręka · maszyna",
+          "notatki": "",
+          "znaczenie": "mobile phone · telefon, komórka"
+        },
+        {
+          "znaki": "开心",
+          "pinyin": "kāixīn",
+          "polski": "khaj-sin",
+          "doslownie": "otworzyć · serce",
+          "notatki": "",
+          "znaczenie": "happy · wesoły, szczęśliwy"
+        },
+        {
+          "znaki": "跑步",
+          "pinyin": "pǎobù",
+          "polski": "phał-pu",
+          "notatki": "",
+          "znaczenie": "run · biegać"
+        },
+        {
+          "znaki": "游泳",
+          "pinyin": "yóuyǒng",
+          "polski": "joł-jong",
+          "notatki": "",
+          "znaczenie": "swim · pływać"
+        },
+        {
+          "znaki": "做饭",
+          "pinyin": "zuòfàn",
+          "polski": "dzło-fan",
+          "notatki": "",
+          "znaczenie": "cook · gotować"
+        },
+        {
+          "znaki": "看书",
+          "pinyin": "kànshū",
+          "polski": "khan-szu",
+          "notatki": "",
+          "znaczenie": "read · czytać"
+        },
+        {
+          "znaki": "唱歌",
+          "pinyin": "chànggē",
+          "polski": "czhang-ky",
+          "notatki": "",
+          "znaczenie": "sing · śpiewać"
+        },
+        {
+          "znaki": "跳舞",
+          "pinyin": "tiàowǔ",
+          "polski": "thiał-łu",
+          "notatki": "",
+          "znaczenie": "dance · tańczyć"
+        },
+        {
+          "znaki": "书",
+          "pinyin": "shū",
+          "polski": "szu",
+          "notatki": "",
+          "znaczenie": "book · książka"
+        },
+        {
+          "znaki": "钥匙",
+          "pinyin": "yàoshi",
+          "polski": "jał-szy",
+          "notatki": "",
+          "znaczenie": "keys · klucze"
+        },
+        {
+          "znaki": "眼镜",
+          "pinyin": "yǎnjìng",
+          "polski": "jen-dzing",
+          "notatki": "",
+          "znaczenie": "glasses · okulary"
+        },
+        {
+          "znaki": "包",
+          "pinyin": "bāo",
+          "polski": "pał",
+          "notatki": "",
+          "znaczenie": "bag · torba"
+        },
+        {
+          "znaki": "杯子",
+          "pinyin": "bēizi",
+          "polski": "pej-dzy",
+          "notatki": "",
+          "znaczenie": "cup · kubek"
+        },
+        {
+          "znaki": "盘子",
+          "pinyin": "pánzi",
+          "polski": "phan-dzy",
+          "notatki": "",
+          "znaczenie": "plate · talerz"
+        }
+      ]
     }
   ]
 }

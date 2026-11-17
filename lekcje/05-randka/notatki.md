@@ -22,3 +22,22 @@ Data: 2026-11-16
 | 有趣 | yǒuqù | joł-ćhü | JOŁ CHÜ | fun, interesting · ciekawy, fajny |
 | 来 | lái | laj | LAI | come / yes · przyjść / tak, przyjdę |
 | 家 | jiā | dzia |  | home · dom |
+
+## Słówka z kart HSK 1
+
+| Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
+|---|---|---|---|---|
+| 手机 | shǒujī | szoł-dzi |  | mobile phone · telefon, komórka |
+| 开心 | kāixīn | khaj-sin |  | happy · wesoły, szczęśliwy |
+| 跑步 | pǎobù | phał-pu |  | run · biegać |
+| 游泳 | yóuyǒng | joł-jong |  | swim · pływać |
+| 做饭 | zuòfàn | dzło-fan |  | cook · gotować |
+| 看书 | kànshū | khan-szu |  | read · czytać |
+| 唱歌 | chànggē | czhang-ky |  | sing · śpiewać |
+| 跳舞 | tiàowǔ | thiał-łu |  | dance · tańczyć |
+| 书 | shū | szu |  | book · książka |
+| 钥匙 | yàoshi | jał-szy |  | keys · klucze |
+| 眼镜 | yǎnjìng | jen-dzing |  | glasses · okulary |
+| 包 | bāo | pał |  | bag · torba |
+| 杯子 | bēizi | pej-dzy |  | cup · kubek |
+| 盘子 | pánzi | phan-dzy |  | plate · talerz |

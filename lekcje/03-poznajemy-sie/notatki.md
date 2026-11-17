@@ -55,6 +55,8 @@ Data: 2026-09-19
 
 | Znaki | Pinyin | Zapis polski | Zapis z notatek | Znaczenie |
 |---|---|---|---|---|
+| 多久 | duōjiǔ | tło-dzioł |  | how long? · jak długo? |
+| 练习 | liànxí | lien-si |  | practice · ćwiczyć (np. język) |
 | 旅游 | lǚyóu | lü-joł | LI-JO · TRAVEL | travel · podróżować |
 | 当然啦！ | Dāngrán la! | tang-żan la | DON-RAN-LA · OCZYWIŚCIE | Of course! · Oczywiście! |
 | 可以吻你吗？ | Kěyǐ wěn nǐ ma? | khy-i łen ni ma | KAJI-ŁYN NI MA | Can I kiss you? · Mogę Cię pocałować? |

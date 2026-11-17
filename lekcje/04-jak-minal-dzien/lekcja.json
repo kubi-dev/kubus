@@ -94,7 +94,10 @@
         {"znaki": "今晚", "pinyin": "jīnwǎn", "polski": "dzin-łan", "notatki": "", "znaczenie": "tonight · dziś wieczorem"},
         {"znaki": "有空", "pinyin": "yǒu kòng", "polski": "joł khong", "doslownie": "mieć · wolny czas", "notatki": "", "znaczenie": "have free time · mieć wolny czas"},
         {"znaki": "周末", "pinyin": "zhōumò", "polski": "czoł-mo", "notatki": "", "znaczenie": "weekend · weekend"},
-        {"znaki": "计划", "pinyin": "jìhuà", "polski": "dzi-chła", "notatki": "", "znaczenie": "plan · plan"}
+        {"znaki": "计划", "pinyin": "jìhuà", "polski": "dzi-chła", "notatki": "", "znaczenie": "plan · plan"},
+        {"znaki": "最近", "pinyin": "zuìjìn", "polski": "dzłej-dzin", "notatki": "", "znaczenie": "lately · ostatnio"},
+        {"znaki": "早餐", "pinyin": "zǎocān", "polski": "dzał-cchan", "notatki": "", "znaczenie": "breakfast · śniadanie"},
+        {"znaki": "辣椒", "pinyin": "làjiāo", "polski": "la-dział", "notatki": "", "znaczenie": "chili · chili (papryczka)"}
       ]
     }
   ]

@@ -95,3 +95,6 @@ Data: 2026-10-15
 | 有空 | yǒu kòng | joł khong |  | have free time · mieć wolny czas |
 | 周末 | zhōumò | czoł-mo |  | weekend · weekend |
 | 计划 | jìhuà | dzi-chła |  | plan · plan |
+| 最近 | zuìjìn | dzłej-dzin |  | lately · ostatnio |
+| 早餐 | zǎocān | dzał-cchan |  | breakfast · śniadanie |
+| 辣椒 | làjiāo | la-dział |  | chili · chili (papryczka) |

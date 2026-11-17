@@ -85,6 +85,8 @@
     {
       "nazwa": "Słówka i zwroty",
       "pozycje": [
+        {"znaki": "多久", "pinyin": "duōjiǔ", "polski": "tło-dzioł", "doslownie": "dużo · długo", "notatki": "", "znaczenie": "how long? · jak długo?"},
+        {"znaki": "练习", "pinyin": "liànxí", "polski": "lien-si", "notatki": "", "znaczenie": "practice · ćwiczyć (np. język)"},
         {"znaki": "旅游", "pinyin": "lǚyóu", "polski": "lü-joł", "notatki": "LI-JO · TRAVEL", "znaczenie": "travel · podróżować", "obrazek": {
             "id": "d44d8434-27b1-481e-bd41-68fabdc83c53", "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL2ZyZWVyYW5nZXBleGVsczAwOTg0LWltYWdlLWt3dngxNXkxLmpwZw.jpg", "autor": "", "licencja": "cc0", "zrodlo": "https://www.rawpixel.com/image/5918537/image-public-domain-person-red"}
         },
