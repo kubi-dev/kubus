@@ -18,6 +18,9 @@ Data: 2026-11-16
 | 我先忙一下。 | Wǒ xiān máng yíxià. | ło sien mang i-sia | mang = zajęty; o pracy mówi się tak częściej niż kong-dzło | I'm busy for a bit first. · Najpierw chwilę jestem zajęty. |
 | 等下 | děng xià | tang sia | krócej niż tang i-sia | in a moment · zaraz, za chwilę |
 | 找你玩 | zhǎo nǐ wán | czał ni łan | przyjść do kogoś, spędzić razem czas | come hang out with you · wpaść do ciebie się pobawić |
+| 我想操你。 | Wǒ xiǎng cào nǐ. | ło siang cchał ni | wulgarne | I want to fuck you. · Chcę się z tobą pieprzyć. |
+| 我想和你做爱。 | Wǒ xiǎng hé nǐ zuò'ài. | ło siang chy ni dzło-aj | zwykłe, nie wulgarne | I want to make love with you. · Chcę się z tobą kochać. |
+| 我们打一炮吧！ | Wǒmen dǎ yí pào ba! | ło-men ta i phał pa | slang, wulgarne | Let's fuck! · Bzykniemy się! |
 
 ## Słówka ze zdań
 
