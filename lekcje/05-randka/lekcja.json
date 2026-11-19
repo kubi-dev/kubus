@@ -101,14 +101,6 @@
           "doslownie": "szukać · ty · bawić się",
           "notatki": "przyjść do kogoś, spędzić razem czas",
           "znaczenie": "come hang out with you · wpaść do ciebie się pobawić"
-        },
-        {
-          "znaki": "你想做爱吗？",
-          "pinyin": "Nǐ xiǎng zuò'ài ma?",
-          "polski": "ni siang dzło-aj ma",
-          "doslownie": "ty · chcieć · uprawiać seks · (pytanie)",
-          "notatki": "pytanie wprost",
-          "znaczenie": "Do you want to make love? · Chcesz się kochać?"
         }
       ]
     },
@@ -154,12 +146,12 @@
           "znaczenie": "home · dom"
         },
         {
-          "znaki": "做爱",
-          "pinyin": "zuò'ài",
-          "polski": "dzło-aj",
-          "doslownie": "robić · miłość",
-          "notatki": "zwykłe słowo, nie wulgarne",
-          "znaczenie": "make love, have sex · uprawiać seks, kochać się"
+          "znaki": "操",
+          "pinyin": "cào",
+          "polski": "cchał",
+          "doslownie": "pieprzyć",
+          "notatki": "wulgarne; samo jako przekleństwo znaczy też „kurwa!”",
+          "znaczenie": "fuck · ruchać, pieprzyć (wulgarne)"
         }
       ]
     },
