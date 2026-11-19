@@ -18,6 +18,7 @@ Data: 2026-11-16
 | 我先忙一下。 | Wǒ xiān máng yíxià. | ło sien mang i-sia | mang = zajęty; o pracy mówi się tak częściej niż kong-dzło | I'm busy for a bit first. · Najpierw chwilę jestem zajęty. |
 | 等下 | děng xià | tang sia | krócej niż tang i-sia | in a moment · zaraz, za chwilę |
 | 找你玩 | zhǎo nǐ wán | czał ni łan | przyjść do kogoś, spędzić razem czas | come hang out with you · wpaść do ciebie się pobawić |
+| 你想做爱吗？ | Nǐ xiǎng zuò'ài ma? | ni siang dzło-aj ma | pytanie wprost | Do you want to make love? · Chcesz się kochać? |
 
 ## Słówka ze zdań
 
@@ -28,6 +29,7 @@ Data: 2026-11-16
 | 有趣 | yǒuqù | joł-ćhü | JOŁ CHÜ | fun, interesting · ciekawy, fajny |
 | 来 | lái | laj | LAI | come / yes · przyjść / tak, przyjdę |
 | 家 | jiā | dzia |  | home · dom |
+| 做爱 | zuò'ài | dzło-aj | zwykłe słowo, nie wulgarne | make love, have sex · uprawiać seks, kochać się |
 
 ## Słówka z kart HSK 1
 
