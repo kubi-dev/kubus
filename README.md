@@ -137,6 +137,8 @@ są z Google TTS (pobrane raz ręcznie przez `ensure_audio`, leżą w repo), obr
 `materialy/hsk1-krok2/`: 45 kart ułożone ręcznie (słowa HSK 1: liczby, rozmowa, gdy nie rozumiesz, z dziewczyną; bez dubli talii, bez godzin, bez taksówek i zakupów). Bez obrazków;
 nagrania z Google TTS pobrane raz ręcznie przez `ensure_audio(..., tts=True)` i leżą w repo, więc nowa karta tutaj wymaga tego samego kroku.
 
+Nagranie karty 操 (lekcja 5) jest z Google TTS dla znaku 肏 (cào, ton opadający), bo TTS czyta samo 操 jako cāo; plik leży w repo pod kluczem 操, build go nie nadpisuje. `wymowa.js` ustawia w pinyin-pro 操 = cào (cel i tony pod mikrofonem).
+
 ## Zapis polski (słownik sylab)
 `zapis.json`: każda sylaba pinyin -> zapis po polsku (z lekkim tonem osobno: 了 la, 们 men) i kilka wyjątków według ucha (什么 szen-ma,
 的/得 da, 哪儿 nar). Odtwarza zapis wszystkich kart z lekcji i słów ze stron tonów i dźwięków. `python3 zapis.py sprawdz` pokazuje karty

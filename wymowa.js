@@ -33,6 +33,9 @@
 (function () {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   const strip = s => s.replace(/[\p{P}\p{S}\s]/gu, ""); // cała interpunkcja i symbole (też „……” w kartach typu 我想喝……)
+  // 操 na kartach (wulgarne) czyta się cào, jak w nagraniach; pinyin-pro domyślnie daje cāo („obsługiwać”),
+  // przez co „cel” i tony pod mikrofonem pokazywały płaski ton (2026-11-21)
+  try { if (window.pinyinPro && pinyinPro.customPinyin) pinyinPro.customPinyin({ 操: "cào" }); } catch (e) {}
   const toPinyin = s => (window.pinyinPro ? pinyinPro.pinyin(s) : "");
   const toPinyinNoTone = s => (window.pinyinPro ? pinyinPro.pinyin(s, { toneType: "none" }) : s);
 
