@@ -14,6 +14,10 @@ Cloudflare Worker: synchronizacja postępu powtórek (KV) + rozpoznawanie mowy (
 - `POST /dziennik?powod=<powód>&strona=<ścieżka>` — body: tekst (UA + ostatnie 80 linii dziennika mikrofonu). Strony wysyłają go same,
   gdy mikrofon nie ruszy (limit 5 s albo błąd startu). Zostaje 7 dni w KV pod `dziennik:<czas>`:
   `npx wrangler kv key list --namespace-id <id STAN> --prefix dziennik: --remote`.
+- `POST /wynik` — body: JSON `{cel, text, poziom, ocena, silnik, strona, ms}`. Strony wysyłają go same po każdej próbie z mikrofonem
+  (oba silniki: chmura i rozpoznawanie z telefonu; na stronie tonów `ocena` tonów zamiast `text`/`poziom`). Bez nagrania, na stałe,
+  w KV pod `wynik:<czas>`; wszystko jest w metadanych, więc sama lista kluczy daje wyniki:
+  `npx wrangler kv key list --namespace-id <id STAN> --prefix wynik: --remote`. `poziom`: exact | tones | close | bad | none.
 
 - `POST /trener` — body: JSON `{cel:{znaki,pinyin}, uslyszane:{znaki,pinyin}, poziom, sylaby:[{znak,cel,celTon,usl,uslTon}]}` → `{diagnoza, wskazowka, cwiczenie:{znaki,pinyin,polski,wymowa,ton}}`.
   Claude Opus 5 przez `@anthropic-ai/sdk` (structured output, fallbacki `default`). Sekret `ANTHROPIC_API_KEY`.

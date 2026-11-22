@@ -4,6 +4,7 @@
 // POST /wymowa?cel=&strona= -> rozpoznanie mowy (Whisper, Workers AI); body = plik audio (WAV), odpowiedź {text}; próba zostaje 7 dni w KV „nagranie:<czas>”
 //   &zapis=1&ocena= -> bez rozpoznawania, sam zapis próby z oceną tonów ze strony tonów
 // POST /dziennik?powod=&strona= -> dziennik mikrofonu z telefonu, gdy start się nie udał; zostaje 7 dni w KV „dziennik:<czas>”
+// POST /wynik (JSON) -> wynik jednej próby z mikrofonem (cel, co usłyszano, ocena; bez nagrania); KV „wynik:<czas>” na stałe, dane w metadanych
 // POST /trener -> trener wymowy (Claude): body = JSON z celem, tym co usłyszano i sylabami z tonami, odpowiedź JSON po polsku
 // Autoryzacja: nagłówek "Authorization: Bearer <TOKEN>" (sekret workera). Klucz Anthropic: sekret ANTHROPIC_API_KEY.
 
@@ -117,7 +118,7 @@ export default {
   async fetch(req, env, ctx) {
     if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
     const url = new URL(req.url);
-    if (!["/stan", "/wymowa", "/trener", "/tts", "/dziennik"].includes(url.pathname)) return json({ error: "not found" }, 404);
+    if (!["/stan", "/wymowa", "/trener", "/tts", "/dziennik", "/wynik"].includes(url.pathname)) return json({ error: "not found" }, 404);
     const auth = req.headers.get("Authorization") || "";
     const token = auth.startsWith("Bearer ") ? auth.slice(7) : url.searchParams.get("k");
     if (!env.TOKEN || token !== env.TOKEN) return json({ error: "unauthorized" }, 401);
@@ -139,6 +140,19 @@ export default {
       const tekst = (await req.text()).slice(0, 20000);
       const powod = (url.searchParams.get("powod") || "").slice(0, 100), strona = (url.searchParams.get("strona") || "").slice(0, 100);
       ctx.waitUntil(env.STAN.put("dziennik:" + new Date().toISOString(), tekst, { expirationTtl: 7 * 86400, metadata: { powod, strona } }).catch(() => {}));
+      return json({ ok: true });
+    }
+
+    // POST /wynik (JSON) -> wynik próby z mikrofonem, bez nagrania, na stałe (do szukania słów, które stale nie wychodzą).
+    // Wszystko w metadanych klucza, więc lista kluczy (wrangler kv key list --prefix wynik:) od razu daje wszystkie wyniki.
+    if (url.pathname === "/wynik") {
+      if (req.method !== "POST") return json({ error: "method" }, 405);
+      let b;
+      try { b = await req.json(); } catch (e) { return json({ error: "bad json" }, 400); }
+      const s = (v, n) => String(v == null ? "" : v).slice(0, n);
+      const m = { cel: s(b.cel, 60), text: s(b.text, 60), poziom: s(b.poziom, 10), ocena: s(b.ocena, 120), silnik: s(b.silnik, 20), strona: s(b.strona, 40), ms: Number(b.ms) || 0 };
+      if (!m.cel) return json({ error: "bad body" }, 400);
+      ctx.waitUntil(env.STAN.put("wynik:" + new Date().toISOString(), "1", { metadata: m }).catch(() => {}));
       return json({ ok: true });
     }
 
