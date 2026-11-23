@@ -51,7 +51,7 @@
       if (diagEl) dodajKopiuj(diagEl);
     }
     const line = new Date().toISOString().slice(11, 23) + " " + msg;
-    dziennik.push(line); if (dziennik.length > 80) dziennik.shift();
+    dziennik.push(line); if (dziennik.length > 200) dziennik.shift();   // 200: od powrotu na stronę przez ciszę do chwili, gdy mikrofon wrócił
     console.log("[wymowa] " + msg);
     if (diagEl) { diagEl.textContent += line + "\n"; diagEl.scrollTop = diagEl.scrollHeight; }
   }
@@ -1064,7 +1064,15 @@
   // Same zera (nie szum) = telefon nie dał stronie dźwięku z mikrofonu (24.10: dwie próby na tonach po przejściu z powtórki).
   // Następne naciśnięcie dostaje nowy kontekst w geście (tak mikrofon ruszył po limicie 24.10 00:43), dziennik idzie do workera.
   // chmura: tylko nagranie, więc komunikat i wymiana; system: Web Speech mógł usłyszeć, tylko dziennik (bez nowego kontekstu przed start())
+  // poCiszy: po same-zera następna próba z głosem wysyła dziennik „mikrofon wrócił”, żeby było widać, co mikrofon przywróciło
+  // (po powrocie z tła mikrofon milknie na ~15 s; z dzienników do 23.11 nie wynika, czy wraca po czasie, czy po krótkim stuknięciu)
+  let poCiszy = false;
+  function mikrofonWrocil(slychac) {
+    if (!poCiszy || !slychac) return;
+    poCiszy = false; diag("mikrofon wrócił po ciszy"); zglos("mikrofon wrócił");
+  }
   function cyfrowaCisza(chmura) {
+    poCiszy = true;
     diag("mikrofon dał samą ciszę (same zera)" + (chmura ? ": następne naciśnięcie z nowym kontekstem" : ""));
     if (chmura) { ctxMartwy = true; komunikat("Telefon nie dał dźwięku z mikrofonu. Przytrzymaj 🎤 jeszcze raz."); }
     zglos("cisza");
@@ -1072,7 +1080,7 @@
   function zglos(powod) {
     const c = cfg(); if (!c.url || !c.klucz) return;
     fetch(c.url + "/dziennik?powod=" + encodeURIComponent(powod) + "&strona=" + encodeURIComponent(location.pathname),
-      { method: "POST", keepalive: true, headers: { "Authorization": "Bearer " + c.klucz, "Content-Type": "text/plain" }, body: "UA: " + navigator.userAgent + "\n" + dziennik.join("\n") })
+      { method: "POST", keepalive: true, headers: { "Authorization": "Bearer " + c.klucz, "Content-Type": "text/plain" }, body: "UA: " + navigator.userAgent + "\n" + dziennik.join("\n").slice(-19000) })
       .catch(e => console.log("[wymowa] zgłoszenie: " + e.message));
   }
   async function whisper(n, cel) {
@@ -1114,6 +1122,7 @@
     s.btn.classList.remove("rec"); s.btn.textContent = LABEL_IDLE;
     const res = { alts, gotFinal, error, heldMs, started: !!s.startedAt, zaciete: !!s.zaciete && !alts.length, wys };
     if (!s.porzuc) zapiszWynik(s.opts, res, s.zWhispera ? "system+whisper" : "system");
+    mikrofonWrocil(alts.length > 0 || !!(lv && lv.glos));
     if (s.opts.onDone && !s.porzuc) { try { s.opts.onDone(res); } catch (e) { diag("onDone błąd: " + e.message); } }
   }
   function forceFinish(s, why, porzuc) {
@@ -1322,6 +1331,7 @@
     const lv = poziom(g.n);
     diag("chmura stop: " + heldMs + " ms, szczyt=" + lv.szczyt.toFixed(3) + " rms=" + lv.rms.toFixed(4));
     if (lv.zera) cyfrowaCisza(true);
+    mikrofonWrocil(lv.glos);
     if (g.opts.tylkoGlos) {                     // ćwiczenie melodii: ocena z linii głosu, bez rozpoznawania mowy
       let ocena = null;
       try { const tony = wartosc(g.opts.tony); if (wys && lv.glos && tony) ocena = ocenTony(Float32Array.from(wys.ty), tony, wys.ref); if (g.opts.wysokosc) wysokoscTonow(ocena); } catch (e) { diag("ocena tonów: " + e.message); }
