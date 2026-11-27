@@ -2730,6 +2730,57 @@
   "obrazek": null
  },
  {
+  "id": "狗",
+  "znaki": "狗",
+  "pinyin": "gǒu",
+  "polski": "koł",
+  "doslownie": "",
+  "znaczenie": "dog · pies",
+  "lekcja": 5,
+  "lekcjaTytul": "Lekcja 5 · Randka",
+  "audio": "lekcje/05-randka/audio/5090e44ef9",
+  "img": "lekcje/05-randka/obrazki/5090e44ef9.jpg",
+  "obrazek": {
+   "autor": "Michal Kulesza",
+   "licencja": "cc0",
+   "zrodlo": "https://stocksnap.io/photo/dog-pet-4T0BQID9GS"
+  }
+ },
+ {
+  "id": "猫",
+  "znaki": "猫",
+  "pinyin": "māo",
+  "polski": "mał",
+  "doslownie": "",
+  "znaczenie": "cat · kot",
+  "lekcja": 5,
+  "lekcjaTytul": "Lekcja 5 · Randka",
+  "audio": "lekcje/05-randka/audio/b655de688e",
+  "img": "lekcje/05-randka/obrazki/b655de688e.jpg",
+  "obrazek": {
+   "autor": "Snapwire",
+   "licencja": "cc0",
+   "zrodlo": "https://stocksnap.io/photo/gray-cat-OU5O7ZUVH7"
+  }
+ },
+ {
+  "id": "你喜欢狗还是猫？",
+  "znaki": "你喜欢狗还是猫？",
+  "pinyin": "Nǐ xǐhuan gǒu háishi māo?",
+  "polski": "ni si-chłan koł chaj-szy mał",
+  "doslownie": "ty · lubić · pies · czy · kot",
+  "znaczenie": "Do you prefer dogs or cats? · Wolisz psy czy koty?",
+  "lekcja": 5,
+  "lekcjaTytul": "Lekcja 5 · Randka",
+  "audio": "lekcje/05-randka/audio/162999b7df",
+  "img": "lekcje/05-randka/obrazki/162999b7df.jpg",
+  "obrazek": {
+   "autor": "Krista Mangulsone",
+   "licencja": "cc0",
+   "zrodlo": "https://stocksnap.io/photo/dog-cat-YNI4E0XAAS"
+  }
+ },
+ {
   "id": "手机",
   "znaki": "手机",
   "pinyin": "shǒujī",

@@ -21,6 +21,7 @@ Data: 2026-11-16
 | 我想操你。 | Wǒ xiǎng cào nǐ. | ło siang cchał ni | wulgarne | I want to fuck you. · Chcę się z tobą pieprzyć. |
 | 我想和你做爱。 | Wǒ xiǎng hé nǐ zuò'ài. | ło siang chy ni dzło-aj | zwykłe, nie wulgarne | I want to make love with you. · Chcę się z tobą kochać. |
 | 我们打一炮吧！ | Wǒmen dǎ yí pào ba! | ło-men ta i phał pa | slang, wulgarne | Let's fuck! · Bzykniemy się! |
+| 你喜欢狗还是猫？ | Nǐ xǐhuan gǒu háishi māo? | ni si-chłan koł chaj-szy mał |  | Do you prefer dogs or cats? · Wolisz psy czy koty? |
 
 ## Słówka ze zdań
 
@@ -32,6 +33,8 @@ Data: 2026-11-16
 | 来 | lái | laj | LAI | come / yes · przyjść / tak, przyjdę |
 | 家 | jiā | dzia |  | home · dom |
 | 操 | cào | cchał | wulgarne; samo jako przekleństwo znaczy też „kurwa!” | fuck · ruchać, pieprzyć (wulgarne) |
+| 狗 | gǒu | koł |  | dog · pies |
+| 猫 | māo | mał |  | cat · kot |
 
 ## Słówka z kart HSK 1
 
